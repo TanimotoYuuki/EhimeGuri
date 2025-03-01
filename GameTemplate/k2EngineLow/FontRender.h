@@ -1,6 +1,9 @@
 #pragma once
 namespace nsK2EngineLow
 {
+	/// <summary>
+	/// フォントレンダー
+	/// </summary>
 	class FontRender
 	{
 	public:
@@ -23,98 +26,98 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// 座標を設定。
+		/// 座標を設定
 		/// </summary>
-		/// <param name="position">座標。</param>
+		/// <param name="position">座標</param>
 		void SetPosition(const Vector3& position)
 		{
 			m_position = position;
 		}
 		/// <summary>
-		/// 座標を取得。
+		/// 座標を取得
 		/// </summary>
-		/// <returns>座標。</returns>
+		/// <returns>座標</returns>
 		const Vector3& GetPosition() const
 		{
 			return m_position;
 		}
 		/// <summary>
-		/// 大きさを設定。
+		/// 大きさを設定
 		/// </summary>
-		/// <param name="scale">大きさ。</param>
+		/// <param name="scale">大きさ</param>
 		void SetScale(const float scale)
 		{
 			m_scale = scale;
 		}
 		/// <summary>
-		/// 大きさを取得。
+		/// 大きさを取得
 		/// </summary>
-		/// <returns>大きさ。</returns>
+		/// <returns>大きさ</returns>
 		const float GetScale() const
 		{
 			return m_scale;
 		}
 		/// <summary>
-		/// 色を設定。
+		/// 色を設定
 		/// </summary>
-		/// <param name="color">色。</param>
+		/// <param name="color">色</param>
 		void SetColor(const Vector4& color)
 		{
 			m_color = color;
 		}
 		/// <summary>
-		/// 色を取得。
+		/// 色を取得
 		/// </summary>
-		/// <returns>色。</returns>
+		/// <returns>色</returns>
 		const Vector4& GetColor() const
 		{
 			return m_color;
 		}
 		/// <summary>
-		/// 回転を設定。
+		/// 回転を設定
 		/// </summary>
-		/// <param name="rotation">回転。</param>
+		/// <param name="rotation">回転</param>
 		void SetRotation(const float rotation)
 		{
 			m_rotation = rotation;
 		}
 		/// <summary>
-		/// 回転を取得。
+		/// 回転を取得
 		/// </summary>
-		/// <returns>回転。</returns>
+		/// <returns>回転</returns>
 		const float GetRotation() const
 		{
 			return m_rotation;
 		}
 		/// <summary>
-		/// ピボットを設定。
+		/// ピボットを設定
 		/// </summary>
-		/// <param name="pivot">ピボット。</param>
+		/// <param name="pivot">ピボット</param>
 		void SetPivot(const Vector2& pivot)
 		{
 			m_pivot = pivot;
 		}
 		/// <summary>
-		/// ピボットを取得。
+		/// ピボットを取得
 		/// </summary>
-		/// <returns>ピボット。</returns>
+		/// <returns>ピボット</returns>
 		const Vector2& GetPivot() const
 		{
 			return m_pivot;
 		}
 
 		/// <summary>
-		/// 描画処理。
+		/// 描画処理
 		/// </summary>
-		/// <param name="rc">レンダ―コンテキスト。</param>
+		/// <param name="rc">レンダ―コンテキスト</param>
 		void Draw(RenderContext& rc);
 
 		/// <summary>
-		/// 影のパラメータを設定。
+		/// 影のパラメータを設定
 		/// </summary>
 		/// <param name="isDrawShadow">影を描画する？</param>
-		/// <param name="shadowOffset">影を描画するときのピクセルのオフセット量。</param>
-		/// <param name="shadowColor">影の色。</param>
+		/// <param name="shadowOffset">影を描画するときのピクセルのオフセット量</param>
+		/// <param name="shadowColor">影の色</param>
 		void SetShadowParam(bool isDrawShadow, float shadowOffset, const Vector4& shadowColor)
 		{
 			m_font.SetShadowParam(isDrawShadow, shadowOffset, shadowColor);
