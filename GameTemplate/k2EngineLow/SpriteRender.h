@@ -23,6 +23,7 @@ namespace nsK2EngineLow
 		{
 			m_position = pos;
 		}
+
 		/// <summary>
 		/// 座標を取得
 		/// </summary>
@@ -31,6 +32,7 @@ namespace nsK2EngineLow
 		{
 			return m_position;
 		}
+
 		/// <summary>
 		/// 大きさを設定
 		/// </summary>
@@ -39,6 +41,7 @@ namespace nsK2EngineLow
 		{
 			m_scale = scale;
 		}
+
 		/// <summary>
 		/// 大きさを取得
 		/// </summary>
@@ -47,6 +50,7 @@ namespace nsK2EngineLow
 		{
 			return m_scale;
 		}
+
 		/// <summary>
 		/// 回転を設定
 		/// </summary>
@@ -55,6 +59,7 @@ namespace nsK2EngineLow
 		{
 			m_rotation = rot;
 		}
+
 		/// <summary>
 		/// 回転を取得
 		/// </summary>
@@ -63,6 +68,7 @@ namespace nsK2EngineLow
 		{
 			return m_rotation;
 		}
+
 		/// <summary>
 		/// ピボットを設定
 		/// </summary>
@@ -71,6 +77,7 @@ namespace nsK2EngineLow
 		{
 			m_pivot = pivot;
 		}
+
 		/// <summary>
 		/// ピボットを取得
 		/// </summary>
@@ -78,6 +85,24 @@ namespace nsK2EngineLow
 		const Vector2& GetPivot() const
 		{
 			return m_pivot;
+		}
+
+		/// <summary>
+		/// 乗算カラーを設定
+		/// </summary>
+		/// <param name="mulColor">乗算カラー</param>
+		void SetMulColor(const Vector4& mulColor)
+		{
+			m_sprite.SetMulColor(mulColor);
+		}
+
+		/// <summary>
+		/// 乗算カラーを取得
+		/// </summary>
+		/// <returns>乗算カラー</returns>
+		const Vector4& GetMulColor() const
+		{
+			return m_sprite.GetMulColor();
 		}
 
 		/// <summary>

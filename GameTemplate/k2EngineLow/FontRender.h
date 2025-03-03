@@ -33,6 +33,7 @@ namespace nsK2EngineLow
 		{
 			m_position = position;
 		}
+
 		/// <summary>
 		/// 座標を取得
 		/// </summary>
@@ -41,6 +42,7 @@ namespace nsK2EngineLow
 		{
 			return m_position;
 		}
+
 		/// <summary>
 		/// 大きさを設定
 		/// </summary>
@@ -49,6 +51,7 @@ namespace nsK2EngineLow
 		{
 			m_scale = scale;
 		}
+
 		/// <summary>
 		/// 大きさを取得
 		/// </summary>
@@ -57,6 +60,7 @@ namespace nsK2EngineLow
 		{
 			return m_scale;
 		}
+
 		/// <summary>
 		/// 色を設定
 		/// </summary>
@@ -73,6 +77,7 @@ namespace nsK2EngineLow
 		{
 			return m_color;
 		}
+
 		/// <summary>
 		/// 回転を設定
 		/// </summary>
@@ -81,6 +86,7 @@ namespace nsK2EngineLow
 		{
 			m_rotation = rotation;
 		}
+
 		/// <summary>
 		/// 回転を取得
 		/// </summary>
@@ -89,6 +95,7 @@ namespace nsK2EngineLow
 		{
 			return m_rotation;
 		}
+
 		/// <summary>
 		/// ピボットを設定
 		/// </summary>
@@ -97,6 +104,7 @@ namespace nsK2EngineLow
 		{
 			m_pivot = pivot;
 		}
+
 		/// <summary>
 		/// ピボットを取得
 		/// </summary>
