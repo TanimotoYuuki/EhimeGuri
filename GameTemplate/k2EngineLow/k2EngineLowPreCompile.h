@@ -110,6 +110,8 @@ static const int MAX_BONE = 512;	// ƒ{[ƒ“‚ÌÅ‘å”B
 #include "sound/SoundSource.h"
 #include "graphics/effect/EffectEmitter.h"
 
+#include "SceneLight.h"
+
 #include "ModelRender.h"
 #include "SpriteRender.h"
 #include "FontRender.h"

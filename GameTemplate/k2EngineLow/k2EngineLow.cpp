@@ -5,6 +5,7 @@
 namespace nsK2EngineLow {
 	K2EngineLow* g_engine = nullptr;
 	GameTime* g_gameTime = nullptr;
+	SceneLight* g_sceneLight = nullptr;
 
 	K2EngineLow::~K2EngineLow()
 	{
@@ -41,6 +42,9 @@ namespace nsK2EngineLow {
 			//エフェクトエンジンの初期化。
 			EffectEngine::CreateInstance();
 		}
+
+		g_sceneLight = new SceneLight;
+		g_sceneLight->Init();
 #ifdef K2_DEBUG
 		if (m_graphicsEngine) {
 			m_fpsFont = std::make_unique<Font>();
