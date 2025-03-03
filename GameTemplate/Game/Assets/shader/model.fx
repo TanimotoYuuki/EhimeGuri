@@ -27,7 +27,7 @@ struct SPSIn{
 struct DirectionLight
 {
     float3 direction; //ライトの方向
-    float3 color; //ライトのカラー
+    float4 color; //ライトのカラー
 };
 
 ////////////////////////////////////////////////
@@ -123,7 +123,6 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 {
 	//拡散反射光
     float t = dot(psIn.normal, directionLight.direction) * -1.0f;
-	
 	if(t<0.0f)
     {
         t = 0.0f;
@@ -131,8 +130,24 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	
     float3 diffuseLig = directionLight.color * t;
 	
+	//鏡面反射光
+    float3 r = reflect(directionLight.direction, psIn.normal);
+	
+    float3 toEye = eyePos - psIn.worldPos;
+    toEye = normalize(toEye);
+	
+    t = dot(r, toEye);
+	if(t<0.0f)
+    {
+        t = 0.0f;
+    }
+	
+    t = pow(t, 5.0f);
+	
+    float3 specularLig = directionLight.color * t;
+	
 	//最終的な光を求める
-    float3 lig = diffuseLig;
+    float3 lig = diffuseLig + specularLig;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     albedoColor.xyz *= lig;
