@@ -46,7 +46,7 @@ cbuffer DirectionLightCb : register(b1)
 {
     DirectionLight directionLight;
     float3 eyePos;
-    float3 ambientLight;
+    float3 ambientLig;
 };
 
 ////////////////////////////////////////////////
@@ -147,7 +147,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     float3 specularLig = directionLight.color * t;
 	
 	//最終的な光を求める
-    float3 lig = diffuseLig + specularLig;
+    float3 lig = diffuseLig + specularLig + ambientLig;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     albedoColor.xyz *= lig;
