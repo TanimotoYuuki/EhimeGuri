@@ -1,18 +1,6 @@
 /*!
  * @brief	シンプルなモデルシェーダー。
  */
-
-
-////////////////////////////////////////////////
-// 定数バッファ。
-////////////////////////////////////////////////
-//モデル用の定数バッファ
-cbuffer ModelCb : register(b0){
-	float4x4 mWorld;
-	float4x4 mView;
-	float4x4 mProj;
-};
-
 ////////////////////////////////////////////////
 // 構造体
 ////////////////////////////////////////////////
@@ -24,13 +12,41 @@ struct SSkinVSIn{
 //頂点シェーダーへの入力。
 struct SVSIn{
 	float4 pos 		: POSITION;		//モデルの頂点座標。
+    float3 normal	: NORMAL;		//法線
 	float2 uv 		: TEXCOORD0;	//UV座標。
 	SSkinVSIn skinVert;				//スキン用のデータ。
 };
 //ピクセルシェーダーへの入力。
 struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
+    float3 normal		: NORMAL;		//法線
 	float2 uv 			: TEXCOORD0;	//uv座標。
+    float3 worldPos		: TEXCOORD1;    //ワールド座標
+};
+
+struct DirectionLight
+{
+    float3 direction; //ライトの方向
+    float4 color; //ライトのカラー
+};
+
+////////////////////////////////////////////////
+// 定数バッファ。
+////////////////////////////////////////////////
+//モデル用の定数バッファ
+cbuffer ModelCb : register(b0)
+{
+    float4x4 mWorld;
+    float4x4 mView;
+    float4x4 mProj;
+};
+
+//ディレクションライト用の定数バッファ
+cbuffer DirectionLightCb : register(b1)
+{
+    DirectionLight directionLight;
+    float3 eyePos;
+    float3 ambientLig;
 };
 
 ////////////////////////////////////////////////
@@ -76,9 +92,11 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 		m = mWorld;
 	}
 	psIn.pos = mul(m, vsIn.pos);
+    psIn.worldPos = psIn.pos;
 	psIn.pos = mul(mView, psIn.pos);
 	psIn.pos = mul(mProj, psIn.pos);
 
+    psIn.normal = mul(m, vsIn.normal);
 	psIn.uv = vsIn.uv;
 
 	return psIn;
@@ -103,6 +121,36 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// </summary>
 float4 PSMain( SPSIn psIn ) : SV_Target0
 {
+	//拡散反射光
+    float t = dot(psIn.normal, directionLight.direction) * -1.0f;
+	if(t<0.0f)
+    {
+        t = 0.0f;
+    }
+	
+    float3 diffuseLig = directionLight.color * t;
+	
+	//鏡面反射光
+    float3 r = reflect(directionLight.direction, psIn.normal);
+	
+    float3 toEye = eyePos - psIn.worldPos;
+    toEye = normalize(toEye);
+	
+    t = dot(r, toEye);
+	if(t<0.0f)
+    {
+        t = 0.0f;
+    }
+	
+    t = pow(t, 5.0f);
+	
+    float3 specularLig = directionLight.color * t;
+	
+	//最終的な光を求める
+    float3 lig = diffuseLig + specularLig + ambientLig;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
+	
+    albedoColor.xyz *= lig;
+	
 	return albedoColor;
 }

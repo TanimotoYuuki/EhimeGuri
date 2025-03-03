@@ -47,6 +47,10 @@ namespace nsK2EngineLow
 		}
 
 		modelInitData.m_modelUpAxis = enModelUpAxis;
+
+		modelInitData.m_expandConstantBuffer = &g_sceneLight->GetLight();
+		modelInitData.m_expandConstantBufferSize = sizeof(g_sceneLight->GetLight());
+
 		m_model.Init(modelInitData);
 	}
 
