@@ -96,6 +96,40 @@ namespace nsK2EngineLow
 		{
 			m_scale = scale;
 		}
+
+		/// <summary>
+		/// アニメーションイベントの追加
+		/// </summary>
+		/// <param name="eventListener"></param>
+		void AddAnimationEvent(AnimationEventListener eventListener)
+		{
+			m_animation.AddAnimationEventListener(eventListener);
+		}
+
+		/// <summary>
+		/// アニメーションの速度を設定
+		/// </summary>
+		/// <param name="animationSpeed"></param>
+		void SetAnimationSpeed(const float animationSpeed)
+		{
+			m_animationSpeed = animationSpeed;
+		}
+
+		/// <summary>
+		/// ボーンの名前からボーン番号を検索
+		/// </summary>
+		/// <param name="boneName">ボーンの名前</param>
+		/// <returns>ボーン番号。見つからなかった場合は-1が返ってきます</returns>
+		int FindBoneID(const wchar_t* boneName) const
+		{
+			return m_skeleton.FindBoneID(boneName);
+		}
+
+		Bone* GetBone(int boneNo) const
+		{
+			return m_skeleton.GetBone(boneNo);
+		}
+
 	private:
 		/// <summary>
 		/// モデルの初期化
