@@ -164,7 +164,7 @@ namespace nsK2EngineLow
 		Model m_model; //モデル
 		bool m_isUpdateAnimation = true; //アニメーションを更新する？
 		Skeleton m_skeleton; //骨
-		float m_animationSpeed; //アニメーション再生速度
+		float m_animationSpeed = 1.0f; //アニメーション再生速度
 	};
 }
 

@@ -15,7 +15,10 @@ namespace nsK2EngineLow
 
 	void ModelRender::InitSkeleton(const char* filePath)
 	{
-		m_skeleton.Init(filePath);
+		std::string skeletonFilePath = filePath;
+		int pos = (int)skeletonFilePath.find(".tkm");
+		skeletonFilePath.replace(pos, 4, ".tks");
+		m_skeleton.Init(skeletonFilePath.c_str());
 	}
 
 	void ModelRender::InitAnimation(AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
