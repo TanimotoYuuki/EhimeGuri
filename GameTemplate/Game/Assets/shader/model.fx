@@ -49,8 +49,8 @@ struct SpotLight
 
 struct HemLight
 {
-    float3 skyColor; //天球色
     float3 groundColor; //地面色
+    float3 skyColor; //天球色
     float3 groundNormal; //地面の法線
 };
 

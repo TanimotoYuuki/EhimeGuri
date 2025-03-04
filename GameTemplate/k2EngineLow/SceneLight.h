@@ -33,9 +33,9 @@ namespace nsK2EngineLow
 	//半球ライト
 	struct HemLight
 	{
-		Vector3 skyColor; //天球色
-		float pad0;
 		Vector3 groundColor; //地面色
+		float pad0;
+		Vector3 skyColor; //天球色
 		float pad1;
 		Vector3 groundNormal; //地面の法線
 	};
@@ -117,13 +117,13 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 半球ライトを設定する
 		/// </summary>
-		/// <param name="skyColor">天球色</param>
 		/// <param name="groundColor">地面色</param>
+		/// <param name="skyColor">天球色</param>
 		/// <param name="groundNormal">地面の法線</param>
-		void SetHemLight(Vector3 skyColor, Vector3 groundColor, Vector3 groundNormal)
+		void SetHemLight(Vector3 groundColor, Vector3 skyColor, Vector3 groundNormal)
 		{
-			m_light.hemLight.skyColor = skyColor;
 			m_light.hemLight.groundColor = groundColor;
+			m_light.hemLight.skyColor = skyColor;
 			m_light.hemLight.groundNormal = groundNormal;
 		}
 
