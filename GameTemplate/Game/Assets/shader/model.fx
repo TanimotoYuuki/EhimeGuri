@@ -47,6 +47,13 @@ struct SpotLight
     float angle; //ライトの放射角度
 };
 
+struct HemLight
+{
+    float3 skyColor; //天球色
+    float3 groundColor; //地面色
+    float3 groundNormal; //地面の法線
+};
+
 ////////////////////////////////////////////////
 // 定数バッファ。
 ////////////////////////////////////////////////
@@ -61,11 +68,12 @@ cbuffer ModelCb : register(b0)
 //ライト用の定数バッファ
 cbuffer LightCb : register(b1)
 {
-    DirectionLight directionLight;
-    float3 eyePos;
-    float3 ambientLig;
-    PointLight pointLight[10];
-    SpotLight spotLight[10];
+    DirectionLight directionLight; //ディレクションライト
+    float3 eyePos; //カメラの位置
+    float3 ambientLig; //環境光
+    PointLight pointLight[10]; //ポイントライト
+    SpotLight spotLight[10]; //スポットライト
+    HemLight hemLight; //半球ライト
 };
 
 ////////////////////////////////////////////////
@@ -84,6 +92,7 @@ float3 CalcLigFromDirectionLight(SPSIn psIn);
 float3 CalcLigFromPointLight(SPSIn psIn, int num);
 float3 CalcLigFromSpotLight(SPSIn psIn, int num);
 float3 CalcLimPower(SPSIn psIn);
+float3 CalcLigFromHemLight(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -152,7 +161,10 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     float3 directionLig = CalcLigFromDirectionLight(psIn);
     
     //リムライト
-    float3 limLight = CalcLimPower(psIn);
+    float3 limLig = CalcLimPower(psIn);
+    
+    //半球ライト
+    float3 hemLig = CalcLigFromHemLight(psIn);
     
     float3 pointLig[10];
     float3 spotLig[10];
@@ -164,13 +176,16 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
         spotLig[i] = CalcLigFromSpotLight(psIn, i);
     }
 	//最終的な光を求める
-    float3 lig = directionLig + limLight;
+    float3 lig = directionLig + hemLig;
     
     for (int j = 0; j < 10; j++)
     {
         lig += pointLig[j];
         lig += spotLig[j];
     }
+    
+    lig += limLig;
+    
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     albedoColor.xyz *= lig;
@@ -315,9 +330,22 @@ float3 CalcLimPower(SPSIn psIn)
     //サーフェイスの法線と視線の方向に依存するリムの強さを求める
     float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
     
+    //最終的なリムの強さを求める
     float limPower = power1 * power2;
     
     limPower = pow(limPower, 1.3f);
     
     return limPower * directionLight.color;
+}
+
+//半球ライト
+float3 CalcLigFromHemLight(SPSIn psIn)
+{
+    //サーフェイスの法線と地面の法線との内積を求める
+    float t = dot(psIn.normal, hemLight.groundNormal);
+    
+    //内積の結果を0～1の範囲に変換する
+    t = (t + 1.0f) / 2.0f;
+    
+    return lerp(hemLight.groundColor, hemLight.skyColor, t);
 }

@@ -18,9 +18,9 @@ namespace nsK2EngineLow
 		m_light.directionLight.color.z = 1.2f;
 
 		//ŠÂ‹«Œõ
-		m_light.ambientLight.x = 0.7f;
-		m_light.ambientLight.y = 0.7f;
-		m_light.ambientLight.z = 0.7f;
+		m_light.ambientLight.x = 0.3f;
+		m_light.ambientLight.y = 0.3f;
+		m_light.ambientLight.z = 0.3f;
 		m_light.eyePos = g_camera3D->GetPosition();
 	}
 }

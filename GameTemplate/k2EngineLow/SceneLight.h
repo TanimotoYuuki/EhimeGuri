@@ -30,6 +30,16 @@ namespace nsK2EngineLow
 		float angle; //ライトの放射角度
 	};
 
+	//半球ライト
+	struct HemLight
+	{
+		Vector3 skyColor; //天球色
+		float pad0;
+		Vector3 groundColor; //地面色
+		float pad1;
+		Vector3 groundNormal; //地面の法線
+	};
+
 	struct Light
 	{
 		DirectionLight directionLight; //ディレクションライト
@@ -39,6 +49,7 @@ namespace nsK2EngineLow
 		float pad1;
 		PointLight pointLight[10]; //ポイントライト
 		SpotLight spotLight[10]; //スポットライト
+		HemLight hemLight; //半球ライト
 	};
 
 	class SceneLight : public Noncopyable
@@ -101,6 +112,19 @@ namespace nsK2EngineLow
 			m_light.spotLight[num].direction = direction;
 			m_light.spotLight[num].direction.Normalize();
 			m_light.spotLight[num].angle = angle;
+		}
+
+		/// <summary>
+		/// 半球ライトを設定する
+		/// </summary>
+		/// <param name="skyColor">天球色</param>
+		/// <param name="groundColor">地面色</param>
+		/// <param name="groundNormal">地面の法線</param>
+		void SetHemLight(Vector3 skyColor, Vector3 groundColor, Vector3 groundNormal)
+		{
+			m_light.hemLight.skyColor = skyColor;
+			m_light.hemLight.groundColor = groundColor;
+			m_light.hemLight.groundNormal = groundNormal;
 		}
 
 		/// <summary>
