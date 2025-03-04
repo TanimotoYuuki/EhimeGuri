@@ -22,6 +22,7 @@ struct SPSIn{
     float3 normal		: NORMAL;		//法線
 	float2 uv 			: TEXCOORD0;	//uv座標。
     float3 worldPos		: TEXCOORD1;    //ワールド座標
+    float3 normalInView : TEXCOORD2;    //カメラ空間の法線
 };
 
 struct DirectionLight
@@ -82,6 +83,7 @@ float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldP
 float3 CalcLigFromDirectionLight(SPSIn psIn);
 float3 CalcLigFromPointLight(SPSIn psIn, int num);
 float3 CalcLigFromSpotLight(SPSIn psIn, int num);
+float3 CalcLimPower(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -122,6 +124,8 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.normal = mul(m, vsIn.normal);
 	psIn.uv = vsIn.uv;
 
+    psIn.normalInView = mul(m, psIn.normal);
+    
 	return psIn;
 }
 
@@ -147,6 +151,9 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     //ディレクションライト
     float3 directionLig = CalcLigFromDirectionLight(psIn);
     
+    //リムライト
+    float3 limLight = CalcLimPower(psIn);
+    
     float3 pointLig[10];
     float3 spotLig[10];
     for (int i = 0; i < 10; i++)
@@ -157,8 +164,8 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
         spotLig[i] = CalcLigFromSpotLight(psIn, i);
     }
 	//最終的な光を求める
-    //float3 lig = directionLig;
-    float3 lig;
+    float3 lig = directionLig + limLight;
+    
     for (int j = 0; j < 10; j++)
     {
         lig += pointLig[j];
@@ -297,4 +304,20 @@ float3 CalcLigFromSpotLight(SPSIn psIn, int num)
     specularSpot *= affect;
     
     return diffuseSpot + specularSpot;
+}
+
+//リムライト
+float3 CalcLimPower(SPSIn psIn)
+{
+    //サーフェイスの法線と光の入射方向に依存するリムの強さを求める
+    float power1 = 1.0f - max(0.0f, dot(directionLight.direction, psIn.normal));
+    
+    //サーフェイスの法線と視線の方向に依存するリムの強さを求める
+    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
+    
+    float limPower = power1 * power2;
+    
+    limPower = pow(limPower, 1.3f);
+    
+    return limPower * directionLight.color;
 }
