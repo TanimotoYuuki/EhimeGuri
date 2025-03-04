@@ -27,7 +27,14 @@ struct SPSIn{
 struct DirectionLight
 {
     float3 direction; //ライトの方向
-    float4 color; //ライトのカラー
+    float3 color; //ライトのカラー
+};
+
+struct PointLight
+{
+    float3 position; //ライトの位置
+    float3 color; //ライトのカラー
+    float range; //ライトの影響範囲
 };
 
 ////////////////////////////////////////////////
@@ -41,12 +48,13 @@ cbuffer ModelCb : register(b0)
     float4x4 mProj;
 };
 
-//ディレクションライト用の定数バッファ
-cbuffer DirectionLightCb : register(b1)
+//ライト用の定数バッファ
+cbuffer LightCb : register(b1)
 {
     DirectionLight directionLight;
     float3 eyePos;
     float3 ambientLig;
+    PointLight pointLight[10];
 };
 
 ////////////////////////////////////////////////
@@ -59,6 +67,10 @@ sampler g_sampler : register(s0);	//サンプラステート。
 ////////////////////////////////////////////////
 // 関数定義。
 ////////////////////////////////////////////////
+float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal);
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
+float3 CalcLigFromDirectionLight(SPSIn psIn);
+float3 CalcLigFromPointLight(SPSIn psIn, int num);
 
 /// <summary>
 //スキン行列を計算する。
@@ -121,36 +133,99 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// </summary>
 float4 PSMain( SPSIn psIn ) : SV_Target0
 {
-	//拡散反射光
-    float t = dot(psIn.normal, directionLight.direction) * -1.0f;
-	if(t<0.0f)
+    //ディレクションライト
+    float3 directionLig = CalcLigFromDirectionLight(psIn);
+    
+    float3 pointLig[10];
+    for (int i = 0; i < 10; i++)
+    {
+        //ポイントライト
+        pointLig[i] = CalcLigFromPointLight(psIn, i);
+    }
+	//最終的な光を求める
+    float3 lig = directionLig;
+    for (int j = 0; j < 10; j++)
+    {
+        lig += pointLig[j];
+    }
+	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
+	
+    albedoColor.xyz *= lig;
+	
+	return albedoColor;
+}
+
+//拡散反射光
+float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal)
+{
+    float t = dot(normal, lightDirection) * -1.0f;
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
-    float3 diffuseLig = directionLight.color * t;
+    return lightColor * t;
+}
+
+//鏡面反射光
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal)
+{
+    float3 refVec = reflect(lightDirection, normal);
 	
-	//鏡面反射光
-    float3 r = reflect(directionLight.direction, psIn.normal);
-	
-    float3 toEye = eyePos - psIn.worldPos;
+    float3 toEye = eyePos - worldPos;
     toEye = normalize(toEye);
 	
-    t = dot(r, toEye);
-	if(t<0.0f)
+    float t = dot(refVec, toEye);
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
     t = pow(t, 5.0f);
 	
-    float3 specularLig = directionLight.color * t;
-	
-	//最終的な光を求める
-    float3 lig = diffuseLig + specularLig + ambientLig;
-	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
-	
-    albedoColor.xyz *= lig;
-	
-	return albedoColor;
+    return lightColor * t;
+}
+
+//ディレクションライト
+float3 CalcLigFromDirectionLight(SPSIn psIn)
+{
+    //拡散反射光を求める
+    float3 diffuseLig = CalcLambertDiffuse(directionLight.direction, directionLight.color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, psIn.normal);
+ 
+    //拡散反射光 + 鏡面反射光 + 環境光
+    return diffuseLig + specularLig + ambientLig;
+}
+
+//ポイントライト
+float3 CalcLigFromPointLight(SPSIn psIn, int num)
+{
+    //ポイントライトの向きを求める
+    float3 ligDir = psIn.worldPos - pointLight[num].position;
+    ligDir = normalize(ligDir);
+    
+    //拡散反射光を求める
+    float3 diffusePoint = CalcLambertDiffuse(ligDir, pointLight[num].color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularPoint = CalcPhongSpecular(ligDir, pointLight[num].color, psIn.worldPos, psIn.normal);
+    
+    //ポイントライトとの距離を求める
+    float distance = length(psIn.worldPos - pointLight[num].position);
+    
+    float affect = 1.0f - 1.0f / pointLight[num].range * distance;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 3.0f);
+    
+    diffusePoint *= affect;
+    specularPoint *= affect;
+    
+    return diffusePoint + specularPoint;
 }
