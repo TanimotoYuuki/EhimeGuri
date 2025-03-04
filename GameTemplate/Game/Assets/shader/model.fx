@@ -37,6 +37,15 @@ struct PointLight
     float range; //ライトの影響範囲
 };
 
+struct SpotLight
+{
+    float3 position; //ライトの位置
+    float3 color; //ライトのカラー
+    float range; //ライトの影響範囲
+    float3 direction; //ライトの放射方向
+    float angle; //ライトの放射角度
+};
+
 ////////////////////////////////////////////////
 // 定数バッファ。
 ////////////////////////////////////////////////
@@ -55,6 +64,7 @@ cbuffer LightCb : register(b1)
     float3 eyePos;
     float3 ambientLig;
     PointLight pointLight[10];
+    SpotLight spotLight[10];
 };
 
 ////////////////////////////////////////////////
@@ -71,6 +81,7 @@ float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 norma
 float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
 float3 CalcLigFromDirectionLight(SPSIn psIn);
 float3 CalcLigFromPointLight(SPSIn psIn, int num);
+float3 CalcLigFromSpotLight(SPSIn psIn, int num);
 
 /// <summary>
 //スキン行列を計算する。
@@ -137,16 +148,21 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     float3 directionLig = CalcLigFromDirectionLight(psIn);
     
     float3 pointLig[10];
+    float3 spotLig[10];
     for (int i = 0; i < 10; i++)
     {
         //ポイントライト
         pointLig[i] = CalcLigFromPointLight(psIn, i);
+        //スポットライト
+        spotLig[i] = CalcLigFromSpotLight(psIn, i);
     }
 	//最終的な光を求める
-    float3 lig = directionLig;
+    //float3 lig = directionLig;
+    float3 lig;
     for (int j = 0; j < 10; j++)
     {
         lig += pointLig[j];
+        lig += spotLig[j];
     }
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
@@ -215,6 +231,7 @@ float3 CalcLigFromPointLight(SPSIn psIn, int num)
     //ポイントライトとの距離を求める
     float distance = length(psIn.worldPos - pointLight[num].position);
     
+    //距離による影響率を求める
     float affect = 1.0f - 1.0f / pointLight[num].range * distance;
     
     if(affect<0.0f)
@@ -224,8 +241,60 @@ float3 CalcLigFromPointLight(SPSIn psIn, int num)
     
     affect = pow(affect, 3.0f);
     
+    //影響率を乗算して反射光を弱める
     diffusePoint *= affect;
     specularPoint *= affect;
     
     return diffusePoint + specularPoint;
+}
+
+//スポットライト
+float3 CalcLigFromSpotLight(SPSIn psIn, int num)
+{
+    //スポットライトの向きを求める
+    float3 ligDir = psIn.worldPos - spotLight[num].position;
+    ligDir = normalize(ligDir);
+    
+    //拡散反射光を求める
+    float3 diffuseSpot = CalcLambertDiffuse(ligDir, spotLight[num].color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularSpot = CalcPhongSpecular(ligDir, spotLight[num].color, psIn.worldPos, psIn.normal);
+    
+    //スポットライトとの距離を求める
+    float distance = length(psIn.worldPos - spotLight[num].position);
+    
+    //距離による影響率を求める
+    float affect = 1.0f - 1.0f / spotLight[num].range * distance;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 3.0f);
+    
+    //距離による影響率を乗算して反射光を弱める
+    diffuseSpot *= affect;
+    specularSpot *= affect;
+    
+    ///入射光と射出方向の角度を求める
+    float angle = dot(ligDir, spotLight[num].direction);
+    angle = abs(acos(angle));
+    
+    //角度による影響率を求める
+    affect = 1.0f - 1.0f / spotLight[num].angle * angle;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 0.5f);
+    
+    //角度による影響率を乗算して反射光を弱める
+    diffuseSpot *= affect;
+    specularSpot *= affect;
+    
+    return diffuseSpot + specularSpot;
 }
