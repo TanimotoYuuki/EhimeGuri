@@ -13,9 +13,9 @@ namespace nsK2EngineLow
 		m_light.directionLight.direction.Normalize();
 
 		//ディレクションライトのカラー
-		m_light.directionLight.color.x = 1.2f;
-		m_light.directionLight.color.y = 1.2f;
-		m_light.directionLight.color.z = 1.2f;
+		m_light.directionLight.color.x = 0.5f;
+		m_light.directionLight.color.y = 0.5f;
+		m_light.directionLight.color.z = 0.5f;
 
 		//環境光
 		m_light.ambientLight.x = 0.3f;
@@ -24,9 +24,9 @@ namespace nsK2EngineLow
 		m_light.eyePos = g_camera3D->GetPosition();
 
 		//半球ライトの地面色
-		m_light.hemLight.groundColor = Vector3(0.7f, 0.5f, 0.3f);
+		m_light.hemLight.groundColor = Vector3(0.1f, 0.1f, 0.1f);
 		//半球ライトの天球色
-		m_light.hemLight.skyColor = Vector3(0.15f, 0.7f, 0.95f);
+		m_light.hemLight.skyColor = Vector3(0.05f, 0.1f, 0.2f);
 		//半球ライトの地面の法線
 		m_light.hemLight.groundNormal = Vector3(0.0f, 1.0f, 0.0f);
 	}

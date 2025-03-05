@@ -14,6 +14,8 @@ struct SVSIn{
 	float4 pos 		: POSITION;		//モデルの頂点座標。
     float3 normal	: NORMAL;		//法線
 	float2 uv 		: TEXCOORD0;	//UV座標。
+    float3 tangent  : TANGENT;      //接ベクトル
+    float3 biNormal : BINORMAL;     //従ベクトル
 	SSkinVSIn skinVert;				//スキン用のデータ。
 };
 //ピクセルシェーダーへの入力。
@@ -21,6 +23,8 @@ struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
     float3 normal		: NORMAL;		//法線
 	float2 uv 			: TEXCOORD0;	//uv座標。
+    float3 tangent : TANGENT; //接ベクトル
+    float3 biNormal : BINORMAL; //従ベクトル
     float3 worldPos		: TEXCOORD1;    //ワールド座標
     float3 normalInView : TEXCOORD2;    //カメラ空間の法線
 };
@@ -80,6 +84,7 @@ cbuffer LightCb : register(b1)
 // グローバル変数。
 ////////////////////////////////////////////////
 Texture2D<float4> g_albedo : register(t0);				//アルベドマップ
+Texture2D<float4> g_normalMap :register(t1);            //法線マップ
 StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列。
 sampler g_sampler : register(s0);	//サンプラステート。
 
@@ -93,6 +98,7 @@ float3 CalcLigFromPointLight(SPSIn psIn, int num);
 float3 CalcLigFromSpotLight(SPSIn psIn, int num);
 float3 CalcLimPower(SPSIn psIn);
 float3 CalcLigFromHemLight(SPSIn psIn);
+float3 CalcNormalMap(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -130,7 +136,9 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 	psIn.pos = mul(mView, psIn.pos);
 	psIn.pos = mul(mProj, psIn.pos);
 
-    psIn.normal = mul(m, vsIn.normal);
+    psIn.normal = normalize(mul(m, vsIn.normal));
+    psIn.tangent = normalize(mul(m, vsIn.tangent));
+    psIn.biNormal = normalize(mul(m, vsIn.biNormal));
 	psIn.uv = vsIn.uv;
 
     psIn.normalInView = mul(m, psIn.normal);
@@ -166,6 +174,9 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     //半球ライト
     float3 hemLig = CalcLigFromHemLight(psIn);
     
+    //法線マップ 
+    float3 normalMap = CalcNormalMap(psIn);
+    
     float3 pointLig[10];
     float3 spotLig[10];
     for (int i = 0; i < 10; i++)
@@ -176,7 +187,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
         spotLig[i] = CalcLigFromSpotLight(psIn, i);
     }
 	//最終的な光を求める
-    float3 lig = directionLig + hemLig;
+    float3 lig = directionLig + hemLig + normalMap;
     
     for (int j = 0; j < 10; j++)
     {
@@ -348,4 +359,22 @@ float3 CalcLigFromHemLight(SPSIn psIn)
     t = (t + 1.0f) / 2.0f;
     
     return lerp(hemLight.groundColor, hemLight.skyColor, t);
+}
+
+float3 CalcNormalMap(SPSIn psIn)
+{
+    //ディフューズマップをサンプリング
+    float4 diffuseMap = g_albedo.Sample(g_sampler, psIn.uv);
+    float3 normal = psIn.normal;
+    
+    //法線マップからタンジェントスペースの法線をサンプリングする
+    float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
+    localNormal = (localNormal - 0.5f) * 2.0f;
+    
+    //タンジェントスペースの法線をワールドスペースに変換する
+    normal = psIn.tangent * localNormal.x
+           + psIn.biNormal * localNormal.y
+           + normal * localNormal.z;
+    
+    return max(0.0f, dot(normal, -directionLight.direction)) * directionLight.color;
 }
