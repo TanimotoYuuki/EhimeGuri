@@ -22,12 +22,36 @@ struct SPSIn{
     float3 normal		: NORMAL;		//法線
 	float2 uv 			: TEXCOORD0;	//uv座標。
     float3 worldPos		: TEXCOORD1;    //ワールド座標
+    float3 normalInView : TEXCOORD2;    //カメラ空間の法線
 };
 
 struct DirectionLight
 {
     float3 direction; //ライトの方向
-    float4 color; //ライトのカラー
+    float3 color; //ライトのカラー
+};
+
+struct PointLight
+{
+    float3 position; //ライトの位置
+    float3 color; //ライトのカラー
+    float range; //ライトの影響範囲
+};
+
+struct SpotLight
+{
+    float3 position; //ライトの位置
+    float3 color; //ライトのカラー
+    float range; //ライトの影響範囲
+    float3 direction; //ライトの放射方向
+    float angle; //ライトの放射角度
+};
+
+struct HemLight
+{
+    float3 groundColor; //地面色
+    float3 skyColor; //天球色
+    float3 groundNormal; //地面の法線
 };
 
 ////////////////////////////////////////////////
@@ -41,12 +65,15 @@ cbuffer ModelCb : register(b0)
     float4x4 mProj;
 };
 
-//ディレクションライト用の定数バッファ
-cbuffer DirectionLightCb : register(b1)
+//ライト用の定数バッファ
+cbuffer LightCb : register(b1)
 {
-    DirectionLight directionLight;
-    float3 eyePos;
-    float3 ambientLig;
+    DirectionLight directionLight; //ディレクションライト
+    float3 eyePos; //カメラの位置
+    float3 ambientLig; //環境光
+    PointLight pointLight[10]; //ポイントライト
+    SpotLight spotLight[10]; //スポットライト
+    HemLight hemLight; //半球ライト
 };
 
 ////////////////////////////////////////////////
@@ -59,6 +86,13 @@ sampler g_sampler : register(s0);	//サンプラステート。
 ////////////////////////////////////////////////
 // 関数定義。
 ////////////////////////////////////////////////
+float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal);
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
+float3 CalcLigFromDirectionLight(SPSIn psIn);
+float3 CalcLigFromPointLight(SPSIn psIn, int num);
+float3 CalcLigFromSpotLight(SPSIn psIn, int num);
+float3 CalcLimPower(SPSIn psIn);
+float3 CalcLigFromHemLight(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -99,6 +133,8 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.normal = mul(m, vsIn.normal);
 	psIn.uv = vsIn.uv;
 
+    psIn.normalInView = mul(m, psIn.normal);
+    
 	return psIn;
 }
 
@@ -121,36 +157,195 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// </summary>
 float4 PSMain( SPSIn psIn ) : SV_Target0
 {
-	//拡散反射光
-    float t = dot(psIn.normal, directionLight.direction) * -1.0f;
-	if(t<0.0f)
+    //ディレクションライト
+    float3 directionLig = CalcLigFromDirectionLight(psIn);
+    
+    //リムライト
+    float3 limLig = CalcLimPower(psIn);
+    
+    //半球ライト
+    float3 hemLig = CalcLigFromHemLight(psIn);
+    
+    float3 pointLig[10];
+    float3 spotLig[10];
+    for (int i = 0; i < 10; i++)
+    {
+        //ポイントライト
+        pointLig[i] = CalcLigFromPointLight(psIn, i);
+        //スポットライト
+        spotLig[i] = CalcLigFromSpotLight(psIn, i);
+    }
+	//最終的な光を求める
+    float3 lig = directionLig + hemLig;
+    
+    for (int j = 0; j < 10; j++)
+    {
+        lig += pointLig[j];
+        lig += spotLig[j];
+    }
+    
+    lig += limLig;
+    
+	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
+	
+    albedoColor.xyz *= lig;
+	
+	return albedoColor;
+}
+
+//拡散反射光
+float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal)
+{
+    float t = dot(normal, lightDirection) * -1.0f;
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
-    float3 diffuseLig = directionLight.color * t;
+    return lightColor * t;
+}
+
+//鏡面反射光
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal)
+{
+    float3 refVec = reflect(lightDirection, normal);
 	
-	//鏡面反射光
-    float3 r = reflect(directionLight.direction, psIn.normal);
-	
-    float3 toEye = eyePos - psIn.worldPos;
+    float3 toEye = eyePos - worldPos;
     toEye = normalize(toEye);
 	
-    t = dot(r, toEye);
-	if(t<0.0f)
+    float t = dot(refVec, toEye);
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
     t = pow(t, 5.0f);
 	
-    float3 specularLig = directionLight.color * t;
-	
-	//最終的な光を求める
-    float3 lig = diffuseLig + specularLig + ambientLig;
-	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
-	
-    albedoColor.xyz *= lig;
-	
-	return albedoColor;
+    return lightColor * t;
+}
+
+//ディレクションライト
+float3 CalcLigFromDirectionLight(SPSIn psIn)
+{
+    //拡散反射光を求める
+    float3 diffuseLig = CalcLambertDiffuse(directionLight.direction, directionLight.color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, psIn.normal);
+ 
+    //拡散反射光 + 鏡面反射光 + 環境光
+    return diffuseLig + specularLig + ambientLig;
+}
+
+//ポイントライト
+float3 CalcLigFromPointLight(SPSIn psIn, int num)
+{
+    //ポイントライトの向きを求める
+    float3 ligDir = psIn.worldPos - pointLight[num].position;
+    ligDir = normalize(ligDir);
+    
+    //拡散反射光を求める
+    float3 diffusePoint = CalcLambertDiffuse(ligDir, pointLight[num].color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularPoint = CalcPhongSpecular(ligDir, pointLight[num].color, psIn.worldPos, psIn.normal);
+    
+    //ポイントライトとの距離を求める
+    float distance = length(psIn.worldPos - pointLight[num].position);
+    
+    //距離による影響率を求める
+    float affect = 1.0f - 1.0f / pointLight[num].range * distance;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 3.0f);
+    
+    //影響率を乗算して反射光を弱める
+    diffusePoint *= affect;
+    specularPoint *= affect;
+    
+    return diffusePoint + specularPoint;
+}
+
+//スポットライト
+float3 CalcLigFromSpotLight(SPSIn psIn, int num)
+{
+    //スポットライトの向きを求める
+    float3 ligDir = psIn.worldPos - spotLight[num].position;
+    ligDir = normalize(ligDir);
+    
+    //拡散反射光を求める
+    float3 diffuseSpot = CalcLambertDiffuse(ligDir, spotLight[num].color, psIn.normal);
+    
+    //鏡面反射光を求める
+    float3 specularSpot = CalcPhongSpecular(ligDir, spotLight[num].color, psIn.worldPos, psIn.normal);
+    
+    //スポットライトとの距離を求める
+    float distance = length(psIn.worldPos - spotLight[num].position);
+    
+    //距離による影響率を求める
+    float affect = 1.0f - 1.0f / spotLight[num].range * distance;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 3.0f);
+    
+    //距離による影響率を乗算して反射光を弱める
+    diffuseSpot *= affect;
+    specularSpot *= affect;
+    
+    ///入射光と射出方向の角度を求める
+    float angle = dot(ligDir, spotLight[num].direction);
+    angle = abs(acos(angle));
+    
+    //角度による影響率を求める
+    affect = 1.0f - 1.0f / spotLight[num].angle * angle;
+    
+    if(affect<0.0f)
+    {
+        affect = 0.0f;
+    }
+    
+    affect = pow(affect, 0.5f);
+    
+    //角度による影響率を乗算して反射光を弱める
+    diffuseSpot *= affect;
+    specularSpot *= affect;
+    
+    return diffuseSpot + specularSpot;
+}
+
+//リムライト
+float3 CalcLimPower(SPSIn psIn)
+{
+    //サーフェイスの法線と光の入射方向に依存するリムの強さを求める
+    float power1 = 1.0f - max(0.0f, dot(directionLight.direction, psIn.normal));
+    
+    //サーフェイスの法線と視線の方向に依存するリムの強さを求める
+    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
+    
+    //最終的なリムの強さを求める
+    float limPower = power1 * power2;
+    
+    limPower = pow(limPower, 1.3f);
+    
+    return limPower * directionLight.color;
+}
+
+//半球ライト
+float3 CalcLigFromHemLight(SPSIn psIn)
+{
+    //サーフェイスの法線と地面の法線との内積を求める
+    float t = dot(psIn.normal, hemLight.groundNormal);
+    
+    //内積の結果を0～1の範囲に変換する
+    t = (t + 1.0f) / 2.0f;
+    
+    return lerp(hemLight.groundColor, hemLight.skyColor, t);
 }
