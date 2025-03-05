@@ -85,6 +85,7 @@ cbuffer LightCb : register(b1)
 ////////////////////////////////////////////////
 Texture2D<float4> g_albedo : register(t0);				//アルベドマップ
 Texture2D<float4> g_normalMap :register(t1);            //法線マップ
+Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
 StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列。
 sampler g_sampler : register(s0);	//サンプラステート。
 
@@ -99,6 +100,8 @@ float3 CalcLigFromSpotLight(SPSIn psIn, int num);
 float3 CalcLimPower(SPSIn psIn);
 float3 CalcLigFromHemLight(SPSIn psIn);
 float3 CalcNormalMap(SPSIn psIn);
+float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);
+float3 CalcSpecularMap(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -141,7 +144,7 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.biNormal = normalize(mul(m, vsIn.biNormal));
 	psIn.uv = vsIn.uv;
 
-    psIn.normalInView = mul(m, psIn.normal);
+    psIn.normalInView = mul(mView, psIn.normal);
     
 	return psIn;
 }
@@ -168,15 +171,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     //ディレクションライト
     float3 directionLig = CalcLigFromDirectionLight(psIn);
     
-    //リムライト
-    float3 limLig = CalcLimPower(psIn);
-    
-    //半球ライト
-    float3 hemLig = CalcLigFromHemLight(psIn);
-    
-    //法線マップ 
-    float3 normalMap = CalcNormalMap(psIn);
-    
+    //複数個のライティング計算
     float3 pointLig[10];
     float3 spotLig[10];
     for (int i = 0; i < 10; i++)
@@ -186,8 +181,21 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
         //スポットライト
         spotLig[i] = CalcLigFromSpotLight(psIn, i);
     }
+    
+    //リムライト
+    float3 limLig = CalcLimPower(psIn);
+    
+    //半球ライト
+    float3 hemLig = CalcLigFromHemLight(psIn);
+    
+    //法線マップ 
+    float3 normalMap = CalcNormalMap(psIn);
+    
+    //スペキュラマップ
+    float3 specularMap = CalcSpecularMap(psIn);
+    
 	//最終的な光を求める
-    float3 lig = directionLig + hemLig + normalMap;
+    float3 lig = directionLig + ambientLig + hemLig + normalMap + specularMap;
     
     for (int j = 0; j < 10; j++)
     {
@@ -244,8 +252,8 @@ float3 CalcLigFromDirectionLight(SPSIn psIn)
     //鏡面反射光を求める
     float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, psIn.normal);
  
-    //拡散反射光 + 鏡面反射光 + 環境光
-    return diffuseLig + specularLig + ambientLig;
+    //拡散反射光 + 鏡面反射光
+    return diffuseLig + specularLig;
 }
 
 //ポイントライト
@@ -361,12 +369,10 @@ float3 CalcLigFromHemLight(SPSIn psIn)
     return lerp(hemLight.groundColor, hemLight.skyColor, t);
 }
 
+//法線マップ
 float3 CalcNormalMap(SPSIn psIn)
 {
-    //ディフューズマップをサンプリング
-    float4 diffuseMap = g_albedo.Sample(g_sampler, psIn.uv);
-    float3 normal = psIn.normal;
-    
+    float3 normal = psIn.normal;   
     //法線マップからタンジェントスペースの法線をサンプリングする
     float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
     localNormal = (localNormal - 0.5f) * 2.0f;
@@ -377,4 +383,43 @@ float3 CalcNormalMap(SPSIn psIn)
            + normal * localNormal.z;
     
     return max(0.0f, dot(normal, -directionLight.direction)) * directionLight.color;
+}
+
+
+float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal,float2 uv)
+{
+    float3 binSpaceNormal = g_normalMap.SampleLevel(g_sampler, uv, 0.0f).xyz;
+    binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
+    
+    float3 newNormal = tangent * binSpaceNormal.x
+                    + biNormal * binSpaceNormal.y
+                    + normal * binSpaceNormal.z;
+    
+    return newNormal;
+}
+
+//スペキュラマップ
+float3 CalcSpecularMap(SPSIn psIn)
+{
+    //法線を計算
+    float3 normal = CalcNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
+    
+    //鏡面反射光を求める
+    float3 refVec = reflect(directionLight.direction, normal);
+    
+    float3 toEye = eyePos - psIn.worldPos;
+    toEye = normalize(toEye);
+    
+    float t = saturate(dot(refVec, toEye));
+    t = pow(t, 5.0f);
+    
+    float3 specLig = directionLight.color * t;
+    
+    //スペキュラマップからスペキュラ反射の強さをサンプリング
+    float specPower = g_specularMap.Sample(g_sampler, psIn.uv).r;
+    
+    specLig *= specPower * 50.0f;
+    
+    //拡散反射光 + 鏡面反射光
+    return specLig;
 }
