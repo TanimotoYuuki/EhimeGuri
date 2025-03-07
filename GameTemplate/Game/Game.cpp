@@ -1,18 +1,14 @@
 #include "stdafx.h"
 #include "Game.h"
+#include "Player.h"
 
 bool Game::Start()
 {
-	m_modelRender.Init("Assets/modelData/unityChan.tkm");
+	NewGO<Player>(0, "player");
 	return true;
 }
 
 void Game::Update()
 {
-	m_modelRender.Update();
-}
 
-void Game::Render(RenderContext& rc)
-{
-	m_modelRender.Draw(rc);
 }
