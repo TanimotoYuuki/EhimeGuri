@@ -12,6 +12,7 @@ namespace nsK2EngineLow {
 		// グローバルなアクセスポイントにnullptrを代入。
 		g_graphicsEngine = nullptr;
 		g_gameTime = nullptr;
+		g_sceneLight = nullptr;
 		
 		delete m_graphicsEngine;
 		

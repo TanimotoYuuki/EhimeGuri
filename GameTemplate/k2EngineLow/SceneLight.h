@@ -40,6 +40,7 @@ namespace nsK2EngineLow
 		Vector3 groundNormal; //地面の法線
 	};
 
+	//ライト
 	struct Light
 	{
 		DirectionLight directionLight; //ディレクションライト
