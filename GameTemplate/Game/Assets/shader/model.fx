@@ -86,6 +86,7 @@ cbuffer LightCb : register(b1)
 Texture2D<float4> g_albedo : register(t0);				//アルベドマップ
 Texture2D<float4> g_normalMap :register(t1);            //法線マップ
 Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
+//Texture2D<float4> g_aoMap : register(t10);               //AOマップ
 StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列。
 sampler g_sampler : register(s0);	//サンプラステート。
 
@@ -102,6 +103,7 @@ float3 CalcLigFromHemLight(SPSIn psIn);
 float3 CalcNormalMap(SPSIn psIn);
 float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);
 float3 CalcSpecularMap(SPSIn psIn);
+//float3 CalcAoMap(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -193,6 +195,9 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     
     //スペキュラマップ
     float3 specularMap = CalcSpecularMap(psIn);
+    
+    ////AOマップ
+    //float3 aoMap = CalcAoMap(psIn);
     
 	//最終的な光を求める
     float3 lig = directionLig + ambientLig + hemLig + normalMap + specularMap;
@@ -423,3 +428,15 @@ float3 CalcSpecularMap(SPSIn psIn)
     //拡散反射光 + 鏡面反射光
     return specLig;
 }
+
+//float3 CalcAoMap(SPSIn psIn)
+//{
+//    //環境光を求める
+//    float3 ambient = ambientLig;
+    
+//    float ambientPower = g_aoMap.Sample(g_sampler, psIn.uv);
+    
+//    ambient *= ambientPower;
+    
+//    return ambient;
+//}
