@@ -8,9 +8,11 @@ Player::Player() {
 	animationClip[enAnimationClip_walk].SetLoopFlag(true);
 	animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
 	animationClip[enAnimationClip_run].SetLoopFlag(true);
-	modelRender.Init("Assets/modelData/player/player.tkm", animationClip,
+	animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
+	animationClip[enAnimationClip_jump].SetLoopFlag(false);
+	m_modelRender.Init("Assets/modelData/player/player.tkm", animationClip,
 		enAnimationClip_num, enModelUpAxisZ);
-	modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	characterController.Init(25.0f, 75.0f, position);
 }
 Player::~Player() {
@@ -18,11 +20,16 @@ Player::~Player() {
 }
 
 void Player::Update() {
+	//移動処理
 	Move();
+	//回転処理
 	Rotation();
+	//ステート処理
 	ManageState();
+	//アニメーション
 	PlayAnimation();
-	modelRender.Update();
+	//描画処理
+	m_modelRender.Update();
 }
 void Player::Move() {
 	moveSpeed.x = 0.0f;
@@ -42,11 +49,35 @@ void Player::Move() {
 	forward *= stickL.y * 480.0f;
 	//移動速度に上記で計算したベクトルを加算する
 	moveSpeed += right + forward;
+	//ダッシュ
+	if (g_pad[0]->IsPress(enButtonB)) {
+		moveSpeed.x *= 3.0f;
+		moveSpeed.z *= 3.0f;
+	}
+
+	//地面についていたら
+	if (characterController.IsOnGround()) {
+		//重力をなくす
+		moveSpeed.y = 0.0f;
+		//Aボタンが押されたら
+		if (g_pad[0]->IsTrigger(enButtonA)) {
+			//ジャンプさせる
+			moveSpeed.y = 240.0f;
+		}
+	}
+	//地面についてなかったら
+	else {
+		moveSpeed.y -= 4.5f;
+	}
+	if (position.y <= 0.0f) {
+		position.y = 0.0f;
+	}
 
 	//キャラクターコントローラーを使って座標を移動させる
 	position = characterController.Execute(moveSpeed, 1.0f / 60.0f);
+
 	//絵描きさんに座標を教える
-	modelRender.SetPosition(position);
+	m_modelRender.SetPosition(position);
 }
 void Player::Rotation() {
 	//xかzの移動速度があったら(スティックの入力があったら)
@@ -54,40 +85,46 @@ void Player::Rotation() {
 		//キャラクターの方向を変える
 		rotation.SetRotationYFromDirectionXZ(moveSpeed);
 		//絵描きさんに回転を教える
-		modelRender.SetRotation(rotation);
+		m_modelRender.SetRotation(rotation);
 	}
 }
 void Player::ManageState() {
+	//地面についてなかったら
+	if (characterController.IsOnGround() == false) {
+		m_playerState = enPlayer_jump;
+		//ここでManageState関数の処理を終わらせる
+		return;
+	}
 	//xかzの移動速度があったら(スティックの入力があったら)
-	
-		if (fabsf(moveSpeed.x) >= 0.001f|| fabsf(moveSpeed.z) >= 0.001f){
-			if (g_pad[0]->IsPress(enButtonB)) {
-				m_playerState = enPlayer_run;
-			}
-			else {
-				m_playerState = enPlayer_walk;
-				return;
-			}
+	if (fabsf(moveSpeed.x) >= 0.001f|| fabsf(moveSpeed.z) >= 0.001f){
+		if (g_pad[0]->IsPress(enButtonB)) {
+			m_playerState = enPlayer_run;
 		}
+		else {
+			m_playerState = enPlayer_walk;
+		}
+	}
 	//xとzの移動速度がなかったら(スティックの入力がなかったら)
 	else {
-		//ステートを０にする(待機)
 		m_playerState = enPlayer_idle;
 	}
 }
 void Player::PlayAnimation() {
 	switch (m_playerState) {
 	case enPlayer_idle:
-		modelRender.PlayAnimation(enAnimationClip_idle);
+		m_modelRender.PlayAnimation(enAnimationClip_idle);
 		break;
 	case enPlayer_walk:
-		modelRender.PlayAnimation(enAnimationClip_walk);
+		m_modelRender.PlayAnimation(enAnimationClip_walk);
+		break;
+	case enPlayer_jump:
+		m_modelRender.PlayAnimation(enAnimationClip_jump);
 		break;
 	case enPlayer_run:
-		modelRender.PlayAnimation(enAnimationClip_run);
+		m_modelRender.PlayAnimation(enAnimationClip_run);
 		break;
 	}
 }
 void Player::Render(RenderContext& rc) {
-	modelRender.Draw(rc);
+	m_modelRender.Draw(rc);
 }
