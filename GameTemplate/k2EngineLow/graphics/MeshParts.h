@@ -69,12 +69,15 @@ namespace nsK2EngineLow {
 		/// <param name="mView">ビュー行列</param>
 		/// <param name="mProj">プロジェクション行列</param>
 		/// <param name="numInstance">インスタンスの数</param>
+		/// <param name="alpha">透明度</param>
 		void Draw(
 			RenderContext& rc,
 			const Matrix& mWorld,
 			const Matrix& mView,
 			const Matrix& mProj,
-			int numInstance);
+			int numInstance,
+			float alpha = 0.0f
+			);
 		/// <summary>
 		/// スケルトンを関連付ける。
 		/// </summary>
@@ -148,6 +151,7 @@ namespace nsK2EngineLow {
 			Matrix mWorld;		//ワールド行列。
 			Matrix mView;		//ビュー行列。
 			Matrix mProj;		//プロジェクション行列。
+			float alpha;		//透明度
 		};
 		ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 		ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ

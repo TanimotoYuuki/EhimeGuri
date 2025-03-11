@@ -87,7 +87,8 @@ namespace nsK2EngineLow {
 	}
 	void Model::Draw(
 		RenderContext& rc,
-		int numInstance
+		int numInstance,
+		float alpha
 	)
 	{
 		m_meshParts.Draw(
@@ -95,7 +96,8 @@ namespace nsK2EngineLow {
 			m_worldMatrix,
 			g_camera3D->GetViewMatrix(),
 			g_camera3D->GetProjectionMatrix(),
-			numInstance
+			numInstance,
+			alpha
 		);
 	}
 	void Model::Draw(
