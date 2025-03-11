@@ -1,6 +1,7 @@
 #pragma once
 class Player;
 class BackGround;
+class GameCamera;
 class Game : public IGameObject
 {
 public:
@@ -12,5 +13,6 @@ public:
 private:
 	BackGround* background;
 	Player* player;
+	GameCamera* gamecamera;
 };
 
