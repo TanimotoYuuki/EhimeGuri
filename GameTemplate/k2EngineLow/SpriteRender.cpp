@@ -10,6 +10,10 @@ namespace nsK2EngineLow
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
 		spriteInitData.m_width = w;
 		spriteInitData.m_height = h;
+
+		spriteInitData.m_expandConstantBuffer = &GetLinearWipe();
+		spriteInitData.m_expandConstantBufferSize = sizeof(GetLinearWipe());
+
 		spriteInitData.m_alphaBlendMode = alphaBlendMode;
 		m_sprite.Init(spriteInitData);
 	}

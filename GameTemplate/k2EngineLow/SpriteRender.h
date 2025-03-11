@@ -115,6 +115,48 @@ namespace nsK2EngineLow
 		/// </summary>
 		/// <param name="rc">レンダーコンテキスト</param>
 		void Draw(RenderContext& rc);
+		
+		//リニアワイプ
+		struct LinearWipe
+		{
+			Vector2 direction;
+			float size = 0.0f;
+		};
+
+		/// <summary>
+		/// リニアワイプの速度を設定
+		/// </summary>
+		/// <param name="wipeScroolSpeed">速度</param>
+		void SetWipeScrollSpeed(float wipeScroolSpeed)
+		{
+			m_wipeScrollSpeed = wipeScroolSpeed;
+		}
+
+		/// <summary>
+		/// リニアワイプの更新処理
+		/// </summary>
+		void LinearWipeUpdate()
+		{
+			m_linearWipe.size += m_wipeScrollSpeed;
+		}
+
+		/// <summary>
+		/// リニアワイプ(方向)
+		/// </summary>
+		void LinearWipeDirection(float x, float y)
+		{
+			m_linearWipe.direction.Set(x, y);
+			m_linearWipe.direction.Normalize();
+		}
+
+		/// <summary>
+		/// リニアワイプを取得
+		/// </summary>
+		/// <returns></returns>
+		LinearWipe& GetLinearWipe()
+		{
+			return m_linearWipe;
+		}
 
 	private:
 		Sprite m_sprite; //スプライト
@@ -122,6 +164,8 @@ namespace nsK2EngineLow
 		Quaternion m_rotation = Quaternion::Identity; //回転
 		Vector3 m_scale = Vector3::One; //拡大率
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
+		LinearWipe m_linearWipe;
+		float m_wipeScrollSpeed = 1.0f;
 	};
 }
 
