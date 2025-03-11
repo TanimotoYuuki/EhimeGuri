@@ -11,12 +11,13 @@ public:
 	void Rotation();//回転処理
 	void ManageState();//ステート管理
 	void PlayAnimation();//アニメーションの再生
-	ModelRender modelRender;//モデルレンダー
+	ModelRender m_modelRender;//モデルレンダー
 	Vector3 position;//座標
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
 		enAnimationClip_run,
+		enAnimationClip_jump,
 		enAnimationClip_num
 	};
 	AnimationClip animationClip[enAnimationClip_num];//アニメーションクリップ
@@ -27,6 +28,7 @@ public:
 		enPlayer_idle,
 		enPlayer_walk,
 		enPlayer_run,
+		enPlayer_jump,
 		enPlayer_num
 	};
 	int m_playerState = enPlayer_idle;//プレイヤーのステート
