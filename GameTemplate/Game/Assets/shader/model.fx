@@ -432,6 +432,7 @@ float3 CalcSpecularMap(SPSIn psIn)
     return specLig;
 }
 
+////AOマップ
 //float3 CalcAoMap(SPSIn psIn)
 //{
 //    //環境光を求める

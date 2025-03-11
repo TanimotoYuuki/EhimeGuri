@@ -1,6 +1,18 @@
 #pragma once
 namespace nsK2EngineLow
 {
+	//リニアワイプ描画モード
+	enum LinearWipeMode
+	{
+		LinearWipeMode_Normal, //通常
+		LinearWipeMode_Direction, //方向
+		LinearWipeMode_Round, //円形
+		LinearWipeMode_Vertical, //縦じま
+		LinearWipeMode_Horizontal, //横じま
+		LinearWipeMode_CheckerBoard, //チェッカーボード
+		LinearWipeMode_None //描画しない
+	};
+
 	/// <summary>
 	/// スプライトレンダー
 	/// </summary>
@@ -119,9 +131,19 @@ namespace nsK2EngineLow
 		//リニアワイプ
 		struct LinearWipe
 		{
-			Vector2 direction;
-			float size = 0.0f;
+			Vector2 direction; //方向
+			float size = 0.0f; //ワイプサイズ
+			int linearWipeMode = LinearWipeMode_None; //描画モード
 		};
+
+		/// <summary>
+		///	リニアワイプ描画モードを設定
+		/// </summary>
+		/// <param name="linearWipeMode">描画モード　LinearWipeMode_Directionを設定する場合はSetLinearWipeDirection()で方向を設定して下さい</param>
+		void SetLinearWipeMode(LinearWipeMode linearWipeMode)
+		{
+			m_linearWipe.linearWipeMode = linearWipeMode;
+		}
 
 		/// <summary>
 		/// リニアワイプの速度を設定
@@ -143,7 +165,9 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// リニアワイプ(方向)
 		/// </summary>
-		void LinearWipeDirection(float x, float y)
+		/// <param name="x">x軸方向(1.0f~0.0f)</param>
+		/// <param name="y">y軸方向(1.0f~0.0f)</param>
+		void SetLinearWipeDirection(float x, float y)
 		{
 			m_linearWipe.direction.Set(x, y);
 			m_linearWipe.direction.Normalize();
@@ -164,8 +188,8 @@ namespace nsK2EngineLow
 		Quaternion m_rotation = Quaternion::Identity; //回転
 		Vector3 m_scale = Vector3::One; //拡大率
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
-		LinearWipe m_linearWipe;
-		float m_wipeScrollSpeed = 1.0f;
+		LinearWipe m_linearWipe; //リニアワイプ
+		float m_wipeScrollSpeed = 1.0f; //ワイプ速度
 	};
 }
 
