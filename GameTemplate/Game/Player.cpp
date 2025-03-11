@@ -13,6 +13,7 @@ Player::Player() {
 	m_modelRender.Init("Assets/modelData/player/player.tkm", animationClip,
 		enAnimationClip_num, enModelUpAxisZ);
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	position = { 133.0f,94.0f,0.0f };
 	characterController.Init(25.0f, 75.0f, position);
 }
 Player::~Player() {

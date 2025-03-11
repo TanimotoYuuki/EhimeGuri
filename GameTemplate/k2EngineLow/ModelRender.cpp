@@ -6,11 +6,23 @@ namespace nsK2EngineLow
 	void ModelRender::Init(const char* filePath,
 		AnimationClip* animationClips,
 		int numAnimationClips,
-		EnModelUpAxis enModelUpAxis)
+		EnModelUpAxis enModelUpAxis,
+		AlphaBlendMode alphaBlendMode)
 	{
 		InitSkeleton(filePath);
 		InitAnimation(animationClips, numAnimationClips, enModelUpAxis);
-		InitModel(filePath, enModelUpAxis);
+		InitModel(filePath, enModelUpAxis, alphaBlendMode);
+	}
+
+	void ModelRender::IniTranslucent(const char* filePath,
+		AnimationClip* animationClips,
+		int numAnimationClips,
+		EnModelUpAxis enModelUpAxis,
+		AlphaBlendMode alphaBlendMode)
+	{
+		InitSkeleton(filePath);
+		InitAnimation(animationClips, numAnimationClips, enModelUpAxis);
+		InitModel(filePath, enModelUpAxis, alphaBlendMode);
 	}
 
 	void ModelRender::InitSkeleton(const char* filePath)
@@ -33,7 +45,7 @@ namespace nsK2EngineLow
 		}
 	}
 
-	void ModelRender::InitModel(const char* filePath, EnModelUpAxis enModelUpAxis)
+	void ModelRender::InitModel(const char* filePath, EnModelUpAxis enModelUpAxis, AlphaBlendMode alphaBlendMode)
 	{
 		ModelInitData modelInitData;
 		modelInitData.m_tkmFilePath = filePath;
@@ -47,6 +59,7 @@ namespace nsK2EngineLow
 		}
 
 		modelInitData.m_modelUpAxis = enModelUpAxis;
+		modelInitData.m_alphaBlendMode = alphaBlendMode;
 
 		modelInitData.m_expandConstantBuffer = &g_sceneLight->GetLight();
 		modelInitData.m_expandConstantBufferSize = sizeof(g_sceneLight->GetLight());
@@ -68,6 +81,6 @@ namespace nsK2EngineLow
 
 	void ModelRender::Draw(RenderContext& rc)
 	{
-		m_model.Draw(rc);
+		m_model.Draw(rc,1,m_alpha);
 	}
 }

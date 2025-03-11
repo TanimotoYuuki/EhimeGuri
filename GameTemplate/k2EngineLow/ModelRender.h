@@ -9,7 +9,7 @@ namespace nsK2EngineLow
 	public:
 
 		/// <summary>
-		/// 初期化
+		/// 通常描画用の初期化
 		/// </summary>
 		/// <param name="filePath">ファイルパス</param>
 		/// <param name="animationClips">アニメーションクリップ</param>
@@ -18,7 +18,21 @@ namespace nsK2EngineLow
 		void Init(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
-			EnModelUpAxis enModelUpAxis=enModelUpAxisZ);
+			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_None);
+
+		/// <summary>
+		/// 半透明描画用の初期化
+		/// </summary>
+		/// <param name="filePath">ファイルパス</param>
+		/// <param name="animationClips">アニメーションクリップ</param>
+		/// <param name="numAnimationClips">アニメーションクリップの数</param>
+		/// <param name="enModelUpAxis">モデルの上方向</param>
+		void IniTranslucent(const char* filePath,
+			AnimationClip* animationClips = nullptr,
+			int numAnimationClips = 0,
+			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
 		/// <summary>
 		/// 更新処理
@@ -130,13 +144,31 @@ namespace nsK2EngineLow
 			return m_skeleton.GetBone(boneNo);
 		}
 
+		/// <summary>
+		/// 透明度を設定
+		/// </summary>
+		/// <param name="alpha">透明度</param>
+		void SetAlpha(const float alpha)
+		{
+			m_alpha = alpha;
+		}
+
+		/// <summary>
+		/// 透明度を取得
+		/// </summary>
+		/// <returns>透明度</returns>
+		const float& GetAlpha() const
+		{
+			return m_alpha;
+		}
+
 	private:
 		/// <summary>
 		/// モデルの初期化
 		/// </summary>
 		/// <param name="filePath">ファイルパス</param>
 		/// <param name="enModelUpAxis">モデルの上方向</param>
-		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis);
+		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis, AlphaBlendMode alphaBlendMode);
 
 		/// <summary>
 		/// スケルトンの初期化
@@ -165,6 +197,7 @@ namespace nsK2EngineLow
 		bool m_isUpdateAnimation = true; //アニメーションを更新する？
 		Skeleton m_skeleton; //骨
 		float m_animationSpeed = 1.0f; //アニメーション再生速度
+		float m_alpha = 0.0f; //透明度
 	};
 }
 

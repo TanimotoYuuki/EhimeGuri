@@ -67,6 +67,8 @@ cbuffer ModelCb : register(b0)
     float4x4 mWorld;
     float4x4 mView;
     float4x4 mProj;
+    float4 mulColor;
+    float alphaColor;
 };
 
 //ライト用の定数バッファ
@@ -213,6 +215,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     albedoColor.xyz *= lig;
+    albedoColor.a *= mulColor + alphaColor;
 	
 	return albedoColor;
 }
