@@ -31,8 +31,9 @@ cbuffer WipeCb : register(b1)
 Texture2D<float4> colorTexture : register(t0);	//�J���[�e�N�X�`���B
 sampler Sampler : register(s0);
 
-void CalcSimpleLinearWipe(PSInput In);
-void CalcDirectionLinearWipe(PSInput In);
+void CalcLinearWipeFromSimple(PSInput In);
+void CalcLinearWipeFromDirection(PSInput In);
+void CalcLinearWipeFromRound(PSInput In);
 
 PSInput VSMain(VSInput In) 
 {
@@ -44,7 +45,8 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
     //CalcSimpleLinearWipe(In);
-    CalcDirectionLinearWipe(In);
+    //CalcDirectionLinearWipe(In);
+    CalcLinearWipeFromRound(In);
 	return colorTexture.Sample(Sampler, In.uv) * mulColor;
 }
 
@@ -57,4 +59,10 @@ void CalcDirectionLinearWipe(PSInput In)
 {
     float t = dot(linearWipe.direction, In.pos.xy);
     clip(t - linearWipe.size);
+}
+
+void CalcLinearWipeFromRound(PSInput In)
+{
+    float2 posFromCenter = In.pos.xy - float2(800.0f, 450.0f);
+    clip(length(posFromCenter) - linearWipe.size);
 }
