@@ -52,8 +52,8 @@ void Player::Move() {
 	moveSpeed += right + forward;
 	//ダッシュ
 	if (g_pad[0]->IsPress(enButtonB)) {
-		moveSpeed.x *= 3.0f;
-		moveSpeed.z *= 3.0f;
+		moveSpeed.x *= 2.0f;
+		moveSpeed.z *= 2.0f;
 	}
 
 	//地面についていたら
@@ -63,7 +63,7 @@ void Player::Move() {
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
-			moveSpeed.y = 240.0f;
+			moveSpeed.y = 150.0f;
 		}
 	}
 	//地面についてなかったら
