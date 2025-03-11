@@ -34,6 +34,7 @@ sampler Sampler : register(s0);
 void CalcLinearWipeFromSimple(PSInput In);
 void CalcLinearWipeFromDirection(PSInput In);
 void CalcLinearWipeFromRound(PSInput In);
+void CalcLinearWipeFromVertical(PSInput In);
 void CalcLinearWipeFromHorizontal(PSInput In);
 
 PSInput VSMain(VSInput In) 
@@ -48,6 +49,7 @@ float4 PSMain( PSInput In ) : SV_Target0
     //CalcLinearWipeFromSimple(In);
     //CalcLinearWipeFromDirection(In);
     //CalcLinearWipeFromRound(In);
+    //CalcLinearWipeFromVertical(In);
     CalcLinearWipeFromHorizontal(In);
 	return colorTexture.Sample(Sampler, In.uv) * mulColor;
 }
@@ -69,8 +71,14 @@ void CalcLinearWipeFromRound(PSInput In)
     clip(length(posFromCenter) - linearWipe.size);
 }
 
+void CalcLinearWipeFromVertical(PSInput In)
+{
+    float t = (int) fmod(In.pos.x, 64.0f);
+    clip(t - linearWipe.size);
+}
+
 void CalcLinearWipeFromHorizontal(PSInput In)
 {
-    float t = (int)fmod(In.pos.xy, 64.0f);
+    float t = (int) fmod(In.pos.y, 64.0f);
     clip(t - linearWipe.size);
 }
