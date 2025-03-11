@@ -2,6 +2,7 @@
 
 class BackGround : public IGameObject
 {
+public:
 	BackGround();
 	~BackGround();
 
@@ -10,7 +11,7 @@ class BackGround : public IGameObject
 	void Render(RenderContext & rc);
 	
 	ModelRender m_modelRender;
-
-
+	PhysicsStaticObject physicsStaticObject;
+	Vector3 m_scale;
 };
 
