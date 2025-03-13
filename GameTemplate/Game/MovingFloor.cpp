@@ -1,8 +1,8 @@
-//#include "stdafx.h"
-//#include "MovingFloor.h"
-//#include "Player.h"
-//
-//
+#include "stdafx.h"
+#include "MovingFloor.h"
+#include "Player.h"
+
+
 //namespace
 //{
 //	Vector3 SCALE = Vector3(3.0f, 1.0f, 3.0f);
@@ -43,31 +43,31 @@
 //{
 //	Vector3 moveSpeed = Vector3::Zero;
 //
-//	if (m_MovingFloorState == enMovingFloorState_MovingRight)
+//	if (m_movingFloorState == enMovingFloorState_MovingRight)
 //	{
 //		moveSpeed.x = -SPEED;
 //	}
 //
-//	else if (m_MovingFloorState == enMovingFloorState_MovingLeft)
+//	else if (m_movingFloorState == enMovingFloorState_MovingLeft)
 //	{
 //		moveSpeed.x = SPEED;
 //	}
 //	
 //	m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
 //
-//	if (m_MovingFloorState == enMovingFloorState_MovingRight)
+//	if (m_movingFloorState == enMovingFloorState_MovingRight)
 //	{
 //		if (m_firstPosition.x -LIMITED >= m_position.x)
 //		{
-//			m_MovingFloorState == enMovingFloorState_MovingRight;
+//			m_movingFloorState == enMovingFloorState_MovingRight;
 //		}
 //	}
 //
-//	else if (m_MovingFloorState == enMovingFloorState_MovingLeft)
+//	else if (m_movingFloorState == enMovingFloorState_MovingLeft)
 //	{
 //		if (m_firstPosition.x + LIMITED <= m_position.x)
 //		{
-//			m_MovingFloorState = enMovingFloorState_MovingRight;
+//			m_movingFloorState = enMovingFloorState_MovingRight;
 //		}
 //	}
 //	/// <summary>

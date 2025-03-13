@@ -13,10 +13,10 @@ public:
 	void Render(RenderContext& rc);
 
 private:
-	BackGround  * background;
-	Player		* player;
-	GameCamera  * gamecamera;
+	BackGround  * m_background;
+	Player		* m_player;
+	GameCamera  * m_gamecamera;
 	
-	ModelRender   backGroundRender;
+	ModelRender   m_backGroundRender;
 };
 

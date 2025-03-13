@@ -11,7 +11,7 @@ public:
 	void Render(RenderContext & rc);
 	
 	ModelRender m_modelRender;
-	PhysicsStaticObject physicsStaticObject;
+	PhysicsStaticObject m_physicsStaticObject;
 	Vector3 m_scale;
 };
 

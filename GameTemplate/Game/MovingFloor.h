@@ -44,5 +44,5 @@
 //		enMovingFloorState_MovingRight,
 //		enMovingFloorState_MovingLeft
 //	};
-//	enMovingFloorState							m_MovingFloorState = enMovingFloorState_MovingRight;
+//	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
 //};

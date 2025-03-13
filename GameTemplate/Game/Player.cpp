@@ -2,19 +2,25 @@
 #include "Player.h"
 #include"Game.h"
 Player::Player() {
-	animationClip[enAnimationClip_idle].Load("Assets/animData/playeridle.tka");
-	animationClip[enAnimationClip_idle].SetLoopFlag(true);
-	animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
-	animationClip[enAnimationClip_walk].SetLoopFlag(true);
-	animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
-	animationClip[enAnimationClip_run].SetLoopFlag(true);
-	animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
-	animationClip[enAnimationClip_jump].SetLoopFlag(false);
-	m_modelRender.Init("Assets/modelData/player/player.tkm", animationClip,
+	m_animationClip[enAnimationClip_idle].Load("Assets/animData/playeridle.tka");
+	m_animationClip[enAnimationClip_idle].SetLoopFlag(true);
+	m_animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
+	m_animationClip[enAnimationClip_walk].SetLoopFlag(true);
+	m_animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
+	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
+	m_animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
+	m_animationClip[enAnimationClip_jump].SetLoopFlag(false);
+	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ);
+
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	position = { 133.0f,94.0f,0.0f };
-	characterController.Init(25.0f, 75.0f, position);
+	m_position = { 133.0f,94.0f,0.0f };
+	m_characterController.Init(25.0f, 75.0f, m_position);
+	m_rotation.SetRotationDegY(90.0f);
+
+	m_modelRender.SetPosition(m_position);
+	m_modelRender.SetRotation(m_rotation);
+	m_modelRender.Update();
 }
 Player::~Player() {
 
@@ -33,8 +39,8 @@ void Player::Update() {
 	m_modelRender.Update();
 }
 void Player::Move() {
-	moveSpeed.x = 0.0f;
-	moveSpeed.z = 0.0f;
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
 	//スティックの入力量を取得
 	Vector3 stickL;
 	stickL.x = g_pad[0]->GetLStickXF();
@@ -49,55 +55,55 @@ void Player::Move() {
 	right *= stickL.x * 480.0f;
 	forward *= stickL.y * 480.0f;
 	//移動速度に上記で計算したベクトルを加算する
-	moveSpeed += right + forward;
+	m_moveSpeed += right + forward;
 	//ダッシュ
 	if (g_pad[0]->IsPress(enButtonB)) {
-		moveSpeed.x *= 2.0f;
-		moveSpeed.z *= 2.0f;
+		m_moveSpeed.x *= 2.0f;
+		m_moveSpeed.z *= 2.0f;
 	}
 
 	//地面についていたら
-	if (characterController.IsOnGround()) {
+	if (m_characterController.IsOnGround()) {
 		//重力をなくす
-		moveSpeed.y = 0.0f;
+		m_moveSpeed.y = 0.0f;
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
-			moveSpeed.y = 150.0f;
+			m_moveSpeed.y = 150.0f;
 		}
 	}
 	//地面についてなかったら
 	else {
-		moveSpeed.y -= 4.5f;
+		m_moveSpeed.y -= 4.5f;
 	}
-	if (position.y <= 0.0f) {
-		position.y = 0.0f;
+	if (m_position.y <= 0.0f) {
+		m_position.y = 0.0f;
 	}
 
 	//キャラクターコントローラーを使って座標を移動させる
-	position = characterController.Execute(moveSpeed, 1.0f / 60.0f);
+	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
 
 	//絵描きさんに座標を教える
-	m_modelRender.SetPosition(position);
+	m_modelRender.SetPosition(m_position);
 }
 void Player::Rotation() {
 	//xかzの移動速度があったら(スティックの入力があったら)
-	if (fabsf(moveSpeed.x) >= 0.001f || fabsf(moveSpeed.z) >= 0.001f) {
+	if (fabsf(m_moveSpeed.x) >= 0.001f || fabsf(m_moveSpeed.z) >= 0.001f) {
 		//キャラクターの方向を変える
-		rotation.SetRotationYFromDirectionXZ(moveSpeed);
+		m_rotation.SetRotationYFromDirectionXZ(m_moveSpeed);
 		//絵描きさんに回転を教える
-		m_modelRender.SetRotation(rotation);
+		m_modelRender.SetRotation(m_rotation);
 	}
 }
 void Player::ManageState() {
 	//地面についてなかったら
-	if (characterController.IsOnGround() == false) {
+	if (m_characterController.IsOnGround() == false) {
 		m_playerState = enPlayer_jump;
 		//ここでManageState関数の処理を終わらせる
 		return;
 	}
 	//xかzの移動速度があったら(スティックの入力があったら)
-	if (fabsf(moveSpeed.x) >= 0.001f|| fabsf(moveSpeed.z) >= 0.001f){
+	if (fabsf(m_moveSpeed.x) >= 0.001f|| fabsf(m_moveSpeed.z) >= 0.001f){
 		if (g_pad[0]->IsPress(enButtonB)) {
 			m_playerState = enPlayer_run;
 		}

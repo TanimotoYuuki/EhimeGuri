@@ -30,5 +30,5 @@ void Game::Update()
 
 void Game::Render(RenderContext& rc)
 {
-//	backGroundRender.Draw(rc);
+//	m_backGroundRender.Draw(rc);
 }
