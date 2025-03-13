@@ -111,6 +111,7 @@ static const int MAX_BONE = 512;	// ƒ{[ƒ“‚ÌÅ‘å”B
 #include "graphics/effect/EffectEmitter.h"
 
 #include "SceneLight.h"
+#include "CollisionObject.h"
 
 #include "ModelRender.h"
 #include "SpriteRender.h"
