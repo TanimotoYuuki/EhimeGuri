@@ -24,7 +24,7 @@ public:
 		return characterController;
 	}*/
 	ModelRender m_modelRender;//モデルレンダー
-	Vector3 position;//座標
+	Vector3 m_position;//座標
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -32,11 +32,11 @@ public:
 		enAnimationClip_jump,
 		enAnimationClip_num
 	};
-	AnimationClip animationClip[enAnimationClip_num];//アニメーションクリップ
-	CharacterController characterController;//キャラクターコントローラー
-	Vector3 moveSpeed;//移動速度
+	AnimationClip m_animationClip[enAnimationClip_num];//アニメーションクリップ
+	CharacterController m_characterController;//キャラクターコントローラー
+	Vector3 m_moveSpeed;//移動速度
 	/*Vector3 m_position;*/
-	Quaternion rotation;//クォータニオン
+	Quaternion m_rotation;//クォータニオン
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -45,7 +45,7 @@ public:
 		enPlayer_num
 	};
 	int m_playerState = enPlayer_idle;//プレイヤーのステート
-	Game* game;
+	Game* m_game;
 private:
 //	Vector3						m_moveSpeed = Vector3::Zero;*/
 };
