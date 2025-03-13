@@ -41,6 +41,7 @@ void CalcLinearWipeFromHorizontal(PSInput In);
 void CalcLinearWipeFromCheckerBoard(PSInput In);
 float4 CalcMonochrome(float4 color);
 float4 CalcSepia(float4 color);
+float4 CalcNega(float4 color);
 
 PSInput VSMain(VSInput In) 
 {
@@ -76,7 +77,8 @@ float4 PSMain( PSInput In ) : SV_Target0
         break;
     }
     //color = CalcMonochrome(color);
-    color = CalcSepia(color);
+    //color = CalcSepia(color);
+    color = CalcNega(color);
 	return color;
 }
 
@@ -133,6 +135,7 @@ float4 CalcMonochrome(float4 color)
     return color;
 }
 
+//セピア加工
 float4 CalcSepia(float4 color)
 {
     float y = 0.299f * color.r + 0.587f * color.g + 0.144f * color.b;
@@ -143,5 +146,17 @@ float4 CalcSepia(float4 color)
     sepiaColor.b = y * 0.4f;
     
     color.xyz = lerp(color, sepiaColor, drawingRate);
+    return color;
+}
+
+//ネガポジ反転
+float4 CalcNega(float4 color)
+{
+    float3 negaColor;
+    negaColor.x = 1.0f - color.x;
+    negaColor.y = 1.0f - color.y;
+    negaColor.z = 1.0f - color.z;
+    
+    color.xyz = lerp(color, negaColor, drawingRate);
     return color;
 }
