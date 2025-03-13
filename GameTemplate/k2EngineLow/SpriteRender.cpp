@@ -20,10 +20,16 @@ namespace nsK2EngineLow
 
 	void SpriteRender::Update()
 	{
-		m_spriteRenderConstantBuffer.drawingRate += 0.01f;
-		if (m_spriteRenderConstantBuffer.drawingRate > 1.0f)
+		//リニアワイプの描画モードでLinearWipeDrawingMode_None以外選択されていたら
+		if (m_spriteRenderConstantBuffer.linearWipeDrawingMode != LinearWipeDrawingMode_None)
 		{
-			m_spriteRenderConstantBuffer.drawingRate = 1.0f;
+			LinearWipeUpdate();
+		}
+
+		//画像加工の描画モードでScreenDrawingMode_None以外選択されていたら
+		if (m_spriteRenderConstantBuffer.screenDrawingMode != ScreenDrawingMode_None)
+		{
+			ScreenDrawingUpdate();
 		}
 
 		m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
