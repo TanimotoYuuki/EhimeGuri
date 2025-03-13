@@ -11,8 +11,8 @@ namespace nsK2EngineLow
 		spriteInitData.m_width = w;
 		spriteInitData.m_height = h;
 
-		spriteInitData.m_expandConstantBuffer = &GetLinearWipe();
-		spriteInitData.m_expandConstantBufferSize = sizeof(GetLinearWipe());
+		spriteInitData.m_expandConstantBuffer = &GetSpriteRenderConstantBuffer();
+		spriteInitData.m_expandConstantBufferSize = sizeof(GetSpriteRenderConstantBuffer());
 
 		spriteInitData.m_alphaBlendMode = alphaBlendMode;
 		m_sprite.Init(spriteInitData);
@@ -20,6 +20,18 @@ namespace nsK2EngineLow
 
 	void SpriteRender::Update()
 	{
+		//リニアワイプの描画モードでLinearWipeDrawingMode_None以外選択されていたら
+		if (m_spriteRenderConstantBuffer.linearWipeDrawingMode != LinearWipeDrawingMode_None)
+		{
+			LinearWipeUpdate();
+		}
+
+		//画像加工の描画モードでScreenDrawingMode_None以外選択されていたら
+		if (m_spriteRenderConstantBuffer.screenDrawingMode != ScreenDrawingMode_None)
+		{
+			ScreenDrawingUpdate();
+		}
+
 		m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 	}
 

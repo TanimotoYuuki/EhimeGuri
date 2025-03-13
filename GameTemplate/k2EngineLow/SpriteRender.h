@@ -2,15 +2,25 @@
 namespace nsK2EngineLow
 {
 	//リニアワイプ描画モード
-	enum LinearWipeMode
+	enum LinearWipeDrawingMode
 	{
-		LinearWipeMode_Normal, //通常
-		LinearWipeMode_Direction, //方向
-		LinearWipeMode_Round, //円形
-		LinearWipeMode_Vertical, //縦じま
-		LinearWipeMode_Horizontal, //横じま
-		LinearWipeMode_CheckerBoard, //チェッカーボード
-		LinearWipeMode_None //描画しない
+		LinearWipeDrawingMode_Normal, //通常ワイプ
+		LinearWipeDrawingMode_Direction, //方向ワイプ
+		LinearWipeDrawingMode_Round, //円形ワイプ
+		LinearWipeDrawingMode_Vertical, //縦じまワイプ
+		LinearWipeDrawingMode_Horizontal, //横じまワイプ
+		LinearWipeDrawingMode_CheckerBoard, //チェッカーボードワイプ
+		LinearWipeDrawingMode_None //描画しない
+	};
+
+	//画像加工
+	enum ScreenDrawingMode
+	{
+		ScreenDrawingMode_Monochrome, //モノクロ
+		ScreenDrawingMode_Sepia, //セピア
+		ScreenDrawingMode_Nega, //ネガ
+		ScreenDrawingMode_Noise, //ノイズ
+		ScreenDrawingMode_None, //描画しない
 	};
 
 	/// <summary>
@@ -128,21 +138,29 @@ namespace nsK2EngineLow
 		/// <param name="rc">レンダーコンテキスト</param>
 		void Draw(RenderContext& rc);
 		
-		//リニアワイプ
 		struct LinearWipe
 		{
 			Vector2 direction; //方向
 			float size = 0.0f; //ワイプサイズ
-			int linearWipeMode = LinearWipeMode_None; //描画モード
+		};
+
+		//スプライトレンダー用の定数バッファ
+		struct SpriteRenderConstantBuffer
+		{
+			LinearWipe linearWipe; //リニアワイプ
+			int linearWipeDrawingMode = LinearWipeDrawingMode_None; //描画モード
+			float drawingRate = 0.0f; //イージング割合
+			int screenDrawingMode = ScreenDrawingMode_None; //画像加工
 		};
 
 		/// <summary>
-		///	リニアワイプ描画モードを設定
+		///	リニアワイプの描画モードを設定
 		/// </summary>
 		/// <param name="linearWipeMode">描画モード　LinearWipeMode_Directionを設定する場合はSetLinearWipeDirection()で方向を設定して下さい</param>
-		void SetLinearWipeMode(LinearWipeMode linearWipeMode)
+		void SetLinearWipeDrawingMode(LinearWipeDrawingMode linearWipeMode)
 		{
-			m_linearWipe.linearWipeMode = linearWipeMode;
+			m_spriteRenderConstantBuffer.linearWipeDrawingMode = linearWipeMode;
+			m_spriteRenderConstantBuffer.linearWipe.size = 0.0f;
 		}
 
 		/// <summary>
@@ -155,41 +173,73 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// リニアワイプの更新処理
-		/// </summary>
-		void LinearWipeUpdate()
-		{
-			m_linearWipe.size += m_wipeScrollSpeed;
-		}
-
-		/// <summary>
 		/// リニアワイプ(方向)
 		/// </summary>
 		/// <param name="x">x軸方向(1.0f~0.0f)</param>
 		/// <param name="y">y軸方向(1.0f~0.0f)</param>
 		void SetLinearWipeDirection(float x, float y)
 		{
-			m_linearWipe.direction.Set(x, y);
-			m_linearWipe.direction.Normalize();
+			m_spriteRenderConstantBuffer.linearWipe.direction.Set(x, y);
+			m_spriteRenderConstantBuffer.linearWipe.direction.Normalize();
 		}
 
 		/// <summary>
-		/// リニアワイプを取得
+		/// 画像加工の描画モードを設定
+		/// </summary>
+		/// <param name="screenMode">描画モード</param>
+		void SetScreenDrawingMode(ScreenDrawingMode screenDrawingMode)
+		{
+			m_spriteRenderConstantBuffer.screenDrawingMode = screenDrawingMode;
+			m_spriteRenderConstantBuffer.drawingRate = 0.0f;
+		}
+
+		/// <summary>
+		/// 画像加工をイージングする速度を設定
+		/// </summary>
+		/// <param name="screenDrawingEasingSpeed">速度</param>
+		void SetScreenDrawingEasingSpeed(float screenDrawingSpeed)
+		{
+			m_screenDrawingEasingSpeed = screenDrawingSpeed;
+		}
+
+		/// <summary>
+		/// スプライトレンダー用の定数バッファを取得
 		/// </summary>
 		/// <returns></returns>
-		LinearWipe& GetLinearWipe()
+		SpriteRenderConstantBuffer& GetSpriteRenderConstantBuffer()
 		{
-			return m_linearWipe;
+			return m_spriteRenderConstantBuffer;
 		}
 
 	private:
+		/// <summary>
+		/// リニアワイプの更新処理
+		/// </summary>
+		void LinearWipeUpdate()
+		{
+			m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed;
+		}
+
+		/// <summary>
+		/// 画像加工の更新処理
+		/// </summary>
+		void ScreenDrawingUpdate()
+		{
+			m_spriteRenderConstantBuffer.drawingRate += m_screenDrawingEasingSpeed;
+			if (m_spriteRenderConstantBuffer.drawingRate > 1.0f)
+			{
+				m_spriteRenderConstantBuffer.drawingRate = 1.0f;
+			}
+		}
+
 		Sprite m_sprite; //スプライト
 		Vector3 m_position = Vector3::Zero; //座標
 		Quaternion m_rotation = Quaternion::Identity; //回転
 		Vector3 m_scale = Vector3::One; //拡大率
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
-		LinearWipe m_linearWipe; //リニアワイプ
+		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //リニアワイプ
 		float m_wipeScrollSpeed = 1.0f; //ワイプ速度
+		float m_screenDrawingEasingSpeed = 0.01f; //画像加工用のイージング速度
 	};
 }
 
