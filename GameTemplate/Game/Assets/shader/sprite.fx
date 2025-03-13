@@ -23,10 +23,11 @@ cbuffer cb : register(b0){
 	float4 mulColor;	//��Z�J���[�B
 };
 
-cbuffer WipeCb : register(b1)
+cbuffer SpriteRenderCb : register(b1)
 {
     LinearWipe linearWipe; //リニアワイプ
-    int Mode; //描画モード
+    int drawingMode; //描画モード
+    float drawingRate;
 };
 
 Texture2D<float4> colorTexture : register(t0);	//�J���[�e�N�X�`���B
@@ -38,6 +39,7 @@ void CalcLinearWipeFromRound(PSInput In);
 void CalcLinearWipeFromVertical(PSInput In);
 void CalcLinearWipeFromHorizontal(PSInput In);
 void CalcLinearWipeFromCheckerBoard(PSInput In);
+float4 CalcMonochrome(float4 color);
 
 PSInput VSMain(VSInput In) 
 {
@@ -48,7 +50,8 @@ PSInput VSMain(VSInput In)
 }
 float4 PSMain( PSInput In ) : SV_Target0
 {
-    switch (Mode)
+    float4 color = colorTexture.Sample(Sampler, In.uv) * mulColor;
+    switch (drawingMode)
     {
     case 0: //通常
         CalcLinearWipeFromNormal(In);
@@ -71,17 +74,18 @@ float4 PSMain( PSInput In ) : SV_Target0
     default:
         break;
     }
+    color=CalcMonochrome(color);
     
-	return colorTexture.Sample(Sampler, In.uv) * mulColor;
+	return color;
 }
 
-//通常
+//通常ワイプ
 void CalcLinearWipeFromNormal(PSInput In)
 {
     clip(In.pos.x - linearWipe.size);
 }
 
-//方向
+//方向ワイプ
 void CalcLinearWipeFromDirection(PSInput In)
 {
     float t = dot(linearWipe.direction, In.pos.xy);
@@ -116,4 +120,14 @@ void CalcLinearWipeFromCheckerBoard(PSInput In)
     t = fmod(t, 2.0f);
     t = (int) fmod(In.pos.x + 64.0f * t, 128.0f);
     clip(t - linearWipe.size);
+}
+
+//モノクロ加工
+float4 CalcMonochrome(float4 color)
+{
+    float y = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
+    
+    float3 monochromeColor = float3(y, y, y);
+    color.xyz = lerp(color, monochromeColor, drawingRate);
+    return color;
 }

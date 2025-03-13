@@ -4,12 +4,12 @@ namespace nsK2EngineLow
 	//リニアワイプ描画モード
 	enum LinearWipeMode
 	{
-		LinearWipeMode_Normal, //通常
-		LinearWipeMode_Direction, //方向
-		LinearWipeMode_Round, //円形
-		LinearWipeMode_Vertical, //縦じま
-		LinearWipeMode_Horizontal, //横じま
-		LinearWipeMode_CheckerBoard, //チェッカーボード
+		LinearWipeMode_Normal, //通常ワイプ
+		LinearWipeMode_Direction, //方向ワイプ
+		LinearWipeMode_Round, //円形ワイプ
+		LinearWipeMode_Vertical, //縦じまワイプ
+		LinearWipeMode_Horizontal, //横じまワイプ
+		LinearWipeMode_CheckerBoard, //チェッカーボードワイプ
 		LinearWipeMode_None //描画しない
 	};
 
@@ -128,12 +128,18 @@ namespace nsK2EngineLow
 		/// <param name="rc">レンダーコンテキスト</param>
 		void Draw(RenderContext& rc);
 		
-		//リニアワイプ
 		struct LinearWipe
 		{
 			Vector2 direction; //方向
 			float size = 0.0f; //ワイプサイズ
+		};
+
+		//スプライトレンダー用の定数バッファ
+		struct SpriteRenderConstantBuffer
+		{
+			LinearWipe linearWipe; //リニアワイプ
 			int linearWipeMode = LinearWipeMode_None; //描画モード
+			float drawingRate = 0.0f; //イージング割合
 		};
 
 		/// <summary>
@@ -142,7 +148,7 @@ namespace nsK2EngineLow
 		/// <param name="linearWipeMode">描画モード　LinearWipeMode_Directionを設定する場合はSetLinearWipeDirection()で方向を設定して下さい</param>
 		void SetLinearWipeMode(LinearWipeMode linearWipeMode)
 		{
-			m_linearWipe.linearWipeMode = linearWipeMode;
+			m_spriteRenderConstantBuffer.linearWipeMode = linearWipeMode;
 		}
 
 		/// <summary>
@@ -159,7 +165,7 @@ namespace nsK2EngineLow
 		/// </summary>
 		void LinearWipeUpdate()
 		{
-			m_linearWipe.size += m_wipeScrollSpeed;
+			m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed;
 		}
 
 		/// <summary>
@@ -169,17 +175,17 @@ namespace nsK2EngineLow
 		/// <param name="y">y軸方向(1.0f~0.0f)</param>
 		void SetLinearWipeDirection(float x, float y)
 		{
-			m_linearWipe.direction.Set(x, y);
-			m_linearWipe.direction.Normalize();
+			m_spriteRenderConstantBuffer.linearWipe.direction.Set(x, y);
+			m_spriteRenderConstantBuffer.linearWipe.direction.Normalize();
 		}
 
 		/// <summary>
 		/// リニアワイプを取得
 		/// </summary>
 		/// <returns></returns>
-		LinearWipe& GetLinearWipe()
+		SpriteRenderConstantBuffer& GetSpriteRenderConstantBuffer()
 		{
-			return m_linearWipe;
+			return m_spriteRenderConstantBuffer;
 		}
 
 	private:
@@ -188,7 +194,7 @@ namespace nsK2EngineLow
 		Quaternion m_rotation = Quaternion::Identity; //回転
 		Vector3 m_scale = Vector3::One; //拡大率
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
-		LinearWipe m_linearWipe; //リニアワイプ
+		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //リニアワイプ
 		float m_wipeScrollSpeed = 1.0f; //ワイプ速度
 	};
 }
