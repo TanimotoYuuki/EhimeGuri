@@ -11,6 +11,18 @@ public:
 	void Rotation();//回転処理
 	void ManageState();//ステート管理
 	void PlayAnimation();//アニメーションの再生
+	/*const Vector3& GetPosition() const
+	{
+		return m_position;
+	}
+	void AddMoveSpeed(const Vector3& addMoveSpeed)
+	{
+		m_moveSpeed += addMoveSpeed;
+	}
+	CharacterController& GetCharacterController()
+	{
+		return characterController;
+	}*/
 	ModelRender m_modelRender;//モデルレンダー
 	Vector3 position;//座標
 	enum EnAnimationClip {
@@ -23,6 +35,7 @@ public:
 	AnimationClip animationClip[enAnimationClip_num];//アニメーションクリップ
 	CharacterController characterController;//キャラクターコントローラー
 	Vector3 moveSpeed;//移動速度
+	/*Vector3 m_position;*/
 	Quaternion rotation;//クォータニオン
 	enum PlayerState {
 		enPlayer_idle,
@@ -33,5 +46,7 @@ public:
 	};
 	int m_playerState = enPlayer_idle;//プレイヤーのステート
 	Game* game;
+private:
+//	Vector3						m_moveSpeed = Vector3::Zero;*/
 };
 
