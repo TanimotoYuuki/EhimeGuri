@@ -40,6 +40,7 @@ void CalcLinearWipeFromVertical(PSInput In);
 void CalcLinearWipeFromHorizontal(PSInput In);
 void CalcLinearWipeFromCheckerBoard(PSInput In);
 float4 CalcMonochrome(float4 color);
+float4 CalcSepia(float4 color);
 
 PSInput VSMain(VSInput In) 
 {
@@ -74,8 +75,8 @@ float4 PSMain( PSInput In ) : SV_Target0
     default:
         break;
     }
-    color=CalcMonochrome(color);
-    
+    //color = CalcMonochrome(color);
+    color = CalcSepia(color);
 	return color;
 }
 
@@ -129,5 +130,18 @@ float4 CalcMonochrome(float4 color)
     
     float3 monochromeColor = float3(y, y, y);
     color.xyz = lerp(color, monochromeColor, drawingRate);
+    return color;
+}
+
+float4 CalcSepia(float4 color)
+{
+    float y = 0.299f * color.r + 0.587f * color.g + 0.144f * color.b;
+    
+    float3 sepiaColor;
+    sepiaColor.r = y * 0.9f;
+    sepiaColor.g = y * 0.7f;
+    sepiaColor.b = y * 0.4f;
+    
+    color.xyz = lerp(color, sepiaColor, drawingRate);
     return color;
 }
