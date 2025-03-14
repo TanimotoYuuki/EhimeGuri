@@ -61,8 +61,8 @@ namespace nsK2EngineLow
 		modelInitData.m_modelUpAxis = enModelUpAxis;
 		modelInitData.m_alphaBlendMode = alphaBlendMode;
 
-		modelInitData.m_expandConstantBuffer = &g_sceneLight->GetLight();
-		modelInitData.m_expandConstantBufferSize = sizeof(g_sceneLight->GetLight());
+		modelInitData.m_expandConstantBuffer = &g_renderingEngine->GetLight();
+		modelInitData.m_expandConstantBufferSize = sizeof(g_renderingEngine->GetLight());
 
 		m_model.Init(modelInitData);
 	}
