@@ -308,6 +308,7 @@
     <ClCompile Include="level2D\CaslFile.cpp" />
     <ClCompile Include="level2D\Level2D.cpp" />
     <ClCompile Include="level2D\MapChip2D.cpp" />
+    <ClCompile Include="Level3DRender.cpp" />
     <ClCompile Include="level3D\Level.cpp" />
     <ClCompile Include="level3D\MapChip.cpp" />
     <ClCompile Include="level3D\TklFile.cpp" />
@@ -325,6 +326,7 @@
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
     <ClCompile Include="physics\SphereCollider.cpp" />
+    <ClCompile Include="RenderingEngine.cpp" />
     <ClCompile Include="SceneLight.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
@@ -400,6 +402,7 @@
     <ClInclude Include="level2D\CaslFile.h" />
     <ClInclude Include="level2D\Level2D.h" />
     <ClInclude Include="level2D\MapChip2D.h" />
+    <ClInclude Include="Level3DRender.h" />
     <ClInclude Include="level3D\Level.h" />
     <ClInclude Include="level3D\MapChip.h" />
     <ClInclude Include="level3D\TklFile.h" />
@@ -420,6 +423,7 @@
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="physics\RigidBody.h" />
     <ClInclude Include="physics\SphereCollider.h" />
+    <ClInclude Include="RenderingEngine.h" />
     <ClInclude Include="SceneLight.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />
