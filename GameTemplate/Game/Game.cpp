@@ -12,7 +12,9 @@ namespace
 
 bool Game::Start()
 {
-	
+	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
+	m_backGroundRender.SetScale(BACKGROUND_SCALE);
+	m_backGroundRender.Update();
 	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
 
 
