@@ -63,7 +63,7 @@ void Player::Move() {
 	//移動速度に上記で計算したベクトルを加算する
 	m_moveSpeed += right + forward;
 	//ダッシュ
-	if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false) {
+	if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false&& m_characterController.IsOnGround()) {
 		m_moveSpeed.x *= 2.0f;
 		m_moveSpeed.z *= 2.0f;
 	}
