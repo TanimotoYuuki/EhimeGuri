@@ -50,6 +50,7 @@ public:
 	Quaternion			m_rotation;
 	
 	int m_playerState = enPlayer_idle;
+	int m_needleCount = 0;
 	Game			  * m_game;
 };
 

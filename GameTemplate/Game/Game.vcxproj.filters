@@ -16,6 +16,9 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="MovingFloor.cpp" />
+    <ClCompile Include="Needle.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -27,5 +30,8 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="MovingFloor.h" />
+    <ClInclude Include="Needle.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ public:
 private:
 	BackGround  * m_backGround;
 	Player		* m_player;
+	Game		* m_game;
 	GameCamera  * m_gameCamera;
 	MovingFloor * m_movingFloor;
 	ModelRender   m_backGroundRender;
