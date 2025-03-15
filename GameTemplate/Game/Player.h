@@ -11,6 +11,9 @@ public:
 	void Rotation();							//回転処理
 	void ManageState();							//ステート管理
 	void PlayAnimation();						//アニメーションの再生
+	void PlayerStamina();
+	void PlayerhealSutamina();
+	void Derei();
 
 	const Vector3& GetPosition() const
 	{
@@ -52,5 +55,8 @@ public:
 	int m_playerState = enPlayer_idle;
 	int m_needleCount = 0;
 	Game			  * m_game;
+	int m_playermaxsutamina = 300;
+	int m_playernowsutamina = 300;
+	bool m_sutaminaZeroFlag = false;
 };
 

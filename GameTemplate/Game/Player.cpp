@@ -27,6 +27,12 @@ Player::~Player() {
 }
 
 void Player::Update() {
+	if (m_playernowsutamina == 0) {
+		m_sutaminaZeroFlag=true;
+	}
+	if (m_sutaminaZeroFlag == true) {
+		Derei();//一定時間たってから。
+	}
 	//移動処理
 	Move();
 	//回転処理
@@ -57,24 +63,24 @@ void Player::Move() {
 	//移動速度に上記で計算したベクトルを加算する
 	m_moveSpeed += right + forward;
 	//ダッシュ
-	if (g_pad[0]->IsPress(enButtonB)) {
+	if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false) {
 		m_moveSpeed.x *= 2.0f;
 		m_moveSpeed.z *= 2.0f;
 	}
 
+	float glavity = 9.0f;
 	//地面についていたら
 	if (m_characterController.IsOnGround()) {
 		//重力をなくす
-	//	m_moveSpeed.y = 0.0f;
+		m_moveSpeed.y = 0.0f;
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
-			m_moveSpeed.y = 150.0f;
+			m_moveSpeed.y = 400.0f;
 		}
 	}
-	//地面についてなかったら
 	
-	m_moveSpeed.y -= 4.5f;
+	m_moveSpeed.y -= glavity;
 	
 	if (m_position.y <= 0.0f) {
 		m_position.y = 0.0f;
@@ -100,20 +106,24 @@ void Player::ManageState() {
 	if (m_characterController.IsOnGround() == false) {
 		m_playerState = enPlayer_jump;
 		//ここでManageState関数の処理を終わらせる
+		PlayerhealSutamina();
 		return;
 	}
 	//xかzの移動速度があったら(スティックの入力があったら)
 	if (fabsf(m_moveSpeed.x) >= 0.001f|| fabsf(m_moveSpeed.z) >= 0.001f){
-		if (g_pad[0]->IsPress(enButtonB)) {
+		if (g_pad[0]->IsPress(enButtonB)&&m_playernowsutamina>0&&m_sutaminaZeroFlag==false) {
 			m_playerState = enPlayer_run;
+			PlayerStamina();
 		}
 		else {
 			m_playerState = enPlayer_walk;
+			PlayerhealSutamina();
 		}
 	}
 	//xとzの移動速度がなかったら(スティックの入力がなかったら)
 	else {
 		m_playerState = enPlayer_idle;
+		PlayerhealSutamina();
 	}
 }
 void Player::PlayAnimation() {
@@ -129,7 +139,26 @@ void Player::PlayAnimation() {
 		break;
 	case enPlayer_run:
 		m_modelRender.PlayAnimation(enAnimationClip_run);
+		
 		break;
+	}
+}
+void Player::PlayerStamina()
+{
+	m_playernowsutamina -=1 /*g_gameTime->GetFrameDeltaTime()*/;
+	if (m_playernowsutamina < 0) {
+		m_playernowsutamina = 0;
+	}
+}
+void Player::PlayerhealSutamina() {
+	m_playernowsutamina += 1;
+	if (m_playernowsutamina > 300) {
+		m_playernowsutamina = 300;
+	}
+}
+void Player::Derei() {
+	if (m_playermaxsutamina / 2.0f<m_playernowsutamina) {
+		m_sutaminaZeroFlag = false;
 	}
 }
 void Player::Render(RenderContext& rc) {

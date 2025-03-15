@@ -21,6 +21,16 @@ private:
 	ModelRender   m_backGroundRender;
 	ModelRender	  m_modelRender;
 	Vector3		  m_position;
-	PhysicsStaticObject	m_physicsStaticObject;
+	FontRender m_fontRender;
+
+	enum Sutaminastate {
+		SutaminaMax,
+		Sutamina0
+	};
+
+	Sutaminastate m_PlayerSutaminaSutate = SutaminaMax;
+	SpriteRender SutaminaMaxrender;
+	SpriteRender Sutamina0render;
+	Vector3 m_scale = Vector3::One;
 };
 
