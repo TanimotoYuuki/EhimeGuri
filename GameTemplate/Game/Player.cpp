@@ -65,7 +65,7 @@ void Player::Move() {
 	//地面についていたら
 	if (m_characterController.IsOnGround()) {
 		//重力をなくす
-		m_moveSpeed.y = 0.0f;
+	//	m_moveSpeed.y = 0.0f;
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
@@ -73,9 +73,9 @@ void Player::Move() {
 		}
 	}
 	//地面についてなかったら
-	else {
-		m_moveSpeed.y -= 4.5f;
-	}
+	
+	m_moveSpeed.y -= 4.5f;
+	
 	if (m_position.y <= 0.0f) {
 		m_position.y = 0.0f;
 	}

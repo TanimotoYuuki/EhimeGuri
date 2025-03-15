@@ -21,5 +21,6 @@ private:
 	ModelRender   m_backGroundRender;
 	ModelRender	  m_modelRender;
 	Vector3		  m_position;
+	PhysicsStaticObject	m_physicsStaticObject;
 };
 

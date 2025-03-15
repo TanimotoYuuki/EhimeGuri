@@ -13,7 +13,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="MovingFloor.cpp" />
     <ClCompile Include="Needle.cpp" />
@@ -27,7 +26,6 @@
     </ClInclude>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="BackGround.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="MovingFloor.h" />
     <ClInclude Include="Needle.h" />

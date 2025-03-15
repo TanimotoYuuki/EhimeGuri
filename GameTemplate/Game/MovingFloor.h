@@ -11,9 +11,10 @@ public:
 	MovingFloor();
 	~MovingFloor();
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	bool Start() override;
+	void Update()override;
+	void Render(RenderContext& rc)override;
+
 	/// <summary>
 	/// À•W‚ğİ’èB
 	/// </summary>
@@ -27,9 +28,6 @@ public:
 		return m_position;
 	}
 
-
-	Vector3										m_position;
-
 private:
 	/// <summary>
 	/// ˆÚ“®ˆ—B
@@ -41,8 +39,10 @@ private:
 
 	Vector3										m_firstPosition;
 	ModelRender									m_modelRender;
+	Vector3										m_position;
 	PhysicsStaticObject							m_physicsStaticObject;				
 	
+
 	enum enMovingFloorState
 	{
 		enMovingFloorState_MovingRight,

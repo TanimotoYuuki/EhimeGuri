@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "BackGround.h"
 #include "Player.h"
 #include "MovingFloor.h"
 #include "Game.h"
@@ -7,18 +6,23 @@
 
 namespace
 {
-	Vector3 BACKGROUND_SCALE = Vector3(0.7f, 1.0f, 0.7f);
+	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
+
 
 bool Game::Start()
 {
-	m_player     =  NewGO<Player>(1, "player");
-	m_backGround =  NewGO<BackGround>(0, "background");
-	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
+	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
+	m_backGroundRender.SetScale(BACKGROUND_SCALE);
+	m_backGroundRender.Update();
+	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
 
+
+	m_player     =  NewGO<Player>(1, "player");
+	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor->m_position = {0.0f, 0.0f, 100.0f};
-	m_modelRender.SetPosition(m_position);
+	m_movingFloor->SetPosition(Vector3(0.0f, 10.0f, 0.0f));
+
 
 	m_modelRender.Update();
 	return true;
@@ -26,7 +30,7 @@ bool Game::Start()
 
 void Game::Update()
 {
-
+	m_backGroundRender.Update();
 }
 
 void Game::Render(RenderContext& rc)
