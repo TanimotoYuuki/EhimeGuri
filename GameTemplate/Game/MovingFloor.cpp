@@ -27,7 +27,7 @@ bool MovingFloor::Start()
 	//動かしたいオブジェクトのファイルパス
 	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm");
 	m_modelRender.SetScale(SCALE);
-	m_modelRender.SetPosition(m_position);
+//	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();
 	//当たり判定
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
@@ -67,29 +67,28 @@ void MovingFloor::Update()
 
 void MovingFloor::Move()
 {
-	return;
+
+
 	Vector3 moveSpeed = Vector3::Zero;
 
 	if (m_movingFloorState == enMovingFloorState_MovingRight)
 	{
 		moveSpeed.x = -SPEED;
 	}
-
 	else if (m_movingFloorState == enMovingFloorState_MovingLeft)
 	{
 		moveSpeed.x = SPEED;
 	}
-	
+
 	m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
 
 	if (m_movingFloorState == enMovingFloorState_MovingRight)
 	{
-		if (m_firstPosition.x -LIMITED >= m_position.x)
+		if (m_firstPosition.x - LIMITED >= m_position.x)
 		{
-			m_movingFloorState == enMovingFloorState_MovingRight;
+			m_movingFloorState = enMovingFloorState_MovingLeft;
 		}
 	}
-
 	else if (m_movingFloorState == enMovingFloorState_MovingLeft)
 	{
 		if (m_firstPosition.x + LIMITED <= m_position.x)
@@ -98,12 +97,11 @@ void MovingFloor::Move()
 		}
 	}
 
+
 	m_modelRender.SetPosition(m_position);
 
-	/// <summary>
-	/// コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
-	/// 衝突したら。(キャラクターが動く床の上に乗ったら)。
-	/// </summary>
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが動く床の上に乗ったら)。
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
 		//動く床の移動速度をキャラクターの移動速度に加算。

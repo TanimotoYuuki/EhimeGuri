@@ -22,7 +22,7 @@ private:
 	ModelRender	  m_modelRender;
 	Vector3		  m_position;
 	FontRender m_fontRender;
-
+	PhysicsStaticObject	m_physicsStaticObject;
 	enum Sutaminastate {
 		SutaminaMax,
 		Sutamina0
