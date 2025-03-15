@@ -81,6 +81,15 @@ namespace nsK2EngineLow
 
 	void ModelRender::Draw(RenderContext& rc)
 	{
-		m_model.Draw(rc,1,m_alpha);
+		//m_model.Draw(rc, 1, m_alpha);
+		g_renderingEngine->AddRenderObject(this);
+	}
+
+	void ModelRender::OnRenderModel(RenderContext& rc)
+	{
+		if (m_model.IsInited())
+		{
+			m_model.Draw(rc, 1, m_alpha);
+		}
 	}
 }

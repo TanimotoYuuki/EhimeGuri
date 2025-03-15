@@ -4,7 +4,7 @@ namespace nsK2EngineLow
 	/// <summary>
 	/// フォントレンダー
 	/// </summary>
-	class FontRender
+	class FontRender : public IRenderer
 	{
 	public:
 		/// <summary>
@@ -131,6 +131,17 @@ namespace nsK2EngineLow
 			m_font.SetShadowParam(isDrawShadow, shadowOffset, shadowColor);
 		}
 	private:
+		/// <summary>
+		///	2Dの描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void OnRender2D(RenderContext& rc) override
+		{
+			m_font.Begin(rc);
+			m_font.Draw(GetText(), Vector2(m_position.x, m_position.y), m_color, m_rotation, m_scale, m_pivot);
+			m_font.End(rc);
+		}
+
 		Vector3 m_position = Vector3::Zero; //座標
 		float m_scale = 1.0f; //文字の大きさ
 		Vector4 m_color = g_vec4White; //文字の色

@@ -4,7 +4,7 @@ namespace nsK2EngineLow
 	/// <summary>
 	/// モデルレンダー
 	/// </summary>
-	class ModelRender
+	class ModelRender : public IRenderer
 	{
 	public:
 
@@ -185,6 +185,12 @@ namespace nsK2EngineLow
 		void InitAnimation(AnimationClip* animationClips,
 			int numAnimationClips,
 			EnModelUpAxis enModelUpAxis);
+
+		/// <summary>
+		/// モデルの描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void OnRenderModel(RenderContext& rc) override;
 
 		AnimationClip* m_animationClips = nullptr; //アニメーションクリップ
 		int m_numAnimationClips = 0; //アニメーションの数
