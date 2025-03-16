@@ -26,7 +26,7 @@ namespace nsK2EngineLow
 	/// <summary>
 	/// スプライトレンダー
 	/// </summary>
-	class SpriteRender
+	class SpriteRender : public IRenderer
 	{
 	public:
 		/// <summary>
@@ -230,6 +230,15 @@ namespace nsK2EngineLow
 			{
 				m_spriteRenderConstantBuffer.drawingRate = 1.0f;
 			}
+		}
+
+		/// <summary>
+		///	2Dの描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void OnRender2D(RenderContext& rc) override
+		{
+			m_sprite.Draw(rc);
 		}
 
 		Sprite m_sprite; //スプライト
