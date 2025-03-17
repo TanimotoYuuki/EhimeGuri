@@ -51,6 +51,8 @@ public:
 	CharacterController m_characterController;
 	Vector3				m_moveSpeed = Vector3::Zero;
 	Quaternion			m_rotation;
+	Vector3             m_initPosition;
+	Quaternion          m_initRotation;
 	
 	int m_playerState = enPlayer_idle;
 	int m_needleCount = 0;
