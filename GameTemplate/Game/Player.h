@@ -1,5 +1,6 @@
 #pragma once
 class Game;
+class GameOver;
 class Player:public IGameObject
 {
 public:
@@ -54,6 +55,8 @@ public:
 	Vector3             m_initPosition;
 	Quaternion          m_initRotation;
 	
+	int  NeedleCount = 0;
+
 	int m_playerState = enPlayer_idle;
 	int m_needleCount = 0;
 	Game			  * m_game;
