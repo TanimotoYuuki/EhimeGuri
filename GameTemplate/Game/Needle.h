@@ -1,4 +1,5 @@
 #pragma once
+#include "GameOver.h"
 
 class Player;
 class Needle : public IGameObject

@@ -1,14 +1,17 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "MovingFloor.h"
+#include "Needle.h"
 #include "Game.h"
+#include "GameOver.h"
 #include "GameCamera.h"
+
 
 namespace
 {
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
+	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
-
 
 bool Game::Start()
 {
@@ -31,8 +34,10 @@ bool Game::Start()
 	Sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	Sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 
-
-
+	m_needle = NewGO<Needle>(0, "needle");
+	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
+	m_modelRender.SetPosition(m_position);
+	m_needle->firstposition = m_needle->m_needlePosition;
 
 	m_modelRender.Update();
 	return true;
@@ -52,7 +57,20 @@ void Game::Update()
 	////フォントの色を設定。
 	//m_fontRender.SetColor(g_vec4Yellow);
 	
+	//テスト用
+		//m_fontRender.SetText(L"カウントの上昇");
+		//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
+		//m_fontRender.SetScale(1.2f);
+		//////フォントの色を設定。
+		//m_fontRender.SetColor(g_vec4Yellow);
 
+	if (m_player->NeedleCount == 1)
+	{
+		
+		NewGO<GameOver>(0);
+		DeleteGO(this);
+	}
+	
 
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;

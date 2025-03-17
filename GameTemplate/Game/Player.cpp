@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
-#include"Game.h"
+#include "Game.h"
+#include "GameOver.h"
+
 Player::Player() {
 	m_animationClip[enAnimationClip_idle].Load("Assets/animData/playeridle.tka");
 	m_animationClip[enAnimationClip_idle].SetLoopFlag(true);
