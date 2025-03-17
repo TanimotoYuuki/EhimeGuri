@@ -15,8 +15,10 @@ Player::Player() {
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	m_position = { 133.0f,94.0f,0.0f };
+	m_initPosition = { 133.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 75.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
+	m_initRotation.SetRotationDegY(90.0f);
 
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
@@ -43,6 +45,7 @@ void Player::Update() {
 	PlayAnimation();
 	//描画処理
 	m_modelRender.Update();
+	
 }
 void Player::Move() {
 	m_moveSpeed.x = 0.0f;
@@ -82,9 +85,19 @@ void Player::Move() {
 	
 	m_moveSpeed.y -= glavity;
 	
-	if (m_position.y <= 0.0f) {
+	/*if (m_position.y <= 0.0f) {
 		m_position.y = 0.0f;
+	}*/
+
+	if (m_position.y <= -500.0f) {
+		m_position = m_initPosition;
+		m_rotation = m_initRotation;
+		m_modelRender.SetPosition(m_position);
+		m_modelRender.SetRotation(m_rotation);
+		m_characterController.SetPosition( m_position);
 	}
+
+
 
 	//キャラクターコントローラーを使って座標を移動させる
 	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
