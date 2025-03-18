@@ -12,7 +12,10 @@ namespace
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
-
+//Game::~Game(){
+//	DeleteGO(m_player);
+//	DeleteGO(m_needle);
+//}
 bool Game::Start()
 {
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
