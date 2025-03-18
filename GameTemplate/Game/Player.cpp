@@ -64,13 +64,13 @@ void Player::Move() {
 	right.y = 0.0f;
 	//左スティックの入力量と120.0fを乗算
 	right *= stickL.x * 480.0f;
-	forward *= stickL.y * 480.0f;
+	forward *= stickL.y * 0.0f;
 	//移動速度に上記で計算したベクトルを加算する
 	m_moveSpeed += right + forward;
 	//ダッシュ
 	if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false&& m_characterController.IsOnGround()) {
 		m_moveSpeed.x *= 2.0f;
-		m_moveSpeed.z *= 2.0f;
+		m_moveSpeed.z *= 0.0f;
 	}
 
 	float glavity = 9.0f;
@@ -148,6 +148,7 @@ void Player::PlayAnimation() {
 		break;
 	case enPlayer_walk:
 		m_modelRender.PlayAnimation(enAnimationClip_walk);
+		m_moveSpeed.z *= 0.0f;
 		break;
 	case enPlayer_jump:
 		m_modelRender.PlayAnimation(enAnimationClip_jump);
