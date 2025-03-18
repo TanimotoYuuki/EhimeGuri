@@ -34,8 +34,8 @@ private:
 	};
 
 	Sutaminastate m_PlayerSutaminaSutate = SutaminaMax;
-	SpriteRender SutaminaMaxrender;
-	SpriteRender Sutamina0render;
+	SpriteRender m_sutaminaMaxrender;
+	SpriteRender m_sutamina0render;
 	Vector3 m_scale = Vector3::One;
 };
 

@@ -12,10 +12,7 @@ namespace
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
-//Game::~Game(){
-//	DeleteGO(m_player);
-//	DeleteGO(m_needle);
-//}
+
 bool Game::Start()
 {
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
@@ -31,11 +28,13 @@ bool Game::Start()
 	m_movingFloor->SetPosition(Vector3{0.0f, 0.0f, 100.0f});
 	m_modelRender.SetPosition(m_position);
 
-	SutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
-	SutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
-	SutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
-	Sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
-	Sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
+	
+		m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
+		m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
+		m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
+		m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
+		m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
+	
 
 	m_needle = NewGO<Needle>(0, "needle");
 	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
@@ -80,19 +79,20 @@ void Game::Update()
 	float nokori = (float)nowSuta / (float)MaxSuta;
 	Vector3 heri = { 1.0f,1.0,1.0f };
 	heri.x *= nokori;
-	SutaminaMaxrender.SetScale(heri);
+	m_sutaminaMaxrender.SetScale(heri);
 
-	SutaminaMaxrender.Update();
-	Sutamina0render.Update();
+	m_sutaminaMaxrender.Update();
+	m_sutamina0render.Update();
 }
 
 void Game::Render(RenderContext& rc)
 {
 	m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
-	
-	Sutamina0render.Draw(rc);
-	SutaminaMaxrender.Draw(rc);
-
+	//ƒXƒ^ƒ~ƒi‚ª‚R‚O‚OˆÈ‰º‚Ì‚Æ‚«‚ÉƒQ[ƒW‚ðo‚·
+	if (m_player->m_playernowsutamina<300) {
+		m_sutamina0render.Draw(rc);
+		m_sutaminaMaxrender.Draw(rc);
+	}
 	m_fontRender.Draw(rc);
 }

@@ -3,6 +3,9 @@
 #include "Game.h"
 #include "GameOver.h"
 
+namespace {
+	const float SUTAMINA_MAX = 300.0f;
+}
 Player::Player() {
 	m_animationClip[enAnimationClip_idle].Load("Assets/animData/playeridle.tka");
 	m_animationClip[enAnimationClip_idle].SetLoopFlag(true);
@@ -168,8 +171,8 @@ void Player::PlayerStamina()
 }
 void Player::PlayerhealSutamina() {
 	m_playernowsutamina += 1;
-	if (m_playernowsutamina > 300) {
-		m_playernowsutamina = 300;
+	if (m_playernowsutamina > SUTAMINA_MAX) {
+		m_playernowsutamina = SUTAMINA_MAX;
 	}
 }
 void Player::Derei() {
