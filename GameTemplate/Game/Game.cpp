@@ -25,7 +25,7 @@ bool Game::Start()
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 
 	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor->SetPosition(Vector3{0.0f, 0.0f, 100.0f});
+	m_movingFloor->SetPosition(Vector3{7500.0f, 0.0f, 0.0f});
 	m_modelRender.SetPosition(m_position);
 
 	SutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
@@ -40,6 +40,7 @@ bool Game::Start()
 	m_needle->firstposition = m_needle->m_needlePosition;
 
 	m_modelRender.Update();
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
 
@@ -66,7 +67,6 @@ void Game::Update()
 
 	if (m_player->NeedleCount == 1)
 	{
-		
 		NewGO<GameOver>(0);
 		DeleteGO(this);
 	}
