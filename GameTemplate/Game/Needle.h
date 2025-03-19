@@ -12,8 +12,8 @@ public:
 	void Render(RenderContext& rc);
 
 	int					m_needleCount = 0;
-
-	Player				*m_player;
+	bool				m_needleFlag  = true;
+ 	Player				*m_player;
 
 	Vector3				firstposition;
 	Vector3				m_needlePosition;

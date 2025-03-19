@@ -2,6 +2,7 @@
 class Player;
 class BackGround;
 class Needle;
+class ScaffoldBlock;
 class MovingFloor;
 class GameOver;
 class GameCamera;
@@ -16,17 +17,18 @@ public:
 
 	
 private:
-	BackGround  * m_backGround;
-	Player		* m_player;
-	Game		* m_game;
-	GameOver	* m_gameOver;
-	GameCamera  * m_gameCamera;
-	Needle		* m_needle;
-	MovingFloor * m_movingFloor;
-	ModelRender   m_backGroundRender;
-	ModelRender	  m_modelRender;
-	Vector3		  m_position;
-	FontRender    m_fontRender;
+	BackGround		  * m_backGround;
+	Player			  * m_player;
+	Game			  * m_game;
+	GameOver		  * m_gameOver;
+	GameCamera		  * m_gameCamera;
+	Needle			  * m_needle;
+	ScaffoldBlock     * m_ScaffoldBlock;
+	MovingFloor		  * m_movingFloor;
+	ModelRender		    m_backGroundRender;
+	ModelRender	        m_modelRender;
+	Vector3		        m_position;
+	FontRender          m_fontRender;
 	PhysicsStaticObject	m_physicsStaticObject;
 	enum Sutaminastate {
 		SutaminaMax,
