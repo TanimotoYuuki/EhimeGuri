@@ -4,7 +4,7 @@
 
 namespace
 {
-	Vector3	NEEDLE_SCALE = Vector3(5.0f, 5.0f, 5.0f);
+	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
 
 Needle::Needle()
@@ -12,7 +12,6 @@ Needle::Needle()
 	//Needleモデルのファイルパス
 	m_modelRender.Init("Assets/modelData/Stage/Assets/針.tkm");
 	m_player = FindGO<Player>("player");
-
 }
 Needle::~Needle()
 {
@@ -28,7 +27,6 @@ void Needle::Update()
 	Vector3 diff = m_player->m_position - m_needlePosition;
 	if (diff.Length() <= 100.0f)
 	{
-		m_needleFlag = false;
 		m_player->NeedleCount += 1;
 		DeleteGO(this);
 	}
@@ -36,10 +34,6 @@ void Needle::Update()
 
 void Needle::Render(RenderContext& rc)
 {
-	if (m_needleFlag == false)
-	{
-		//Needleモデルの描画
-		m_modelRender.Draw(rc);
-	}
-	
+	//Needleモデルの描画
+	m_modelRender.Draw(rc);
 }

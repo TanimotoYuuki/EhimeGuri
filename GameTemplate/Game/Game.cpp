@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "MovingFloor.h"
 #include "Needle.h"
-#include "ScaffoldBlock.h"
 #include "Game.h"
 #include "GameOver.h"
 #include "GameCamera.h"
@@ -12,7 +11,6 @@ namespace
 {
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	
 }
 
 bool Game::Start()
@@ -31,22 +29,17 @@ bool Game::Start()
 	m_modelRender.SetPosition(m_position);
 
 	
-	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
-	m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
-	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
-	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
-	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
+		m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
+		m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
+		m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
+		m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
+		m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
 
 	m_needle = NewGO<Needle>(0, "needle");
-	m_needle->m_needlePosition = {7500.0f,0.0f,0.0f};
+	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
 	m_modelRender.SetPosition(m_position);
 	m_needle->firstposition = m_needle->m_needlePosition;
-
-	m_ScaffoldBlock = NewGO<ScaffoldBlock>(0,"scaffoldblock");
-	m_ScaffoldBlock->m_ScaffoldBlock_position = { 8000.0f, 0.0f, 0.0f };
-	m_modelRender.SetPosition(m_position);
-	m_ScaffoldBlock->firstposition = m_ScaffoldBlock->m_ScaffoldBlock_position;
 
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
