@@ -46,19 +46,26 @@ namespace nsK2EngineLow
 
 	void Bloom::InitGaussianBlur()
 	{
-		m_gaussianBlur.Init(&m_luminnceRenderTarget.GetRenderTargetTexture());
+		m_gaussianBlur[0].Init(&m_luminnceRenderTarget.GetRenderTargetTexture());
+		m_gaussianBlur[1].Init(&m_gaussianBlur[0].GetBokeTexture());
+		m_gaussianBlur[2].Init(&m_gaussianBlur[1].GetBokeTexture());
+		m_gaussianBlur[3].Init(&m_gaussianBlur[2].GetBokeTexture());
 	}
 
 	void Bloom::SetFinalSprite(RenderTarget& rt)
 	{
 		SpriteInitData finalSpriteInitData;
 		//テクスチャはガウシアンブラー
-		finalSpriteInitData.m_textures[0] = &m_gaussianBlur.GetBokeTexture();
+		finalSpriteInitData.m_textures[0] = &m_gaussianBlur[0].GetBokeTexture();
+		finalSpriteInitData.m_textures[1] = &m_gaussianBlur[1].GetBokeTexture();
+		finalSpriteInitData.m_textures[2] = &m_gaussianBlur[2].GetBokeTexture();
+		finalSpriteInitData.m_textures[3] = &m_gaussianBlur[3].GetBokeTexture();
 		//解像度はメインレンダリングターゲットの幅と高さ
 		finalSpriteInitData.m_width = rt.GetWidth();
 		finalSpriteInitData.m_height = rt.GetHeight();
 		//2D用のシェーダーを使用する
-		finalSpriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+		finalSpriteInitData.m_fxFilePath = "Assets/shader/postEffect.fx";
+		finalSpriteInitData.m_psEntryPoinFunc = "PSBloomFinal";
 		//加算描画
 		finalSpriteInitData.m_alphaBlendMode = AlphaBlendMode_Add;
 		//レンダリングターゲットのフォーマット
@@ -82,7 +89,10 @@ namespace nsK2EngineLow
 		//レンダリングターゲットへの書き込み終了待ち
 		rc.WaitUntilFinishDrawingToRenderTarget(m_luminnceRenderTarget);
 
-		m_gaussianBlur.ExecuteOnGPU(rc, 20);
+		m_gaussianBlur[0].ExecuteOnGPU(rc, 20);
+		m_gaussianBlur[1].ExecuteOnGPU(rc, 20);
+		m_gaussianBlur[2].ExecuteOnGPU(rc, 20);
+		m_gaussianBlur[3].ExecuteOnGPU(rc, 20);
 
 		//ターゲットをメインに戻す
 		rc.WaitUntilToPossibleSetRenderTarget(rt);

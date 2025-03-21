@@ -42,7 +42,7 @@ namespace nsK2EngineLow
 
 		RenderTarget m_luminnceRenderTarget; //輝度抽出用レンダリングターゲット
 		Sprite m_luminanceSprite; //輝度抽出用スプライト
-		GaussianBlur m_gaussianBlur; //ガウシアンブラー
+		GaussianBlur m_gaussianBlur[4]; //ガウシアンブラー
 		Sprite m_finalSprite; //最終合成用スプライト
 	};
 }
