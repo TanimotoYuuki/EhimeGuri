@@ -2,6 +2,7 @@
 
 #include "SceneLight.h"
 #include "IRenderer.h"
+#include "Bloom.h"
 
 namespace nsK2EngineLow
 {
@@ -36,7 +37,7 @@ namespace nsK2EngineLow
 	private:
 
 		/// <summary>
-		/// メインレンダリングターゲットを初期化
+		/// メインレンダリングターゲットの初期化
 		/// </summary>
 		void InitMainRenderTarget();
 
@@ -46,7 +47,7 @@ namespace nsK2EngineLow
 		void Init2DSprite();
 
 		/// <summary>
-		/// モノクロ用のレンダリングターゲットを初期化
+		/// モノクロ用のレンダリングターゲットの初期化
 		/// </summary>
 		void InitMonochromeRenderTarget();
 
@@ -80,15 +81,16 @@ namespace nsK2EngineLow
 		/// <param name="rc"></param>
 		void CopyMainRenderTargetToFrameBuffer(RenderContext& rc);
 
-		SceneLight m_sceneLight;
-		RenderTarget m_mainRenderTarget;
-		RenderTarget m_2DRenderTarget;
-		RenderTarget m_monochromeRenderTarget;
-		Sprite m_2DSprite;
-		Sprite m_mainSprite;
-		Sprite m_monochromeSprite;
-		Sprite m_copyToFrameBufferSprite;
-		std::vector< IRenderer* > m_renderObjects;
+		SceneLight m_sceneLight; //シーンライト
+		RenderTarget m_mainRenderTarget; //メインレンダリングターゲット
+		RenderTarget m_2DRenderTarget; //2Dレンダリングターゲット
+		RenderTarget m_monochromeRenderTarget; //モノクロ用レンダリングターゲット
+		Sprite m_2DSprite; //2D(フォントとスプライト)用スクリプト
+		Sprite m_mainSprite; //メイン(モデル)用スプライト
+		Sprite m_monochromeSprite; //モノクロ用スプライト
+		Sprite m_copyToFrameBufferSprite; //メインレンダリングターゲットをフレームバッファにコピーするためのレンダリングターゲット
+		Bloom m_bloom; //ブルーム
+		std::vector< IRenderer* > m_renderObjects; //レンダリングオブジェクトの格納
 	};
 }
 

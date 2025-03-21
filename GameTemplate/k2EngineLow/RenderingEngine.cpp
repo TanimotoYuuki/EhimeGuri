@@ -13,6 +13,8 @@ namespace nsK2EngineLow
 
 		InitCopyMainRenderTargetToFrameBuffer();
 
+		m_bloom.Init(m_mainRenderTarget);
+
 		m_sceneLight.Init();
 	}
 
@@ -124,6 +126,8 @@ namespace nsK2EngineLow
 	void RenderingEngine::Execute(RenderContext& rc)
 	{
 		ModelDraw(rc);
+
+		m_bloom.Execute(rc, m_mainRenderTarget);
 
 		SpriteFontDraw(rc);
 
