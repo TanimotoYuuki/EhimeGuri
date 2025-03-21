@@ -23,17 +23,18 @@ bool Game::Start()
 
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
+	m_gameCamera->SetTarget(m_player);
 
 	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
 	m_movingFloor->SetPosition(Vector3{7500.0f, 0.0f, 0.0f});
 	m_modelRender.SetPosition(m_position);
 
 	
-		m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
-		m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
-		m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
-		m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
-		m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
+	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
+	m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
+	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
+	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
+	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
 
 	m_needle = NewGO<Needle>(0, "needle");
@@ -61,19 +62,24 @@ void Game::Update()
 	//m_fontRender.SetColor(g_vec4Yellow);
 	
 	//テスト用
-		//m_fontRender.SetText(L"カウントの上昇");
-		//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
-		//m_fontRender.SetScale(1.2f);
-		//////フォントの色を設定。
-		//m_fontRender.SetColor(g_vec4Yellow);
+	//m_fontRender.SetText(L"カウントの上昇");
+	//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
+	//m_fontRender.SetScale(1.2f);
+	//////フォントの色を設定。
+	//m_fontRender.SetColor(g_vec4Yellow);
+
+	if (m_player == nullptr) {
+		return;
+	}
 
 	if (m_player->NeedleCount == 1)
 	{
 		NewGO<GameOver>(0);
 		DeleteGO(this);
+		DeleteGO(m_player);
+		DeleteGO(m_movingFloor);
 	}
 	
-
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;
@@ -81,6 +87,25 @@ void Game::Update()
 	heri.x *= nokori;
 	m_sutaminaMaxrender.SetScale(heri);
 
+	wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"残り%.1f秒", float(m_timer));
+	m_timerRender.SetText(wcsbuf);
+	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
+	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
+	m_timerRender.SetScale(1.0f);
+
+	m_timer -= g_gameTime->GetFrameDeltaTime();
+
+	if (m_timer <= 0.0f) {
+		NewGO<GameOver>(0, "gameover");
+		DeleteGO(this);
+		DeleteGO(m_player);
+		DeleteGO(m_movingFloor);
+		DeleteGO(m_needle);
+		m_player = nullptr;
+		m_movingFloor = nullptr;
+		m_gameCamera->SetTarget(nullptr);
+	}
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();
 }
@@ -95,4 +120,5 @@ void Game::Render(RenderContext& rc)
 		m_sutaminaMaxrender.Draw(rc);
 	}
 	m_fontRender.Draw(rc);
+	m_timerRender.Draw(rc);
 }
