@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "MovingFloor.h"
+#include "ScaffoldBlock.h"
 #include "Needle.h"
 #include "Game.h"
 #include "GameOver.h"
@@ -39,8 +40,12 @@ bool Game::Start()
 
 	m_needle = NewGO<Needle>(0, "needle");
 	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
-	m_modelRender.SetPosition(m_position);
 	m_needle->firstposition = m_needle->m_needlePosition;
+	m_modelRender.SetPosition(m_position);
+
+	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
+	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
+	m_modelRender.SetPosition(m_position);
 
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -73,9 +78,9 @@ void Game::Update()
 	}
 
 	if (m_player->NeedleCount == 1)
-	{
+	{	
 		NewGO<GameOver>(0);
-		DeleteGO(this);
+		DeleteGO(m_gameOver);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
 	}
