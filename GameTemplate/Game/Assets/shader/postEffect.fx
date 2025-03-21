@@ -38,3 +38,13 @@ float4 PSMain(PSInput In) : SV_Target0
     
     return color;
 }
+
+float4 PSLuminance(PSInput In) : SV_Target0
+{
+    float4 color = sceneTexture.Sample(Sampler, In.uv);
+    
+    float t = dot(color.xyz, float3(0.2125f, 0.7154f, 0.0721f));
+    
+    clip(t - 1.0f);
+    return color;
+}
