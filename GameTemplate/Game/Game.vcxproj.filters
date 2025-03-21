@@ -18,6 +18,7 @@
     <ClCompile Include="Needle.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="ScaffoldBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -31,5 +32,6 @@
     <ClInclude Include="Needle.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="ScaffoldBlock.h" />
   </ItemGroup>
 </Project>
