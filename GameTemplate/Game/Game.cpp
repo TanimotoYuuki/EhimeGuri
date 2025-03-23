@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "FallingBlock.h"
 #include "Player.h"
 #include "MovingFloor.h"
 #include "ScaffoldBlock.h"
@@ -45,7 +46,14 @@ bool Game::Start()
 
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
 	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
+	m_scaffoldBlock->firstposition = m_scaffoldBlock->m_position;
 	m_modelRender.SetPosition(m_position);
+	
+	m_fallingBlock = NewGO<FallingBlock>(0);
+	m_fallingBlock->f_position = { 1000.0f, 150.0f, 0.0f };
+	m_fallingBlock->firstposition = m_fallingBlock->f_position;
+	m_modelRender.SetPosition(m_position);
+	
 
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -106,6 +114,7 @@ void Game::Update()
 		DeleteGO(this);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
+		DeleteGO(m_fallingBlock);
 		DeleteGO(m_needle);
 		m_player = nullptr;
 		m_movingFloor = nullptr;

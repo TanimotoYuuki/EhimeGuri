@@ -10,7 +10,8 @@ namespace
 ScaffoldBlock::ScaffoldBlock()
 {
 	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm");
-	
+	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
+	m_modelRender.Update();
 }
 
 ScaffoldBlock::~ScaffoldBlock()
