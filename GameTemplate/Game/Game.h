@@ -1,6 +1,7 @@
 #pragma once
 class Player;
 class BackGround;
+class FallingBlock;
 class Needle;
 class MovingFloor;
 class ScaffoldBlock;
@@ -14,10 +15,11 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-
 	
+
 private:
 	BackGround		  * m_backGround;
+	FallingBlock	  * m_fallingBlock;
 	Player			  * m_player;
 	Game		      * m_game;
 	GameOver          * m_gameOver;
@@ -36,11 +38,11 @@ private:
 		Sutamina0
 	};
 
-	Sutaminastate m_PlayerSutaminaSutate = SutaminaMax;
-	SpriteRender m_sutaminaMaxrender;
-	SpriteRender m_sutamina0render;
-	FontRender m_timerRender;
-	Vector3 m_scale = Vector3::One;
-	float m_timer = 180.0f;
+	Sutaminastate       m_PlayerSutaminaSutate = SutaminaMax;
+	SpriteRender        m_sutaminaMaxrender;
+	SpriteRender        m_sutamina0render;
+	FontRender          m_timerRender;
+	Vector3             m_scale = Vector3::One;
+	float               m_timer = 180.0f;
 };
 
