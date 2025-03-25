@@ -15,10 +15,14 @@ namespace nsK2EngineLow
 		/// <param name="animationClips">アニメーションクリップ</param>
 		/// <param name="numAnimationClips">アニメーションクリップの数</param>
 		/// <param name="enModelUpAxis">モデルの上方向</param>
+		/// <param name="isShadowCaster">trueなら影を描画する</param>
+		/// <param name="isShadowReceiver">trueなら影を受ける</param>
 		void Init(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			bool isShadowCaster = false,
+			bool isShadowReceiver = false,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_None);
 
 		/// <summary>
@@ -28,10 +32,14 @@ namespace nsK2EngineLow
 		/// <param name="animationClips">アニメーションクリップ</param>
 		/// <param name="numAnimationClips">アニメーションクリップの数</param>
 		/// <param name="enModelUpAxis">モデルの上方向</param>
+		/// <param name="isShadowCaster">trueなら影を描画する</param>
+		/// <param name="isShadowReceiver">trueなら影を受ける</param>
 		void IniTranslucent(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			bool isShadowCaster = false,
+			bool isShadowReceiver = false,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
 		/// <summary>
@@ -168,7 +176,14 @@ namespace nsK2EngineLow
 		/// </summary>
 		/// <param name="filePath">ファイルパス</param>
 		/// <param name="enModelUpAxis">モデルの上方向</param>
-		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis, AlphaBlendMode alphaBlendMode);
+		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis, bool isShadowReceiver ,AlphaBlendMode alphaBlendMode);
+
+		/// <summary>
+		/// モデル(影描画)の初期化
+		/// </summary>
+		/// <param name="filePath">ファイルパス</param>
+		/// <param name="enModelUpAxis">モデルの上方向</param>
+		void InitShadowCasterDrawing(const char* filePath, EnModelUpAxis enModelUpAxis, AlphaBlendMode alphaBlendMode);
 
 		/// <summary>
 		/// スケルトンの初期化
@@ -187,6 +202,13 @@ namespace nsK2EngineLow
 			EnModelUpAxis enModelUpAxis);
 
 		/// <summary>
+		/// シャドウマップの描画
+		/// </summary>
+		/// <param name="rc"></param>
+		/// <param name="ca"></param>
+		void OnRenderShadowMap(RenderContext& rc, Camera& ca) override;
+
+		/// <summary>
 		/// モデルの描画
 		/// </summary>
 		/// <param name="rc"></param>
@@ -200,6 +222,7 @@ namespace nsK2EngineLow
 		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ; //モデルの上方向
 		Animation m_animation; //アニメーション	
 		Model m_model; //モデル
+		Model m_shadowModel; //影描画用モデル
 		bool m_isUpdateAnimation = true; //アニメーションを更新する？
 		Skeleton m_skeleton; //骨
 		float m_animationSpeed = 1.0f; //アニメーション再生速度

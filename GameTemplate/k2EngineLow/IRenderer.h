@@ -15,6 +15,16 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// シャドウマップの描画
+		/// </summary>
+		/// <param name="rc"></param>
+		/// <param name="ca"></param>
+		virtual void OnRenderShadowMap(RenderContext& rc, Camera& ca)
+		{
+
+		}
+
+		/// <summary>
 		/// 2Dの描画
 		/// </summary>
 		/// <param name="rc"></param>

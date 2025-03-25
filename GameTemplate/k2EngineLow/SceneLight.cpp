@@ -13,9 +13,9 @@ namespace nsK2EngineLow
 		m_light.directionLight.direction.Normalize();
 
 		//ディレクションライトのカラー
-		m_light.directionLight.color.x = 1.2f;
-		m_light.directionLight.color.y = 1.2f;
-		m_light.directionLight.color.z = 1.2f;
+		m_light.directionLight.color.x = 1.0f;
+		m_light.directionLight.color.y = 1.0f;
+		m_light.directionLight.color.z = 1.0f;
 
 		//環境光
 		m_light.ambientLight.x = 0.3f;
@@ -29,5 +29,26 @@ namespace nsK2EngineLow
 		m_light.hemLight.skyColor = Vector3(0.05f, 0.1f, 0.2f);
 		//半球ライトの地面の法線
 		m_light.hemLight.groundNormal = Vector3(0.0f, 1.0f, 0.0f);
+
+		//カメラの位置を設定
+		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(0, 600, 0));
+		//カメラの注視点を設定
+		m_lightCamera.SetTarget(g_camera3D->GetTarget());
+		//上方向を設定
+		m_lightCamera.SetUp(1, 0, 0);
+		//ライトビュープロジェクション行列の計算
+		m_lightCamera.Update();
+		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
+	}
+
+	void SceneLight::LightCameraUpdate()
+	{
+		//カメラの位置を設定
+		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(0, 600, -100));
+		//カメラの注視点を設定
+		m_lightCamera.SetTarget(g_camera3D->GetTarget() + Vector3(120, -100, 40));
+		//ライトビュープロジェクション行列の計算
+		m_lightCamera.Update();
+		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
 	}
 }

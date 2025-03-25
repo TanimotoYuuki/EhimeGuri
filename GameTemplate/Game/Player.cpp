@@ -16,7 +16,7 @@ Player::Player() {
 	m_animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
 	m_animationClip[enAnimationClip_jump].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
-		enAnimationClip_num, enModelUpAxisZ);
+		enAnimationClip_num, enModelUpAxisZ, true);
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	m_position = { 133.0f,94.0f,0.0f };
