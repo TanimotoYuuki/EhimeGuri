@@ -51,6 +51,8 @@ namespace nsK2EngineLow
 		PointLight pointLight[10]; //ポイントライト
 		SpotLight spotLight[10]; //スポットライト
 		HemLight hemLight; //半球ライト
+		float pad2;
+		Matrix mLVP; //ライトビュープロジェクション行列
 	};
 
 	class SceneLight : public Noncopyable
@@ -62,11 +64,16 @@ namespace nsK2EngineLow
 		void Init();
 
 		/// <summary>
+		/// ライトカメラ更新処理
+		/// </summary>
+		void LightCameraUpdate();
+
+		/// <summary>
 		/// ディレクションライトを設定する
 		/// </summary>
 		/// <param name="direction">ライトの方向</param>
 		/// <param name="color">ライトの色</param>
-		void SetDirectionLight(const Vector3 direction, const Vector3 color)
+		void SetDirectionLight(Vector3 direction, Vector3 color)
 		{
 			m_light.directionLight.direction = direction;
 			m_light.directionLight.direction.Normalize();
@@ -77,7 +84,7 @@ namespace nsK2EngineLow
 		/// 環境光を設定する
 		/// </summary>
 		/// <param name="ambient">環境光</param>
-		void SetAmbient(const Vector3 ambient)
+		void SetAmbient(Vector3 ambient)
 		{
 			m_light.ambientLight = ambient;
 		}
@@ -136,8 +143,18 @@ namespace nsK2EngineLow
 		{
 			return m_light;
 		}
+
+		/// <summary>
+		/// ライトカメラを取得 
+		/// </summary>
+		Camera& GetLightCamera()
+		{
+			return m_lightCamera;
+		}
+
 	private:
 		Light m_light;
+		Camera m_lightCamera;
 	};
 }
 

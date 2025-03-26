@@ -19,7 +19,7 @@ namespace
 
 bool Game::Start()
 {
-	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
+	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
 	//“–‚½‚è”»’è‚ğì¬

@@ -14,6 +14,7 @@ namespace nsK2EngineLow
 		/// 描画処理を実行
 		/// </summary>
 		/// <param name="rc"></param>
+		/// <param name="rt"></param>
 		void Execute(RenderContext& rc, RenderTarget& rt);
 
 
@@ -28,6 +29,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 輝度抽出用スプライトの設定
 		/// </summary>
+		/// <param name="rt"></param>
 		void SetLuminanceSprite(RenderTarget& rt);
 
 		/// <summary>
@@ -38,6 +40,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 最終合成用スプライトの設定
 		/// </summary>
+		/// <param name="rt"></param>
 		void SetFinalSprite(RenderTarget& rt);
 
 		RenderTarget m_luminnceRenderTarget; //輝度抽出用レンダリングターゲット

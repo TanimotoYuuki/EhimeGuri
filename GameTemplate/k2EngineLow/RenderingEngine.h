@@ -3,6 +3,7 @@
 #include "SceneLight.h"
 #include "IRenderer.h"
 #include "Bloom.h"
+#include "Shadow.h"
 
 namespace nsK2EngineLow
 {
@@ -26,12 +27,29 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// シャドウマップを取得
+		/// </summary>
+		/// <returns></returns>
+		RenderTarget& GetShadow()
+		{
+			return m_shadow.GetRenderTarget();
+		}
+
+		/// <summary>
 		/// ライトを取得
 		/// </summary>
 		/// <returns></returns>
 		Light& GetLight()
 		{
 			return m_sceneLight.GetLight();
+		}
+
+		/// <summary>
+		/// ライトカメラを取得
+		/// </summary>
+		Camera& GetLightCamera()
+		{
+			return m_sceneLight.GetLightCamera();
 		}
 
 	private:
@@ -90,6 +108,7 @@ namespace nsK2EngineLow
 		Sprite m_monochromeSprite; //モノクロ用スプライト
 		Sprite m_copyToFrameBufferSprite; //メインレンダリングターゲットをフレームバッファにコピーするためのレンダリングターゲット
 		Bloom m_bloom; //ブルーム
+		Shadow m_shadow; //シャドウマップ
 		std::vector< IRenderer* > m_renderObjects; //レンダリングオブジェクトの格納
 	};
 }
