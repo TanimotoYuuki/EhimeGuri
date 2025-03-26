@@ -1,6 +1,7 @@
 #pragma once
 class Game;
 class GameOver;
+class Enemy;
 class Player:public IGameObject
 {
 public:
@@ -60,6 +61,8 @@ public:
 	int m_playerState = enPlayer_idle;
 	int m_needleCount = 0;
 	Game			  * m_game;
+	Enemy* m_enemy;
+	GameOver* m_gameover;
 	int m_playermaxsutamina = 300;
 	int m_playernowsutamina = 300;
 	bool m_sutaminaZeroFlag = false;
