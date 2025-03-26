@@ -113,7 +113,7 @@ float3 CalcNormalMap(SPSIn psIn);
 float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);
 float3 CalcSpecularMap(SPSIn psIn);
 //float3 CalcAoMap(SPSIn psIn);
-float3 CalcShadowMap(SPSIn psIn);
+float CalcShadowMap(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -228,7 +228,7 @@ SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
 	
     albedoColor.xyz *= lig;
     
-    float3 shadow = 1.0f;
+    float shadow = 1.0f;
     if(isShadowReceiver==1)
     {
         shadow = CalcShadowMap(psIn);
@@ -476,17 +476,23 @@ float3 CalcSpecularMap(SPSIn psIn)
 //    return ambient;
 //}
 
-float3 CalcShadowMap(SPSIn psIn)
+float CalcShadowMap(SPSIn psIn)
 {
     float2 shadowMapUV = psIn.posInLVP.xy / psIn.posInLVP.w;
     shadowMapUV *= float2(0.5f, -0.5f);
     shadowMapUV += 0.5f;
     
-    float3 shadowMap = 1.0f;
+    float shadowMap = 1.0f;
+    float zInLVP = psIn.posInLVP.z / psIn.posInLVP.w;
     if(shadowMapUV.x>0.0f&&shadowMapUV.x<1.0f
         && shadowMapUV.y>0.0f&&shadowMapUV.y<1.0f)
     {
-        shadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV);
+        //shadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV);
+        float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
+        if(zInLVP>zInShadowMap)
+        {
+            shadowMap = 0.5f;
+        }
     }
     
     return shadowMap;

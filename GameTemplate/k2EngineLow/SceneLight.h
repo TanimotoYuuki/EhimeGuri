@@ -51,6 +51,7 @@ namespace nsK2EngineLow
 		PointLight pointLight[10]; //ポイントライト
 		SpotLight spotLight[10]; //スポットライト
 		HemLight hemLight; //半球ライト
+		float pad2;
 		Matrix mLVP; //ライトビュープロジェクション行列
 	};
 

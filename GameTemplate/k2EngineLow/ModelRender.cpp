@@ -70,6 +70,7 @@ namespace nsK2EngineLow
 			shadowInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
 			shadowInitData.m_skeleton = &m_skeleton;
 		}
+		shadowInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
 
 		shadowInitData.m_modelUpAxis = enModelUpAxis;
 		shadowInitData.m_alphaBlendMode = alphaBlendMode;
