@@ -44,9 +44,9 @@ namespace nsK2EngineLow
 	void SceneLight::LightCameraUpdate()
 	{
 		//カメラの位置を設定
-		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(0, 600, -100));
+		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(-300, 600, 200));
 		//カメラの注視点を設定
-		m_lightCamera.SetTarget(g_camera3D->GetTarget() + Vector3(120, -100, 40));
+		m_lightCamera.SetTarget(g_camera3D->GetTarget());
 		//ライトビュープロジェクション行列の計算
 		m_lightCamera.Update();
 		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
