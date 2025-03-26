@@ -7,12 +7,14 @@
 #include "Game.h"
 #include "GameOver.h"
 #include "GameCamera.h"
+#include "Enemy.h"
 
 
 namespace
 {
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
+	const int ENEMY_NUM = 1;
 }
 
 bool Game::Start()
@@ -26,6 +28,16 @@ bool Game::Start()
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
+
+	Vector3 enemyPosList[ENEMY_NUM] = {
+		{500.0f,94.0f,0.0f}
+	};
+
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
+		m_enemyList[i]->m_position = enemyPosList[i];
+		m_enemyList[i]->firstposition = enemyPosList[i];
+	}
 
 	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
 	m_movingFloor->SetPosition(Vector3{7500.0f, 0.0f, 0.0f});
@@ -91,6 +103,14 @@ void Game::Update()
 		DeleteGO(m_gameOver);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
+		DeleteGO(m_fallingBlock);
+		for (int i = 0; i < ENEMY_NUM; i++) {
+			DeleteGO(m_enemyList[i]);
+		}
+		m_player = nullptr;
+		m_movingFloor = nullptr;
+		m_fallingBlock = nullptr;
+		m_gameCamera->SetTarget(nullptr);
 	}
 	
 	int MaxSuta = m_player->m_playermaxsutamina;
@@ -116,8 +136,12 @@ void Game::Update()
 		DeleteGO(m_movingFloor);
 		DeleteGO(m_fallingBlock);
 		DeleteGO(m_needle);
+		for (int i = 0; i < ENEMY_NUM; i++) {
+			DeleteGO(m_enemyList[i]);
+		}
 		m_player = nullptr;
 		m_movingFloor = nullptr;
+		m_fallingBlock = nullptr;
 		m_gameCamera->SetTarget(nullptr);
 	}
 	m_sutaminaMaxrender.Update();

@@ -7,6 +7,7 @@ class MovingFloor;
 class ScaffoldBlock;
 class GameOver;
 class GameCamera;
+class Enemy;
 class Game : public IGameObject
 {
 public:
@@ -32,6 +33,7 @@ private:
 	Vector3		        m_position;
 	FontRender          m_fontRender;
 	PhysicsStaticObject m_physicsStaticObject;
+	Enemy* m_enemyList[1];
 
 	enum Sutaminastate {
 		SutaminaMax,
