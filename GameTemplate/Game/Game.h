@@ -8,6 +8,7 @@ class ScaffoldBlock;
 class GameOver;
 class GameCamera;
 class Enemy;
+class TransparentBlock;
 class Game : public IGameObject
 {
 public:
@@ -28,6 +29,7 @@ private:
 	Needle		      * m_needle;
 	ScaffoldBlock     * m_scaffoldBlock;
 	MovingFloor       * m_movingFloor;
+	TransparentBlock  * m_transparentBlock;
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
 	Vector3		        m_position;

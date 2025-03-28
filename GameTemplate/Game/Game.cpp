@@ -8,7 +8,7 @@
 #include "GameOver.h"
 #include "GameCamera.h"
 #include "Enemy.h"
-
+#include "TransparentBlock.h"
 
 namespace
 {
@@ -66,6 +66,7 @@ bool Game::Start()
 	m_fallingBlock->firstposition = m_fallingBlock->f_position;
 	m_modelRender.SetPosition(m_position);
 	
+	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
 
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
