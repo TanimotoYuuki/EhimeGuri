@@ -22,6 +22,7 @@
     <ClCompile Include="FallingBlock.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="TransparentBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="FallingBlock.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="TransparentBlock.h" />
   </ItemGroup>
 </Project>

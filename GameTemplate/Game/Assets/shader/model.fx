@@ -23,39 +23,44 @@ struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
     float3 normal		: NORMAL;		//法線
 	float2 uv 			: TEXCOORD0;	//uv座標。
-    float3 tangent : TANGENT; //接ベクトル
-    float3 biNormal : BINORMAL; //従ベクトル
+    float3 tangent      : TANGENT;      //接ベクトル
+    float3 biNormal     : BINORMAL;     //従ベクトル
     float3 worldPos		: TEXCOORD1;    //ワールド座標
     float3 normalInView : TEXCOORD2;    //カメラ空間の法線
+    float4 posInLVP     : TEXCOORD3;    //ライトビュースクリーン空間でのピクセルの座標
+};
+
+struct SPSOut{
+    float4 color : SV_Target0;
 };
 
 struct DirectionLight
 {
     float3 direction; //ライトの方向
-    float3 color; //ライトのカラー
+    float3 color;     //ライトのカラー
 };
 
 struct PointLight
 {
     float3 position; //ライトの位置
-    float3 color; //ライトのカラー
-    float range; //ライトの影響範囲
+    float3 color;    //ライトのカラー
+    float range;     //ライトの影響範囲
 };
 
 struct SpotLight
 {
-    float3 position; //ライトの位置
-    float3 color; //ライトのカラー
-    float range; //ライトの影響範囲
-    float3 direction; //ライトの放射方向
-    float angle; //ライトの放射角度
+    float3 position;    //ライトの位置
+    float3 color;       //ライトのカラー
+    float range;        //ライトの影響範囲
+    float3 direction;   //ライトの放射方向
+    float angle;        //ライトの放射角度
 };
 
 struct HemLight
 {
-    float3 groundColor; //地面色
-    float3 skyColor; //天球色
-    float3 groundNormal; //地面の法線
+    float3 groundColor;     //地面色
+    float3 skyColor;        //天球色
+    float3 groundNormal;    //地面の法線
 };
 
 ////////////////////////////////////////////////
@@ -74,12 +79,13 @@ cbuffer ModelCb : register(b0)
 //ライト用の定数バッファ
 cbuffer LightCb : register(b1)
 {
-    DirectionLight directionLight; //ディレクションライト
-    float3 eyePos; //カメラの位置
-    float3 ambientLig; //環境光
-    PointLight pointLight[10]; //ポイントライト
-    SpotLight spotLight[10]; //スポットライト
-    HemLight hemLight; //半球ライト
+    DirectionLight directionLight;  //ディレクションライト
+    float3 eyePos;                  //カメラの位置
+    float3 ambientLig;              //環境光
+    PointLight pointLight[10];      //ポイントライト
+    SpotLight spotLight[10];        //スポットライト
+    HemLight hemLight;              //半球ライト
+    float4x4 mLVP;                  //ライトビュープロジェクション行列
 };
 
 ////////////////////////////////////////////////
@@ -88,8 +94,9 @@ cbuffer LightCb : register(b1)
 Texture2D<float4> g_albedo : register(t0);				//アルベドマップ
 Texture2D<float4> g_normalMap :register(t1);            //法線マップ
 Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
-//Texture2D<float4> g_aoMap : register(t10);               //AOマップ
-StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列。
+//Texture2D<float4> g_aoMap : register(t10);            //AOマップ
+Texture2D<float4> g_shadowMap : register(t10);          //シャドウマップ
+StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列
 sampler g_sampler : register(s0);	//サンプラステート。
 
 ////////////////////////////////////////////////
@@ -106,6 +113,7 @@ float3 CalcNormalMap(SPSIn psIn);
 float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);
 float3 CalcSpecularMap(SPSIn psIn);
 //float3 CalcAoMap(SPSIn psIn);
+float CalcShadowMap(SPSIn psIn);
 
 /// <summary>
 //スキン行列を計算する。
@@ -140,6 +148,7 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 	}
 	psIn.pos = mul(m, vsIn.pos);
     psIn.worldPos = psIn.pos;
+    float4 worldPos = psIn.pos;
 	psIn.pos = mul(mView, psIn.pos);
 	psIn.pos = mul(mProj, psIn.pos);
 
@@ -149,6 +158,8 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 	psIn.uv = vsIn.uv;
 
     psIn.normalInView = mul(mView, psIn.normal);
+    
+    psIn.posInLVP = mul(mLVP, worldPos);
     
 	return psIn;
 }
@@ -170,8 +181,9 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// <summary>
 /// ピクセルシェーダーのエントリー関数。
 /// </summary>
-float4 PSMain( SPSIn psIn ) : SV_Target0
+SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
 {
+    SPSOut psOut;
     //ディレクションライト
     float3 directionLig = CalcLigFromDirectionLight(psIn);
     
@@ -215,9 +227,28 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     albedoColor.xyz *= lig;
+    
+    float shadow = 1.0f;
+    if(isShadowReceiver==1)
+    {
+        shadow = CalcShadowMap(psIn);
+    }
+    
+    albedoColor.xyz *= shadow;
     albedoColor.a *= mulColor + alphaColor;
+    psOut.color = albedoColor;
 	
-	return albedoColor;
+	return psOut;
+}
+
+SPSOut PSShadowReceiverMain(SPSIn psIn) : SV_Target0
+{
+    return PSMain(psIn, 1);
+}
+
+SPSOut PSNormalMain(SPSIn psIn) : SV_Target0
+{
+    return PSMain(psIn, 0);
 }
 
 //拡散反射光
@@ -444,3 +475,25 @@ float3 CalcSpecularMap(SPSIn psIn)
     
 //    return ambient;
 //}
+
+float CalcShadowMap(SPSIn psIn)
+{
+    float2 shadowMapUV = psIn.posInLVP.xy / psIn.posInLVP.w;
+    shadowMapUV *= float2(0.5f, -0.5f);
+    shadowMapUV += 0.5f;
+    
+    float shadowMap = 1.0f;
+    float zInLVP = psIn.posInLVP.z / psIn.posInLVP.w;
+    if(shadowMapUV.x>0.0f&&shadowMapUV.x<1.0f
+        && shadowMapUV.y>0.0f&&shadowMapUV.y<1.0f)
+    {
+        //shadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV);
+        float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
+        if(zInLVP>zInShadowMap)
+        {
+            shadowMap = 0.5f;
+        }
+    }
+    
+    return shadowMap;
+}

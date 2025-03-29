@@ -234,6 +234,7 @@
     <ClCompile Include="RenderingEngine.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="Bloom.cpp" />
+    <ClCompile Include="Shadow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="k2EngineLowPreCompile.h" />
@@ -517,6 +518,7 @@
     <ClInclude Include="RenderingEngine.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="Bloom.h" />
+    <ClInclude Include="Shadow.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="graphics">

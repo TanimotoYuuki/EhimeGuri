@@ -103,14 +103,16 @@ namespace nsK2EngineLow {
 	void Model::Draw(
 		RenderContext& rc,
 		Camera& camera,
-		int numInstance
+		int numInstance,
+		float alpha
 	)
 	{
 		Draw(
 			rc,
 			camera.GetViewMatrix(),
 			camera.GetProjectionMatrix(),
-			numInstance
+			numInstance,
+			alpha
 		);
 	}
 
@@ -118,7 +120,8 @@ namespace nsK2EngineLow {
 		RenderContext& rc,
 		const Matrix& viewMatrix,
 		const Matrix& projMatrix,
-		int numInstance
+		int numInstance,
+		float alpha
 	)
 	{
 		if (numInstance == 0) {
@@ -130,7 +133,8 @@ namespace nsK2EngineLow {
 			m_worldMatrix,
 			viewMatrix,
 			projMatrix,
-			numInstance
+			numInstance,
+			alpha
 		);
 	}
 }

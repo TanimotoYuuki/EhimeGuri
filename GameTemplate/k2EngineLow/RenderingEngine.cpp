@@ -15,6 +15,8 @@ namespace nsK2EngineLow
 
 		m_bloom.Init(m_mainRenderTarget);
 
+		m_shadow.Init();
+
 		m_sceneLight.Init();
 	}
 
@@ -125,6 +127,10 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::Execute(RenderContext& rc)
 	{
+		m_sceneLight.LightCameraUpdate();
+
+		m_shadow.Execute(rc, m_renderObjects);
+
 		ModelDraw(rc);
 
 		m_bloom.Execute(rc, m_mainRenderTarget);
@@ -143,7 +149,7 @@ namespace nsK2EngineLow
 		//レンダリングターゲットとして利用できるまで待つ
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		//レンダリングターゲットを設定
-		rc.SetRenderTarget(m_mainRenderTarget);
+		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 		//レンダリングターゲットをクリア
 		rc.ClearRenderTargetView(m_mainRenderTarget);
 
@@ -161,7 +167,7 @@ namespace nsK2EngineLow
 		//レンダリングターゲットとして利用できるまで待つ
 		rc.WaitUntilToPossibleSetRenderTarget(m_2DRenderTarget);
 		//レンダリングターゲットを設定
-		rc.SetRenderTarget(m_2DRenderTarget);
+		rc.SetRenderTargetAndViewport(m_2DRenderTarget);
 		//レンダリングターゲットをクリア
 		rc.ClearRenderTargetView(m_2DRenderTarget);
 
@@ -178,7 +184,7 @@ namespace nsK2EngineLow
 		//ターゲットをメインに戻す
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		//レンダリングターゲットを設定
-		rc.SetRenderTarget(m_mainRenderTarget);
+		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		m_2DSprite.Draw(rc);
 
@@ -191,7 +197,7 @@ namespace nsK2EngineLow
 		//レンダリングターゲットとして利用できるまで待つ
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		//レンダリングターゲットを設定
-		rc.SetRenderTarget(m_mainRenderTarget);
+		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		m_monochromeSprite.Draw(rc);
 
@@ -205,6 +211,7 @@ namespace nsK2EngineLow
 			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
 			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
 		);
+		rc.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
 
 		m_copyToFrameBufferSprite.Draw(rc);
 	}

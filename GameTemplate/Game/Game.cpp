@@ -9,8 +9,8 @@
 #include "Game.h"
 #include "GameOver.h"
 #include "GameCamera.h"
-
-
+#include "Enemy.h"
+#include "TransparentBlock.h"
 
 namespace
 {
@@ -21,8 +21,13 @@ namespace
 
 bool Game::Start()
 {
-	
 	m_backGround =  NewGO<BackGround>(1, "background");
+	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_backGroundRender.SetScale(BACKGROUND_SCALE);
+	m_backGroundRender.Update();
+	//ìñÇΩÇËîªíËÇçÏê¨
+	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
+
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
@@ -64,6 +69,8 @@ bool Game::Start()
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 	
+	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
+
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
