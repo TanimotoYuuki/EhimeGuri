@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "BackGround.h"
+#include "Enemy.h"
 #include "FallingBlock.h"
 #include "Player.h"
 #include "MovingFloor.h"
@@ -7,7 +9,7 @@
 #include "Game.h"
 #include "GameOver.h"
 #include "GameCamera.h"
-#include "Enemy.h"
+
 
 
 namespace
@@ -19,12 +21,8 @@ namespace
 
 bool Game::Start()
 {
-	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm");
-	m_backGroundRender.SetScale(BACKGROUND_SCALE);
-	m_backGroundRender.Update();
-	//ìñÇΩÇËîªíËÇçÏê¨
-	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
-
+	
+	m_backGround =  NewGO<BackGround>(1, "background");
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
@@ -33,11 +31,11 @@ bool Game::Start()
 		{500.0f,94.0f,0.0f}
 	};
 
-	for (int i = 0; i < ENEMY_NUM; i++) {
+	/*for (int i = 0; i < ENEMY_NUM; i++) {
 		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
 		m_enemyList[i]->m_position = enemyPosList[i];
 		m_enemyList[i]->firstposition = enemyPosList[i];
-	}
+	}*/
 
 	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
 	m_movingFloor->SetPosition(Vector3{7500.0f, 0.0f, 0.0f});
@@ -51,10 +49,10 @@ bool Game::Start()
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
 
-	m_needle = NewGO<Needle>(0, "needle");
+	/*m_needle = NewGO<Needle>(0, "needle");
 	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
 	m_needle->firstposition = m_needle->m_needlePosition;
-	m_modelRender.SetPosition(m_position);
+	m_modelRender.SetPosition(m_position);*/
 
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
 	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
@@ -62,11 +60,10 @@ bool Game::Start()
 	m_modelRender.SetPosition(m_position);
 	
 	m_fallingBlock = NewGO<FallingBlock>(0);
-	m_fallingBlock->f_position = { 1000.0f, 150.0f, 0.0f };
-	m_fallingBlock->firstposition = m_fallingBlock->f_position;
+	m_fallingBlock->m_position = { 700.0f, 150.0f, 0.0f };
+	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 	
-
 	m_modelRender.Update();
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
@@ -150,6 +147,7 @@ void Game::Update()
 
 void Game::Render(RenderContext& rc)
 {
+	
 	m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
 	//ÉXÉ^É~ÉiÇ™ÇRÇOÇOà»â∫ÇÃÇ∆Ç´Ç…ÉQÅ[ÉWÇèoÇ∑

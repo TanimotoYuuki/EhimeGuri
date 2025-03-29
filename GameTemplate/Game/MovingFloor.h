@@ -27,12 +27,12 @@ public:
 	{
 		return m_position;
 	}
-
+	void Move();
 private:
 	/// <summary>
 	/// 移動処理。
 	/// </summary>
-	void Move();
+	
 
 	Player									  * m_player = nullptr;
 	CollisionObject							  * m_collisionObject = nullptr;		//コリジョンオブジェクト。

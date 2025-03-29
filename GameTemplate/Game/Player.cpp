@@ -86,7 +86,7 @@ void Player::Move() {
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
-			m_moveSpeed.y = 400.0f;
+			m_moveSpeed.y = 500.0f;
 		}
 	}
 	
