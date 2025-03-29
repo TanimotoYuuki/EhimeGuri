@@ -20,7 +20,7 @@ bool TransparentBlock::Start()
 	m_transparentBlockModel.Update();
 
 	//モデルを透明に設定
-	m_transparentBlockModel.SetAlpha(0.0f);
+	m_transparentBlockModel.SetAlpha(0.5f);
 
 	//インスタンス
 	m_player = FindGO<Player>("player");
@@ -34,7 +34,7 @@ void TransparentBlock::Update()
 	if (m_blockTouchFlag != true)
 	{
 		//X軸はジャンプしていたら距離を求めない
-		if (m_player->m_playerState != m_player->enPlayer_jump)
+		if (m_position.y > m_player->m_position.y + 75.0f || m_player->m_playerState != m_player->enPlayer_jump)
 		{
 			m_blockTouchDistanceX.x = m_player->m_position.x - m_position.x;
 		}
