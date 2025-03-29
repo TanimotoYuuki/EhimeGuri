@@ -24,13 +24,16 @@ bool Game::Start()
 	m_backGroundRender.Update();
 	//当たり判定を作成
 	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
+	//ステージにレイ用の属性を与える。
+	m_physicsStaticObject.GetbtCollisionObject()->setUserIndex(enCollisionAttr_Stage1);
+
 
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
 
 	Vector3 enemyPosList[ENEMY_NUM] = {
-		{500.0f,94.0f,0.0f}
+		{3200.0f,94.0f,0.0f}
 	};
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -51,9 +54,9 @@ bool Game::Start()
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
 
-	m_needle = NewGO<Needle>(0, "needle");
-	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
-	m_needle->firstposition = m_needle->m_needlePosition;
+	//m_needle = NewGO<Needle>(0, "needle");
+	//m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
+	//m_needle->firstposition = m_needle->m_needlePosition;
 	m_modelRender.SetPosition(m_position);
 
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
@@ -61,7 +64,7 @@ bool Game::Start()
 	m_scaffoldBlock->firstposition = m_scaffoldBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 	
-	m_fallingBlock = NewGO<FallingBlock>(0);
+	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
 	m_fallingBlock->f_position = { 1000.0f, 150.0f, 0.0f };
 	m_fallingBlock->firstposition = m_fallingBlock->f_position;
 	m_modelRender.SetPosition(m_position);
