@@ -1,6 +1,8 @@
 #pragma once
 class Player;
 class BackGround;
+class ClearBlock;
+class Enemy;
 class FallingBlock;
 class Needle;
 class MovingFloor;
@@ -21,6 +23,8 @@ public:
 
 private:
 	BackGround		  * m_backGround;
+	ClearBlock		  * m_clearBlock;
+	Enemy			  * m_enemyList[1];
 	FallingBlock	  * m_fallingBlock;
 	Player			  * m_player;
 	Game		      * m_game;
@@ -35,7 +39,7 @@ private:
 	Vector3		        m_position;
 	FontRender          m_fontRender;
 	PhysicsStaticObject m_physicsStaticObject;
-	Enemy* m_enemyList[1];
+	
 
 	enum Sutaminastate {
 		SutaminaMax,
@@ -48,5 +52,6 @@ private:
 	FontRender          m_timerRender;
 	Vector3             m_scale = Vector3::One;
 	float               m_timer = 180.0f;
+	bool                drawFlag = true;
 };
 

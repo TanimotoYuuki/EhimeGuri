@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "BackGround.h"
+#include "Enemy.h"
 #include "FallingBlock.h"
 #include "Player.h"
 #include "MovingFloor.h"
@@ -19,6 +21,7 @@ namespace
 
 bool Game::Start()
 {
+	m_backGround =  NewGO<BackGround>(1, "background");
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
@@ -53,11 +56,10 @@ bool Game::Start()
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
-
-	//m_needle = NewGO<Needle>(0, "needle");
-	//m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
-	//m_needle->firstposition = m_needle->m_needlePosition;
-	m_modelRender.SetPosition(m_position);
+	/*m_needle = NewGO<Needle>(0, "needle");
+	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
+	m_needle->firstposition = m_needle->m_needlePosition;
+	m_modelRender.SetPosition(m_position);*/
 
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
 	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
@@ -65,8 +67,8 @@ bool Game::Start()
 	m_modelRender.SetPosition(m_position);
 	
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->f_position = { 1000.0f, 150.0f, 0.0f };
-	m_fallingBlock->firstposition = m_fallingBlock->f_position;
+	m_fallingBlock->m_position = { 700.0f, 150.0f, 0.0f };
+	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 	
 	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
@@ -154,6 +156,7 @@ void Game::Update()
 
 void Game::Render(RenderContext& rc)
 {
+	
 	m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
 	//ÉXÉ^É~ÉiÇ™ÇRÇOÇOà»â∫ÇÃÇ∆Ç´Ç…ÉQÅ[ÉWÇèoÇ∑
