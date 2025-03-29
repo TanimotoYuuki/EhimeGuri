@@ -4,8 +4,8 @@ class Title;
 class GameOver : public IGameObject
 {
 public:
-	GameOver() { m_spriteRender.Init("Assets/Sprite/GameOver.DDS", 1920.0f, 1080.0f); };
-	~GameOver() {};
+	GameOver();
+	~GameOver();
 
 	void Update();
 	void Render(RenderContext& rc);

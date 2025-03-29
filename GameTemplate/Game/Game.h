@@ -19,7 +19,12 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-	
+		
+	void TransparentBlock_NewGO();	
+	void FallingBlock_NewGO();
+	void ScaffoldBlock_NewGO();
+	void Needle_NewGO();
+	void MovingFloor_NewGO();
 
 private:
 	BackGround		  * m_backGround;
@@ -34,6 +39,8 @@ private:
 	ScaffoldBlock     * m_scaffoldBlock;
 	MovingFloor       * m_movingFloor;
 	TransparentBlock  * m_transparentBlock;
+	TransparentBlock  * m_transparentBlock1;
+
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
 	Vector3		        m_position;

@@ -13,6 +13,7 @@ public:
 
 	int					m_needleCount = 0;
 
+	btCollisionShape    *m_btCollisionShape;
 	Player				*m_player;
 
 	Vector3				firstposition;

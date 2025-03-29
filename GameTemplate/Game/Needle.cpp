@@ -24,6 +24,7 @@ void Needle::Update()
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
 	
+
 	Vector3 diff = m_player->m_position - m_needlePosition;
 	if (diff.Length() <= 100.0f)
 	{
