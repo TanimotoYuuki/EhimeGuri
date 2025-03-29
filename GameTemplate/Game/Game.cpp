@@ -9,7 +9,6 @@
 #include "Game.h"
 #include "GameOver.h"
 #include "GameCamera.h"
-#include "Enemy.h"
 #include "TransparentBlock.h"
 
 namespace
@@ -45,9 +44,7 @@ bool Game::Start()
 		m_enemyList[i]->firstposition = enemyPosList[i];
 	}
 
-	m_movingFloor=  NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor->SetPosition(Vector3{7500.0f, 0.0f, 0.0f});
-	m_modelRender.SetPosition(m_position);
+	
 
 	
 	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
@@ -56,26 +53,62 @@ bool Game::Start()
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
-	/*m_needle = NewGO<Needle>(0, "needle");
-	m_needle->m_needlePosition = {-200.0f,0.0f,0.0f};
-	m_needle->firstposition = m_needle->m_needlePosition;
-	m_modelRender.SetPosition(m_position);*/
-
-	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
-	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
-	m_scaffoldBlock->firstposition = m_scaffoldBlock->m_position;
-	m_modelRender.SetPosition(m_position);
-	
-	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 700.0f, 150.0f, 0.0f };
-	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
-	m_modelRender.SetPosition(m_position);
-	
-	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
+	TransparentBlock_NewGO();
+	FallingBlock_NewGO();
+	ScaffoldBlock_NewGO();
+	Needle_NewGO();
+	MovingFloor_NewGO();
 
 	m_modelRender.Update();
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+//	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
+}
+
+
+//透明ブロックのNewGO用関数
+void Game::TransparentBlock_NewGO()
+{
+	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
+
+	m_transparentBlock1 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock1->m_position = { 1000.0f, 300.0f, 0.0f };
+	m_transparentBlock1->m_firstposition = m_transparentBlock1->m_position;
+	m_modelRender.SetPosition(m_position);
+}
+
+//落ちる床のNewGO用関数
+void Game::FallingBlock_NewGO()
+{
+	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
+	m_fallingBlock->m_position = { 7500.0f, 100.0f, 0.0f };
+	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
+	m_modelRender.SetPosition(m_position);
+}
+
+//キノコ足場ブロックのNewGO関数
+void Game::ScaffoldBlock_NewGO()
+{
+	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
+	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
+	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
+	m_modelRender.SetPosition(m_position);
+}
+
+//針のNewGO用モデル
+void Game::Needle_NewGO()
+{
+	m_needle = NewGO<Needle>(0, "needle");
+	m_needle->m_needlePosition = { -200.0f,0.0f,0.0f };
+	m_needle->firstposition = m_needle->m_needlePosition;
+	m_modelRender.SetPosition(m_position);
+}
+
+//動く床のNewGO用モデル
+void Game::MovingFloor_NewGO()
+{
+	m_movingFloor = NewGO<MovingFloor>(0, "movingfloor");
+	m_movingFloor->SetPosition(Vector3{ 8500.0f, 0.0f, 0.0f });
+	m_modelRender.SetPosition(m_position);
 }
 
 void Game::Update()
@@ -90,7 +123,7 @@ void Game::Update()
 	////フォントの大きさを設定。
 	//m_fontRender.SetScale(1.2f);
 	////フォントの色を設定。
-	//m_fontRender.SetColor(g_vec4Yellow);
+	//m_fontRender.SetColor(g_vec4Yellow);  
 	
 	//テスト用
 	//m_fontRender.SetText(L"カウントの上昇");
@@ -99,14 +132,16 @@ void Game::Update()
 	//////フォントの色を設定。
 	//m_fontRender.SetColor(g_vec4Yellow);
 
+	
+
 	if (m_player == nullptr) {
 		return;
 	}
 
 	if (m_player->NeedleCount == 1)
 	{	
-		NewGO<GameOver>(0);
-		DeleteGO(m_gameOver);
+//		NewGO<GameOver>(0);
+//		DeleteGO(this);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
 		DeleteGO(m_fallingBlock);
@@ -118,7 +153,6 @@ void Game::Update()
 		m_fallingBlock = nullptr;
 		m_gameCamera->SetTarget(nullptr);
 	}
-	
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;
@@ -136,8 +170,8 @@ void Game::Update()
 	m_timer -= g_gameTime->GetFrameDeltaTime();
 
 	if (m_timer <= 0.0f) {
-		NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
+//		NewGO<GameOver>(0, "gameover");
+//		DeleteGO(this);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
 		DeleteGO(m_fallingBlock);

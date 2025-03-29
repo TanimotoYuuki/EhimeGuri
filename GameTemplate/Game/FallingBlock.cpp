@@ -4,7 +4,7 @@
 
 namespace
 {
-	Vector3 FALLINGBLOCK_SCALE = Vector3(5.0f, 10.0f, 3.0f);
+	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);
 	float SPEED = 200.0f;
 	float LIMITED = 300.0f;
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
