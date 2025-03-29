@@ -24,10 +24,6 @@ public:
 		return m_position;
 	}
 
-	bool IsOnGround() const
-	{
-		return m_isOnGround;
-	};
 	Vector3										m_position;
 	Vector3										m_firstposition;
 	Vector3										fallingSpeed;
@@ -37,10 +33,8 @@ public:
 	PhysicsStaticObject							m_physicsStaticObject;
 	Player									  * m_player;
 	MovingFloor								  * m_movingFloor;
-	CharacterController m_charaCon;
 
-	bool										follingFlag = true;;
-	bool										m_isOnGround = true;
+
 private:
 	enum enMovingFloorState
 	{

@@ -55,6 +55,12 @@ namespace nsK2EngineLow {
 			btPos = btVector3(pos.x, pos.y, pos.z);
 			btTrans.setOrigin(btPos);
 		}
+		
+		void SetRotation(const Quaternion& rotation)
+		{
+			Quaternion m_rotation;
+			m_rotation = rotation;
+		}
 
 	private:
 		MeshCollider m_meshCollider;		//メッシュコライダー。
