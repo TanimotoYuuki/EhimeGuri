@@ -23,7 +23,7 @@ Player::Player() {
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	m_position = { 133.0f,94.0f,0.0f };
 	m_initPosition = { 133.0f,94.0f,0.0f };
-	m_characterController.Init(25.0f, 75.0f, m_position);
+	m_characterController.Init(25.0f, 150.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
 	m_initRotation.SetRotationDegY(90.0f);
 
@@ -149,18 +149,18 @@ void Player::ManageState() {
 void Player::PlayAnimation() {
 	switch (m_playerState) {
 	case enPlayer_idle:
-		m_modelRender.PlayAnimation(enAnimationClip_idle);
+		m_modelRender.PlayAnimation(enAnimationClip_idle,0.1f);
 		break;
 	case enPlayer_walk:
-		m_modelRender.PlayAnimation(enAnimationClip_walk);
+		m_modelRender.PlayAnimation(enAnimationClip_walk,0.1f);
 		m_moveSpeed.z *= 0.0f;
 		break;
 	case enPlayer_jump:
-		m_modelRender.PlayAnimation(enAnimationClip_jump);
+		m_modelRender.PlayAnimation(enAnimationClip_jump,0.1f);
 		break;
 	case enPlayer_run:
-		m_modelRender.PlayAnimation(enAnimationClip_run);
-		
+		m_modelRender.PlayAnimation(enAnimationClip_run,0.1f);
+		m_moveSpeed.z *= 0.0f;
 		break;
 	}
 }
