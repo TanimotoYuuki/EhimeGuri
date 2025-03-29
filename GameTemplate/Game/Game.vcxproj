@@ -223,6 +223,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -243,6 +244,7 @@
     <ClCompile Include="TransparentBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FallingBlock.h" />
     <ClInclude Include="Game.h" />

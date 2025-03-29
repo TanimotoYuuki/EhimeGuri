@@ -4,14 +4,13 @@
 namespace
 {
 	Vector3 SCALE = Vector3(10.0f, 10.0f, 10.0f);
+
 }
 
 
 ScaffoldBlock::ScaffoldBlock()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm");
-	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
-	m_modelRender.Update();
+
 }
 
 ScaffoldBlock::~ScaffoldBlock()
@@ -19,6 +18,14 @@ ScaffoldBlock::~ScaffoldBlock()
 
 }
 
+bool ScaffoldBlock::Start()
+{
+	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm");
+	
+	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
+	m_modelRender.Update();
+	return true;
+}
 
 void ScaffoldBlock::Update()
 {

@@ -66,10 +66,10 @@ void Enemy::Update() {
 	m_modelrender.SetPosition(m_position);
 	m_modelrender.Update();
 	Vector3 diff = m_player->m_position - m_position;
-	if (diff.Length() <= 60.0f) {
+	/*if (diff.Length() <= 60.0f) {
 		NewGO<GameOver>(0, "gameover");
 		DeleteGO(m_game);
-	}
+	}*/
 }
 void Enemy::Render(RenderContext& rc) {
 	m_modelrender.Draw(rc);

@@ -51,23 +51,8 @@ bool MovingFloor::Start()
 
 }
 
-void MovingFloor::Update()
-{
-	if (m_player == nullptr)
-	{
-		m_player = FindGO<Player>("player");
-		return;
-	}
-	Move();
-	m_modelRender.Update();
-
-	m_physicsStaticObject.SetPosition(m_position);
-	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
-}
-
 void MovingFloor::Move()
 {
-
 
 	Vector3 moveSpeed = Vector3::Zero;
 
@@ -107,6 +92,20 @@ void MovingFloor::Move()
 		//動く床の移動速度をキャラクターの移動速度に加算。
 		m_player->AddMoveSpeed(moveSpeed);
 	}
+}
+
+void MovingFloor::Update()
+{
+	if (m_player == nullptr)
+	{
+		m_player = FindGO<Player>("player");
+		return;
+	}
+	Move();
+	m_modelRender.Update();
+
+	m_physicsStaticObject.SetPosition(m_position);
+	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 }
 
 void MovingFloor::Render(RenderContext& rc)
