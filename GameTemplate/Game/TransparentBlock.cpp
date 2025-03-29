@@ -20,7 +20,7 @@ bool TransparentBlock::Start()
 	m_transparentBlockModel.Update();
 
 	//モデルを透明に設定
-	m_transparentBlockModel.SetAlpha(0.5f);
+	m_transparentBlockModel.SetAlpha(0.0f);
 
 	//インスタンス
 	m_player = FindGO<Player>("player");
