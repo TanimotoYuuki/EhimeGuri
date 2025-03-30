@@ -34,7 +34,7 @@ void TransparentBlock::Update()
 	if (m_blockTouchFlag != true)
 	{
 		//XŽ²‚ÍƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚½‚ç‹——£‚ð‹‚ß‚È‚¢
-		if (m_player->m_playerState != m_player->enPlayer_jump)
+		if (m_position.y > m_player->m_position.y + 75.0f || m_player->m_playerState != m_player->enPlayer_jump)
 		{
 			m_blockTouchDistanceX.x = m_player->m_position.x - m_position.x;
 		}
