@@ -26,9 +26,8 @@ public:
 
 	Vector3										m_position;
 	Vector3										m_firstposition;
-	Vector3										m_initPosition;
-	Quaternion									m_initRotation;
-	Quaternion									m_rotation;
+	Vector3										fallingSpeed;
+
 	FontRender									m_fontRender;
 	ModelRender									m_modelRender;
 	PhysicsStaticObject							m_physicsStaticObject;
@@ -43,7 +42,6 @@ private:
 		enMovingFloorState_MovingLeft
 	};
 	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
-	CollisionObject							  * m_collisionObject = nullptr;
-	CharacterController							m_characterController;
+	CollisionObject* m_collisionObject = nullptr;
 };
 

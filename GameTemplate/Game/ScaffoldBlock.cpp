@@ -21,7 +21,7 @@ ScaffoldBlock::~ScaffoldBlock()
 
 bool ScaffoldBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm");
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
@@ -45,7 +45,8 @@ bool ScaffoldBlock::Start()
 }
 
 void ScaffoldBlock::Update()
-{	m_modelRender.Update();
+{
+	m_modelRender.Update();
 	m_Rot.SetRotationDegY(90.0f);
 	m_modelRender.SetRotation(m_Rot);
 //	m_modelRender.SetScale(SCALE);
@@ -54,7 +55,6 @@ void ScaffoldBlock::Update()
 
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 //	m_collisionObject->SetRotation(m_Rot + COLLISION_HEIGHT);
-
 }
 
 void ScaffoldBlock::Render(RenderContext& rc)

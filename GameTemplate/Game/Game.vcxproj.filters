@@ -23,7 +23,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
-    <ClCompile Include="Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -42,6 +41,5 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="TransparentBlock.h" />
-    <ClInclude Include="Block.h" />
   </ItemGroup>
 </Project>
