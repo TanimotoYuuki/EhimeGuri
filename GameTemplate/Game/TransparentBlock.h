@@ -11,7 +11,7 @@ public:
 
 	
 
-	Vector3                      m_position = Vector3(100.0f, 250.0f, 0.0f);//ç¿ïW
+	Vector3                      m_position;//ç¿ïW
 	Vector3						 m_firstposition;
 
 public:

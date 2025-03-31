@@ -15,7 +15,7 @@ TransparentBlock::~TransparentBlock()
 bool TransparentBlock::Start()
 {
 	//モデルの初期化
-	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/叩かれたあとのブロック.tkm");
+	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/叩かれたあとのブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_transparentBlockModel.SetPosition(m_position);
 	m_transparentBlockModel.Update();
 

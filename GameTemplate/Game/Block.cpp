@@ -1,29 +1,30 @@
 #include "stdafx.h"
-#include "ScaffoldBlock.h"
+#include "Block.h"
 
 namespace
 {
-	Vector3 SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 250.0f, 0.0f);
-	Vector3	COLLISION_SIZE = Vector3(500.0f, 3.0f, 225.0f);
+	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
+	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
+	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
+
 }
 
-
-ScaffoldBlock::ScaffoldBlock()
+Block::Block()
 {
 
 }
 
-ScaffoldBlock::~ScaffoldBlock()
+Block::~Block()
 {
 
 }
 
-bool ScaffoldBlock::Start()
+bool Block::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/叩かれたあとのブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
+	//当たり判定
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
@@ -37,27 +38,23 @@ bool ScaffoldBlock::Start()
 		COLLISION_SIZE
 	);
 	m_modelRender.SetPosition(m_position);
-
 	m_collisionObject->SetIsEnableAutoDelete(false);
 	m_firstposition = m_position;
 
 	return true;
 }
 
-void ScaffoldBlock::Update()
-{	m_modelRender.Update();
-	m_Rot.SetRotationDegY(90.0f);
-	m_modelRender.SetRotation(m_Rot);
-//	m_modelRender.SetScale(SCALE);
+void Block::Update()
+{
+	
+	m_modelRender.Update();
 	m_physicsStaticObject.SetPosition(m_position);
-	m_physicsStaticObject.SetRotation(m_Rot);
-
+	m_physicsStaticObject.SetPosition(m_position);
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
-//	m_collisionObject->SetRotation(m_Rot + COLLISION_HEIGHT);
 
 }
 
-void ScaffoldBlock::Render(RenderContext& rc)
+void Block::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);
 }
