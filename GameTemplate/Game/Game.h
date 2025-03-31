@@ -1,5 +1,6 @@
 #pragma once
 class Player;
+class Block;
 class BackGround;
 class ClearBlock;
 class Enemy;
@@ -25,12 +26,15 @@ public:
 	void ScaffoldBlock_NewGO();
 	void Needle_NewGO();
 	void MovingFloor_NewGO();
-
+	void Block_NewGo();
 private:
+	Block             * m_block;
 	BackGround		  * m_backGround;
 	ClearBlock		  * m_clearBlock;
 	Enemy			  * m_enemyList[1];
 	FallingBlock	  * m_fallingBlock;
+	FallingBlock      * m_fallingBlock1;
+	FallingBlock      * m_fallingBlock2;
 	Player			  * m_player;
 	Game		      * m_game;
 	GameOver          * m_gameOver;
