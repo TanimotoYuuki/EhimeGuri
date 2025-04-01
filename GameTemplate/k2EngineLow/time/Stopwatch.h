@@ -62,7 +62,7 @@ namespace nsK2EngineLow {
 			elapsedMill = elapsed * 1000.0;
 			elapsedMicro = elapsedMill * 1000.0;
 		}
-		
+
 
 		/// <summary>
 		/// Œo‰ßŽžŠÔ‚ðŽæ“¾(’PˆÊ:•b)
