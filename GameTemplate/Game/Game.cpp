@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Block.h"3
+#include "Block.h"
 #include "BackGround.h"
 #include "Enemy.h"
 #include "FallingBlock.h"
@@ -14,6 +14,7 @@
 
 namespace
 {
+	Vector3 TRANSPARENTBLOCK_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	const int ENEMY_NUM = 1;
@@ -39,11 +40,11 @@ bool Game::Start()
 		{3200.0f,94.0f,0.0f}
 	};
 
-	for (int i = 0; i < ENEMY_NUM; i++) {
-		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-		m_enemyList[i]->m_position = enemyPosList[i];
-		m_enemyList[i]->firstposition = enemyPosList[i];
-	}
+	//for (int i = 0; i < ENEMY_NUM; i++) {
+	//	m_enemyList[i] = NewGO<Enemy>(0, "enemy");
+	//	m_enemyList[i]->m_position = enemyPosList[i];
+	//	m_enemyList[i]->firstposition = enemyPosList[i];
+	//}
 
 	
 
@@ -54,11 +55,12 @@ bool Game::Start()
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
-	TransparentBlock_NewGO();
+//	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
-	Needle_NewGO();
-	MovingFloor_NewGO();
+//	Needle_NewGO();
+//	MovingFloor_NewGO();
+	Block_NewGo();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -70,26 +72,59 @@ bool Game::Start()
 void Game::TransparentBlock_NewGO()
 {
 	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock->m_position = { 4700.0f, 300.0f, 0.0f };
+	m_transparentBlock->m_firstposition = m_transparentBlock->m_position;
 
 	m_transparentBlock1 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock1->m_position = { 1000.0f, 300.0f, 0.0f };
+	m_transparentBlock1->m_position = { 4800.0f, 300.0f, 0.0f };
 	m_transparentBlock1->m_firstposition = m_transparentBlock1->m_position;
+
+	m_transparentBlock2 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock2->m_position = { 4900.0f, 300.0f, 0.0f };
+	m_transparentBlock2->m_firstposition = m_transparentBlock2->m_position;
+
+	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock3->m_position = { 5000.0f, 300.0f, 0.0f };
+	m_transparentBlock3->m_firstposition = m_transparentBlock3->m_position;
+
+	m_transparentBlock4 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock4->m_position = { 5100.0f, 300.0f, 0.0f };
+	m_transparentBlock4->m_firstposition = m_transparentBlock4->m_position;
+
+	m_transparentBlock5 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock5->m_position = { 5200.0f, 300.0f, 0.0f };
+	m_transparentBlock5->m_firstposition = m_transparentBlock5->m_position;
+
+	m_transparentBlock6 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock6->m_position = { 5300.0f, 300.0f, 0.0f };
+	m_transparentBlock6->m_firstposition = m_transparentBlock6->m_position;
+
+	m_transparentBlock7 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock7->m_position = { 5400.0f, 300.0f, 0.0f };
+	m_transparentBlock7->m_firstposition = m_transparentBlock7->m_position;
+
+	m_transparentBlock8 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock8->m_position = { 5500.0f, 300.0f, 0.0f };
+	m_transparentBlock8->m_firstposition = m_transparentBlock8->m_position;
+
+	m_transparentBlock9 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock9->m_position = { 5600.0f, 300.0f, 0.0f };
+	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 	m_modelRender.SetPosition(m_position);
 }
-
 //落ちる床のNewGO用関数
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 8650.0f, 360.0f, 0.0f };
+	m_fallingBlock->m_position = { 9000.0f, 360.0f, 0.0f };
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 
 	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock1->m_position = { 9500.0f, 400.0f, 0.0f };
+	m_fallingBlock1->m_position = { 9700.0f, 400.0f, 0.0f };
 	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
 
 	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock2->m_position = { 10200.0f, 400.0f, 0.0f };
+	m_fallingBlock2->m_position = { 10400.0f, 400.0f, 0.0f };
 	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
 	m_modelRender.SetPosition(m_position);
 }
@@ -125,9 +160,12 @@ void Game::Block_NewGo()
 	m_block = NewGO<Block>(0, "block");
 	m_block->m_position = { 11000.0f, 800.0f, 0.0f };
 	m_block->m_firstposition = m_block->m_position;
+
+
 	m_modelRender.SetPosition(m_position);
 
 }
+
 void Game::Update()
 {
 	////数値確認用。
