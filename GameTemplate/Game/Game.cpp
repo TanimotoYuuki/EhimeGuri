@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Block.h"3
 #include "BackGround.h"
 #include "Enemy.h"
 #include "FallingBlock.h"
@@ -80,8 +81,16 @@ void Game::TransparentBlock_NewGO()
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 7500.0f, 100.0f, 0.0f };
+	m_fallingBlock->m_position = { 8650.0f, 360.0f, 0.0f };
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
+
+	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
+	m_fallingBlock1->m_position = { 9500.0f, 400.0f, 0.0f };
+	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
+
+	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
+	m_fallingBlock2->m_position = { 10200.0f, 400.0f, 0.0f };
+	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -111,6 +120,14 @@ void Game::MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+void Game::Block_NewGo()
+{
+	m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 11000.0f, 800.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;
+	m_modelRender.SetPosition(m_position);
+
+}
 void Game::Update()
 {
 	////数値確認用。
