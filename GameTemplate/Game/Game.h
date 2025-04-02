@@ -43,7 +43,15 @@ private:
 	ScaffoldBlock     * m_scaffoldBlock;
 	MovingFloor       * m_movingFloor;
 	TransparentBlock  * m_transparentBlock;
-	TransparentBlock  * m_transparentBlock1;
+	TransparentBlock* m_transparentBlock1;
+	TransparentBlock* m_transparentBlock2;
+	TransparentBlock* m_transparentBlock3;
+	TransparentBlock* m_transparentBlock4;
+	TransparentBlock* m_transparentBlock5;
+	TransparentBlock* m_transparentBlock6;
+	TransparentBlock* m_transparentBlock7;
+	TransparentBlock* m_transparentBlock8;
+	TransparentBlock* m_transparentBlock9;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
