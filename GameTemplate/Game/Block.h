@@ -19,11 +19,12 @@ public:
 		return m_position;
 	}
 
-	CollisionObject* m_collisionObject;
-	ModelRender m_modelRender;
+	CollisionObject   * m_collisionObject;
+	ModelRender         m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 
-	Vector3 m_firstposition;
-	Vector3 m_position;
+	Vector3             m_firstposition;
+	Vector3             m_position;
+	Vector3			    m_scale = Vector3::One;
 };
 

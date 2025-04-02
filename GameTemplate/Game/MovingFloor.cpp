@@ -25,7 +25,7 @@ MovingFloor::~MovingFloor()
 bool MovingFloor::Start()
 {
 	//動かしたいオブジェクトのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm");
+	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 //	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();

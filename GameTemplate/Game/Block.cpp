@@ -3,7 +3,7 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
+//	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
 	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
 
@@ -22,7 +22,7 @@ Block::~Block()
 bool Block::Start()
 {
 	m_modelRender.Init("Assets/modelData/Stage/Assets/’@‚©‚ê‚½‚ ‚Æ‚ÌƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
-	m_modelRender.SetScale(SCALE);
+//	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	//“–‚½‚è”»’è
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
@@ -48,7 +48,6 @@ void Block::Update()
 {
 
 	m_modelRender.Update();
-	m_physicsStaticObject.SetPosition(m_position);
 	m_physicsStaticObject.SetPosition(m_position);
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 
