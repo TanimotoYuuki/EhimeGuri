@@ -6,6 +6,9 @@ Title::Title()
 {
 	//m_titleBackGround.Init("Assets/Sprite/Title.DDS", 1920, 1080);
 
+	//スカイキューブの初期化
+	InitSky();
+
 	//アニメーションの初期化
 	InitAnimation();
 
@@ -21,7 +24,7 @@ Title::Title()
 
 Title::~Title()
 {
-
+	DeleteGO(m_skyCube);
 }
 
 void Title::Update()
@@ -276,6 +279,18 @@ void Title::SpriteMove()
 	}
 }
 
+void Title::InitSky()
+{
+	DeleteGO(m_skyCube);
+	m_skyCube = NewGO<SkyCube>(0, "skycube");
+
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetType((EnSkyCubeType)m_skyCubeType);
+	m_skyCube->SetPosition(Vector3(0.0f, -1000.0f, 0.0f));
+	m_skyCube->SetScale(Vector3(750.0f, 750.0f, 750.0f));
+	m_skyCube->Update();
+}
+
 void Title::InitAnimation()
 {
 	//0.歩くアニメーション
@@ -399,7 +414,7 @@ void Title::InitSprite()
 void Title::InitCamera()
 {
 	g_camera3D->SetNear(1.0f);
-	g_camera3D->SetFar(10000.0f);
+	g_camera3D->SetFar(15000.0f);
 }
 
 void Title::PlayerModelMove()

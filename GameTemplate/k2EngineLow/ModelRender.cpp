@@ -37,6 +37,11 @@ namespace nsK2EngineLow
 		InitModel(filePath, enModelUpAxis, isShadowReceiver, alphaBlendMode);
 	}
 
+	void ModelRender::InitSkyCube(ModelInitData& initData)
+	{
+		m_model.Init(initData);
+	}
+
 	void ModelRender::InitSkeleton(const char* filePath)
 	{
 		std::string skeletonFilePath = filePath;

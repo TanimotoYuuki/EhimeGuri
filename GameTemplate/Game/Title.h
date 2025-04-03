@@ -15,6 +15,8 @@ public:
 
 
 private:
+	//スカイキューブの初期化
+	void InitSky();
 	//アニメーションの初期化
 	void InitAnimation();
 	//モデルの初期化
@@ -109,5 +111,7 @@ private:
 	SpriteRender		m_returnUI;																	//戻るUI
 	bool                m_startFadeFinishFlag = false;												//スタート用フェードが終わったか?
 	bool				m_gameStartFlag = false;													//ゲームスタートフラグ
+	SkyCube* m_skyCube = nullptr;
+	int m_skyCubeType = enSkyCubeType_Day;
 };
 

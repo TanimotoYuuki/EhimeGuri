@@ -43,6 +43,11 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
 		/// <summary>
+		/// スカイキューブを初期化
+		/// </summary>
+		void InitSkyCube(ModelInitData& initData);
+
+		/// <summary>
 		/// 更新処理
 		/// </summary>
 		void Update();
