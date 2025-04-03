@@ -88,7 +88,7 @@ private:
 
 	AnimationClip		m_animationClip[enAnimationClip_num];										//アニメションクリップ
 	ModelRender			m_playerModel;																//プレイヤーモデル
-	ModelRender         m_stageModel;																//ステージモデル
+	ModelRender         m_backGroundModel;															//ステージモデル
 	Vector3				m_playerModelPosition=Vector3::Zero;										//プレイヤーモデルの位置
 	Quaternion          m_playerModelRotation = Quaternion::Identity;								//プレイヤーモデルの回転
 	Vector3             m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );								//プレイヤーモデルの大きさ
@@ -103,7 +103,7 @@ private:
 	SpriteRender        m_pressAButtonUI;															//Aボタンを押すUI
 	SpriteRender        m_modeUI[enModeSelect_Num];													//モードUI
 	SpriteRender        m_howToPlayUI;																//遊び方UI
-	SpriteRender        m_gamepadUI[enGamePad_Num];													//ゲームパッドUI
+	SpriteRender        m_gamePadUI[enGamePad_Num];													//ゲームパッドUI
 	SpriteRender		m_decisionUI;																//決定UI
 	SpriteRender        m_selectUI;																	//選択UI
 	SpriteRender		m_returnUI;																	//戻るUI

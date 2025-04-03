@@ -72,6 +72,9 @@ void Title::Render(RenderContext& rc)
 	//プレイヤーモデル
 	m_playerModel.Draw(rc);
 
+	//ステージモデル
+	m_backGroundModel.Draw(rc);
+
 	//フェード
 	m_fade.Draw(rc);
 
@@ -94,8 +97,8 @@ void Title::Render(RenderContext& rc)
 				m_modeUI[enModeSelect_Shutdown].Draw(rc);
 				
 				//ゲームパッドUI
-				m_gamepadUI[enGamePad_AButton].Draw(rc);
-				m_gamepadUI[enGamePad_BButton].Draw(rc);
+				m_gamePadUI[enGamePad_AButton].Draw(rc);
+				m_gamePadUI[enGamePad_BButton].Draw(rc);
 
 				//決定UI
 				m_decisionUI.Draw(rc);
@@ -109,7 +112,7 @@ void Title::Render(RenderContext& rc)
 			m_howToPlayUI.Draw(rc);
 
 			//ゲームパッドUI
-			m_gamepadUI[enGamePad_AButton].Draw(rc);
+			m_gamePadUI[enGamePad_AButton].Draw(rc);
 
 			//戻るUI
 			m_returnUI.Draw(rc);
@@ -253,8 +256,8 @@ void Title::SpriteMove()
 		}
 
 		//ゲームパッド(Aボタン)
-		m_gamepadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
-		m_gamepadUI[enGamePad_AButton].Update();
+		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
+		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUI
 		m_returnUI.SetPosition(Vector3(600.0f, -350.0f, 0.0f));
@@ -262,8 +265,8 @@ void Title::SpriteMove()
 		break;
 	case enTitleTransition_HowToPlay: //遊び方
 		//ゲームパッド(Aボタン)
-		m_gamepadUI[enGamePad_AButton].SetPosition(Vector3(575.0f, -345.0f, 0.0f));
-		m_gamepadUI[enGamePad_AButton].Update();
+		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(575.0f, -345.0f, 0.0f));
+		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUI
 		m_returnUI.SetPosition(Vector3(650.0f, -350.0f, 0.0f));
@@ -285,7 +288,7 @@ void Title::InitAnimation()
 
 void Title::InitModel()
 {
-	//0. プレイヤーモデルの初期化
+	//0 プレイヤーモデルの初期化
 	m_playerModel.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
@@ -298,10 +301,15 @@ void Title::InitModel()
 
 	//0.3 大きさを設定
 	m_playerModel.SetScale(m_playerModelScale);
-	Quaternion playerModelRotation;
-	playerModelRotation.SetRotationDegY(90.0f);
-	m_playerModel.SetRotation(playerModelRotation);
 	m_playerModel.Update();
+
+	//1 ステージの初期化
+	m_backGroundModel.Init("Assets/title/background.tkm", 0,
+		0, enModelUpAxisZ, false, true);
+
+	//1.1 大きさを設定
+	m_backGroundModel.SetScale(Vector3(10.0f, 10.0f, 10.0f));
+	m_backGroundModel.Update();
 }
 
 void Title::InitSprite()
@@ -346,31 +354,31 @@ void Title::InitSprite()
 	m_howToPlayUI.Init("Assets/title/screen/howtoplay.dds", 1500, 800);
 
 	//ゲームパッド(Aボタン)
-	m_gamepadUI[enGamePad_AButton].Init("Assets/title/gamepad/abutton.dds", 512, 512);
-	m_gamepadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
-	m_gamepadUI[enGamePad_AButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	m_gamepadUI[enGamePad_AButton].Update();
+	m_gamePadUI[enGamePad_AButton].Init("Assets/title/gamepad/abutton.dds", 512, 512);
+	m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
+	m_gamePadUI[enGamePad_AButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	m_gamePadUI[enGamePad_AButton].Update();
 
 	//ゲームパッド(Bボタン)
-	m_gamepadUI[enGamePad_BButton].Init("Assets/title/gamepad/bbutton.dds", 512, 512);
-	m_gamepadUI[enGamePad_BButton].SetPosition(Vector3(525.0f, -345.0f, 0.0f));
-	m_gamepadUI[enGamePad_BButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	m_gamepadUI[enGamePad_BButton].Update();
+	m_gamePadUI[enGamePad_BButton].Init("Assets/title/gamepad/bbutton.dds", 512, 512);
+	m_gamePadUI[enGamePad_BButton].SetPosition(Vector3(525.0f, -345.0f, 0.0f));
+	m_gamePadUI[enGamePad_BButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	m_gamePadUI[enGamePad_BButton].Update();
 
 	//ゲームパッド(Xボタン)
-	m_gamepadUI[enGamePad_XButton].Init("Assets/title/gamepad/xbutton.dds", 512, 512);
+	m_gamePadUI[enGamePad_XButton].Init("Assets/title/gamepad/xbutton.dds", 512, 512);
 
 	//ゲームパッド(Yボタン)
-	m_gamepadUI[enGamePad_YButton].Init("Assets/title/gamepad/ybutton.dds", 512, 512);
+	m_gamePadUI[enGamePad_YButton].Init("Assets/title/gamepad/ybutton.dds", 512, 512);
 
 	//ゲームパッド(Lスティック)
-	m_gamepadUI[enGamePad_LStick].Init("Assets/title/gamepad/lstick.dds", 512, 512);
+	m_gamePadUI[enGamePad_LStick].Init("Assets/title/gamepad/lstick.dds", 512, 512);
 
 	//ゲームパッド(Rスティック)
-	m_gamepadUI[enGamePad_RStick].Init("Assets/title/gamepad/rstick.dds", 512, 512);
+	m_gamePadUI[enGamePad_RStick].Init("Assets/title/gamepad/rstick.dds", 512, 512);
 
 	//ゲームパッド(十字キー)
-	m_gamepadUI[enGamePad_DPad].Init("Assets/title/gamepad/dpad.dds", 512, 512);
+	m_gamePadUI[enGamePad_DPad].Init("Assets/title/gamepad/dpad.dds", 512, 512);
 
 	//決定UI
 	m_decisionUI.Init("Assets/title/text/decision.dds", 1024, 128);
