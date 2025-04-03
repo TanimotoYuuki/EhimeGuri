@@ -101,7 +101,6 @@ private:
 	float				m_alpha = 0.0f;																//透明度
 	SpriteRender        m_fade;																		//フェード
 	SpriteRender		m_titleBackGround;															//タイトル背景
-	SpriteRender		m_titleName[2];																//タイトル名
 	SpriteRender        m_pressAButtonUI;															//Aボタンを押すUI
 	SpriteRender        m_modeUI[enModeSelect_Num];													//モードUI
 	SpriteRender        m_howToPlayUI;																//遊び方UI
@@ -110,7 +109,11 @@ private:
 	SpriteRender        m_selectUI;																	//選択UI
 	SpriteRender		m_returnUI;																	//戻るUI
 	bool                m_startFadeFinishFlag = false;												//スタート用フェードが終わったか?
+	bool                m_titleBackGroundFadeFinishFlag = false;									//タイトル背景のフェードが終わったか?
 	bool				m_gameStartFlag = false;													//ゲームスタートフラグ
+	bool				m_pressButtonFlag = false;													//ボタンを押したか?
+	bool                m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
+	bool                m_titleTransitionFlag = false;												//タイトル画面遷移フラグ
 	SkyCube* m_skyCube = nullptr;
 	int m_skyCubeType = enSkyCubeType_Day;
 };

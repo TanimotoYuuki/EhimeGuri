@@ -4,8 +4,6 @@
 
 Title::Title()
 {
-	//m_titleBackGround.Init("Assets/Sprite/Title.DDS", 1920, 1080);
-
 	//スカイキューブの初期化
 	InitSky();
 
@@ -30,14 +28,22 @@ Title::~Title()
 void Title::Update()
 {
 	//スタート用のフェードが終わったら
-	if (g_gameTime->StopWatch(0.8f) == true)
+	if (m_startFadeFinishFlag != true)
 	{
-		m_startFadeFinishFlag = true;
+		if (g_gameTime->StopWatch(0.8f) == true)
+		{
+			m_startFadeFinishFlag = true;
+		}
 	}
+	//スタート用のフェードが終わったら
 	else if (m_startFadeFinishFlag == true)
 	{
-		//プレイヤー側の操作
-		Action();
+		//タイトル背景が表示したら
+		if (m_titleBackGroundFadeFinishFlag == true)
+		{
+			//プレイヤー側の操作
+			Action();
+		}
 
 		//スプライトの動作
 		SpriteMove();
@@ -59,19 +65,13 @@ void Title::Update()
 	//アニメーション再生
 	PlayAnimation();
 
+	//更新処理
 	m_playerModel.Update();
 	m_fade.Update();
-	//if (g_pad[0]->IsTrigger(enButtonA))
-	//{
-	//	NewGO<Game>(0, "game");
-	//	DeleteGO(this);
-	//}
 }
 
 void Title::Render(RenderContext& rc)
 {
-	//m_titleBackGround.Draw(rc);
-
 	//プレイヤーモデル
 	m_playerModel.Draw(rc);
 
@@ -80,6 +80,13 @@ void Title::Render(RenderContext& rc)
 
 	//フェード
 	m_fade.Draw(rc);
+
+	//ゲーム開始フラグが立っていないか？
+	if (m_gameStartFlag != true)
+	{
+		//タイトル背景
+		m_titleBackGround.Draw(rc);
+	}
 
 	//スタート用フェードが終わったか？
 	if (m_startFadeFinishFlag == true)
@@ -92,6 +99,7 @@ void Title::Render(RenderContext& rc)
 			m_pressAButtonUI.Draw(rc);
 			break;
 		case enTitleTransition_ModeSelect: //モード選択
+			//ゲーム開始フラグが立っていないか？
 			if (m_gameStartFlag != true)
 			{
 				//モード選択UI
@@ -137,8 +145,15 @@ void Title::Action()
 		case enTitleTransition_Title: //タイトル
 			if (g_pad[0]->IsTrigger(enButtonA))
 			{
+				m_pressButtonFlag = true;
+			}
+
+			//画面遷移フラグが立っていたら
+			if (m_titleTransitionFlag == true)
+			{
 				//モード選択へ遷移
 				m_titleTransition = enTitleTransition_ModeSelect;
+				m_titleTransitionFlag = false;
 			}
 			break;
 		case enTitleTransition_ModeSelect: //モード選択
@@ -169,6 +184,17 @@ void Title::Action()
 
 			if (g_pad[0]->IsTrigger(enButtonA))
 			{
+				m_pressButtonFlag = true;
+			}
+			else if (g_pad[0]->IsTrigger(enButtonB))
+			{
+				//タイトルへ遷移
+				m_titleTransition = enTitleTransition_Title;
+			}
+
+			//画面遷移フラグが立っていたら
+			if (m_titleTransitionFlag == true)
+			{
 				//現在の選択がスタートだったら
 				if (m_modeSelect == enModeSelect_Start)
 				{
@@ -187,11 +213,7 @@ void Title::Action()
 					//ゲーム終了
 					g_gameLoop.m_isLoop = false;
 				}
-			}
-			else if (g_pad[0]->IsTrigger(enButtonB))
-			{
-				//タイトルへ遷移
-				m_titleTransition = enTitleTransition_Title;
+				m_titleTransitionFlag = false;
 			}
 			break;
 		case enTitleTransition_HowToPlay: //遊び方
@@ -204,10 +226,6 @@ void Title::Action()
 		default:
 			break;
 		}
-		//if (g_pad[0]->IsTrigger(enButtonA))
-		//{
-		//	m_gameStartFlag = true;
-		//}
 	}
 	else
 	{
@@ -227,12 +245,124 @@ void Title::SpriteMove()
 	switch (m_titleTransition)
 	{
 	case enTitleTransition_Title: //タイトル
+		//タイトル背景が表示していないとき
+		if (m_titleBackGroundFadeFinishFlag != true)
+		{
+			m_alpha += g_gameTime->GetFrameDeltaTime();
+			m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_alpha));
+			m_titleBackGround.Update();
+			if (m_alpha > 1.0f)
+			{
+				m_alpha = 0.0f;
+				m_titleBackGroundFadeFinishFlag = true;
+			}
+			return;
+		}
+
+		//Aボタンが押されたら
+		if (m_pressButtonFlag == true)
+		{
+			//ボタンを押したときの動作をしたか？
+			if (m_pressButtonActionFlag != true)
+			{
+				m_pressAButtonUI.SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+				m_pressAButtonUI.Update();
+				if (g_gameTime->StopWatch(0.1f) == true)
+				{
+					m_pressButtonActionFlag = true;
+				}
+				return;
+			}
+			else
+			{
+				//画面遷移していないとき
+				if (m_titleTransitionFlag != true)
+				{
+					m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_pressAButtonUI.Update();
+					if (g_gameTime->StopWatch(0.1f) == true)
+					{
+						m_titleTransitionFlag = true;
+						m_alpha = 0.0f;
+						m_pressButtonFlag = false;
+						m_pressButtonActionFlag = false;
+					}
+					return;
+				}
+			}
+		}
+
 		//Aボタンを押すUIを透明にしたり元に戻したりする
 		m_alpha += g_gameTime->GetFrameDeltaTime();
 		m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, fabsf(sinf(m_alpha))));
 		m_pressAButtonUI.Update();
 		break;
 	case enTitleTransition_ModeSelect: //モード選択
+
+		//Aボタンが押されたら
+		if (m_pressButtonFlag == true)
+		{
+			//ボタンを押したときの動作をしたか？
+			if (m_pressButtonActionFlag != true)
+			{
+				//モード選択
+				switch (m_modeSelect)
+				{
+				case enModeSelect_Start: //スタート
+					m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_Start].Update();
+					break;
+				case enModeSelect_HowToPlay: //遊び方
+					m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_HowToPlay].Update();
+					break;
+				case enModeSelect_Shutdown: //ゲーム終了
+					m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_Shutdown].Update();
+					break;
+				default:
+					break;
+				}
+				if (g_gameTime->StopWatch(0.1f) == true)
+				{
+					m_pressButtonActionFlag = true;
+				}
+				return;
+			}
+			else
+			{
+				//画面遷移していないとき
+				if (m_titleTransitionFlag != true)
+				{
+					//モード選択
+					switch (m_modeSelect)
+					{
+					case enModeSelect_Start: //スタート
+						m_modeUI[enModeSelect_Start].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_Start].Update();
+						break;
+					case enModeSelect_HowToPlay: //遊び方
+						m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_HowToPlay].Update();
+						break;
+					case enModeSelect_Shutdown: //ゲーム終了
+						m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_Shutdown].Update();
+						break;
+					default:
+						break;
+					}
+					if (g_gameTime->StopWatch(0.1f) == true)
+					{
+						m_titleTransitionFlag = true;
+						m_pressButtonFlag = false;
+						m_pressButtonActionFlag = false;
+					}
+					return;
+				}
+			}
+		}
+
 		//現在の選択がスタートだったら
 		if (m_modeSelect == enModeSelect_Start)
 		{
@@ -333,6 +463,13 @@ void Title::InitSprite()
 	m_fade.Init("Assets/title/screen/startfade.dds", 1600, 900);
 	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
 	m_fade.SetWipeScrollSpeed(20.0f);
+
+	//タイトル背景
+	m_titleBackGround.Init("Assets/title/title.dds", 1024, 1024);
+	m_titleBackGround.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
+	m_titleBackGround.SetScale(Vector3(0.65f, 0.65f, 0.65f));
+	m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_alpha));
+	m_titleBackGround.Update();
 
 	//Aボタンを押すUI
 	m_pressAButtonUI.Init("Assets/title/text/pressabutton.dds", 1024, 128);
