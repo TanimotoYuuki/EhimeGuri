@@ -6,7 +6,7 @@
 namespace
 {
 	Vector3 SCALE = Vector3(3.0f, 1.0f, 3.0f);
-	float SPEED = 200.0f;
+	float SPEED = 600.0f;
 	float LIMITED = 300.0f;
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
 	Vector3	COLLISION_SIZE   = Vector3(365.0f, 5.0f, 225.0f);

@@ -12,6 +12,7 @@ public:
 	void Render(RenderContext& rc);
 
 	int					m_needleCount = 0;
+	bool				flag = true;
 
 	btCollisionShape    *m_btCollisionShape;
 	Player				*m_player;

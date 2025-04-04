@@ -234,7 +234,9 @@
     <ClCompile Include="MovingFloor.cpp" />
     <ClCompile Include="Needle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scaffold.cpp" />
     <ClCompile Include="ScaffoldBlock.cpp" />
+    <ClCompile Include="Signboard.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -255,7 +257,9 @@
     <ClInclude Include="MovingFloor.h" />
     <ClInclude Include="Needle.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scaffold.h" />
     <ClInclude Include="ScaffoldBlock.h" />
+    <ClInclude Include="Signboard.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Title.h" />

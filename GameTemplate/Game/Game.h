@@ -1,17 +1,17 @@
 #pragma once
-class Player;
-class Block;
-class BackGround;
-class ClearBlock;
-class Enemy;
-class FallingBlock;
-class Needle;
-class MovingFloor;
-class ScaffoldBlock;
-class GameOver;
-class GameCamera;
-class Enemy;
-class TransparentBlock;
+class Player;						//プレイヤー
+class Block;						//ブロック
+class BackGround;					//ステージ			
+class Enemy;						//エネミー
+class FallingBlock;					//落ちる床
+class Needle;						//針
+class MovingFloor;					//移動する床
+class Scaffold;						//足場
+class ScaffoldBlock;				//T型の足場
+class Signboard;					//看板
+class GameOver;						//ゲームオーバー
+class GameCamera;					//カメラ
+class TransparentBlock;				//透明ブロック
 class Game : public IGameObject
 {
 public:
@@ -26,11 +26,13 @@ public:
 	void ScaffoldBlock_NewGO();
 	void Needle_NewGO();
 	void MovingFloor_NewGO();
-	void Block_NewGo();
+	void Block_NewGO();
+	void Signboard_NewGO();
+	void Scaffold_NewGO();
+
 private:
 	Block             * m_block;
 	BackGround		  * m_backGround;
-	ClearBlock		  * m_clearBlock;
 	Enemy			  * m_enemyList[1];
 	FallingBlock	  * m_fallingBlock;
 	FallingBlock      * m_fallingBlock1;
@@ -40,18 +42,30 @@ private:
 	GameOver          * m_gameOver;
 	GameCamera        * m_gameCamera;
 	Needle		      * m_needle;
+	Needle			  * m_needle1;
+	Needle			  * m_needle2;
+	Needle            * m_needle3;
 	ScaffoldBlock     * m_scaffoldBlock;
+	Scaffold		  * m_scaffold;
+	Scaffold		  * m_scaffold1;
+	Signboard         * m_signboard;
 	MovingFloor       * m_movingFloor;
+	MovingFloor       * m_movingFloor1;
+	MovingFloor       * m_movingFloor2;
+
+
 	TransparentBlock  * m_transparentBlock;
-	TransparentBlock* m_transparentBlock1;
-	TransparentBlock* m_transparentBlock2;
-	TransparentBlock* m_transparentBlock3;
-	TransparentBlock* m_transparentBlock4;
-	TransparentBlock* m_transparentBlock5;
-	TransparentBlock* m_transparentBlock6;
-	TransparentBlock* m_transparentBlock7;
-	TransparentBlock* m_transparentBlock8;
-	TransparentBlock* m_transparentBlock9;
+	TransparentBlock  * m_transparentBlock1;
+	TransparentBlock  * m_transparentBlock2;
+	TransparentBlock  * m_transparentBlock3;
+	TransparentBlock  * m_transparentBlock4;
+	TransparentBlock  * m_transparentBlock5;
+	TransparentBlock  * m_transparentBlock6;
+	TransparentBlock  * m_transparentBlock7;
+	TransparentBlock  * m_transparentBlock8;
+	TransparentBlock  * m_transparentBlock9;
+	TransparentBlock  * m_transparentBlock10;
+	TransparentBlock  * m_transparentBlock11;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;

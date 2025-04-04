@@ -29,12 +29,17 @@ void Needle::Update()
 	if (diff.Length() <= 100.0f)
 	{
 		m_player->NeedleCount += 1;
+		flag = false;
 		DeleteGO(this);
 	}
 }
 
 void Needle::Render(RenderContext& rc)
 {
-	//Needleƒ‚ƒfƒ‹‚Ì•`‰æ
+	//if (flag == false)
+	//{
+	//	//Needleƒ‚ƒfƒ‹‚Ì•`‰æ
+	//	m_modelRender.Draw(rc);
+	//}
 	m_modelRender.Draw(rc);
 }

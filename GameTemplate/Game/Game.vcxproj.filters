@@ -24,6 +24,8 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Signboard.cpp" />
+    <ClCompile Include="Scaffold.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -43,5 +45,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="TransparentBlock.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Signboard.h" />
+    <ClInclude Include="Scaffold.h" />
   </ItemGroup>
 </Project>
