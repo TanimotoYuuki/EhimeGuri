@@ -22,8 +22,12 @@ Player::Player() {
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	m_position = { 133.0f,94.0f,0.0f };
+	
+	//テストプレイ用
+	//m_position = { 16000.0f, 400.0f, 0.0f };
+
 	m_initPosition = { 133.0f,94.0f,0.0f };
-	m_characterController.Init(25.0f, 150.0f, m_position);
+	m_characterController.Init(25.0f, 100.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
 	m_initRotation.SetRotationDegY(90.0f);
 

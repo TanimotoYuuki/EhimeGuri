@@ -5,7 +5,9 @@
 #include "FallingBlock.h"
 #include "Player.h"
 #include "MovingFloor.h"
+#include "Scaffold.h"
 #include "ScaffoldBlock.h"
+#include "Signboard.h"
 #include "Needle.h"
 #include "Game.h"
 #include "GameOver.h"
@@ -47,20 +49,20 @@ bool Game::Start()
 	//}
 
 	
-
-	
 	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
 	m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
 	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
-//	TransparentBlock_NewGO();
+	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
 //	Needle_NewGO();
-//	MovingFloor_NewGO();
-	Block_NewGo();
+	MovingFloor_NewGO();
+//	Block_NewGO();
+	Signboard_NewGO();
+	Scaffold_NewGO();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -110,8 +112,18 @@ void Game::TransparentBlock_NewGO()
 	m_transparentBlock9 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock9->m_position = { 5600.0f, 300.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
+
+	m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock10->m_position = { 12600.0f, 230.0f, 0.0f };
+	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;
+
+	m_transparentBlock11 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock11->m_position = { 14200.0f, 260.0f, 0.0f };
+	m_transparentBlock11->m_firstposition = m_transparentBlock11->m_position;
+
 	m_modelRender.SetPosition(m_position);
 }
+
 //落ちる床のNewGO用関数
 void Game::FallingBlock_NewGO()
 {
@@ -129,7 +141,7 @@ void Game::FallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//キノコ足場ブロックのNewGO関数
+//T型足場ブロックのNewGO関数
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
@@ -138,30 +150,71 @@ void Game::ScaffoldBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//針のNewGO用モデル
+//針のNewGO用関数
 void Game::Needle_NewGO()
 {
 	m_needle = NewGO<Needle>(0, "needle");
-	m_needle->m_needlePosition = { -200.0f,0.0f,0.0f };
+	m_needle->m_needlePosition = { -500.0f,0.0f,0.0f };
 	m_needle->firstposition = m_needle->m_needlePosition;
+
+	m_needle1 = NewGO<Needle>(0, "needle");
+	m_needle1->m_needlePosition = { 17000.0f, 400.0f, 0.0f };
+	m_needle1->firstposition = m_needle1->m_needlePosition;
+
+	m_needle2 = NewGO<Needle>(0, "needle");
+	m_needle2->m_needlePosition = { 16100.0f, 400.0f, 0.0f };
+	m_needle2->firstposition = m_needle2->m_needlePosition;
+
 	m_modelRender.SetPosition(m_position);
 }
 
-//動く床のNewGO用モデル
+//動く床のNewGO用関数
 void Game::MovingFloor_NewGO()
 {
 	m_movingFloor = NewGO<MovingFloor>(0, "movingfloor");
 	m_movingFloor->SetPosition(Vector3{ 8500.0f, 0.0f, 0.0f });
+
+	m_movingFloor1 = NewGO<MovingFloor>(0, "movingfloor");
+	m_movingFloor1->SetPosition(Vector3{ 14200.0f, 300.0f, 200.0f });
+
+	m_movingFloor2 = NewGO<MovingFloor>(0, "movingfloor");
+	m_movingFloor2->SetPosition(Vector3{ 15200.0f, 300.0f, 200.0f });
+
 	m_modelRender.SetPosition(m_position);
 }
 
-void Game::Block_NewGo()
+//ブロックのNewGO用関数
+void Game::Block_NewGO()
 {
 	m_block = NewGO<Block>(0, "block");
 	m_block->m_position = { 11000.0f, 800.0f, 0.0f };
 	m_block->m_firstposition = m_block->m_position;
 
+	m_modelRender.SetPosition(m_position);
 
+}
+
+//看板のNewGO用関数
+void Game::Signboard_NewGO()
+{
+	m_signboard = NewGO<Signboard>(0, "signboard");
+	m_signboard->m_position = { 100.0f, 80.0f, 100.0f };
+	m_signboard->m_firstposition = m_signboard->m_position;
+	m_modelRender.SetPosition(m_position);
+}
+
+//足場ブロックのNewGO用関数
+void Game::Scaffold_NewGO()
+{
+    m_scaffold = NewGO<Scaffold>(0, "scaffold");
+	m_scaffold->m_position = { -500.0f, 0.0f, 200.0f };
+	m_scaffold->m_firstposition = m_scaffold->m_position;
+
+	//x … 13300
+
+	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
+	m_scaffold1->m_position = { 13200.0f, 260.0f, 200.0f };
+	m_scaffold1->m_firstposition = m_scaffold1->m_position;
 	m_modelRender.SetPosition(m_position);
 
 }
@@ -195,8 +248,8 @@ void Game::Update()
 
 	if (m_player->NeedleCount == 1)
 	{	
-//		NewGO<GameOver>(0);
-//		DeleteGO(this);
+		//NewGO<GameOver>(0);
+		//DeleteGO(this);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
 		DeleteGO(m_fallingBlock);
@@ -225,8 +278,8 @@ void Game::Update()
 	m_timer -= g_gameTime->GetFrameDeltaTime();
 
 	if (m_timer <= 0.0f) {
-//		NewGO<GameOver>(0, "gameover");
-//		DeleteGO(this);
+		NewGO<GameOver>(0, "gameover");
+		DeleteGO(this);
 		DeleteGO(m_player);
 		DeleteGO(m_movingFloor);
 		DeleteGO(m_fallingBlock);
