@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "Title.h"
+#include "Fade.h"
 
 Title::Title()
 {
@@ -18,6 +19,8 @@ Title::Title()
 
 	//カメラの初期化
 	InitCamera();
+
+	m_fade = FindGO<Fade>("fade");
 }
 
 Title::~Title()
@@ -25,6 +28,7 @@ Title::~Title()
 	DeleteGO(m_skyCube);
 }
 
+//更新処理
 void Title::Update()
 {
 	//スタート用のフェードが終わったら
@@ -67,9 +71,9 @@ void Title::Update()
 
 	//更新処理
 	m_playerModel.Update();
-	m_fade.Update();
 }
 
+//描画
 void Title::Render(RenderContext& rc)
 {
 	//プレイヤーモデル
@@ -77,9 +81,6 @@ void Title::Render(RenderContext& rc)
 
 	//ステージモデル
 	m_backGroundModel.Draw(rc);
-
-	//フェード
-	m_fade.Draw(rc);
 
 	//ゲーム開始フラグが立っていないか？
 	if (m_gameStartFlag != true)
@@ -134,6 +135,7 @@ void Title::Render(RenderContext& rc)
 	}
 }
 
+//プレイヤー側の操作
 void Title::Action()
 {
 	//ゲーム開始フラグが立っていないか？
@@ -232,13 +234,19 @@ void Title::Action()
 		//画面端に行ったら
 		if (m_playerModelPosition.x > FRAME_BUFFER_W / 2)
 		{
-			//ゲーム開始
-			NewGO<Game>(0, "game");
-			DeleteGO(this);
+			m_fade->FadeTransition(enFadeState_FadeOut);
+			if (g_gameTime->StopWatch(2.5f))
+			{
+				//ゲーム開始
+				NewGO<Game>(0, "game");
+				m_fade->FadeTransition(enFadeState_FadeIn);
+				DeleteGO(this);
+			}
 		}
 	}
 }
 
+//スプライトの動作
 void Title::SpriteMove()
 {
 	//タイトル画面遷移
@@ -409,6 +417,7 @@ void Title::SpriteMove()
 	}
 }
 
+//スカイキューブの初期化
 void Title::InitSky()
 {
 	DeleteGO(m_skyCube);
@@ -421,6 +430,7 @@ void Title::InitSky()
 	m_skyCube->Update();
 }
 
+//アニメーションの初期化
 void Title::InitAnimation()
 {
 	//0.歩くアニメーション
@@ -431,6 +441,7 @@ void Title::InitAnimation()
 	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
 }
 
+//モデルの初期化
 void Title::InitModel()
 {
 	//0 プレイヤーモデルの初期化
@@ -457,13 +468,9 @@ void Title::InitModel()
 	m_backGroundModel.Update();
 }
 
+//スプライトの初期化
 void Title::InitSprite()
 {
-	//フェード
-	m_fade.Init("Assets/title/screen/startfade.dds", 1600, 900);
-	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
-	m_fade.SetWipeScrollSpeed(20.0f);
-
 	//タイトル背景
 	m_titleBackGround.Init("Assets/title/title.dds", 1024, 1024);
 	m_titleBackGround.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
@@ -548,18 +555,21 @@ void Title::InitSprite()
 	m_returnUI.Update();
 }
 
+//カメラの初期化
 void Title::InitCamera()
 {
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(15000.0f);
 }
 
+//プレイヤーモデルの動作
 void Title::PlayerModelMove()
 {
 	m_playerModelPosition.x += 7.5f;
 	m_playerModel.SetPosition(m_playerModelPosition);
 }
 
+//カメラの更新
 void Title::UpdateCamera()
 {
 	if (m_gameStartFlag != true)
@@ -577,18 +587,21 @@ void Title::UpdateCamera()
 	}
 }
 
+//アニメーション管理
 void Title::AnimationManage()
 {
 	//プレイヤーモデル
 	PlayerModelAnimationManage();
 }
 
+//アニメーション再生
 void Title::PlayAnimation()
 {
 	//プレイヤーモデル
 	PlayerModelPlayAnimation();
 }
 
+//プレイヤーモデルのアニメーション管理
 void Title::PlayerModelAnimationManage()
 {
 	if (m_gameStartFlag == true)
@@ -601,6 +614,7 @@ void Title::PlayerModelAnimationManage()
 	}
 }
 
+//プレイヤーモデルのアニメーション再生
 void Title::PlayerModelPlayAnimation()
 {
 	switch (m_playerModelAnimationState)

@@ -4,6 +4,7 @@
 class Player;
 class Game;
 class GameOver;
+class Fade;
 class Title : public IGameObject
 {
 public:
@@ -99,7 +100,6 @@ private:
 	int					m_titleTransition = enTitleTransition_Title;								//タイトル画面用遷移
 	Vector4             m_modeUIColor[enModeSelect_Num];											//モード選択UIのカラー
 	float				m_alpha = 0.0f;																//透明度
-	SpriteRender        m_fade;																		//フェード
 	SpriteRender		m_titleBackGround;															//タイトル背景
 	SpriteRender        m_pressAButtonUI;															//Aボタンを押すUI
 	SpriteRender        m_modeUI[enModeSelect_Num];													//モードUI
@@ -114,7 +114,8 @@ private:
 	bool				m_pressButtonFlag = false;													//ボタンを押したか?
 	bool                m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
 	bool                m_titleTransitionFlag = false;												//タイトル画面遷移フラグ
-	SkyCube* m_skyCube = nullptr;
-	int m_skyCubeType = enSkyCubeType_Day;
+	Fade*				m_fade = nullptr;															//フェード用インスタンス
+	SkyCube*			m_skyCube = nullptr;														//スカイキューブ用のインスタンス
+	int					m_skyCubeType = enSkyCubeType_Day;											//スカイキューブの背景
 };
 

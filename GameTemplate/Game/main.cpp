@@ -2,6 +2,7 @@
 #include "system/system.h"
 #include "Game.h"
 #include "Title.h"
+#include "Fade.h"
 
 // K2EngineLowのグローバルアクセスポイント。
 K2EngineLow* g_k2EngineLow = nullptr;
@@ -22,6 +23,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 
 	NewGO<Game>(0, "game");
+//	NewGO<Fade>(0, "fade");
 //	NewGO<Title>(0, "title");
 
 
