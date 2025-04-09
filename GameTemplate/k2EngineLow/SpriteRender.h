@@ -23,6 +23,14 @@ namespace nsK2EngineLow
 		ScreenDrawingMode_None, //描画しない
 	};
 
+	enum EnFadeState
+	{
+		enFadeState_FadeIn,		//フェードイン
+		enFadeState_Loading,	//ローディング
+		enFadeState_FadeOut,	//フェードアウト
+		enFadeState_Num			//フェード数
+	};
+
 	/// <summary>
 	/// スプライトレンダー
 	/// </summary>
@@ -164,6 +172,15 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// ワイプサイズを設定
+		/// </summary>
+		/// <param name="wipeSize">ワイプサイズ</param>
+		void SetWipeSize(float wipeSize)
+		{
+			m_spriteRenderConstantBuffer.linearWipe.size = wipeSize;
+		}
+
+		/// <summary>
 		/// リニアワイプの速度を設定
 		/// </summary>
 		/// <param name="wipeScroolSpeed">速度</param>
@@ -203,6 +220,15 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// フェードステートの切り替え
+		/// </summary>
+		/// <param name="enFadeState">フェードステート</param>
+		void SetFadeTransition(EnFadeState enFadeState)
+		{
+			m_fadeState = enFadeState;
+		}
+
+		/// <summary>
 		/// スプライトレンダー用の定数バッファを取得
 		/// </summary>
 		/// <returns></returns>
@@ -217,7 +243,14 @@ namespace nsK2EngineLow
 		/// </summary>
 		void LinearWipeUpdate()
 		{
-			m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed;
+			if (m_fadeState == enFadeState_FadeIn)
+			{
+				m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed;
+			}
+			else if (m_fadeState == enFadeState_FadeOut)
+			{
+				m_spriteRenderConstantBuffer.linearWipe.size -= m_wipeScrollSpeed;
+			}
 		}
 
 		/// <summary>
@@ -249,6 +282,7 @@ namespace nsK2EngineLow
 		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //リニアワイプ
 		float m_wipeScrollSpeed = 1.0f; //ワイプ速度
 		float m_screenDrawingEasingSpeed = 0.01f; //画像加工用のイージング速度
+		int m_fadeState = enFadeState_FadeIn;	//フェードステート
 	};
 }
 

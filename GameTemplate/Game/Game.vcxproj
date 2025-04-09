@@ -226,6 +226,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="FallingBlock.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
