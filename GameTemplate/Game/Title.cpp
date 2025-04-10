@@ -53,6 +53,9 @@ void Title::Update()
 		SpriteMove();
 	}
 
+	//ステージモデルの動作
+	BackGroundModelMove();
+
 	//ゲームスタートフラグが立っているとき
 	if (m_gameStartFlag == true)
 	{
@@ -85,8 +88,8 @@ void Title::Render(RenderContext& rc)
 	//プレイヤーモデル
 	m_playerModel.Draw(rc);
 
-	//ゲーム開始フラグが立っていないか？
-	if (m_gameStartFlag != true)
+	//ゲーム開始フラグが立っていないかつ遊び方用の画面に遷移していないか?
+	if (m_gameStartFlag != true && m_titleTransition != enTitleTransition_HowToPlay)
 	{
 		//タイトル背景
 		m_titleBackGround.Draw(rc);
@@ -449,7 +452,6 @@ void Title::InitModel()
 {
 	//0 ステージの初期化
 	m_backGroundModel[enBackGroundModel_Base].Init("Assets/title/background_base.tkm");
-
 	m_backGroundModel[enBackGroundModel_Grass].Init("Assets/title/background_grass.tkm", 0,
 		0, enModelUpAxisZ, false, true);
 
@@ -462,7 +464,6 @@ void Title::InitModel()
 
 	//0.2 スクロール速度を設定
 	m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f);
-
 	m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f);
 
 	//1 プレイヤーモデルの初期化
@@ -573,6 +574,24 @@ void Title::InitCamera()
 {
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(15000.0f);
+}
+
+//ステージモデルの動作
+void Title::BackGroundModelMove()
+{
+	//遊び方用の画面に遷移していたら
+	if (m_titleTransition == enTitleTransition_HowToPlay)
+	{
+		//ステージモデルの動きを止める
+		m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(0.0f);
+		m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(0.0f);
+	}
+	else
+	{
+		//ステージモデルを動き続ける
+		m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f);
+		m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f);
+	}
 }
 
 //プレイヤーモデルの動作
