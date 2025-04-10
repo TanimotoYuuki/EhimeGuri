@@ -72,8 +72,9 @@ cbuffer ModelCb : register(b0)
     float4x4 mWorld;
     float4x4 mView;
     float4x4 mProj;
-    float4 mulColor;
     float alphaColor;
+    float scrollSpeed;
+    float deltaTime;
 };
 
 //ライト用の定数バッファ
@@ -156,6 +157,11 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.tangent = normalize(mul(m, vsIn.tangent));
     psIn.biNormal = normalize(mul(m, vsIn.biNormal));
 	psIn.uv = vsIn.uv;
+    
+    if(scrollSpeed!=0.0f)
+    {
+        psIn.uv.x += scrollSpeed * deltaTime;
+    }
 
     psIn.normalInView = mul(mView, psIn.normal);
     
@@ -235,7 +241,8 @@ SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
     }
     
     albedoColor.xyz *= shadow;
-    albedoColor.a *= mulColor + alphaColor;
+    
+    albedoColor.a *= alphaColor;
     psOut.color = albedoColor;
 	
 	return psOut;

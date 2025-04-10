@@ -70,13 +70,17 @@ namespace nsK2EngineLow {
 		/// <param name="mProj">プロジェクション行列</param>
 		/// <param name="numInstance">インスタンスの数</param>
 		/// <param name="alpha">透明度</param>
+		/// <param name="scrollSpeed">スクロール速度</param>
+		/// <param name="deltaTime">時間</param>
 		void Draw(
 			RenderContext& rc,
 			const Matrix& mWorld,
 			const Matrix& mView,
 			const Matrix& mProj,
 			int numInstance,
-			float alpha = 0.0f
+			float alpha = 0.0f,
+			float scrollSpeed = 0.0f,
+			float deltaTime = 0.0f
 			);
 		/// <summary>
 		/// スケルトンを関連付ける。
@@ -148,10 +152,12 @@ namespace nsK2EngineLow {
 		/// この構造体を変更したら、SimpleModel.fxのCBも変更するように。
 		/// </remarks>
 		struct SConstantBuffer {
-			Matrix mWorld;		//ワールド行列。
-			Matrix mView;		//ビュー行列。
-			Matrix mProj;		//プロジェクション行列。
-			float alpha;		//透明度
+			Matrix mWorld;				//ワールド行列。
+			Matrix mView;				//ビュー行列。
+			Matrix mProj;				//プロジェクション行列。
+			float alpha;				//透明度
+			float scrollSpeed;			//スクロール速度
+			float deltaTime;			//時間
 		};
 		ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
 		ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ

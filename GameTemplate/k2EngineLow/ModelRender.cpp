@@ -76,6 +76,8 @@ namespace nsK2EngineLow
 			shadowInitData.m_skeleton = &m_skeleton;
 		}
 		shadowInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+		shadowInitData.m_expandConstantBuffer = &m_alpha;
+		shadowInitData.m_expandConstantBufferSize = sizeof(m_alpha);
 
 		shadowInitData.m_modelUpAxis = enModelUpAxis;
 		shadowInitData.m_alphaBlendMode = alphaBlendMode;
@@ -126,6 +128,11 @@ namespace nsK2EngineLow
 
 		//アニメーションを進める
 		m_animation.Progress(g_gameTime->GetFrameDeltaTime() * m_animationSpeed);
+
+		if (m_scrollSpeed != 0.0f)
+		{
+			UpdateDeltaTime();
+		}
 	}
 
 	void ModelRender::Draw(RenderContext& rc)
@@ -138,7 +145,7 @@ namespace nsK2EngineLow
 	{
 		if (m_shadowModel.IsInited())
 		{
-			m_shadowModel.Draw(rc, ca ,1, m_alpha);
+			m_shadowModel.Draw(rc, ca, 1, m_alpha, m_scrollSpeed, m_deltaTime);
 		}
 	}
 
@@ -146,7 +153,7 @@ namespace nsK2EngineLow
 	{
 		if (m_model.IsInited())
 		{
-			m_model.Draw(rc, 1, m_alpha);
+			m_model.Draw(rc, 1, m_alpha, m_scrollSpeed, m_deltaTime);
 		}
 	}
 }
