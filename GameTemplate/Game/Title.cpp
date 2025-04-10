@@ -404,7 +404,7 @@ void Title::SpriteMove()
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//–ß‚éUI
-		m_returnUI.SetPosition(Vector3(600.0f, -350.0f, 0.0f));
+		m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 		break;
 	case enTitleTransition_HowToPlay: //—V‚Ñ•û
@@ -413,7 +413,7 @@ void Title::SpriteMove()
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//–ß‚éUI
-		m_returnUI.SetPosition(Vector3(650.0f, -350.0f, 0.0f));
+		m_returnUI.SetPosition(Vector3(650.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 	default:
 		break;
@@ -554,7 +554,7 @@ void Title::InitSprite()
 
 	//Œˆ’èUI
 	m_decisionUI.Init("Assets/title/text/decision.dds", 1024, 128);
-	m_decisionUI.SetPosition(Vector3(400.0f, -350.0f, 0.0f));
+	m_decisionUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_decisionUI.Update();
 
@@ -563,7 +563,7 @@ void Title::InitSprite()
 
 	//–ß‚éUI
 	m_returnUI.Init("Assets/title/text/return.dds", 1024, 128);
-	m_returnUI.SetPosition(Vector3(600.0f, -350.0f, 0.0f));
+	m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 	m_returnUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_returnUI.Update();
 }
