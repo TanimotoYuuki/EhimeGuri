@@ -13,6 +13,7 @@
 #include "GameOver.h"
 #include "GameCamera.h"
 #include "TransparentBlock.h"
+#include "Towel.h"
 
 namespace
 {
@@ -63,6 +64,7 @@ bool Game::Start()
 //	Block_NewGO();
 	Signboard_NewGO();
 	Scaffold_NewGO();
+	Item_NewGO();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -171,8 +173,8 @@ void Game::Needle_NewGO()
 //動く床のNewGO用関数
 void Game::MovingFloor_NewGO()
 {
-	m_movingFloor = NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor->SetPosition(Vector3{ 8500.0f, 0.0f, 0.0f });
+	/*m_movingFloor = NewGO<MovingFloor>(0, "movingfloor");
+	m_movingFloor->SetPosition(Vector3{ 8500.0f, 0.0f, 0.0f });*/
 
 	m_movingFloor1 = NewGO<MovingFloor>(0, "movingfloor");
 	m_movingFloor1->SetPosition(Vector3{ 14200.0f, 300.0f, 200.0f });
@@ -211,12 +213,20 @@ void Game::Scaffold_NewGO()
 	m_scaffold->m_firstposition = m_scaffold->m_position;
 
 	//x … 13300
-
+	
 	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
 	m_scaffold1->m_position = { 13200.0f, 260.0f, 200.0f };
 	m_scaffold1->m_firstposition = m_scaffold1->m_position;
 	m_modelRender.SetPosition(m_position);
 
+}
+
+//アイテムのNewGO用関数
+void Game::Item_NewGO()
+{
+	m_towel = NewGO<Towel>(0,"towel");
+	m_towel->m_position = { 100.0f, 100.0f, 0.0f };
+	m_modelRender.SetPosition(m_position);
 }
 
 void Game::Update()

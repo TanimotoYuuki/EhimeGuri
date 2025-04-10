@@ -26,6 +26,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Signboard.cpp" />
     <ClCompile Include="Scaffold.cpp" />
+    <ClCompile Include="Towel.cpp" />
     <ClCompile Include="Fade.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Signboard.h" />
     <ClInclude Include="Scaffold.h" />
+    <ClInclude Include="Towel.h" />
     <ClInclude Include="Fade.h" />
   </ItemGroup>
 </Project>
