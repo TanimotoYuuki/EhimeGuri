@@ -12,6 +12,7 @@ class Signboard;					//看板
 class GameOver;						//ゲームオーバー
 class GameCamera;					//カメラ
 class TransparentBlock;				//透明ブロック
+class Towel;                        //タオル
 class Game : public IGameObject
 {
 public:
@@ -29,6 +30,7 @@ public:
 	void Block_NewGO();
 	void Signboard_NewGO();
 	void Scaffold_NewGO();
+	void Item_NewGO();
 
 private:
 	Block             * m_block;
@@ -66,6 +68,8 @@ private:
 	TransparentBlock  * m_transparentBlock9;
 	TransparentBlock  * m_transparentBlock10;
 	TransparentBlock  * m_transparentBlock11;
+
+	Towel             * m_towel;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
