@@ -32,6 +32,8 @@ private:
 	void SpriteMove();
 	//カメラの更新処理
 	void UpdateCamera();
+	//ステージモデルの動作
+	void BackGroundModelMove();
 	//プレイヤーモデルの動作
 	void PlayerModelMove();
 	//アニメーション管理
