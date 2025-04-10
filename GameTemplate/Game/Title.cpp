@@ -34,7 +34,7 @@ void Title::Update()
 	//スタート用のフェードが終わったら
 	if (m_startFadeFinishFlag != true)
 	{
-		if (g_gameTime->StopWatch(0.8f) == true)
+		if (g_gameTime->StopWatch(1.0f) == true)
 		{
 			m_startFadeFinishFlag = true;
 		}
@@ -71,16 +71,19 @@ void Title::Update()
 
 	//更新処理
 	m_playerModel.Update();
+	m_backGroundModel[enBackGroundModel_Base].Update();
+	m_backGroundModel[enBackGroundModel_Grass].Update();
 }
 
 //描画
 void Title::Render(RenderContext& rc)
 {
+	//ステージモデル
+	m_backGroundModel[enBackGroundModel_Base].Draw(rc);
+	m_backGroundModel[enBackGroundModel_Grass].Draw(rc);
+
 	//プレイヤーモデル
 	m_playerModel.Draw(rc);
-
-	//ステージモデル
-	m_backGroundModel.Draw(rc);
 
 	//ゲーム開始フラグが立っていないか？
 	if (m_gameStartFlag != true)
@@ -401,7 +404,7 @@ void Title::SpriteMove()
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUI
-		m_returnUI.SetPosition(Vector3(600.0f, -350.0f, 0.0f));
+		m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 		break;
 	case enTitleTransition_HowToPlay: //遊び方
@@ -410,7 +413,7 @@ void Title::SpriteMove()
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUI
-		m_returnUI.SetPosition(Vector3(650.0f, -350.0f, 0.0f));
+		m_returnUI.SetPosition(Vector3(650.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 	default:
 		break;
@@ -444,28 +447,38 @@ void Title::InitAnimation()
 //モデルの初期化
 void Title::InitModel()
 {
-	//0 プレイヤーモデルの初期化
+	//0 ステージの初期化
+	m_backGroundModel[enBackGroundModel_Base].Init("Assets/title/background_base.tkm");
+
+	m_backGroundModel[enBackGroundModel_Grass].Init("Assets/title/background_grass.tkm", 0,
+		0, enModelUpAxisZ, false, true);
+
+	//0.1 大きさを設定
+	m_backGroundModel[enBackGroundModel_Base].SetScale(Vector3(10.0f, 10.0f, 10.0f));
+	m_backGroundModel[enBackGroundModel_Base].Update();
+
+	m_backGroundModel[enBackGroundModel_Grass].SetScale(Vector3(10.0f, 10.0f, 10.0f));
+	m_backGroundModel[enBackGroundModel_Grass].Update();
+
+	//0.2 スクロール速度を設定
+	m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f);
+
+	m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f);
+
+	//1 プレイヤーモデルの初期化
 	m_playerModel.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
-	//0.1 位置を設定
+	//1.1 位置を設定
 	m_playerModel.SetPosition(m_playerModelPosition);
 
-	//0.2 回転を設定
+	//1.2 回転を設定
 	m_playerModelRotation.SetRotationDegY(90.0f);
 	m_playerModel.SetRotation(m_playerModelRotation);
 
-	//0.3 大きさを設定
+	//1.3 大きさを設定
 	m_playerModel.SetScale(m_playerModelScale);
 	m_playerModel.Update();
-
-	//1 ステージの初期化
-	m_backGroundModel.Init("Assets/title/background.tkm", 0,
-		0, enModelUpAxisZ, false, true);
-
-	//1.1 大きさを設定
-	m_backGroundModel.SetScale(Vector3(10.0f, 10.0f, 10.0f));
-	m_backGroundModel.Update();
 }
 
 //スプライトの初期化
@@ -541,7 +554,7 @@ void Title::InitSprite()
 
 	//決定UI
 	m_decisionUI.Init("Assets/title/text/decision.dds", 1024, 128);
-	m_decisionUI.SetPosition(Vector3(400.0f, -350.0f, 0.0f));
+	m_decisionUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_decisionUI.Update();
 
@@ -550,7 +563,7 @@ void Title::InitSprite()
 
 	//戻るUI
 	m_returnUI.Init("Assets/title/text/return.dds", 1024, 128);
-	m_returnUI.SetPosition(Vector3(600.0f, -350.0f, 0.0f));
+	m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 	m_returnUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_returnUI.Update();
 }

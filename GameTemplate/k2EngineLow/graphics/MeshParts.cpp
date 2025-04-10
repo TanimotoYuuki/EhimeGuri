@@ -226,7 +226,9 @@ namespace nsK2EngineLow {
 		const Matrix& mView,
 		const Matrix& mProj,
 		int numInstance,
-		float alpha
+		float alpha,
+		float scrollSpeed,
+		float deltaTime
 	)
 	{
 		//メッシュごとにドロー
@@ -239,6 +241,8 @@ namespace nsK2EngineLow {
 		cb.mView = mView;
 		cb.mProj = mProj;
 		cb.alpha = alpha;
+		cb.scrollSpeed = scrollSpeed;
+		cb.deltaTime = deltaTime;
 		m_commonConstantBuffer.CopyToVRAM(cb);
 
 		if (m_expandData) {

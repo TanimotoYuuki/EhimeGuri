@@ -26,6 +26,11 @@ struct SPSIn
     float2 uv       : TEXCOORD0;    // UV座標
 };
 
+cbuffer ShadowMapCb : register(b1)
+{
+    float alphaColor;
+}
+
 StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ボーン行列
 
 /// <summary>
@@ -85,5 +90,10 @@ SPSIn VSSkinMain(SVSIn vsIn)
 
 float4 PSShadowCaster(SPSIn psIn) : SV_Target0
 {
+    if(alphaColor<=0.0f)
+    {
+        return float4(psIn.pos.z, psIn.pos.z, psIn.pos.z, 0.0f);
+    }
+    
     return float4(psIn.pos.z, psIn.pos.z, psIn.pos.z, 1.0f);
 }

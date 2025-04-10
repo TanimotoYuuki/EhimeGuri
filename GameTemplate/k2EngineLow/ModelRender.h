@@ -175,6 +175,27 @@ namespace nsK2EngineLow
 			return m_alpha;
 		}
 
+		/// <summary>
+		/// スクロール速度を設定
+		/// </summary>
+		/// <param name="scrollSpeed">スクロール速度</param>
+		void SetScrollSpeed(float scrollSpeed)
+		{
+			m_scrollSpeed = scrollSpeed;
+		}
+
+		/// <summary>
+		/// 時間の更新処理
+		/// </summary>
+		void UpdateDeltaTime()
+		{
+			m_deltaTime += 0.1f * g_gameTime->GetFrameDeltaTime();
+			if (m_deltaTime > 1.0f)
+			{
+				m_deltaTime = 0.0f;
+			}
+		}
+
 	private:
 		/// <summary>
 		/// モデルの初期化
@@ -231,7 +252,9 @@ namespace nsK2EngineLow
 		bool m_isUpdateAnimation = true; //アニメーションを更新する？
 		Skeleton m_skeleton; //骨
 		float m_animationSpeed = 1.0f; //アニメーション再生速度
-		float m_alpha = 0.0f; //透明度
+		float m_alpha = 1.0f; //透明度
+		float m_scrollSpeed = 0.0f; //スクロール速度
+		float m_deltaTime = 0.0f; //時間
 	};
 }
 

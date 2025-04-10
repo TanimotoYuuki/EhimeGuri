@@ -94,10 +94,14 @@ namespace nsK2EngineLow {
 		/// <param name="renderContext">レンダリングコンテキスト</param>
 		/// <param name="numInstance">インスタンスの数</param>
 		/// <param name="alpha">透明度</param>
+		/// <param name="scrollSpeed">スクロール速度</param>
+		/// <param name="deltaTime>時間</param>
 		void Draw(
 			RenderContext& renderContext,
 			int numInstance = 1,
-			float alpha = 0.0f
+			float alpha = 0.0f,
+			float scrollSpeed = 0.0f,
+			float deltaTime = 0.0f
 		);
 		/// <summary>
 		/// 描画(カメラ指定版)
@@ -106,11 +110,15 @@ namespace nsK2EngineLow {
 		/// <param name="camera">カメラ</param>
 		/// <param name="numInstance">インスタンスの数</param>
 		/// <param name="alpha">透明度</param>
+		/// <param name="scrollSpeed">スクロール速度</param>
+		/// <param name="deltaTime">時間</param> 
 		void Draw(
 			RenderContext& renderContext,
 			Camera& camera,
 			int numInstance = 1,
-			float alpha = 0.0f
+			float alpha = 0.0f,
+			float scrollSpeed = 0.0f,
+			float deltaTime = 0.0f
 		);
 		/// <summary>
 		/// 描画(カメラ行列指定版)
@@ -120,12 +128,16 @@ namespace nsK2EngineLow {
 		/// <param name="projMatrix">プロジェクション行列</param>
 		/// <param name="numInstance">インスタンスの数</param>
 		/// <param name="alpha">透明度</param>
+		/// <param name="scrollSpeed">スクロール速度</param>
+		/// <param name="deltaTime">時間</param>
 		void Draw(
 			RenderContext& renderContext,
 			const Matrix& viewMatrix,
 			const Matrix& projMatrix,
 			int numInstance = 1,
-			float alpha = 0.0f
+			float alpha = 0.0f,
+			float scrollSpeed = 0.0f,
+			float deltaTime = 0.0f
 		);
 		/// <summary>
 		/// ワールド行列を取得。

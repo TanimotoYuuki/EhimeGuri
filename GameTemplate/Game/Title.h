@@ -89,9 +89,17 @@ private:
 		enTitleTransition_Num			//遷移数
 	};
 
+	//ステージモデル
+	enum EnBackGroundModel
+	{
+		enBackGroundModel_Base,			//土台
+		enBackGroundModel_Grass,		//草原
+		enBackGroundModel_Num			//ステージモデル数
+	};
+
 	AnimationClip		m_animationClip[enAnimationClip_num];										//アニメションクリップ
+	ModelRender         m_backGroundModel[enBackGroundModel_Num];									//ステージモデル
 	ModelRender			m_playerModel;																//プレイヤーモデル
-	ModelRender         m_backGroundModel;															//ステージモデル
 	Vector3				m_playerModelPosition=Vector3::Zero;										//プレイヤーモデルの位置
 	Quaternion          m_playerModelRotation = Quaternion::Identity;								//プレイヤーモデルの回転
 	Vector3             m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );								//プレイヤーモデルの大きさ

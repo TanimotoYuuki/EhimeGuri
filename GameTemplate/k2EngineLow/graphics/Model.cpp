@@ -88,7 +88,9 @@ namespace nsK2EngineLow {
 	void Model::Draw(
 		RenderContext& rc,
 		int numInstance,
-		float alpha
+		float alpha,
+		float scrollSpeed, 
+		float deltaTime
 	)
 	{
 		m_meshParts.Draw(
@@ -97,14 +99,18 @@ namespace nsK2EngineLow {
 			g_camera3D->GetViewMatrix(),
 			g_camera3D->GetProjectionMatrix(),
 			numInstance,
-			alpha
+			alpha,
+			scrollSpeed,
+			deltaTime
 		);
 	}
 	void Model::Draw(
 		RenderContext& rc,
 		Camera& camera,
 		int numInstance,
-		float alpha
+		float alpha,
+		float scrollSpeed,
+		float deltaTime
 	)
 	{
 		Draw(
@@ -112,7 +118,9 @@ namespace nsK2EngineLow {
 			camera.GetViewMatrix(),
 			camera.GetProjectionMatrix(),
 			numInstance,
-			alpha
+			alpha,
+			scrollSpeed,
+			deltaTime
 		);
 	}
 
@@ -121,7 +129,9 @@ namespace nsK2EngineLow {
 		const Matrix& viewMatrix,
 		const Matrix& projMatrix,
 		int numInstance,
-		float alpha
+		float alpha,
+		float scrollSpeed,
+		float deltaTime
 	)
 	{
 		if (numInstance == 0) {
@@ -134,7 +144,9 @@ namespace nsK2EngineLow {
 			viewMatrix,
 			projMatrix,
 			numInstance,
-			alpha
+			alpha,
+			scrollSpeed,
+			deltaTime
 		);
 	}
 }
