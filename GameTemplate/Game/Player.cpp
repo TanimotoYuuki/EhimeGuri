@@ -24,7 +24,7 @@ Player::Player() {
 	m_position = { 133.0f,94.0f,0.0f };
 	
 	//テストプレイ用
-	//m_position = { 12000.0f, 300.0f, 0.0f };
+	//m_position = { 16000.0f, 400.0f, 0.0f };
 
 	m_initPosition = { 133.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
@@ -112,6 +112,8 @@ void Player::Move() {
 
 	//キャラクターコントローラーを使って座標を移動させる
 	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
+
+	m_position.z = 0.0f;
 
 	//絵描きさんに座標を教える
 	m_modelRender.SetPosition(m_position);

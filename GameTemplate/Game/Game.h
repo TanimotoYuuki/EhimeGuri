@@ -36,7 +36,7 @@ public:
 private:
 	Block             * m_block;
 	BackGround		  * m_backGround;
-	Enemy			  * m_enemyList[1];
+	Enemy			  * m_enemyList[4];
 	FallingBlock	  * m_fallingBlock;
 	FallingBlock      * m_fallingBlock1;
 	FallingBlock      * m_fallingBlock2;
@@ -88,10 +88,12 @@ private:
 	SpriteRender        m_sutaminaMaxrender;
 	SpriteRender        m_sutamina0render;
 	FontRender          m_timerRender;
+	SpriteRender        m_mappuRender;
+	SpriteRender        m_gennzaitiRender;
 	Vector3             m_scale = Vector3::One;
 	SkyCube* m_SkyCube = nullptr; //îwåi
 	int m_skycubeType = enSkyCubeType_NightToon;
-	float               m_timer = 5.0f;
+	float               m_timer = 180.0f;
 	bool                drawFlag = true;
 };
 
