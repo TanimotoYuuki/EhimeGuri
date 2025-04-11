@@ -7,6 +7,7 @@ public:
 
 	bool Start();
 	void Update();
+	void Rotation();
 	void Render(RenderContext& rc);
 
 	void SetPosition(const Vector3 position)
@@ -17,5 +18,6 @@ public:
 	ModelRender m_modelRender;
 	Vector3     m_position;
 	Vector3     m_firstposition;
+	Quaternion  m_Rot;
 };
 

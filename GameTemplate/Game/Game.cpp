@@ -23,6 +23,23 @@ namespace
 	const int ENEMY_NUM = 1;
 }
 
+////背景の関数
+//void Game::InitSky()
+//{
+//	DeleteGO(m_SkyCube);
+//	SkyCube* m_SkyCube = NewGO<SkyCube>(0, "skycube");
+//	m_SkyCube->SetType(enSkyCubeType_NightToon);
+//	m_SkyCube->SetLuminance(1.0f);
+//	m_SkyCube->SetScale(100000.0f);
+//
+//
+//	// 環境光の計算のためのIBLテクスチャをセットする。
+//	g_renderingEngine->SetAmbientByIBLTexture(m_SkyCube->GetTextureFilePath(), 1.0f);
+//	// 環境日光の影響が分かりやすいように、ディレクションライトはオフに。
+//	g_renderingEngine->SetDirectionLight(0, g_vec3Zero, g_vec3Zero);
+//}
+
+
 bool Game::Start()
 {
 	m_backGround =  NewGO<BackGround>(1, "background");
@@ -225,9 +242,11 @@ void Game::Scaffold_NewGO()
 void Game::Item_NewGO()
 {
 	m_towel = NewGO<Towel>(0,"towel");
-	m_towel->m_position = { 100.0f, 100.0f, 0.0f };
+	m_towel->m_position = { 12600.0f, 300.0f, 0.0f };
 	m_modelRender.SetPosition(m_position);
 }
+
+
 
 void Game::Update()
 {
@@ -252,17 +271,38 @@ void Game::Update()
 
 	
 
-	if (m_player == nullptr) {
-		return;
-	}
+	
 
 	if (m_player->NeedleCount == 1)
 	{	
-		//NewGO<GameOver>(0);
-		//DeleteGO(this);
+		NewGO<GameOver>(0, "gameover");
+		DeleteGO(this);
 		DeleteGO(m_player);
-		DeleteGO(m_movingFloor);
+		DeleteGO(m_transparentBlock);
+		DeleteGO(m_transparentBlock1);
+		DeleteGO(m_transparentBlock2);
+		DeleteGO(m_transparentBlock3);
+		DeleteGO(m_transparentBlock4);
+		DeleteGO(m_transparentBlock5);
+		DeleteGO(m_transparentBlock6);
+		DeleteGO(m_transparentBlock7);
+		DeleteGO(m_transparentBlock8);
+		DeleteGO(m_transparentBlock9);
+		DeleteGO(m_transparentBlock10);
+		DeleteGO(m_transparentBlock11);
 		DeleteGO(m_fallingBlock);
+		DeleteGO(m_fallingBlock1);
+		DeleteGO(m_fallingBlock2);
+		DeleteGO(m_scaffoldBlock);
+		DeleteGO(m_needle);
+		DeleteGO(m_needle1);
+		DeleteGO(m_movingFloor1);
+		DeleteGO(m_movingFloor2);
+		DeleteGO(m_block);
+		DeleteGO(m_signboard);
+		DeleteGO(m_scaffold);
+		DeleteGO(m_scaffold1);
+		DeleteGO(m_towel);
 		for (int i = 0; i < ENEMY_NUM; i++) {
 			DeleteGO(m_enemyList[i]);
 		}
@@ -271,6 +311,7 @@ void Game::Update()
 		m_fallingBlock = nullptr;
 		m_gameCamera->SetTarget(nullptr);
 	}
+
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;
@@ -291,9 +332,32 @@ void Game::Update()
 		NewGO<GameOver>(0, "gameover");
 		DeleteGO(this);
 		DeleteGO(m_player);
-		DeleteGO(m_movingFloor);
+		DeleteGO(m_backGround);;
+		DeleteGO(m_transparentBlock);
+		DeleteGO(m_transparentBlock1);
+		DeleteGO(m_transparentBlock2);
+		DeleteGO(m_transparentBlock3);
+		DeleteGO(m_transparentBlock4);
+		DeleteGO(m_transparentBlock5);
+		DeleteGO(m_transparentBlock6);
+		DeleteGO(m_transparentBlock7);
+		DeleteGO(m_transparentBlock8);
+		DeleteGO(m_transparentBlock9);
+		DeleteGO(m_transparentBlock10);
+		DeleteGO(m_transparentBlock11);
 		DeleteGO(m_fallingBlock);
+		DeleteGO(m_fallingBlock1);
+		DeleteGO(m_fallingBlock2);
+		DeleteGO(m_scaffoldBlock);
 		DeleteGO(m_needle);
+		DeleteGO(m_needle1);
+		DeleteGO(m_movingFloor1);
+		DeleteGO(m_movingFloor2);
+		DeleteGO(m_block);
+		DeleteGO(m_signboard);
+		DeleteGO(m_scaffold);
+		DeleteGO(m_scaffold1);
+		DeleteGO(m_towel);
 		for (int i = 0; i < ENEMY_NUM; i++) {
 			DeleteGO(m_enemyList[i]);
 		}
@@ -302,6 +366,7 @@ void Game::Update()
 		m_fallingBlock = nullptr;
 		m_gameCamera->SetTarget(nullptr);
 	}
+
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();
 }
