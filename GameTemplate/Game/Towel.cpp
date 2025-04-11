@@ -3,7 +3,7 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3{ 3.0f,2.0f,3.0f };
+	Vector3 SCALE = Vector3{ 2.0f,2.0f,3.0f };
 }
 
 Towel::Towel()
@@ -24,8 +24,15 @@ bool Towel::Start()
 	return true;
 }
 
+void Towel::Rotation()
+{
+	m_Rot.AddRotationDegY(2.0f);
+	m_modelRender.SetRotation(m_Rot);
+}
+
 void Towel::Update()
 {
+	Rotation();
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();

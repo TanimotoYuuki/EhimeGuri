@@ -31,7 +31,8 @@ public:
 	void Signboard_NewGO();
 	void Scaffold_NewGO();
 	void Item_NewGO();
-
+	void InitSky();
+	
 private:
 	Block             * m_block;
 	BackGround		  * m_backGround;
@@ -88,7 +89,9 @@ private:
 	SpriteRender        m_sutamina0render;
 	FontRender          m_timerRender;
 	Vector3             m_scale = Vector3::One;
-	float               m_timer = 180.0f;
+	SkyCube* m_SkyCube = nullptr; //îwåi
+	int m_skycubeType = enSkyCubeType_NightToon;
+	float               m_timer = 5.0f;
 	bool                drawFlag = true;
 };
 
