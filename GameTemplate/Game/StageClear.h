@@ -1,5 +1,6 @@
 #pragma once
 class Player;
+
 class StageClear : public IGameObject
 {
 public:

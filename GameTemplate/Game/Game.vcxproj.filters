@@ -29,6 +29,7 @@
     <ClCompile Include="Towel.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="StageClear.cpp" />
+    <ClCompile Include="ClearPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -53,5 +54,6 @@
     <ClInclude Include="Towel.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="StageClear.h" />
+    <ClInclude Include="ClearPoint.h" />
   </ItemGroup>
 </Project>

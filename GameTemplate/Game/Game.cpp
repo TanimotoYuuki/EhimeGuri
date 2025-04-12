@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Block.h"
 #include "BackGround.h"
+#include "ClearPoint.h"
 #include "Enemy.h"
 #include "FallingBlock.h"
 #include "Player.h"
@@ -8,6 +9,7 @@
 #include "Scaffold.h"
 #include "ScaffoldBlock.h"
 #include "Signboard.h"
+#include "StageClear.h"
 #include "Needle.h"
 #include "Game.h"
 #include "GameOver.h"
@@ -23,6 +25,7 @@ namespace
 	const int ENEMY_NUM = 4;
 }
 
+//îwåi
 ////îwåiÇÃä÷êî
 //void Game::InitSky()
 //{
@@ -89,6 +92,8 @@ bool Game::Start()
 	Signboard_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
+	ClearPoint_NewGO();
+
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -171,7 +176,7 @@ void Game::FallingBlock_NewGO()
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
-	m_scaffoldBlock->m_position = { 8000.0f, 0.0f, 0.0f };
+	m_scaffoldBlock->m_position = { 8000.0f, 150.0f, 0.0f };
 	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 }
@@ -253,6 +258,14 @@ void Game::Item_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+//ÉNÉäÉAÉ|ÉCÉìÉgÇÃNewGOópä÷êî
+void Game::ClearPoint_NewGO()
+{
+	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
+	m_clearPoint->position = { 17500.0f, 700.0f, 0.0f };
+	m_modelRender.SetPosition(m_position);
+
+}
 
 
 void Game::Update()
@@ -278,7 +291,44 @@ void Game::Update()
 
 	
 
-	
+	if (m_timer <= 0.0f) {
+		NewGO<GameOver>(0, "gameover");
+		DeleteGO(this);
+		DeleteGO(m_player);
+		DeleteGO(m_backGround);;
+		DeleteGO(m_transparentBlock);
+		DeleteGO(m_transparentBlock1);
+		DeleteGO(m_transparentBlock2);
+		DeleteGO(m_transparentBlock3);
+		DeleteGO(m_transparentBlock4);
+		DeleteGO(m_transparentBlock5);
+		DeleteGO(m_transparentBlock6);
+		DeleteGO(m_transparentBlock7);
+		DeleteGO(m_transparentBlock8);
+		DeleteGO(m_transparentBlock9);
+		DeleteGO(m_transparentBlock10);
+		DeleteGO(m_transparentBlock11);
+		DeleteGO(m_fallingBlock);
+		DeleteGO(m_fallingBlock1);
+		DeleteGO(m_fallingBlock2);
+		DeleteGO(m_scaffoldBlock);
+		DeleteGO(m_needle);
+		DeleteGO(m_needle1);
+		DeleteGO(m_movingFloor1);
+		DeleteGO(m_movingFloor2);
+		DeleteGO(m_block);
+		DeleteGO(m_signboard);
+		DeleteGO(m_scaffold);
+		DeleteGO(m_scaffold1);
+		DeleteGO(m_towel);
+		for (int i = 0; i < ENEMY_NUM; i++) {
+			DeleteGO(m_enemyList[i]);
+		}
+		m_player = nullptr;
+		m_movingFloor = nullptr;
+		m_fallingBlock = nullptr;
+		m_gameCamera->SetTarget(nullptr);
+	}
 
 	if (m_player->NeedleCount == 1)
 	{	
@@ -319,6 +369,13 @@ void Game::Update()
 		m_gameCamera->SetTarget(nullptr);
 	}
 
+	if (m_player->clearCount == 1)
+	{
+		NewGO<StageClear>(0);
+		DeleteGO(this);
+	}
+
+
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;
@@ -335,44 +392,7 @@ void Game::Update()
 
 	m_timer -= g_gameTime->GetFrameDeltaTime();
 
-	if (m_timer <= 0.0f) {
-		NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
-		DeleteGO(m_player);
-		DeleteGO(m_backGround);;
-		DeleteGO(m_transparentBlock);
-		DeleteGO(m_transparentBlock1);
-		DeleteGO(m_transparentBlock2);
-		DeleteGO(m_transparentBlock3);
-		DeleteGO(m_transparentBlock4);
-		DeleteGO(m_transparentBlock5);
-		DeleteGO(m_transparentBlock6);
-		DeleteGO(m_transparentBlock7);
-		DeleteGO(m_transparentBlock8);
-		DeleteGO(m_transparentBlock9);
-		DeleteGO(m_transparentBlock10);
-		DeleteGO(m_transparentBlock11);
-		DeleteGO(m_fallingBlock);
-		DeleteGO(m_fallingBlock1);
-		DeleteGO(m_fallingBlock2);
-		DeleteGO(m_scaffoldBlock);
-		DeleteGO(m_needle);
-		DeleteGO(m_needle1);
-		DeleteGO(m_movingFloor1);
-		DeleteGO(m_movingFloor2);
-		DeleteGO(m_block);
-		DeleteGO(m_signboard);
-		DeleteGO(m_scaffold);
-		DeleteGO(m_scaffold1);
-		DeleteGO(m_towel);
-		for (int i = 0; i < ENEMY_NUM; i++) {
-			DeleteGO(m_enemyList[i]);
-		}
-		m_player = nullptr;
-		m_movingFloor = nullptr;
-		m_fallingBlock = nullptr;
-		m_gameCamera->SetTarget(nullptr);
-	}
+	
 
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();
