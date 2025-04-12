@@ -3,12 +3,14 @@ class Player;						//プレイヤー
 class Block;						//ブロック
 class BackGround;					//ステージ			
 class Enemy;						//エネミー
+class ClearPoint;                   //クリアポイント
 class FallingBlock;					//落ちる床
 class Needle;						//針
 class MovingFloor;					//移動する床
 class Scaffold;						//足場
 class ScaffoldBlock;				//T型の足場
 class Signboard;					//看板
+class StageClear;
 class GameOver;						//ゲームオーバー
 class GameCamera;					//カメラ
 class TransparentBlock;				//透明ブロック
@@ -22,20 +24,25 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 		
+	void Block_NewGO();
+	void ClearPoint_NewGO();
 	void TransparentBlock_NewGO();	
 	void FallingBlock_NewGO();
-	void ScaffoldBlock_NewGO();
-	void Needle_NewGO();
 	void MovingFloor_NewGO();
-	void Block_NewGO();
+	void Needle_NewGO();
+	void Item_NewGO();
+	void ScaffoldBlock_NewGO();
 	void Signboard_NewGO();
 	void Scaffold_NewGO();
-	void Item_NewGO();
-	void InitSky();
+	
+	
+
+//	void InitSky();
 	
 private:
 	Block             * m_block;
 	BackGround		  * m_backGround;
+	ClearPoint        * m_clearPoint;
 	Enemy			  * m_enemyList[1];
 	FallingBlock	  * m_fallingBlock;
 	FallingBlock      * m_fallingBlock1;
@@ -52,6 +59,7 @@ private:
 	Scaffold		  * m_scaffold;
 	Scaffold		  * m_scaffold1;
 	Signboard         * m_signboard;
+	StageClear        * m_stageClear;
 	MovingFloor       * m_movingFloor;
 	MovingFloor       * m_movingFloor1;
 	MovingFloor       * m_movingFloor2;
@@ -69,7 +77,6 @@ private:
 	TransparentBlock  * m_transparentBlock9;
 	TransparentBlock  * m_transparentBlock10;
 	TransparentBlock  * m_transparentBlock11;
-
 	Towel             * m_towel;
 
 	ModelRender         m_backGroundRender;
@@ -91,7 +98,7 @@ private:
 	Vector3             m_scale = Vector3::One;
 	SkyCube* m_SkyCube = nullptr; //背景
 	int m_skycubeType = enSkyCubeType_NightToon;
-	float               m_timer = 5.0f;
+	float               m_timer = 180.0f;
 	bool                drawFlag = true;
 };
 

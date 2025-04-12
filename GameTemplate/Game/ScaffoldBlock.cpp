@@ -47,14 +47,8 @@ bool ScaffoldBlock::Start()
 void ScaffoldBlock::Update()
 {
 	m_modelRender.Update();
-	m_Rot.SetRotationDegY(90.0f);
-	m_modelRender.SetRotation(m_Rot);
-//	m_modelRender.SetScale(SCALE);
 	m_physicsStaticObject.SetPosition(m_position);
-	m_physicsStaticObject.SetRotation(m_Rot);
-
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
-//	m_collisionObject->SetRotation(m_Rot + COLLISION_HEIGHT);
 }
 
 void ScaffoldBlock::Render(RenderContext& rc)

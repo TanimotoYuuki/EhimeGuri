@@ -57,9 +57,9 @@ public:
 	Quaternion          m_initRotation;
 	
 	int  NeedleCount = 0;
-
-	int m_playerState = enPlayer_idle;
-	int m_needleCount = 0;
+	int  clearCount = 0;
+	int  m_playerState = enPlayer_idle;
+	int  m_needleCount = 0;
 	Game			  * m_game;
 	Enemy* m_enemy;
 	GameOver* m_gameover;

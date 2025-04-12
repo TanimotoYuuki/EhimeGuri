@@ -225,6 +225,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="ClearPoint.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
@@ -252,6 +253,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="ClearPoint.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="FallingBlock.h" />
