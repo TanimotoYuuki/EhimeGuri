@@ -16,7 +16,7 @@ bool Enemy::Start() {
 	animationclip[enAnimationclip_death].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonDeath.tka");
 	animationclip[enAnimationclip_death].SetLoopFlag(false);
 	m_modelrender.Init("Assets/modelData/YoshinagaAssets/Skeleton/Skeleton.tkm",
-		animationclip, enAnimationclip_num, enModelUpAxisY);
+		animationclip, enAnimationclip_num, enModelUpAxisY, true);
 	m_modelrender.SetScale(Vector3(10.0f, 10.0f, 10.0f));
 	charactercontroller.Init(30.0f, 70.0f, m_position);
 	m_modelrender.SetPosition(m_position);
