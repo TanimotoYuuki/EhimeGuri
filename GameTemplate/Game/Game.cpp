@@ -405,7 +405,7 @@ void Game::Update()
 void Game::Render(RenderContext& rc)
 {
 	
-	m_backGroundRender.Draw(rc);
+	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
 	//ƒXƒ^ƒ~ƒi‚ª‚R‚O‚OˆÈ‰º‚Ì‚Æ‚«‚ÉƒQ[ƒW‚ðo‚·
 	if (m_player->m_playernowsutamina<300) {
