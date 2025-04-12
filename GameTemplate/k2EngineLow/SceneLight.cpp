@@ -5,17 +5,17 @@ namespace nsK2EngineLow
 	void SceneLight::Init()
 	{
 		//ディレクションライトの方向
-		m_light.directionLight.direction.x = 1.0f;
+		m_light.directionLight.direction.x = 0.0f;
 		m_light.directionLight.direction.y = -1.0f;
-		m_light.directionLight.direction.z = -1.0f;
+		m_light.directionLight.direction.z = 1.0f;
 
 		//正規化
 		m_light.directionLight.direction.Normalize();
 
 		//ディレクションライトのカラー
-		m_light.directionLight.color.x = 1.0f;
-		m_light.directionLight.color.y = 1.0f;
-		m_light.directionLight.color.z = 1.0f;
+		m_light.directionLight.color.x = 0.5f;
+		m_light.directionLight.color.y = 0.5f;
+		m_light.directionLight.color.z = 0.5f;
 
 		//環境光
 		m_light.ambientLight.x = 0.3f;
