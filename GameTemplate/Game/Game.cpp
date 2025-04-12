@@ -22,7 +22,7 @@ namespace
 	Vector3 TRANSPARENTBLOCK_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	const int ENEMY_NUM = 1;
+	const int ENEMY_NUM = 4;
 }
 
 //”wŒi
@@ -60,16 +60,23 @@ bool Game::Start()
 	m_gameCamera->SetTarget(m_player);
 
 	Vector3 enemyPosList[ENEMY_NUM] = {
-		{3200.0f,94.0f,0.0f}
+		{3200.0f,94.0f,0.0f},
+		{600.0f,94.0f,0.0f},
+		{4800.0f,94.0f,0.0f},
+		{5400.0f,94.0f,0.0f}
 	};
 
-	//for (int i = 0; i < ENEMY_NUM; i++) {
-	//	m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-	//	m_enemyList[i]->m_position = enemyPosList[i];
-	//	m_enemyList[i]->firstposition = enemyPosList[i];
-	//}
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
+		m_enemyList[i]->m_position = enemyPosList[i];
+		m_enemyList[i]->firstposition = enemyPosList[i];
+	}
 
-	
+	m_mappuRender.Init("Assets/modelData/mappu.DDS", 350.0f, 40.0f);
+	m_mappuRender.SetPosition(Vector3(400.0f, 400.0f, 0.0f));
+	m_gennzaitiRender.Init("Assets/modelData/gennzaiti.DDS", 50.0f, 50.0f);
+	m_gennzaitiRender.SetPosition(Vector3(260.0f, 430.0f, 0.0f));
+
 	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
 	m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
 	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
@@ -389,6 +396,10 @@ void Game::Update()
 
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();
+
+	m_mappuRender.Update();
+	m_gennzaitiRender.Update();
+	m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
 }
 
 void Game::Render(RenderContext& rc)
@@ -403,4 +414,6 @@ void Game::Render(RenderContext& rc)
 	}
 	m_fontRender.Draw(rc);
 	m_timerRender.Draw(rc);
+	m_mappuRender.Draw(rc);
+	m_gennzaitiRender.Draw(rc);
 }

@@ -113,6 +113,8 @@ void Player::Move() {
 	//キャラクターコントローラーを使って座標を移動させる
 	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
 
+	m_position.z = 0.0f;
+
 	//絵描きさんに座標を教える
 	m_modelRender.SetPosition(m_position);
 }
