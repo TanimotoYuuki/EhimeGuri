@@ -97,6 +97,8 @@ private:
 	FontRender          m_timerRender;
 	SpriteRender        m_mappuRender;
 	SpriteRender        m_gennzaitiRender;
+	SpriteRender        m_taorutoriRender;
+	SpriteRender        m_taorukuroRender;
 	Vector3             m_scale = Vector3::One;
 	SkyCube* m_SkyCube = nullptr; //îwåi
 	int m_skycubeType = enSkyCubeType_NightToon;

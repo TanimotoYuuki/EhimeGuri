@@ -1,9 +1,9 @@
 #pragma once
+class Player;
 class Towel : public IGameObject
 {
 public:
-	Towel();
-	~Towel();
+	
 
 	bool Start();
 	void Update();
@@ -19,5 +19,6 @@ public:
 	Vector3     m_position;
 	Vector3     m_firstposition;
 	Quaternion  m_Rot;
+	Player* m_player;
 };
 
