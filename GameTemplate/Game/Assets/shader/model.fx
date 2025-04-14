@@ -104,15 +104,14 @@ sampler g_sampler : register(s0);	//サンプラステート。
 // 関数定義。
 ////////////////////////////////////////////////
 float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal);
-float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
-float3 CalcLigFromDirectionLight(SPSIn psIn);
-float3 CalcLigFromPointLight(SPSIn psIn, int num);
-float3 CalcLigFromSpotLight(SPSIn psIn, int num);
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal,float specular);
+float3 CalcLigFromDirectionLight(SPSIn psIn, float3 normal, float specular);
+float3 CalcLigFromPointLight(SPSIn psIn, int num, float3 normal, float specular);
+float3 CalcLigFromSpotLight(SPSIn psIn, int num, float3 normal, float specular);
 float3 CalcLimPower(SPSIn psIn);
 float3 CalcLigFromHemLight(SPSIn psIn);
 float3 CalcNormalMap(SPSIn psIn);
-float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);
-float3 CalcSpecularMap(SPSIn psIn);
+float CalcSpecularMap(SPSIn psIn);
 //float3 CalcAoMap(SPSIn psIn);
 float CalcShadowMap(SPSIn psIn);
 
@@ -190,8 +189,15 @@ SPSIn VSSkinMain( SVSIn vsIn )
 SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
 {
     SPSOut psOut;
+    
+    //法線マップ 
+    float3 normalMap = CalcNormalMap(psIn);
+    
+     //スペキュラマップ
+    float specularMap = CalcSpecularMap(psIn);
+   
     //ディレクションライト
-    float3 directionLig = CalcLigFromDirectionLight(psIn);
+    float3 directionLig = CalcLigFromDirectionLight(psIn, normalMap, specularMap);
     
     //複数個のライティング計算
     float3 pointLig[10];
@@ -199,9 +205,9 @@ SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
     for (int i = 0; i < 10; i++)
     {
         //ポイントライト
-        pointLig[i] = CalcLigFromPointLight(psIn, i);
+        pointLig[i] = CalcLigFromPointLight(psIn, i, normalMap, specularMap);
         //スポットライト
-        spotLig[i] = CalcLigFromSpotLight(psIn, i);
+        spotLig[i] = CalcLigFromSpotLight(psIn, i, normalMap, specularMap);
     }
     
     //リムライト
@@ -209,18 +215,12 @@ SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
     
     //半球ライト
     float3 hemLig = CalcLigFromHemLight(psIn);
-    
-    //法線マップ 
-    float3 normalMap = CalcNormalMap(psIn);
-    
-    //スペキュラマップ
-    float3 specularMap = CalcSpecularMap(psIn);
-    
+     
     ////AOマップ
     //float3 aoMap = CalcAoMap(psIn);
     
 	//最終的な光を求める
-    float3 lig = directionLig + ambientLig + hemLig + normalMap + specularMap;
+    float3 lig = directionLig + ambientLig + hemLig /*+ normalMap + specularMap*/;
     
     for (int j = 0; j < 10; j++)
     {
@@ -258,62 +258,59 @@ SPSOut PSNormalMain(SPSIn psIn) : SV_Target0
     return PSMain(psIn, 0);
 }
 
-//拡散反射光
+////拡散反射光
 float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal)
-{
-    float t = dot(normal, lightDirection) * -1.0f;
-    if (t < 0.0f)
-    {
-        t = 0.0f;
-    }
-	
-    return lightColor * t;
+{    
+    return max(0.0f, dot(normal, -lightDirection)) * lightColor;
 }
 
 //鏡面反射光
-float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal)
+float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal,float specular)
 {
     float3 refVec = reflect(lightDirection, normal);
 	
     float3 toEye = eyePos - worldPos;
     toEye = normalize(toEye);
 	
-    float t = dot(refVec, toEye);
+    float t = saturate(dot(refVec, toEye));
     if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
     t = pow(t, 5.0f);
+    
+    float3 specLig = lightColor * t;
+    specLig *= specular * 10.0f;
 	
-    return lightColor * t;
+    return specLig;
 }
 
 //ディレクションライト
-float3 CalcLigFromDirectionLight(SPSIn psIn)
+float3 CalcLigFromDirectionLight(SPSIn psIn, float3 normal, float specular)
 {
     //拡散反射光を求める
-    float3 diffuseLig = CalcLambertDiffuse(directionLight.direction, directionLight.color, psIn.normal);
+    float3 diffuseLig = CalcLambertDiffuse(directionLight.direction, directionLight.color, normal);
     
     //鏡面反射光を求める
-    float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, psIn.normal);
+    float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, normal, specular);
  
     //拡散反射光 + 鏡面反射光
     return diffuseLig + specularLig;
 }
 
 //ポイントライト
-float3 CalcLigFromPointLight(SPSIn psIn, int num)
+float3 CalcLigFromPointLight(SPSIn psIn, int num, float3 normal, float specular)
 {
     //ポイントライトの向きを求める
     float3 ligDir = psIn.worldPos - pointLight[num].position;
     ligDir = normalize(ligDir);
     
     //拡散反射光を求める
-    float3 diffusePoint = CalcLambertDiffuse(ligDir, pointLight[num].color, psIn.normal);
+    float3 diffusePoint = CalcLambertDiffuse(ligDir, pointLight[num].color, normal);
     
     //鏡面反射光を求める
-    float3 specularPoint = CalcPhongSpecular(ligDir, pointLight[num].color, psIn.worldPos, psIn.normal);
+    float3 specularPoint = CalcPhongSpecular(ligDir, pointLight[num].color, psIn.worldPos, normal, specular);
     
     //ポイントライトとの距離を求める
     float distance = length(psIn.worldPos - pointLight[num].position);
@@ -336,17 +333,17 @@ float3 CalcLigFromPointLight(SPSIn psIn, int num)
 }
 
 //スポットライト
-float3 CalcLigFromSpotLight(SPSIn psIn, int num)
+float3 CalcLigFromSpotLight(SPSIn psIn, int num, float3 normal, float specular)
 {
     //スポットライトの向きを求める
     float3 ligDir = psIn.worldPos - spotLight[num].position;
     ligDir = normalize(ligDir);
     
     //拡散反射光を求める
-    float3 diffuseSpot = CalcLambertDiffuse(ligDir, spotLight[num].color, psIn.normal);
+    float3 diffuseSpot = CalcLambertDiffuse(ligDir, spotLight[num].color, normal);
     
     //鏡面反射光を求める
-    float3 specularSpot = CalcPhongSpecular(ligDir, spotLight[num].color, psIn.worldPos, psIn.normal);
+    float3 specularSpot = CalcPhongSpecular(ligDir, spotLight[num].color, psIn.worldPos, normal, specular);
     
     //スポットライトとの距離を求める
     float distance = length(psIn.worldPos - spotLight[num].position);
@@ -428,46 +425,14 @@ float3 CalcNormalMap(SPSIn psIn)
            + psIn.biNormal * localNormal.y
            + normal * localNormal.z;
     
-    return max(0.0f, dot(normal, -directionLight.direction)) * directionLight.color;
-}
-
-
-float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal,float2 uv)
-{
-    float3 binSpaceNormal = g_normalMap.SampleLevel(g_sampler, uv, 0.0f).xyz;
-    binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
-    
-    float3 newNormal = tangent * binSpaceNormal.x
-                    + biNormal * binSpaceNormal.y
-                    + normal * binSpaceNormal.z;
-    
-    return newNormal;
+    return normal;
 }
 
 //スペキュラマップ
-float3 CalcSpecularMap(SPSIn psIn)
-{
-    //法線を計算
-    float3 normal = CalcNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
-    
-    //鏡面反射光を求める
-    float3 refVec = reflect(directionLight.direction, normal);
-    
-    float3 toEye = eyePos - psIn.worldPos;
-    toEye = normalize(toEye);
-    
-    float t = saturate(dot(refVec, toEye));
-    t = pow(t, 5.0f);
-    
-    float3 specLig = directionLight.color * t;
-    
-    //スペキュラマップからスペキュラ反射の強さをサンプリング
+float CalcSpecularMap(SPSIn psIn)
+{    
     float specPower = g_specularMap.Sample(g_sampler, psIn.uv).r;
-    
-    specLig *= specPower * 50.0f;
-    
-    //拡散反射光 + 鏡面反射光
-    return specLig;
+    return specPower;
 }
 
 ////AOマップ
