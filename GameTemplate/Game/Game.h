@@ -1,7 +1,7 @@
 #pragma once
 class Player;						//プレイヤー
 class Block;						//ブロック
-class BackGround;					//ステージ			
+class BackGround;					//ステージ		
 class Enemy;						//エネミー
 class ClearPoint;                   //クリアポイント
 class FallingBlock;					//落ちる床
