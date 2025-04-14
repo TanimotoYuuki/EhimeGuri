@@ -15,6 +15,7 @@
 #include "GameOver.h"
 #include "GameCamera.h"
 #include "TransparentBlock.h"
+#include "Title.h"
 #include "Towel.h"
 
 namespace
@@ -83,10 +84,11 @@ bool Game::Start()
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	
+
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
-//	Needle_NewGO();
+	Needle_NewGO();
 	MovingFloor_NewGO();
 //	Block_NewGO();
 	Signboard_NewGO();
@@ -375,6 +377,12 @@ void Game::Update()
 		DeleteGO(this);
 	}
 
+	/*if (g_pad[0]->IsTrigger(enButtonX))
+	{
+		NewGO<Game>(0, "game");
+		DeleteGO(this);
+	}*/
+
 
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
@@ -391,8 +399,6 @@ void Game::Update()
 	m_timerRender.SetScale(1.0f);
 
 	m_timer -= g_gameTime->GetFrameDeltaTime();
-
-	
 
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();

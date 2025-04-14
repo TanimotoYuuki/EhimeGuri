@@ -123,13 +123,13 @@
       <Filter>HID</Filter>
     </ClCompile>
     <ClCompile Include="level2D\CaslFile.cpp">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClCompile>
     <ClCompile Include="level2D\Level2D.cpp">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClCompile>
     <ClCompile Include="level2D\MapChip2D.cpp">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClCompile>
     <ClCompile Include="level3D\TklFile.cpp">
       <Filter>level3D</Filter>
@@ -384,13 +384,13 @@
       <Filter>HID</Filter>
     </ClInclude>
     <ClInclude Include="level2D\MapChip2D.h">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClInclude>
     <ClInclude Include="level2D\CaslFile.h">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClInclude>
     <ClInclude Include="level2D\Level2D.h">
-      <Filter>level2D</Filter>
+      <Filter>time\level2D</Filter>
     </ClInclude>
     <ClInclude Include="level3D\TklFile.h">
       <Filter>level3D</Filter>
@@ -471,7 +471,7 @@
       <Filter>tkFile</Filter>
     </ClInclude>
     <ClInclude Include="util\TResourceBank.h">
-      <Filter>util</Filter>
+      <Filter>time\util</Filter>
     </ClInclude>
     <ClInclude Include="physics\PhysicsGhostObject.h">
       <Filter>physics</Filter>
@@ -544,9 +544,6 @@
     <Filter Include="HID">
       <UniqueIdentifier>{40fbc6f1-281e-445e-840a-214900cbae58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="level2D">
-      <UniqueIdentifier>{7f0084f2-a2b2-4404-99e9-723b67f2d09f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="level3D">
       <UniqueIdentifier>{8468c3ec-e994-49b3-9b6a-a58ff7b275bf}</UniqueIdentifier>
     </Filter>
@@ -565,9 +562,6 @@
     <Filter Include="tkFile">
       <UniqueIdentifier>{76a10421-a719-4ab3-82db-2cd452f086a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="util">
-      <UniqueIdentifier>{d22bcaef-43e4-45a4-bd3b-412ecb38dfd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="online">
       <UniqueIdentifier>{077f7c0d-1513-4644-b409-09887e0cfb01}</UniqueIdentifier>
     </Filter>
@@ -579,6 +573,12 @@
     </Filter>
     <Filter Include="AI\PathFinding">
       <UniqueIdentifier>{72d94fe6-e599-4523-8e54-81df808c96fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="time\level2D">
+      <UniqueIdentifier>{7f0084f2-a2b2-4404-99e9-723b67f2d09f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="time\util">
+      <UniqueIdentifier>{d22bcaef-43e4-45a4-bd3b-412ecb38dfd4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
