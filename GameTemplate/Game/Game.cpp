@@ -83,7 +83,11 @@ bool Game::Start()
 	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
-	
+
+	m_taorukuroRender.Init("Assets/modelData/taorukuro.DDS", 100.0f, 100.0f);
+	m_taorukuroRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
+	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
+	m_taorutoriRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
@@ -406,6 +410,10 @@ void Game::Update()
 	m_mappuRender.Update();
 	m_gennzaitiRender.Update();
 	m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
+
+	m_taorukuroRender.Update();
+	m_taorutoriRender.Update();
+	
 }
 
 void Game::Render(RenderContext& rc)
@@ -422,4 +430,10 @@ void Game::Render(RenderContext& rc)
 	m_timerRender.Draw(rc);
 	m_mappuRender.Draw(rc);
 	m_gennzaitiRender.Draw(rc);
+	if (m_player->taoruCount == 0) {
+		m_taorukuroRender.Draw(rc);
+	}
+	else if (m_player->taoruCount == 1) {
+		m_taorutoriRender.Draw(rc);
+	}
 }

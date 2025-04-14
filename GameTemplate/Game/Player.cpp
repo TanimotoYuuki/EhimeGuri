@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "GameOver.h"
 #include "Enemy.h"
-
+#include"Towel.h"
 
 namespace {
 	const float SUTAMINA_MAX = 300.0f;
