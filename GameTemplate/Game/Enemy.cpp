@@ -98,10 +98,11 @@ void Enemy::Update() {
 	m_modelrender.Update();
 	Vector3 diff = m_player->m_position - m_position;
 	diff.y = m_player->m_position.y - m_position.y;
-	if (diff.Length() <= 100.0f) {
+	if (diff.Length() <= 100.0f && Enemyanimationstate != 1) {
 		if (m_player->m_characterController.IsOnGround() == false) {
 			Enemyanimationstate = 1;
 			m_player->m_moveSpeed.y = 500.0f;
+			charactercontroller.RemoveRigidBoby();
 		}
 		else {
 			m_player->m_position = m_player->m_initPosition;
