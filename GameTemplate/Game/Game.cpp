@@ -4,16 +4,17 @@
 #include "ClearPoint.h"
 #include "Enemy.h"
 #include "FallingBlock.h"
-#include "Player.h"
+#include "Game.h"
+#include "GameOver.h"
+#include "GameCamera.h"
+#include "HS_FallingBlock.h"
+#include "Needle.h"
 #include "MovingFloor.h"
+#include "Player.h"
 #include "Scaffold.h"
 #include "ScaffoldBlock.h"
 #include "Signboard.h"
 #include "StageClear.h"
-#include "Needle.h"
-#include "Game.h"
-#include "GameOver.h"
-#include "GameCamera.h"
 #include "TransparentBlock.h"
 #include "Title.h"
 #include "Towel.h"
@@ -67,11 +68,11 @@ bool Game::Start()
 		{5400.0f,94.0f,0.0f}
 	};
 
-	for (int i = 0; i < ENEMY_NUM; i++) {
-		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-		m_enemyList[i]->m_position = enemyPosList[i];
-		m_enemyList[i]->firstposition = enemyPosList[i];
-	}
+	//for (int i = 0; i < ENEMY_NUM; i++) {
+	//	m_enemyList[i] = NewGO<Enemy>(0, "enemy");
+	//	m_enemyList[i]->m_position = enemyPosList[i];
+	//	m_enemyList[i]->firstposition = enemyPosList[i];
+	//}
 
 	m_mappuRender.Init("Assets/modelData/mappu.DDS", 350.0f, 40.0f);
 	m_mappuRender.SetPosition(Vector3(400.0f, 400.0f, 0.0f));
@@ -95,7 +96,7 @@ bool Game::Start()
 	Scaffold_NewGO();
 	Item_NewGO();
 	ClearPoint_NewGO();
-
+	HS_fallingBlock_NewGO();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -171,6 +172,9 @@ void Game::FallingBlock_NewGO()
 	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
 	m_fallingBlock2->m_position = { 10400.0f, 400.0f, 0.0f };
 	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
+
+	
+
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -191,12 +195,8 @@ void Game::Needle_NewGO()
 	m_needle->firstposition = m_needle->m_needlePosition;
 
 	m_needle1 = NewGO<Needle>(0, "needle");
-	m_needle1->m_needlePosition = { 17000.0f, 400.0f, 0.0f };
+	m_needle1->m_needlePosition = { 15725.0f, 400.0f, 0.0f };
 	m_needle1->firstposition = m_needle1->m_needlePosition;
-
-	m_needle2 = NewGO<Needle>(0, "needle");
-	m_needle2->m_needlePosition = { 16100.0f, 400.0f, 0.0f };
-	m_needle2->firstposition = m_needle2->m_needlePosition;
 
 	m_modelRender.SetPosition(m_position);
 }
@@ -269,6 +269,14 @@ void Game::ClearPoint_NewGO()
 
 }
 
+//óéâ∫ë¨ìxÇÃë¨Ç¢è∞
+void Game::HS_fallingBlock_NewGO()
+{
+	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
+	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
+	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
+	m_modelRender.SetPosition(m_position);
+}
 
 void Game::Update()
 {
@@ -332,58 +340,7 @@ void Game::Update()
 		m_gameCamera->SetTarget(nullptr);
 	}
 
-	if (m_player->NeedleCount == 1)
-	{	
-		NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
-		DeleteGO(m_player);
-		DeleteGO(m_transparentBlock);
-		DeleteGO(m_transparentBlock1);
-		DeleteGO(m_transparentBlock2);
-		DeleteGO(m_transparentBlock3);
-		DeleteGO(m_transparentBlock4);
-		DeleteGO(m_transparentBlock5);
-		DeleteGO(m_transparentBlock6);
-		DeleteGO(m_transparentBlock7);
-		DeleteGO(m_transparentBlock8);
-		DeleteGO(m_transparentBlock9);
-		DeleteGO(m_transparentBlock10);
-		DeleteGO(m_transparentBlock11);
-		DeleteGO(m_fallingBlock);
-		DeleteGO(m_fallingBlock1);
-		DeleteGO(m_fallingBlock2);
-		DeleteGO(m_scaffoldBlock);
-		DeleteGO(m_needle);
-		DeleteGO(m_needle1);
-		DeleteGO(m_movingFloor1);
-		DeleteGO(m_movingFloor2);
-		DeleteGO(m_block);
-		DeleteGO(m_signboard);
-		DeleteGO(m_scaffold);
-		DeleteGO(m_scaffold1);
-		DeleteGO(m_towel);
-		for (int i = 0; i < ENEMY_NUM; i++) {
-			DeleteGO(m_enemyList[i]);
-		}
-		m_player = nullptr;
-		m_movingFloor = nullptr;
-		m_fallingBlock = nullptr;
-		m_gameCamera->SetTarget(nullptr);
-	}
-
-	if (m_player->clearCount == 1)
-	{
-		NewGO<StageClear>(0);
-		DeleteGO(this);
-	}
-
-	/*if (g_pad[0]->IsTrigger(enButtonX))
-	{
-		NewGO<Game>(0, "game");
-		DeleteGO(this);
-	}*/
-
-
+	
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;

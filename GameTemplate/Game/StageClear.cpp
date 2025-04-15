@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "StageClear.h"
 #include "Player.h"
+#include "Title.h"
 
 bool StageClear::Start()
 {

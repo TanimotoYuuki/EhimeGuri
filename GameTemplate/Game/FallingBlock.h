@@ -3,6 +3,7 @@
 
 class Player;
 class MovingFloor;
+class GameOver;
 class FallingBlock : public IGameObject
 {
 public:
@@ -13,6 +14,8 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void Move();
+
+
 
 	void SetPosition(const Vector3 position)
 	{
@@ -30,9 +33,11 @@ public:
 
 	FontRender									m_fontRender;
 	ModelRender									m_modelRender;
+	ModelRender									m_HightSpeedFallingBlock_Render;
 	PhysicsStaticObject							m_physicsStaticObject;
 	Player									  * m_player;
 	MovingFloor								  * m_movingFloor;
+	GameOver								  * m_gameOver;
 
 
 private:
@@ -42,6 +47,6 @@ private:
 		enMovingFloorState_MovingLeft
 	};
 	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
-	CollisionObject* m_collisionObject = nullptr;
+	CollisionObject							  * m_collisionObject = nullptr;
 };
 

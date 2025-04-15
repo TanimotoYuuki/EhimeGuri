@@ -22,9 +22,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
 
 
-//	NewGO<Game>(0, "game");
-	NewGO<Fade>(0, "fade");
-	NewGO<Title>(0, "title");
+	NewGO<Game>(0, "game");
+//	NewGO<Fade>(0, "fade");
+//	NewGO<Title>(0, "title");
 
 
 	// ここからゲームループ。

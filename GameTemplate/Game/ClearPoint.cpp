@@ -26,10 +26,11 @@ void ClearPoint::Update()
 	m_modelRender.SetPosition(position);
 	m_modelRender.Update();
 
-	Vector3 diff = m_player->m_position - position;
-	if (diff.Length() < 50.0f)
+	Vector3 diff;
+	diff.x = position.x - m_player->m_position.x;
+	if (diff.Length() < 5.0f)
 	{
-		m_player->clearCount += 1;
+		NewGO<StageClear>(0);
 		DeleteGO(this);
 	}
 	
