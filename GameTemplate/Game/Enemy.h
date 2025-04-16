@@ -7,7 +7,7 @@ class MovingFloor;
 class FallingBlock;
 class ScaffoldBlock;
 class GameCamera;
-class Enemy:public IGameObject
+class Enemy :public IGameObject
 {
 public:
 	//Enemy();
@@ -18,7 +18,7 @@ public:
 	void Move();
 	void Rotation();
 	void EnemyAnimation();
-	
+
 	ModelRender m_modelrender;
 	Vector3 m_position;
 	Quaternion rotation;
@@ -46,4 +46,5 @@ public:
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//xŽ²‚Ì”»’è
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//yŽ²‚Ì”»’è
 };
+
 

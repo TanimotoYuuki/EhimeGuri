@@ -3,6 +3,7 @@
 
 class Player;
 class MovingFloor;
+class GameOver;
 class Needle : public IGameObject
 {
 public:
@@ -11,6 +12,7 @@ public:
 
 	bool Start();
 	void Update();
+	void DisplayModel();
 	void Render(RenderContext& rc);
 
 	int					m_needleCount = 0;
@@ -26,6 +28,7 @@ public:
 	Quaternion			m_rotation;
 	SpriteRender		m_spriteRender;
 	MovingFloor       * m_movingFloor;
+	GameOver          * m_gameOver;
 	PhysicsStaticObject physicsStaticObject;
 private:
 	CollisionObject* m_collisionObject = nullptr;

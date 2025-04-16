@@ -24,7 +24,7 @@ Player::Player() {
 	m_position = { 133.0f,94.0f,0.0f };
 	
 	//テストプレイ用
-//	m_position = { 17500.0f, 700.0f, 0.0f };
+//	m_position = { 16800.0f,700.0f, 200.0f };
 
 	m_initPosition = { 133.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
@@ -90,7 +90,7 @@ void Player::Move() {
 		//Aボタンが押されたら
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//ジャンプさせる
-			m_moveSpeed.y = 500.0f;
+			m_moveSpeed.y = 525.0f;
 		}
 	}
 	

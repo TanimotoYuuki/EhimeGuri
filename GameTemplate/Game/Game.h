@@ -13,6 +13,7 @@ class Signboard;					//看板
 class StageClear;
 class GameOver;						//ゲームオーバー
 class GameCamera;					//カメラ
+class HS_FallingBlock;				//落下速度の速い床
 class TransparentBlock;				//透明ブロック
 class Towel;                        //タオル
 class Game : public IGameObject
@@ -34,7 +35,7 @@ public:
 	void ScaffoldBlock_NewGO();
 	void Signboard_NewGO();
 	void Scaffold_NewGO();
-	
+	void HS_fallingBlock_NewGO();
 	
 
 //	void InitSky();
@@ -47,14 +48,18 @@ private:
 	FallingBlock	  * m_fallingBlock;
 	FallingBlock      * m_fallingBlock1;
 	FallingBlock      * m_fallingBlock2;
+	FallingBlock      * m_fallingBlock3;
+
 	Player			  * m_player;
 	Game		      * m_game;
 	GameOver          * m_gameOver;
 	GameCamera        * m_gameCamera;
+	HS_FallingBlock   * m_HS_FallingBlock;
 	Needle		      * m_needle;
 	Needle			  * m_needle1;
 	Needle			  * m_needle2;
 	Needle            * m_needle3;
+
 	ScaffoldBlock     * m_scaffoldBlock;
 	Scaffold		  * m_scaffold;
 	Scaffold		  * m_scaffold1;
@@ -79,10 +84,14 @@ private:
 	TransparentBlock  * m_transparentBlock11;
 	Towel             * m_towel;
 
+	FontRender          m_timerRender;
+	FontRender          m_fontRender;
+
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
 	Vector3		        m_position;
-	FontRender          m_fontRender;
+	Vector3             m_scale = Vector3::One;
+
 	PhysicsStaticObject m_physicsStaticObject;
 	
 
@@ -94,14 +103,12 @@ private:
 	Sutaminastate       m_PlayerSutaminaSutate = SutaminaMax;
 	SpriteRender        m_sutaminaMaxrender;
 	SpriteRender        m_sutamina0render;
-	FontRender          m_timerRender;
 	SpriteRender        m_mappuRender;
 	SpriteRender        m_gennzaitiRender;
 	SpriteRender        m_taorutoriRender;
 	SpriteRender        m_taorukuroRender;
-	Vector3             m_scale = Vector3::One;
-	SkyCube* m_SkyCube = nullptr; //背景
-	int m_skycubeType = enSkyCubeType_NightToon;
+	//	SkyCube* m_SkyCube = nullptr; //背景
+	//	int m_skycubeType = enSkyCubeType_NightToon;
 	float               m_timer = 180.0f;
 	bool                drawFlag = true;
 };

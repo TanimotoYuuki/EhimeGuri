@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "FallingBlock.h"
+#include "GameOver.h"
 #include "Player.h"
 
 namespace
 {
 	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);
-	float SPEED = 300.0f;
+
+	float SPEED = 400.0f;
 	float LIMITED = 300.0f;
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
 	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
@@ -24,9 +26,10 @@ FallingBlock::~FallingBlock()
 bool FallingBlock::Start()
 {
 	m_modelRender.Init("Assets/modelData/Stage/Assets/ë´èÍÉuÉçÉbÉN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	
+	
 	m_modelRender.SetScale(FALLINGBLOCK_SCALE);
 	m_modelRender.Update();
-
 	m_player = FindGO<Player>("player");
 	m_movingFloor = FindGO<MovingFloor>("movingfloor");
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
@@ -41,6 +44,7 @@ bool FallingBlock::Start()
 		Quaternion::Identity,
 		COLLISION_SIZE
 	);
+
 	m_modelRender.SetPosition(m_position);
 
 	m_collisionObject->SetIsEnableAutoDelete(false);
@@ -58,11 +62,7 @@ void FallingBlock::Move()
 		{
 			moveSpeed.y = -SPEED;
 		}
-		//else if (m_movingFloorState == enMovingFloorState_MovingLeft)
-		//{
-		//	moveSpeed.x = SPEED;
-		//}
-
+		
 		m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
 
 		if (m_movingFloorState == enMovingFloorState_MovingRight)
@@ -72,13 +72,6 @@ void FallingBlock::Move()
 				m_movingFloorState = enMovingFloorState_MovingLeft;
 			}
 		}
-		//else if (m_movingFloorState == enMovingFloorState_MovingLeft)
-		//{
-		//	if (m_firstposition.x + LIMITED <= m_position.x)
-		//	{
-		//		m_movingFloorState = enMovingFloorState_MovingRight;
-		//	}
-		//}
 
 		m_modelRender.SetPosition(m_position);
 
@@ -92,6 +85,7 @@ void FallingBlock::Move()
 }
 
 
+
 void FallingBlock::Update()
 {
 	if (m_player == nullptr)
@@ -99,12 +93,17 @@ void FallingBlock::Update()
 		m_player = FindGO<Player>("player");
 		return;
 	}
+
 	Vector3 distanceX;
 	Vector3 distanceY;
+
+	
 	distanceX.x = m_player->m_position.x - m_position.x;
 	distanceY.y = m_player->m_position.y - m_position.y;
 
-	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+
+	//í èÌî≈ÇÃè∞
+	if (distanceX.Length() >= 350.0f && distanceY.Length() >= 350.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();
 	}
