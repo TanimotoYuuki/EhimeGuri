@@ -103,10 +103,12 @@ void HS_FallingBlock::Update()
 	}
 
 	m_modelRender.SetPosition(m_position);
-	Vector3 diff;
-	diff.y = m_position.y - m_player->m_position.y;
+	Vector3 diffX;
+	diffX.x = m_position.x - m_player->m_position.x;
+	Vector3 diffY;
+	diffY.y = m_position.y - m_player->m_position.y;
 
-	if (diff.Length() < 10.0f)
+	if (diffX.Length() < 70.0f && diffY.Length() < 10.0f)
 	{
 		NewGO<GameOver>(0, "gameover");
 		DeleteGO(this);
