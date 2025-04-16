@@ -29,7 +29,7 @@ void Towel::Update()
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.Update();
 	Vector3 deff = m_player->m_position - m_position;
-	if (deff.Length() <= 60.0f) {
+	if (deff.Length() <= 100.0f) {
 		m_player->taoruCount = 1;
 		DeleteGO(this);
 	}

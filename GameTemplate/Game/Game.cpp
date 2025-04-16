@@ -155,9 +155,9 @@ void Game::TransparentBlock_NewGO()
 	m_transparentBlock10->m_position = { 12600.0f, 230.0f, 0.0f };
 	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;
 
-	m_transparentBlock11 = NewGO<TransparentBlock>(1, "transparentblock");
+	/*m_transparentBlock11 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock11->m_position = { 14200.0f, 260.0f, 0.0f };
-	m_transparentBlock11->m_firstposition = m_transparentBlock11->m_position;
+	m_transparentBlock11->m_firstposition = m_transparentBlock11->m_position;*/
 
 	m_modelRender.SetPosition(m_position);
 }
