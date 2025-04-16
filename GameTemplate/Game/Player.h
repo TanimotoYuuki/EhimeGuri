@@ -2,6 +2,7 @@
 class Game;
 class GameOver;
 class Enemy;
+class Towel;
 class Player:public IGameObject
 {
 public:
@@ -60,9 +61,11 @@ public:
 	int  clearCount = 0;
 	int  m_playerState = enPlayer_idle;
 	int  m_needleCount = 0;
+	int taoruCount = 0;
 	Game			  * m_game;
 	Enemy* m_enemy;
 	GameOver* m_gameover;
+	Towel* m_towel;
 	int m_playermaxsutamina = 300;
 	int m_playernowsutamina = 300;
 	bool m_sutaminaZeroFlag = false;

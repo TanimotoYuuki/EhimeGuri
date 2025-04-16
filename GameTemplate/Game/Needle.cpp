@@ -65,10 +65,10 @@ void Needle::Update()
 
 void Needle::Render(RenderContext& rc)
 {
-	if (flag == false)
-	{
-		m_modelRender.Draw(rc);
-	}
+	//if (flag == false)
+	//{
+	//	m_modelRender.Draw(rc);
+	//}
 
-//	m_modelRender.Draw(rc);
+	m_modelRender.Draw(rc);
 }    

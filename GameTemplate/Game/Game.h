@@ -105,8 +105,10 @@ private:
 	SpriteRender        m_sutamina0render;
 	SpriteRender        m_mappuRender;
 	SpriteRender        m_gennzaitiRender;
-//	SkyCube* m_SkyCube = nullptr; //îwåi
-//	int m_skycubeType = enSkyCubeType_NightToon;
+	SpriteRender        m_taorutoriRender;
+	SpriteRender        m_taorukuroRender;
+	//	SkyCube* m_SkyCube = nullptr; //îwåi
+	//	int m_skycubeType = enSkyCubeType_NightToon;
 	float               m_timer = 180.0f;
 	bool                drawFlag = true;
 };
