@@ -100,7 +100,7 @@ bool Game::Start()
 	Scaffold_NewGO();
 	Item_NewGO();
 	ClearPoint_NewGO();
-	HS_fallingBlock_NewGO();
+	//HS_fallingBlock_NewGO();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -274,13 +274,13 @@ void Game::ClearPoint_NewGO()
 }
 
 //óéâ∫ë¨ìxÇÃë¨Ç¢è∞
-void Game::HS_fallingBlock_NewGO()
-{
-	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
-	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
-	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
-	m_modelRender.SetPosition(m_position);
-}
+//void Game::HS_fallingBlock_NewGO()
+//{
+//	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
+//	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
+//	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
+//	m_modelRender.SetPosition(m_position);
+//}
 
 void Game::Update()
 {
