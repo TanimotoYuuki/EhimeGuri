@@ -109,7 +109,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// ‰ñ“]‚ğİ’è
 		/// </summary>
-		/// <param name="rotation"><‰ñ“]/param>
+		/// <param name="rotation">‰ñ“]</param>
 		void SetRotation(const Quaternion& rotation)
 		{
 			m_rotation = rotation;

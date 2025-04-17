@@ -23,7 +23,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 
 //	NewGO<Game>(0, "game");
-	NewGO<Fade>(0, "fade");
 	NewGO<Title>(0, "title");
 
 

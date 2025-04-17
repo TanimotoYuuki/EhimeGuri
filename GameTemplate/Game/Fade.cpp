@@ -105,7 +105,11 @@ void Fade::LoadingMove()
 void Fade::Render(RenderContext& rc)
 {
 	//フェード
-	m_fade.Draw(rc);
+	//フェードステートがenFadeState_None以外は描画する
+	if (m_fadeState != enFadeState_None)
+	{
+		m_fade.Draw(rc);
+	}
 
 	//フェードステートがローディングなら
 	if (m_fadeState == enFadeState_Loading)

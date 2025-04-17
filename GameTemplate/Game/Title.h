@@ -8,8 +8,9 @@ class Fade;
 class Title : public IGameObject
 {
 public:
-	Title();
 	~Title();
+
+	bool Start();
 
 	void Update();
 	void Render(RenderContext& rc);
@@ -99,7 +100,7 @@ private:
 		enBackGroundModel_Num			//ステージモデル数
 	};
 
-	AnimationClip		m_animationClip[enAnimationClip_num];										//アニメションクリップ
+	AnimationClip		m_animationClip[enAnimationClip_num];										//アニメーションクリップ
 	ModelRender         m_backGroundModel[enBackGroundModel_Num];									//ステージモデル
 	ModelRender			m_playerModel;																//プレイヤーモデル
 	Vector3				m_playerModelPosition=Vector3::Zero;										//プレイヤーモデルの位置
