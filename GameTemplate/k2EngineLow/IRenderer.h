@@ -32,6 +32,15 @@ namespace nsK2EngineLow
 		{
 
 		}
+
+		/// <summary>
+		/// ”wŒi‚Ì•`‰æ
+		/// </summary>
+		/// <param name="rc"></param>
+		virtual void OnRenderBackGround(RenderContext& rc)
+		{
+
+		}
 	};
 }
 

@@ -3,7 +3,13 @@
 #include "Title.h"
 #include "Fade.h"
 
-Title::Title()
+Title::~Title()
+{
+	DeleteGO(m_skyCube);
+	DeleteGO(m_fade);
+}
+
+bool Title::Start()
 {
 	//スカイキューブの初期化
 	InitSky();
@@ -20,12 +26,10 @@ Title::Title()
 	//カメラの初期化
 	InitCamera();
 
+	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
-}
 
-Title::~Title()
-{
-	DeleteGO(m_skyCube);
+	return true;
 }
 
 //更新処理
@@ -42,12 +46,8 @@ void Title::Update()
 	//スタート用のフェードが終わったら
 	else if (m_startFadeFinishFlag == true)
 	{
-		//タイトル背景が表示したら
-		if (m_titleBackGroundFadeFinishFlag == true)
-		{
-			//プレイヤー側の操作
-			Action();
-		}
+		//プレイヤー側の操作
+		Action();
 
 		//スプライトの動作
 		SpriteMove();
@@ -144,6 +144,19 @@ void Title::Render(RenderContext& rc)
 //プレイヤー側の操作
 void Title::Action()
 {
+	//タイトル背景が表示していないとき
+	if (m_titleBackGroundFadeFinishFlag != true)
+	{
+		//Aボタンを押したら演出をスキップできる
+		if (g_pad[0]->IsTrigger(enButtonA))
+		{
+			m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_alpha = 0.0f;
+			m_titleBackGroundFadeFinishFlag = true;
+		}
+		return;
+	}
+
 	//ゲーム開始フラグが立っていないか？
 	if (m_gameStartFlag != true)
 	{
@@ -245,7 +258,6 @@ void Title::Action()
 			{
 				//ゲーム開始
 				NewGO<Game>(0, "game");
-				m_fade->FadeTransition(enFadeState_FadeIn);
 				DeleteGO(this);
 			}
 		}

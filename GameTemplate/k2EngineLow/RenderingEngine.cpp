@@ -7,6 +7,8 @@ namespace nsK2EngineLow
 	{
 		InitMainRenderTarget();
 
+		InitBackGround();
+
 		Init2DSprite();
 
 		//InitMonochromeRenderTarget();
@@ -32,6 +34,38 @@ namespace nsK2EngineLow
 			DXGI_FORMAT_D32_FLOAT,
 			clearColor
 		);
+	}
+
+	void RenderingEngine::InitBackGround()
+	{
+		float clearColor[4] = { 0.0f,0.0f,0.0f,0.0f };
+		m_backGroundRenderTarget.Create(
+			g_graphicsEngine->GetFrameBufferWidth(),
+			g_graphicsEngine->GetFrameBufferHeight(),
+			1,
+			1,
+			DXGI_FORMAT_R8G8B8A8_UNORM,
+			DXGI_FORMAT_UNKNOWN,
+			clearColor
+		);
+
+		//最終合成用のスプライトを初期化する
+		SpriteInitData spriteInitData;
+		//テクスチャは背景用レンダリングターゲット
+		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
+		spriteInitData.m_width = m_backGroundRenderTarget.GetWidth();
+		spriteInitData.m_height = m_backGroundRenderTarget.GetHeight();
+		//解像度はメインレンダリングターゲットの幅と高さ
+		//2D用のシェーダーを使用する
+		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+		spriteInitData.m_vsEntryPointFunc = "VSMain";
+		spriteInitData.m_psEntryPoinFunc = "PSMain";
+		//上書き
+		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
+		//レンダリングターゲットのフォーマット
+		spriteInitData.m_colorBufferFormat[0] = m_backGroundRenderTarget.GetColorBufferFormat();
+
+		m_backGroundSprite.Init(spriteInitData);
 	}
 
 	void RenderingEngine::Init2DSprite()
@@ -131,6 +165,8 @@ namespace nsK2EngineLow
 
 		m_shadow.Execute(rc, m_renderObjects);
 
+		BackGroundDraw(rc);
+
 		ModelDraw(rc);
 
 		m_bloom.Execute(rc, m_mainRenderTarget);
@@ -144,7 +180,7 @@ namespace nsK2EngineLow
 		m_renderObjects.clear();
 	}
 
-	void RenderingEngine::ModelDraw(RenderContext& rc)
+	void RenderingEngine::BackGroundDraw(RenderContext& rc)
 	{
 		//レンダリングターゲットとして利用できるまで待つ
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
@@ -152,6 +188,24 @@ namespace nsK2EngineLow
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 		//レンダリングターゲットをクリア
 		rc.ClearRenderTargetView(m_mainRenderTarget);
+
+		m_backGroundSprite.Draw(rc);
+
+		for (auto renderObj : m_renderObjects)
+		{
+			renderObj->OnRenderBackGround(rc);
+		}
+
+		//レンダリングターゲットへの書き込み終了待ち
+		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
+	}
+
+	void RenderingEngine::ModelDraw(RenderContext& rc)
+	{
+		//レンダリングターゲットとして利用できるまで待つ
+		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+		//レンダリングターゲットを設定
+		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		for (auto renderObj : m_renderObjects)
 		{

@@ -60,6 +60,11 @@ namespace nsK2EngineLow
 		void InitMainRenderTarget();
 
 		/// <summary>
+		/// 背景の初期化
+		/// </summary>
+		void InitBackGround();
+
+		/// <summary>
 		/// 2D(フォントとスプライト)の初期化
 		/// </summary>
 		void Init2DSprite();
@@ -74,6 +79,12 @@ namespace nsK2EngineLow
 		/// フレームバッファにコピーするためのスプライトを初期化する
 		/// </summary>
 		void InitCopyMainRenderTargetToFrameBuffer();
+
+		/// <summary>
+		/// 背景の描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void BackGroundDraw(RenderContext& rc);
 
 		/// <summary>
 		/// モデルの描画
@@ -101,8 +112,10 @@ namespace nsK2EngineLow
 
 		SceneLight m_sceneLight; //シーンライト
 		RenderTarget m_mainRenderTarget; //メインレンダリングターゲット
+		RenderTarget m_backGroundRenderTarget; //背景用レンダリングターゲット
 		RenderTarget m_2DRenderTarget; //2Dレンダリングターゲット
 		RenderTarget m_monochromeRenderTarget; //モノクロ用レンダリングターゲット
+		Sprite m_backGroundSprite; //背景用スプライト
 		Sprite m_2DSprite; //2D(フォントとスプライト)用スクリプト
 		Sprite m_mainSprite; //メイン(モデル)用スプライト
 		Sprite m_monochromeSprite; //モノクロ用スプライト

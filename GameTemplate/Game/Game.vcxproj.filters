@@ -31,6 +31,7 @@
     <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="ClearPoint.cpp" />
     <ClCompile Include="HS_FallingBlock.cpp" />
+    <ClCompile Include="GameClear.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -57,5 +58,6 @@
     <ClInclude Include="StageClear.h" />
     <ClInclude Include="ClearPoint.h" />
     <ClInclude Include="HS_FallingBlock.h" />
+    <ClInclude Include="GameClear.h" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@ class GameCamera;					//カメラ
 class HS_FallingBlock;				//落下速度の速い床
 class TransparentBlock;				//透明ブロック
 class Towel;                        //タオル
+class Fade;							//フェード
 class Game : public IGameObject
 {
 public:
@@ -36,6 +37,7 @@ public:
 	void Signboard_NewGO();
 	void Scaffold_NewGO();
 	void HS_fallingBlock_NewGO();
+	void Fade_NewGO();
 	
 
 //	void InitSky();
@@ -83,6 +85,7 @@ private:
 	TransparentBlock  * m_transparentBlock10;
 	TransparentBlock  * m_transparentBlock11;
 	Towel             * m_towel;
+	Fade			  * m_fade;
 
 	FontRender          m_timerRender;
 	FontRender          m_fontRender;

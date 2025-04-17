@@ -18,6 +18,7 @@
 #include "TransparentBlock.h"
 #include "Title.h"
 #include "Towel.h"
+#include "Fade.h"
 
 namespace
 {
@@ -101,6 +102,7 @@ bool Game::Start()
 	Item_NewGO();
 	ClearPoint_NewGO();
 	//HS_fallingBlock_NewGO();
+	Fade_NewGO();
 
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -282,6 +284,13 @@ void Game::ClearPoint_NewGO()
 //	m_modelRender.SetPosition(m_position);
 //}
 
+void Game::Fade_NewGO()
+{
+	NewGO<Fade>(0, "fade");
+	m_fade = FindGO<Fade>("fade");
+	m_fade->FadeTransition(enFadeState_FadeIn);
+}
+
 void Game::Update()
 {
 	////数値確認用。
@@ -303,7 +312,6 @@ void Game::Update()
 	//////フォントの色を設定。
 	//m_fontRender.SetColor(g_vec4Yellow);
 
-	
 
 	if (m_timer <= 0.0f) {
 		NewGO<GameOver>(0, "gameover");
