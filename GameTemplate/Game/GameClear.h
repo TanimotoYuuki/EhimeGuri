@@ -302,9 +302,9 @@ private:
 	int					m_animationState = enAnimationState_Idle;							//アニメーションステート
 	int                 m_rankState = enRank_Num;											//ランクステート
 	int                 m_gameClearDirectionState = enGameClearDirection_GatheringRate;		//ゲームクリア演出ステート
-	float               m_gatheringRateAlphaColor = 0.0f;									//収集率UI用透明度
-	float				m_rankingAlphaColor = 0.0f;											//順位UI用透明度
-	float				m_rankAlphaColor = 0.0f;											//ランクUI用透明度
+	float               m_gatheringRateAlphaColor = -0.5f;									//収集率UI用透明度
+	float				m_rankingAlphaColor = -0.5f;										//順位UI用透明度
+	float				m_rankAlphaColor = -0.5f;											//ランクUI用透明度
 	bool				m_gameClearDirectionFlag = false;									//ゲームクリア演出フラグ
 	bool				m_titleScreenTransitionFlag = false;								//タイトル画面遷移フラグ
 	const char*			m_numberSpriteFilePath = nullptr;									//数字スプライト用ファイルパス
