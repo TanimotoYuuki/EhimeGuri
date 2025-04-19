@@ -37,6 +37,7 @@ public:
 		enAnimationClip_walk,
 		enAnimationClip_run,
 		enAnimationClip_jump,
+		enAnimationClip_gameover,
 		enAnimationClip_num
 	};
 
@@ -46,6 +47,7 @@ public:
 		enPlayer_walk,
 		enPlayer_run,
 		enPlayer_jump,
+		enPlayer_gameover,
 		enPlayer_num
 	};
 	ModelRender			m_modelRender;			
@@ -69,5 +71,6 @@ public:
 	int m_playermaxsutamina = 300;
 	int m_playernowsutamina = 300;
 	bool m_sutaminaZeroFlag = false;
+	bool m_gameoverFlag = false;
 };
 

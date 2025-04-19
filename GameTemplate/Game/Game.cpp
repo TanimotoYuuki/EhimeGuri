@@ -387,18 +387,21 @@ void Game::Render(RenderContext& rc)
 	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
 	//ƒXƒ^ƒ~ƒi‚ª‚R‚O‚OˆÈ‰º‚Ì‚Æ‚«‚ÉƒQ[ƒW‚ðo‚·
-	if (m_player->m_playernowsutamina<300) {
-		m_sutamina0render.Draw(rc);
-		m_sutaminaMaxrender.Draw(rc);
-	}
-	m_fontRender.Draw(rc);
-	m_timerRender.Draw(rc);
-	m_mappuRender.Draw(rc);
-	m_gennzaitiRender.Draw(rc);
-	if (m_player->taoruCount == 0) {
-		m_taorukuroRender.Draw(rc);
-	}
-	else if (m_player->taoruCount == 1) {
-		m_taorutoriRender.Draw(rc);
+	if (m_player->m_gameoverFlag != true)
+	{
+		if (m_player->m_playernowsutamina < 300) {
+			m_sutamina0render.Draw(rc);
+			m_sutaminaMaxrender.Draw(rc);
+		}
+		m_fontRender.Draw(rc);
+		m_timerRender.Draw(rc);
+		m_mappuRender.Draw(rc);
+		m_gennzaitiRender.Draw(rc);
+		if (m_player->taoruCount == 0) {
+			m_taorukuroRender.Draw(rc);
+		}
+		else if (m_player->taoruCount == 1) {
+			m_taorutoriRender.Draw(rc);
+		}
 	}
 }
