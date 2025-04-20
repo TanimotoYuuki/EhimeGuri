@@ -275,17 +275,17 @@ private:
 	};
 
 	SpriteRender		m_result;															//リザルト画面
-	SpriteRender		m_gatheringRateNumberHundredPlace[enNumver_Num];					//収集率用数字UI(百の位)
-	SpriteRender		m_gatheringRateNumberTenPlace[enNumver_Num];						//収集率用数字UI(十の位)
-	SpriteRender		m_gatheringRateNumberOnePlace[enNumver_Num];						//収集率用数字UI(一の位)	
-	SpriteRender		m_rankingNumberHundredPlace[enNumver_Num];							//順位用数字UI(百の位)
-	SpriteRender		m_rankingNumberTenPlace[enNumver_Num];								//順位用数字UI(十の位)
-	SpriteRender		m_rankingNumberOnePlace[enNumver_Num];								//順位用数字UI(一の位)
-	SpriteRender        m_rank[enRank_Num];													//ランクUI
-	SpriteRender        m_percent;															//パーセントUI
-	SpriteRender        m_place;															//位UI
-	SpriteRender		m_aButton;															//AボタンUI
-	SpriteRender        m_returnTitle;														//タイトルへ戻るUI
+	SpriteRender		m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)
+	SpriteRender		m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)
+	SpriteRender		m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)	
+	SpriteRender		m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)
+	SpriteRender		m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)
+	SpriteRender		m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)
+	SpriteRender        m_rankUI[enRank_Num];												//ランクUI
+	SpriteRender        m_percentUI;														//パーセントUI
+	SpriteRender        m_placeUI;															//位UI
+	SpriteRender		m_aButtonUI;														//AボタンUI
+	SpriteRender        m_returnTitleUI;													//タイトルへ戻るUI
 	BackGroundRender    m_gameBackground;													//ゲーム背景
 	AnimationClip		m_animationClip[enAnimationClip_Num];								//アニメーションクリップ
 	ModelRender			m_playerModel;														//プレイヤーモデル
@@ -302,9 +302,9 @@ private:
 	int					m_animationState = enAnimationState_Idle;							//アニメーションステート
 	int                 m_rankState = enRank_Num;											//ランクステート
 	int                 m_gameClearDirectionState = enGameClearDirection_GatheringRate;		//ゲームクリア演出ステート
-	float               m_gatheringRateAlphaColor = -0.5f;									//収集率UI用透明度
-	float				m_rankingAlphaColor = -0.5f;										//順位UI用透明度
-	float				m_rankAlphaColor = -0.5f;											//ランクUI用透明度
+	float               m_gatheringRateUIAlphaColor = -0.5f;								//収集率UI用透明度
+	float				m_rankingUIAlphaColor = -0.5f;										//順位UI用透明度
+	float				m_rankUIAlphaColor = -0.5f;											//ランクUI用透明度
 	bool				m_gameClearDirectionFlag = false;									//ゲームクリア演出フラグ
 	bool				m_titleScreenTransitionFlag = false;								//タイトル画面遷移フラグ
 	const char*			m_numberSpriteFilePath = nullptr;									//数字スプライト用ファイルパス

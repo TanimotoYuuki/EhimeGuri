@@ -178,39 +178,43 @@ void Title::Action()
 			}
 			break;
 		case enTitleTransition_ModeSelect: //モード選択
-			if (g_pad[0]->IsTrigger(enButtonUp))
+			//Aボタンを押していないとき？
+			if (m_pressButtonFlag != true)
 			{
-				//現在の選択がスタートだったら
-				if (m_modeSelect==enModeSelect_Start)
+				if (g_pad[0]->IsTrigger(enButtonUp))
 				{
-					//ゲーム終了に移動
-					m_modeSelect = enModeSelect_Shutdown;
-					return;
+					//現在の選択がスタートだったら
+					if (m_modeSelect == enModeSelect_Start)
+					{
+						//ゲーム終了に移動
+						m_modeSelect = enModeSelect_Shutdown;
+						return;
+					}
+					//上に上がる
+					m_modeSelect -= 1;
 				}
-				//上に上がる
-				m_modeSelect -= 1;
-			}
-			else if (g_pad[0]->IsTrigger(enButtonDown))
-			{
-				//現在の選択がゲーム終了だったら
-				if (m_modeSelect==enModeSelect_Shutdown)
+				else if (g_pad[0]->IsTrigger(enButtonDown))
 				{
-					//スタートに移動
-					m_modeSelect = enModeSelect_Start;
-					return;
+					//現在の選択がゲーム終了だったら
+					if (m_modeSelect == enModeSelect_Shutdown)
+					{
+						//スタートに移動
+						m_modeSelect = enModeSelect_Start;
+						return;
+					}
+					//下に下がる
+					m_modeSelect += 1;
 				}
-				//下に下がる
-				m_modeSelect += 1;
-			}
 
-			if (g_pad[0]->IsTrigger(enButtonA))
-			{
-				m_pressButtonFlag = true;
-			}
-			else if (g_pad[0]->IsTrigger(enButtonB))
-			{
-				//タイトルへ遷移
-				m_titleTransition = enTitleTransition_Title;
+				if (g_pad[0]->IsTrigger(enButtonA))
+				{
+					m_pressButtonFlag = true;
+				}
+				else if (g_pad[0]->IsTrigger(enButtonB))
+				{
+					//タイトルへ遷移
+					m_titleTransition = enTitleTransition_Title;
+				}
 			}
 
 			//画面遷移フラグが立っていたら

@@ -18,7 +18,7 @@ private:
 	/// </summary>
 	void UpdateStageClearSpriteEaging();
 
-	SpriteRender		m_stageClear;												//ステージクリア
+	SpriteRender		m_stageClearUI;												//ステージクリアUI
 	Vector3				m_position = Vector3(-1100.0f, 275.0f, 0.0f);				//位置
 	Vector3				m_beforeEasingPosition;										//イージング前の位置
 	Vector3				m_afterEasingPosition;										//イージング後の位置
