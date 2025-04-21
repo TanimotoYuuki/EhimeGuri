@@ -1,20 +1,29 @@
 #include "stdafx.h"
 #include "GameOver.h"
 #include "Player.h"
+#include "Fade.h"
 #include "Title.h"
+#include "Game.h"
 
-GameOver::GameOver()
+GameOver::~GameOver()
+{
+	DeleteGO(m_fade);
+}
+
+bool GameOver::Start()
 {
 	//スプライトの初期化
 	InitSprite();
 
 	m_player = FindGO<Player>("player");
 	m_player->m_gameoverFlag = true;
-}
 
-GameOver::~GameOver()
-{
+	NewGO<Fade>(0, "fade");
+	m_fade = FindGO<Fade>("fade");
+	m_fade->FadeTransition(enFadeState_None);
 
+	m_game = FindGO<Game>("game");
+	return true;
 }
 
 void GameOver::Update()
@@ -125,60 +134,86 @@ void GameOver::Action()
 	//遷移フラグが立ったら
 	else if (m_transitionFlag == true)
 	{
-
+		switch (m_select)
+		{
+		case enSelect_Continue:			//コンティニュー
+			m_fade->FadeTransition(enFadeState_FadeOut);
+			if (g_gameTime->StopWatch(2.0f))
+			{
+				DeleteGO(this);
+				DeleteGO(m_game);
+				NewGO<Game>(0, "game");
+			}
+			break;
+		case enSelect_ReturnTitle:		//タイトルへ戻る
+			m_fade->FadeTransition(enFadeState_FadeOut);
+			if (g_gameTime->StopWatch(1.5f))
+			{
+				NewGO<Title>(0, "title");
+				DeleteGO(this);
+				DeleteGO(m_game);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 //スプライトの動作
 void GameOver::SpriteMove()
 {
-	//Aボタンが押されたら
-	if (m_pressButtonFlag == true)
+	//遷移フラグが立っていないとき
+	if (m_transitionFlag != true)
 	{
-		//ボタンを押したときの動作をしたか？
-		if (m_pressButtonActionFlag != true)
+		//Aボタンが押されたら
+		if (m_pressButtonFlag == true)
 		{
-			//選択
-			switch (m_select)
+			//ボタンを押したときの動作をしたか？
+			if (m_pressButtonActionFlag != true)
 			{
-			case enSelect_Continue:			//コンティニュー
-				m_selectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-				m_selectUI[enSelect_Continue].Update();
-				break;
-			case enSelect_ReturnTitle:		//タイトルへ戻る
-				m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-				m_selectUI[enSelect_ReturnTitle].Update();
-				break;
-			default:
-				break;
+				//選択
+				switch (m_select)
+				{
+				case enSelect_Continue:			//コンティニュー
+					m_selectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_selectUI[enSelect_Continue].Update();
+					break;
+				case enSelect_ReturnTitle:		//タイトルへ戻る
+					m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_selectUI[enSelect_ReturnTitle].Update();
+					break;
+				default:
+					break;
+				}
+				if (g_gameTime->StopWatch(0.1f) == true)
+				{
+					m_pressButtonActionFlag = true;
+				}
+				return;
 			}
-			if (g_gameTime->StopWatch(0.1f) == true)
+			else
 			{
-				m_pressButtonActionFlag = true;
+				//選択
+				switch (m_select)
+				{
+				case enSelect_Continue:			//コンティニュー
+					m_selectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_selectUI[enSelect_Continue].Update();
+					break;
+				case enSelect_ReturnTitle:		//タイトルへ戻る
+					m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_selectUI[enSelect_ReturnTitle].Update();
+					break;
+				default:
+					break;
+				}
+				if (g_gameTime->StopWatch(0.1f) == true)
+				{
+					m_transitionFlag = true;
+				}
+				return;
 			}
-			return;
-		}
-		else
-		{
-			//選択
-			switch (m_select)
-			{
-			case enSelect_Continue:			//コンティニュー
-				m_selectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-				m_selectUI[enSelect_Continue].Update();
-				break;
-			case enSelect_ReturnTitle:		//タイトルへ戻る
-				m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-				m_selectUI[enSelect_ReturnTitle].Update();
-				break;
-			default:
-				break;
-			}
-			if (g_gameTime->StopWatch(0.1f) == true)
-			{
-				m_transitionFlag = true;
-			}
-			return;
 		}
 	}
 

@@ -21,7 +21,7 @@ class Game : public IGameObject
 {
 public:
 	Game() {}
-	~Game() {}
+	~Game();
 	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
@@ -114,5 +114,6 @@ private:
 	//	int m_skycubeType = enSkyCubeType_NightToon;
 	float               m_timer = 180.0f;
 	bool                drawFlag = true;
+	bool                m_gameOverFlag = false;
 };
 

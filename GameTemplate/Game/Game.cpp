@@ -45,6 +45,41 @@ namespace
 //	g_renderingEngine->SetDirectionLight(0, g_vec3Zero, g_vec3Zero);
 //}
 
+Game::~Game()
+{
+	DeleteGO(m_backGround);
+	DeleteGO(m_player);
+	DeleteGO(m_gameCamera);
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		DeleteGO(m_enemyList[i]);
+	}
+	DeleteGO(m_transparentBlock);
+	DeleteGO(m_transparentBlock1);
+	DeleteGO(m_transparentBlock2);
+	DeleteGO(m_transparentBlock3);
+	DeleteGO(m_transparentBlock4);
+	DeleteGO(m_transparentBlock5);
+	DeleteGO(m_transparentBlock6);
+	DeleteGO(m_transparentBlock7);
+	DeleteGO(m_transparentBlock8);
+	DeleteGO(m_transparentBlock9);
+	DeleteGO(m_transparentBlock10);
+	DeleteGO(m_transparentBlock11);
+	DeleteGO(m_fallingBlock);
+	DeleteGO(m_fallingBlock1);
+	DeleteGO(m_fallingBlock2);
+	DeleteGO(m_scaffoldBlock);
+	DeleteGO(m_needle);
+	DeleteGO(m_needle1);
+	DeleteGO(m_movingFloor1);
+	DeleteGO(m_movingFloor2);
+	DeleteGO(m_block);
+	DeleteGO(m_signboard);
+	DeleteGO(m_scaffold);
+	DeleteGO(m_scaffold1);
+	DeleteGO(m_towel);
+	DeleteGO(m_clearPoint);
+}
 
 bool Game::Start()
 {
@@ -312,44 +347,57 @@ void Game::Update()
 	//////フォントの色を設定。
 	//m_fontRender.SetColor(g_vec4Yellow);
 
+	//針に当たってゲームオーバーになったら処理しない
+	if (m_needle->m_gameOverFlag == true ||
+		m_needle1->m_gameOverFlag == true
+		)
+	{
+		return;
+	}
 
 	if (m_timer <= 0.0f) {
-		NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
-		DeleteGO(m_player);
-		DeleteGO(m_backGround);;
-		DeleteGO(m_transparentBlock);
-		DeleteGO(m_transparentBlock1);
-		DeleteGO(m_transparentBlock2);
-		DeleteGO(m_transparentBlock3);
-		DeleteGO(m_transparentBlock4);
-		DeleteGO(m_transparentBlock5);
-		DeleteGO(m_transparentBlock6);
-		DeleteGO(m_transparentBlock7);
-		DeleteGO(m_transparentBlock8);
-		DeleteGO(m_transparentBlock9);
-		DeleteGO(m_transparentBlock10);
-		DeleteGO(m_transparentBlock11);
-		DeleteGO(m_fallingBlock);
-		DeleteGO(m_fallingBlock1);
-		DeleteGO(m_fallingBlock2);
-		DeleteGO(m_scaffoldBlock);
-		DeleteGO(m_needle);
-		DeleteGO(m_needle1);
-		DeleteGO(m_movingFloor1);
-		DeleteGO(m_movingFloor2);
-		DeleteGO(m_block);
-		DeleteGO(m_signboard);
-		DeleteGO(m_scaffold);
-		DeleteGO(m_scaffold1);
-		DeleteGO(m_towel);
-		for (int i = 0; i < ENEMY_NUM; i++) {
-			DeleteGO(m_enemyList[i]);
+		if (m_gameOverFlag != true)
+		{
+			NewGO<GameOver>(0, "gameover");
+			DeleteGO(m_fade);
+			m_gameOverFlag = true;
 		}
-		m_player = nullptr;
-		m_movingFloor = nullptr;
-		m_fallingBlock = nullptr;
-		m_gameCamera->SetTarget(nullptr);
+		return;
+		//DeleteGO(this);
+		//DeleteGO(m_player);
+		//DeleteGO(m_backGround);;
+		//DeleteGO(m_transparentBlock);
+		//DeleteGO(m_transparentBlock1);
+		//DeleteGO(m_transparentBlock2);
+		//DeleteGO(m_transparentBlock3);
+		//DeleteGO(m_transparentBlock4);
+		//DeleteGO(m_transparentBlock5);
+		//DeleteGO(m_transparentBlock6);
+		//DeleteGO(m_transparentBlock7);
+		//DeleteGO(m_transparentBlock8);
+		//DeleteGO(m_transparentBlock9);
+		//DeleteGO(m_transparentBlock10);
+		//DeleteGO(m_transparentBlock11);
+		//DeleteGO(m_fallingBlock);
+		//DeleteGO(m_fallingBlock1);
+		//DeleteGO(m_fallingBlock2);
+		//DeleteGO(m_scaffoldBlock);
+		//DeleteGO(m_needle);
+		//DeleteGO(m_needle1);
+		//DeleteGO(m_movingFloor1);
+		//DeleteGO(m_movingFloor2);
+		//DeleteGO(m_block);
+		//DeleteGO(m_signboard);
+		//DeleteGO(m_scaffold);
+		//DeleteGO(m_scaffold1);
+		//DeleteGO(m_towel);
+		//for (int i = 0; i < ENEMY_NUM; i++) {
+		//	DeleteGO(m_enemyList[i]);
+		//}
+		//m_player = nullptr;
+		//m_movingFloor = nullptr;
+		//m_fallingBlock = nullptr;
+		//m_gameCamera->SetTarget(nullptr);
 	}
 
 	

@@ -1,13 +1,15 @@
 #pragma once
 class Player;
 class Fade;
+class Game;
 class GameOver : public IGameObject
 {
 public:
-	GameOver();
 	~GameOver();
 
+	bool Start();
 	void Update();
+
 	void Render(RenderContext& rc);
 
 private:
@@ -49,5 +51,6 @@ private:
 	bool                m_transitionFlag = false;									//遷移フラグ
 	Player*				m_player;													//プレイヤー用のインスタンス
 	Fade*				m_fade;														//フェード用のインスタンス
+	Game*				m_game;														//ゲーム用のインスタンス
 };
 

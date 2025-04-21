@@ -2,6 +2,7 @@
 #include "Needle.h"
 #include "Player.h"
 #include "GameOver.h"
+#include "Fade.h"
 
 namespace
 {
@@ -17,7 +18,7 @@ Needle::Needle()
 }
 Needle::~Needle()
 {
-	
+
 }
 bool Needle::Start()
 {
@@ -41,7 +42,8 @@ bool Needle::Start()
 
 	m_collisionObject->SetIsEnableAutoDelete(false);
 	firstposition = m_needlePosition;
-
+	
+	m_fade = FindGO<Fade>("fade");
 	return true;
 }
 
@@ -50,9 +52,13 @@ void Needle::DisplayModel()
 	Vector3 diff = m_player->m_position - m_needlePosition;
 	if (diff.Length() <= 100.0f)
 	{
-		flag == false;
-		m_gameOver = NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
+		if (m_gameOverFlag != true)
+		{
+			flag == false;
+			m_gameOver = NewGO<GameOver>(0, "gameover");
+			DeleteGO(m_fade);
+			m_gameOverFlag = true;
+		}
 	}
 }
 
