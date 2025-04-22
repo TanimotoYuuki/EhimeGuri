@@ -382,11 +382,11 @@ void GameClear::Action()
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_titleScreenTransitionFlag = true;
+			m_fade->FadeTransition(enFadeState_FadeOut);
 		}
 	}
 	else
 	{
-		m_fade->FadeTransition(enFadeState_FadeOut);
 		if (g_gameTime->StopWatch(2.0f))
 		{
 			NewGO<Title>(0,"title");

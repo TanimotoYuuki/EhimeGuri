@@ -44,17 +44,23 @@ void GameOver::Render(RenderContext& rc)
 	//ゲームオーバーUI
 	m_gameOverUI.Draw(rc);
 
-	//選択UI(コンティニュー)
-	m_selectUI[enSelect_Continue].Draw(rc);
+	//ゲームオーバー時の選択UI(コンティニュー)
+	m_gameOverSelectUI[enSelect_Continue].Draw(rc);
 
-	//選択UI(タイトルへ戻る)
-	m_selectUI[enSelect_ReturnTitle].Draw(rc);
+	//ゲームオーバー時の選択UI(タイトルへ戻る)
+	m_gameOverSelectUI[enSelect_ReturnTitle].Draw(rc);
 
 	//ゲームオーバー演出が終わったら
 	if (m_gameOverDirectionFlag == true)
 	{
+		//十字キーUI
+		m_dPadUI.Draw(rc);
+
 		//AボタンUI
 		m_aButtonUI.Draw(rc);
+
+		//選択UI
+		m_selectUI.Draw(rc);
 
 		//決定UI
 		m_decisionUI.Draw(rc);
@@ -72,29 +78,41 @@ void GameOver::InitSprite()
 	m_gameOverUI.SetPivot(Vector2(0.5f, 0.0f));
 	m_gameOverUI.Update();
 
-	//選択UI(コンティニュー)
-	m_selectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", 1024, 128);
-	m_selectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
-	m_selectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	m_selectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	m_selectUIColor[enSelect_Continue] = m_selectUI[enSelect_Continue].GetMulColor();
-	m_selectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	m_selectUI[enSelect_Continue].Update();
+	//ゲームオーバー時の選択UI(コンティニュー)
+	m_gameOverSelectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", 1024, 128);
+	m_gameOverSelectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
+	m_gameOverSelectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	m_gameOverSelectUI[enSelect_Continue].Update();
 
-	//選択UI(タイトルへ戻る)
-	m_selectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", 1024, 128);
-	m_selectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
-	m_selectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	m_selectUIColor[enSelect_ReturnTitle] = m_selectUI[enSelect_ReturnTitle].GetMulColor();
-	m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	m_selectUI[enSelect_ReturnTitle].Update();
+	//ゲームオーバー時の選択UI(タイトルへ戻る)
+	m_gameOverSelectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", 1024, 128);
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
+
+	//十字キーUI
+	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", 512, 512);
+	m_dPadUI.SetPosition(Vector3(325.0f, -345.0f, 0.0f));
+	m_dPadUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	m_dPadUI.Update();
 
 	//AボタンUI
 	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", 512, 512);
 	m_aButtonUI.SetPosition(Vector3(Vector3(525.0f, -345.0f, 0.0f)));
 	m_aButtonUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_aButtonUI.Update();
+
+	//選択UI
+	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
+	m_selectUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
+	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	m_selectUI.Update();
 
 	//決定UI
 	m_decisionUI.Init("Assets/gameover/text/decision.dds", 1024, 128);
@@ -116,27 +134,27 @@ void GameOver::Action()
 		if (g_pad[0]->IsTrigger(enButtonLeft))
 		{
 			//現在の選択がスタートだったら
-			if (m_select == enSelect_Continue)
+			if (m_gameOverSelect == enSelect_Continue)
 			{
 				//ゲーム終了に移動
-				m_select = enSelect_ReturnTitle;
+				m_gameOverSelect = enSelect_ReturnTitle;
 				return;
 			}
 			//左にいく
-			m_select -= 1;
+			m_gameOverSelect -= 1;
 		}
 		//十字キーを右に倒したら
 		else if (g_pad[0]->IsTrigger(enButtonRight))
 		{
 			//現在の選択がゲーム終了だったら
-			if (m_select == enSelect_ReturnTitle)
+			if (m_gameOverSelect == enSelect_ReturnTitle)
 			{
 				//スタートに移動
-				m_select = enSelect_Continue;
+				m_gameOverSelect = enSelect_Continue;
 				return;
 			}
 			//右にいく
-			m_select += 1;
+			m_gameOverSelect += 1;
 		}
 
 		//Aボタンを押したらボタンを押したときの演出が流れる
@@ -148,7 +166,8 @@ void GameOver::Action()
 	//遷移フラグが立ったら選択に応じて反映する
 	else if (m_transitionFlag == true)
 	{
-		switch (m_select)
+		//ゲームオーバー時の選択
+		switch (m_gameOverSelect)
 		{
 		case enSelect_Continue:			//コンティニュー
 			m_fade->FadeTransition(enFadeState_FadeOut);
@@ -160,7 +179,6 @@ void GameOver::Action()
 			}
 			break;
 		case enSelect_ReturnTitle:		//タイトルへ戻る
-			m_fade->FadeTransition(enFadeState_FadeOut);
 			if (g_gameTime->StopWatch(2.0f))
 			{
 				DeleteGO(this);
@@ -197,19 +215,19 @@ void GameOver::SpriteMove()
 			}
 			break;
 		case enGameOverDirection_Select:		//選択
-			m_selectUIAlphaColor += 0.75f * g_gameTime->GetFrameDeltaTime();
+			m_gameOverSelectUIAlphaColor += 0.75f * g_gameTime->GetFrameDeltaTime();
 
-			//選択UIが不透明になったら
-			if (m_selectUIAlphaColor > 1.0f)
+			//ゲームオーバー時の選択UIが不透明になったら
+			if (m_gameOverSelectUIAlphaColor > 1.0f)
 			{
-				m_selectUIAlphaColor = 1.0f;
+				m_gameOverSelectUIAlphaColor = 1.0f;
 				m_gameOverDirectionFlag = true;
 				return;
 			}
 
-			//選択UI
-			m_selectUI[enGameOverDirection_GameOver].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_selectUIAlphaColor));
-			m_selectUI[enGameOverDirection_Select].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_selectUIAlphaColor));
+			//ゲームオーバー時の選択UI
+			m_gameOverSelectUI[enGameOverDirection_GameOver].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
+			m_gameOverSelectUI[enGameOverDirection_Select].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
 			break;
 		default:
 			break;
@@ -225,16 +243,16 @@ void GameOver::SpriteMove()
 			//ボタンを押したときの動作をしていないか?
 			if (m_pressButtonActionFlag != true)
 			{
-				//選択
-				switch (m_select)
+				//ゲームオーバー時の選択
+				switch (m_gameOverSelect)
 				{
 				case enSelect_Continue:			//コンティニュー
-					m_selectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-					m_selectUI[enSelect_Continue].Update();
+					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る
-					m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-					m_selectUI[enSelect_ReturnTitle].Update();
+					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
 				default:
 					break;
@@ -247,16 +265,16 @@ void GameOver::SpriteMove()
 			}
 			else
 			{
-				//選択
-				switch (m_select)
+				//ゲームオーバー時の選択
+				switch (m_gameOverSelect)
 				{
 				case enSelect_Continue:			//コンティニュー
-					m_selectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-					m_selectUI[enSelect_Continue].Update();
+					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る
-					m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-					m_selectUI[enSelect_ReturnTitle].Update();
+					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
 				default:
 					break;
@@ -264,24 +282,25 @@ void GameOver::SpriteMove()
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_transitionFlag = true;
+					m_fade->FadeTransition(enFadeState_FadeOut);
 				}
 				return;
 			}
 		}
 	}
 
-	//選択
-	switch (m_select)
+	//ゲームオーバー時の選択
+	switch (m_gameOverSelect)
 	{
 	case enSelect_Continue:			//コンティニュー
-		//選択UI
-		m_selectUI[enSelect_Continue].SetMulColor(m_selectUIColor[enSelect_Continue]);
-		m_selectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		//ゲームオーバー時の選択UI
+		m_gameOverSelectUI[enSelect_Continue].SetMulColor(m_gameOverSelectUIColor[enSelect_Continue]);
+		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		break;
 	case enSelect_ReturnTitle:		//タイトルへ戻る
-		//選択UI
-		m_selectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-		m_selectUI[enSelect_ReturnTitle].SetMulColor(m_selectUIColor[enSelect_ReturnTitle]);
+		//ゲームオーバー時の選択UI
+		m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(m_gameOverSelectUIColor[enSelect_ReturnTitle]);
 		break;
 	default:
 		break;
