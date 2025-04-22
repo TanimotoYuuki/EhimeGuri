@@ -20,7 +20,7 @@ bool StageClear::Start()
 void StageClear::Update()
 {
 	//ステージクリアスプライト用のイージングの更新処理
-	UpdateStageClearSpriteEaging();
+	UpdateStageClearSpriteEasing();
 }
 
 void StageClear::Render(RenderContext& rc)
@@ -38,7 +38,7 @@ void StageClear::SetStageClearSpriteEasing()
 }
 
 //ステージクリアスプライト用のイージングの更新処理
-void StageClear::UpdateStageClearSpriteEaging()
+void StageClear::UpdateStageClearSpriteEasing()
 {
 	//特定の位置に行ったらステージクリア演出をする
 	if (m_position.x > 0.0f && m_gameClearRenditionFinishFlag != true)

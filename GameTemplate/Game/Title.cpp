@@ -164,6 +164,7 @@ void Title::Action()
 		switch (m_titleTransition)
 		{
 		case enTitleTransition_Title: //タイトル
+			//Aボタンを押したらボタンを押したときの演出が流れる
 			if (g_pad[0]->IsTrigger(enButtonA))
 			{
 				m_pressButtonFlag = true;
@@ -181,6 +182,7 @@ void Title::Action()
 			//Aボタンを押していないとき？
 			if (m_pressButtonFlag != true)
 			{
+				//十字キーを上に倒したら
 				if (g_pad[0]->IsTrigger(enButtonUp))
 				{
 					//現在の選択がスタートだったら
@@ -193,6 +195,7 @@ void Title::Action()
 					//上に上がる
 					m_modeSelect -= 1;
 				}
+				//十字キーを下に倒したら
 				else if (g_pad[0]->IsTrigger(enButtonDown))
 				{
 					//現在の選択がゲーム終了だったら
@@ -206,10 +209,12 @@ void Title::Action()
 					m_modeSelect += 1;
 				}
 
+				//Aボタンを押したらボタンを押したときの演出が流れる
 				if (g_pad[0]->IsTrigger(enButtonA))
 				{
 					m_pressButtonFlag = true;
 				}
+				//Bボタンを押したら
 				else if (g_pad[0]->IsTrigger(enButtonB))
 				{
 					//タイトルへ遷移
@@ -242,6 +247,7 @@ void Title::Action()
 			}
 			break;
 		case enTitleTransition_HowToPlay: //遊び方
+			//Aボタンを押したら
 			if (g_pad[0]->IsTrigger(enButtonA))
 			{
 				//モード選択へ遷移
@@ -289,7 +295,7 @@ void Title::SpriteMove()
 			return;
 		}
 
-		//Aボタンが押されたら
+		//Aボタンが押されたらボタンを押したときの演出が流れる
 		if (m_pressButtonFlag == true)
 		{
 			//ボタンを押したときの動作をしたか？
@@ -328,8 +334,7 @@ void Title::SpriteMove()
 		m_pressAButtonUI.Update();
 		break;
 	case enTitleTransition_ModeSelect: //モード選択
-
-		//Aボタンが押されたら
+		//Aボタンが押されたらボタンを押したときの演出が流れる
 		if (m_pressButtonFlag == true)
 		{
 			//ボタンを押したときの動作をしたか？
@@ -652,12 +657,15 @@ void Title::PlayAnimation()
 //プレイヤーモデルのアニメーション管理
 void Title::PlayerModelAnimationManage()
 {
+	//ゲーム開始フラグが立っているとき
 	if (m_gameStartFlag == true)
 	{
+		//走るアニメーション
 		m_playerModelAnimationState = enPlayerModelAnimationState_run;
 	}
 	else
 	{
+		//歩きアニメーション
 		m_playerModelAnimationState = enPlayerModelAnimationState_walk;
 	}
 }

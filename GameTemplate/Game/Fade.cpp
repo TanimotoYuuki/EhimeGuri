@@ -6,7 +6,7 @@ bool Fade::Start()
 	//フェード
 	m_fade.Init("Assets/fade/fade.dds", 1600, 900);
 	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
-	m_fade.SetWipeScrollSpeed(20.0f);
+	m_fade.SetWipeScrollSpeed(1000.0f);
 
 	//ローディング
 	m_loading.Init("Assets/fade/loading.dds", 1024,128);
@@ -36,7 +36,7 @@ void Fade::Update()
 		switch (m_fadeState)
 		{
 		case enFadeState_FadeIn:	//フェードイン
-			m_fade.SetWipeSize(0.0f);
+			m_fade.SetWipeSize(-50.0f);
 			m_fadeTransitionFlag = true;
 			break;
 		case enFadeState_FadeOut:	//フェードアウト

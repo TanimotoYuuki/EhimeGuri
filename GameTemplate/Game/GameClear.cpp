@@ -266,7 +266,7 @@ void GameClear::GatheringRate(int gatheringItemNum, int totalItemNum)
 //プレイヤーモデルのアニメーション管理
 void GameClear::PlayerModelAnimationManage()
 {
-	//ゲームクリア演出が終わったか?
+	//ゲームクリア演出が終わったら
 	if (m_gameClearDirectionFlag == true)
 	{
 		//収集率が80%以上なら(S～Aランク)
@@ -285,6 +285,7 @@ void GameClear::PlayerModelAnimationManage()
 			m_animationState = enAnimationState_Defeat;		//悔しい
 		}
 	}
+	//ゲームクリア演出が終わっていなかったら
 	else
 	{
 		m_animationState = enAnimationClip_Idle;	//待機
@@ -307,6 +308,7 @@ void GameClear::SpriteMove()
 			m_gameClearDirectionState = enGameClearDirection_Ranking;
 		}
 
+		//収集率用数字UI
 		m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
 		m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
 		m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
@@ -322,6 +324,7 @@ void GameClear::SpriteMove()
 			return;
 		}
 
+		//順位用数字UI
 		m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
 		m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
 		m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
@@ -337,6 +340,7 @@ void GameClear::SpriteMove()
 			return;
 		}
 
+		//ランクUI
 		m_rankUI[m_rankState].SetMulColor(Vector4(m_rankSpriteColor.x, m_rankSpriteColor.y, m_rankSpriteColor.z, m_rankUIAlphaColor));
 		break;
 	default:
@@ -378,12 +382,12 @@ void GameClear::Action()
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_titleScreenTransitionFlag = true;
-			m_fade->FadeTransition(enFadeState_FadeOut);
 		}
 	}
 	else
 	{
-		if (g_gameTime->StopWatch(3.0f))
+		m_fade->FadeTransition(enFadeState_FadeOut);
+		if (g_gameTime->StopWatch(2.0f))
 		{
 			NewGO<Title>(0,"title");
 			DeleteGO(this);

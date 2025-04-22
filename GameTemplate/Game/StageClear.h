@@ -16,7 +16,7 @@ private:
 	/// <summary>
 	/// ステージクリアスプライト用のイージングの更新処理
 	/// </summary>
-	void UpdateStageClearSpriteEaging();
+	void UpdateStageClearSpriteEasing();
 
 	SpriteRender		m_stageClearUI;												//ステージクリアUI
 	Vector3				m_position = Vector3(-1100.0f, 275.0f, 0.0f);				//位置
