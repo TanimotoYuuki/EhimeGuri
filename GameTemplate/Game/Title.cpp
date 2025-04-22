@@ -115,8 +115,12 @@ void Title::Render(RenderContext& rc)
 				m_modeUI[enModeSelect_Shutdown].Draw(rc);
 				
 				//ゲームパッドUI
+				m_gamePadUI[enGamePad_DPad].Draw(rc);
 				m_gamePadUI[enGamePad_AButton].Draw(rc);
 				m_gamePadUI[enGamePad_BButton].Draw(rc);
+
+				//選択UI
+				m_selectUI.Draw(rc);
 
 				//決定UI
 				m_decisionUI.Draw(rc);
@@ -547,41 +551,47 @@ void Title::InitSprite()
 	//遊び方UI
 	m_howToPlayUI.Init("Assets/title/screen/howtoplay.dds", 1500, 800);
 
-	//ゲームパッド(Aボタン)
+	//ゲームパッド(Aボタン)UI
 	m_gamePadUI[enGamePad_AButton].Init("Assets/title/gamepad/abutton.dds", 512, 512);
 	m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
 	m_gamePadUI[enGamePad_AButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_gamePadUI[enGamePad_AButton].Update();
 
-	//ゲームパッド(Bボタン)
+	//ゲームパッド(Bボタン)UI
 	m_gamePadUI[enGamePad_BButton].Init("Assets/title/gamepad/bbutton.dds", 512, 512);
 	m_gamePadUI[enGamePad_BButton].SetPosition(Vector3(525.0f, -345.0f, 0.0f));
 	m_gamePadUI[enGamePad_BButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_gamePadUI[enGamePad_BButton].Update();
 
-	//ゲームパッド(Xボタン)
+	//ゲームパッド(Xボタン)UI
 	m_gamePadUI[enGamePad_XButton].Init("Assets/title/gamepad/xbutton.dds", 512, 512);
 
-	//ゲームパッド(Yボタン)
+	//ゲームパッド(Yボタン)UI
 	m_gamePadUI[enGamePad_YButton].Init("Assets/title/gamepad/ybutton.dds", 512, 512);
 
-	//ゲームパッド(Lスティック)
+	//ゲームパッド(Lスティック)UI
 	m_gamePadUI[enGamePad_LStick].Init("Assets/title/gamepad/lstick.dds", 512, 512);
 
-	//ゲームパッド(Rスティック)
+	//ゲームパッド(Rスティック)UI
 	m_gamePadUI[enGamePad_RStick].Init("Assets/title/gamepad/rstick.dds", 512, 512);
 
-	//ゲームパッド(十字キー)
+	//ゲームパッド(十字キー)UI
 	m_gamePadUI[enGamePad_DPad].Init("Assets/title/gamepad/dpad.dds", 512, 512);
+	m_gamePadUI[enGamePad_DPad].SetPosition(Vector3(125.0f, -345.0f, 0.0f));
+	m_gamePadUI[enGamePad_DPad].SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	m_gamePadUI[enGamePad_DPad].Update();
+
+	//選択UI
+	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
+	m_selectUI.SetPosition(Vector3(200.0f, -345.0f, 0.0f));
+	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	m_selectUI.Update();
 
 	//決定UI
 	m_decisionUI.Init("Assets/title/text/decision.dds", 1024, 128);
 	m_decisionUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_decisionUI.Update();
-
-	//選択UI
-	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
 
 	//戻るUI
 	m_returnUI.Init("Assets/title/text/return.dds", 1024, 128);

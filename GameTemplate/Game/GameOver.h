@@ -82,8 +82,10 @@ private:
 
 	int					NeedleCount = 0;											//針用のカウント
 	SpriteRender		m_gameOverUI;												//ゲームオーバーUI
-	SpriteRender		m_selectUI[enSelect_Num];									//選択UI
+	SpriteRender		m_gameOverSelectUI[enSelect_Num];							//ゲームオーバー時の選択UI
+	SpriteRender		m_dPadUI;													//十字キーUI
 	SpriteRender		m_aButtonUI;												//AボタンUI
+	SpriteRender		m_selectUI;													//選択UI
 	SpriteRender		m_decisionUI;												//決定UI
 	Vector3				m_gameOverUIPosition = Vector3(15.0f, 500.0f, 0.0f);		//ゲームオーバーUI用の位置
 	Vector3				m_gameOverUIFarstHeight;									//ゲームオーバーUI用の最初の高さ
@@ -92,15 +94,15 @@ private:
 	Vector3				m_afterEasingPosition;										//イージング後の位置
 	Quaternion			m_beforeEasingRotation;										//イージング前の回転
 	Quaternion			m_afterEasingRotation;										//イージング後の回転
-	Vector4				m_selectUIColor[enSelect_Num];								//選択UI用のカラー
+	Vector4				m_gameOverSelectUIColor[enSelect_Num];						//ゲームオーバー時の選択UI用のカラー
 	int					m_gameOverDirectionState = enGameOverDirection_GameOver;	//ゲームオーバー演出ステート
-	int					m_select = enSelect_Continue;								//選択
+	int					m_gameOverSelect = enSelect_Continue;						//ゲームオーバー時の選択
 	int					m_exponentiation = 2;										//累乗
 	int					m_gameOverUIHitCount = 1;									//ゲームオーバーUIが何回跳ねたか
 	float               m_easingTime = 0.0f;										//割合
 	float				m_coefficientOfRestitution = 0.0f;							//反発係数
 	float				m_angle = -10.0f;											//角度
-	float				m_selectUIAlphaColor = 0.0f;								//選択UI透明度
+	float				m_gameOverSelectUIAlphaColor = 0.0f;						//ゲームオーバー時の選択UI透明度
 	bool				m_easingFinishFlag = false;									//イージングが終わったか?
 	bool				m_pressButtonFlag = false;									//ボタンを押したか?
 	bool				m_pressButtonActionFlag = false;							//ボタンを押したときの動作をしたか?
