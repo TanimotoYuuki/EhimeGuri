@@ -5,10 +5,10 @@
 
 bool StageClear::Start()
 {
-	//ステージクリア
-	m_stageClear.Init("Assets/Sprite/stageclear.dds", 1024, 128);
-	m_stageClear.SetPosition(m_position);
-	m_stageClear.Update();
+	//ステージクリアUI
+	m_stageClearUI.Init("Assets/Sprite/stageclear.dds", 1024, 128);
+	m_stageClearUI.SetPosition(m_position);
+	m_stageClearUI.Update();
 
 	//ステージクリアスプライト用のイージングを設定
 	SetStageClearSpriteEasing();
@@ -20,12 +20,13 @@ bool StageClear::Start()
 void StageClear::Update()
 {
 	//ステージクリアスプライト用のイージングの更新処理
-	UpdateStageClearSpriteEaging();
+	UpdateStageClearSpriteEasing();
 }
 
 void StageClear::Render(RenderContext& rc)
 {
-	m_stageClear.Draw(rc);
+	//ステージクリアUI
+	m_stageClearUI.Draw(rc);
 }
 
 //ステージクリアスプライト用のイージングを設定
@@ -37,7 +38,7 @@ void StageClear::SetStageClearSpriteEasing()
 }
 
 //ステージクリアスプライト用のイージングの更新処理
-void StageClear::UpdateStageClearSpriteEaging()
+void StageClear::UpdateStageClearSpriteEasing()
 {
 	//特定の位置に行ったらステージクリア演出をする
 	if (m_position.x > 0.0f && m_gameClearRenditionFinishFlag != true)
@@ -58,6 +59,6 @@ void StageClear::UpdateStageClearSpriteEaging()
 	}
 
 	m_position.Lerp(m_easingTime, m_beforeEasingPosition, m_afterEasingPosition);
-	m_stageClear.SetPosition(m_position);
-	m_stageClear.Update();
+	m_stageClearUI.SetPosition(m_position);
+	m_stageClearUI.Update();
 }

@@ -17,6 +17,8 @@ Player::Player() {
 	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
 	m_animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
 	m_animationClip[enAnimationClip_jump].SetLoopFlag(false);
+	m_animationClip[enAnimationClip_gameover].Load("Assets/animData/gameover.tka");
+	m_animationClip[enAnimationClip_gameover].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
@@ -63,8 +65,11 @@ void Player::Move() {
 	m_moveSpeed.z = 0.0f;
 	//スティックの入力量を取得
 	Vector3 stickL;
-	stickL.x = g_pad[0]->GetLStickXF();
-	stickL.y = g_pad[0]->GetLStickYF();
+	if (m_gameoverFlag != true)
+	{
+		stickL.x = g_pad[0]->GetLStickXF();
+		stickL.y = g_pad[0]->GetLStickYF();
+	}
 	//カメラの前方向と右方向にベクトルを持ってくる
 	Vector3 forward = g_camera3D->GetForward();
 	Vector3 right = g_camera3D->GetRight();
@@ -77,9 +82,12 @@ void Player::Move() {
 	//移動速度に上記で計算したベクトルを加算する
 	m_moveSpeed += right + forward;
 	//ダッシュ
-	if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false&& m_characterController.IsOnGround()) {
-		m_moveSpeed.x *= 2.0f;
-		m_moveSpeed.z *= 0.0f;
+	if (m_gameoverFlag != true)
+	{
+		if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false && m_characterController.IsOnGround()) {
+			m_moveSpeed.x *= 2.0f;
+			m_moveSpeed.z *= 0.0f;
+		}
 	}
 
 	float glavity = 9.0f;
@@ -88,9 +96,12 @@ void Player::Move() {
 		//重力をなくす
 		m_moveSpeed.y = 0.0f;
 		//Aボタンが押されたら
-		if (g_pad[0]->IsTrigger(enButtonA)) {
-			//ジャンプさせる
-			m_moveSpeed.y = 525.0f;
+		if (m_gameoverFlag != true)
+		{
+			if (g_pad[0]->IsTrigger(enButtonA)) {
+				//ジャンプさせる
+				m_moveSpeed.y = 525.0f;
+			}
 		}
 	}
 	
@@ -100,12 +111,15 @@ void Player::Move() {
 		m_position.y = 0.0f;
 	}*/
 
-	if (m_position.y <= -500.0f) {
-		m_position = m_initPosition;
-		m_rotation = m_initRotation;
-		m_modelRender.SetPosition(m_position);
-		m_modelRender.SetRotation(m_rotation);
-		m_characterController.SetPosition( m_position);
+	if (m_gameoverFlag != true)
+	{
+		if (m_position.y <= -500.0f) {
+			m_position = m_initPosition;
+			m_rotation = m_initRotation;
+			m_modelRender.SetPosition(m_position);
+			m_modelRender.SetRotation(m_rotation);
+			m_characterController.SetPosition(m_position);
+		}
 	}
 
 
@@ -128,6 +142,12 @@ void Player::Rotation() {
 	}
 }
 void Player::ManageState() {
+	if (m_gameoverFlag == true)
+	{
+		m_playerState = enPlayer_gameover;
+		return;
+	}
+
 	//地面についてなかったら
 	if (m_characterController.IsOnGround() == false) {
 		m_playerState = enPlayer_jump;
@@ -167,6 +187,9 @@ void Player::PlayAnimation() {
 	case enPlayer_run:
 		m_modelRender.PlayAnimation(enAnimationClip_run,0.1f);
 		m_moveSpeed.z *= 0.0f;
+		break;
+	case enPlayer_gameover:
+		m_modelRender.PlayAnimation(enAnimationClip_gameover, 0.1f);
 		break;
 	}
 }

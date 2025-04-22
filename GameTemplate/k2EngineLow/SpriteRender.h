@@ -246,11 +246,11 @@ namespace nsK2EngineLow
 		{
 			if (m_fadeState == enFadeState_FadeIn)
 			{
-				m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed;
+				m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed * g_gameTime->GetFrameDeltaTime();
 			}
 			else if (m_fadeState == enFadeState_FadeOut)
 			{
-				m_spriteRenderConstantBuffer.linearWipe.size -= m_wipeScrollSpeed;
+				m_spriteRenderConstantBuffer.linearWipe.size -= m_wipeScrollSpeed * g_gameTime->GetFrameDeltaTime();
 			}
 		}
 
@@ -259,7 +259,7 @@ namespace nsK2EngineLow
 		/// </summary>
 		void ScreenDrawingUpdate()
 		{
-			m_spriteRenderConstantBuffer.drawingRate += m_screenDrawingEasingSpeed;
+			m_spriteRenderConstantBuffer.drawingRate += m_screenDrawingEasingSpeed * g_gameTime->GetFrameDeltaTime();
 			if (m_spriteRenderConstantBuffer.drawingRate > 1.0f)
 			{
 				m_spriteRenderConstantBuffer.drawingRate = 1.0f;

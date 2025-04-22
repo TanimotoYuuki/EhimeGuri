@@ -4,6 +4,7 @@
 class Player;
 class MovingFloor;
 class GameOver;
+class Fade;
 class Needle : public IGameObject
 {
 public:
@@ -29,6 +30,8 @@ public:
 	SpriteRender		m_spriteRender;
 	MovingFloor       * m_movingFloor;
 	GameOver          * m_gameOver;
+	Fade		      * m_fade;
+	bool				m_gameOverFlag = false;
 	PhysicsStaticObject physicsStaticObject;
 private:
 	CollisionObject* m_collisionObject = nullptr;
