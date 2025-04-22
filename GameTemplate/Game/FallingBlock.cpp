@@ -7,7 +7,7 @@ namespace
 {
 	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);
 
-	float SPEED = 400.0f;
+	float SPEED = 340.0f;
 	float LIMITED = 300.0f;
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
 	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
@@ -55,7 +55,6 @@ bool FallingBlock::Start()
 void FallingBlock::Move()
 {
 		Vector3 moveSpeed = Vector3::Zero;
-		//	m_position.y = -10.0f;
 		m_modelRender.Update();
 
 		if (m_movingFloorState == enMovingFloorState_MovingRight)
@@ -65,13 +64,6 @@ void FallingBlock::Move()
 		
 		m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
 
-		if (m_movingFloorState == enMovingFloorState_MovingRight)
-		{
-			if (m_firstposition.y - LIMITED >= m_position.y)
-			{
-				m_movingFloorState = enMovingFloorState_MovingLeft;
-			}
-		}
 
 		m_modelRender.SetPosition(m_position);
 
@@ -103,12 +95,11 @@ void FallingBlock::Update()
 
 
 	//’Êí”Å‚Ì°
-	if (distanceX.Length() >= 350.0f && distanceY.Length() >= 350.0f && m_player->m_characterController.IsOnGround())
+	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();
 	}
 	
-
 	m_modelRender.Update();
 	m_physicsStaticObject.SetPosition(m_position);
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);

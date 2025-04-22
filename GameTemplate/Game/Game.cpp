@@ -13,8 +13,8 @@
 #include "Player.h"
 #include "Scaffold.h"
 #include "ScaffoldBlock.h"
-#include "Signboard.h"
 #include "StageClear.h"
+#include "S_MovingFloor.h"
 #include "TransparentBlock.h"
 #include "Title.h"
 #include "Towel.h"
@@ -97,11 +97,11 @@ bool Game::Start()
 	Needle_NewGO();
 	MovingFloor_NewGO();
 //	Block_NewGO();
-	Signboard_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
 	ClearPoint_NewGO();
-	//HS_fallingBlock_NewGO();
+	HS_fallingBlock_NewGO();
+	S_MovingFloor_NewGO();
 	Fade_NewGO();
 
 	m_modelRender.Update();
@@ -110,119 +110,97 @@ bool Game::Start()
 }
 
 
-//透明ブロックのNewGO用関数
+//透明ブロック
 void Game::TransparentBlock_NewGO()
 {
-	m_transparentBlock = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock->m_position = { 4700.0f, 300.0f, 0.0f };
-	m_transparentBlock->m_firstposition = m_transparentBlock->m_position;
-
-	m_transparentBlock1 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock1->m_position = { 4800.0f, 300.0f, 0.0f };
-	m_transparentBlock1->m_firstposition = m_transparentBlock1->m_position;
-
-	m_transparentBlock2 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock2->m_position = { 4900.0f, 300.0f, 0.0f };
-	m_transparentBlock2->m_firstposition = m_transparentBlock2->m_position;
-
+	//罠用の座標
 	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock3->m_position = { 5000.0f, 300.0f, 0.0f };
+	m_transparentBlock3->m_position = { 4700.0f, 270.0f, 0.0f };
 	m_transparentBlock3->m_firstposition = m_transparentBlock3->m_position;
 
 	m_transparentBlock4 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock4->m_position = { 5100.0f, 300.0f, 0.0f };
+	m_transparentBlock4->m_position = { 4800.0f, 270.0f, 0.0f };
 	m_transparentBlock4->m_firstposition = m_transparentBlock4->m_position;
 
 	m_transparentBlock5 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock5->m_position = { 5200.0f, 300.0f, 0.0f };
+	m_transparentBlock5->m_position = { 4900.0f, 270.0f, 0.0f };
 	m_transparentBlock5->m_firstposition = m_transparentBlock5->m_position;
 
 	m_transparentBlock6 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock6->m_position = { 5300.0f, 300.0f, 0.0f };
+	m_transparentBlock6->m_position = { 5000.0f, 270.0f, 0.0f };
 	m_transparentBlock6->m_firstposition = m_transparentBlock6->m_position;
 
 	m_transparentBlock7 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock7->m_position = { 5400.0f, 300.0f, 0.0f };
+	m_transparentBlock7->m_position = { 5100.0f, 270.0f, 0.0f };
 	m_transparentBlock7->m_firstposition = m_transparentBlock7->m_position;
 
 	m_transparentBlock8 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock8->m_position = { 5500.0f, 300.0f, 0.0f };
+	m_transparentBlock8->m_position = { 5200.0f, 270.0f, 0.0f };
 	m_transparentBlock8->m_firstposition = m_transparentBlock8->m_position;
 
 	m_transparentBlock9 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock9->m_position = { 5600.0f, 300.0f, 0.0f };
+	m_transparentBlock9->m_position = { 5300.0f, 270.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 
-	m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock10->m_position = { 12600.0f, 230.0f, 0.0f };
-	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;
-
-	/*m_transparentBlock11 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock11->m_position = { 14200.0f, 260.0f, 0.0f };
-	m_transparentBlock11->m_firstposition = m_transparentBlock11->m_position;*/
+	//移動用
+	/*m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
+	m_transparentBlock10->m_position = { 10300.0f, 200.0f, 0.0f };
+	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;*/
 
 	m_modelRender.SetPosition(m_position);
 }
 
-//落ちる床のNewGO用関数
+//落ちる床
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 9000.0f, 360.0f, 0.0f };
+	m_fallingBlock->m_position = { 7400.0f, 360.0f, 0.0f };
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 
 	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock1->m_position = { 9700.0f, 400.0f, 0.0f };
+	m_fallingBlock1->m_position = { 8000.0f, 400.0f, 0.0f };
 	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
 
 	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock2->m_position = { 10400.0f, 400.0f, 0.0f };
+	m_fallingBlock2->m_position = { 8600.0f, 400.0f, 0.0f };
 	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
-
-	
 
 	m_modelRender.SetPosition(m_position);
 }
 
-//T型足場ブロックのNewGO関数
+//T型足場ブロック
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
-	m_scaffoldBlock->m_position = { 8000.0f, 150.0f, 0.0f };
+	m_scaffoldBlock->m_position = { 6650.0f, 125.0f, 0.0f };
 	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
-//針のNewGO用関数
+//針
 void Game::Needle_NewGO()
 {
-	m_needle = NewGO<Needle>(0, "needle");
-	m_needle->m_needlePosition = { -500.0f,0.0f,0.0f };
-	m_needle->firstposition = m_needle->m_needlePosition;
-
 	m_needle1 = NewGO<Needle>(0, "needle");
-	m_needle1->m_needlePosition = { 15725.0f, 400.0f, 0.0f };
+	m_needle1->m_needlePosition = { 15800.0f, 400.0f, 0.0f };
 	m_needle1->firstposition = m_needle1->m_needlePosition;
 
 	m_modelRender.SetPosition(m_position);
 }
 
-//動く床のNewGO用関数
+//動く床(通常速度)
 void Game::MovingFloor_NewGO()
 {
-	/*m_movingFloor = NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor->SetPosition(Vector3{ 8500.0f, 0.0f, 0.0f });*/
-
+	
 	m_movingFloor1 = NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor1->SetPosition(Vector3{ 14200.0f, 300.0f, 200.0f });
+	m_movingFloor1->SetPosition(Vector3{ 11000.0f, 180.0f, 200.0f });
 
 	m_movingFloor2 = NewGO<MovingFloor>(0, "movingfloor");
-	m_movingFloor2->SetPosition(Vector3{ 15200.0f, 300.0f, 200.0f });
+	m_movingFloor2->SetPosition(Vector3{ 12000.0f, 200.0f, 200.0f });
 
 	m_modelRender.SetPosition(m_position);
 }
 
-//ブロックのNewGO用関数
+//ブロック
 void Game::Block_NewGO()
 {
 	m_block = NewGO<Block>(0, "block");
@@ -233,56 +211,59 @@ void Game::Block_NewGO()
 
 }
 
-//看板のNewGO用関数
-void Game::Signboard_NewGO()
-{
-	m_signboard = NewGO<Signboard>(0, "signboard");
-	m_signboard->m_position = { 100.0f, 80.0f, 100.0f };
-	m_signboard->m_firstposition = m_signboard->m_position;
-	m_modelRender.SetPosition(m_position);
-}
-
-//足場ブロックのNewGO用関数
+//足場ブロック
 void Game::Scaffold_NewGO()
 {
-    m_scaffold = NewGO<Scaffold>(0, "scaffold");
-	m_scaffold->m_position = { -500.0f, 0.0f, 200.0f };
-	m_scaffold->m_firstposition = m_scaffold->m_position;
-
-	//x … 13300
-	
+	//x … 13300	
 	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
-	m_scaffold1->m_position = { 13200.0f, 260.0f, 200.0f };
+	m_scaffold1->m_position = { 12950.0f, 200.0f, 200.0f };
 	m_scaffold1->m_firstposition = m_scaffold1->m_position;
 	m_modelRender.SetPosition(m_position);
-
 }
 
-//アイテムのNewGO用関数
+//アイテム
 void Game::Item_NewGO()
 {
-	m_towel = NewGO<Towel>(0,"towel");
-	m_towel->m_position = { 12600.0f, 375.0f, 0.0f };
-	m_modelRender.SetPosition(m_position);
+   m_towel = NewGO<Towel>(0,"towel");
+   m_towel->m_position = { 10500.0f, 250.0f, 0.0f };
+   m_modelRender.SetPosition(m_position);
 }
 
-//クリアポイントのNewGO用関数
+//クリアポイント
 void Game::ClearPoint_NewGO()
 {
 	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
 	m_clearPoint->position = { 17500.0f, 700.0f, 0.0f };
 	m_modelRender.SetPosition(m_position);
-
 }
 
-//落下速度の速い床
-//void Game::HS_fallingBlock_NewGO()
-//{
-//	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
-//	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
-//	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
-//	m_modelRender.SetPosition(m_position);
-//}
+//動く床(遅)
+void Game::S_MovingFloor_NewGO()
+{
+	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor->m_position = { 13700.0f, 100.0f, 200.0f };
+	m_s_MovingFloor->m_firstPosition = m_s_MovingFloor->m_position;
+
+	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor->m_position = { 14300.0f, 200.0f, 200.0f };
+
+	m_s_MovingFloor3 = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor3->m_position = { 14900.0f, 200.0f, 200.0f };
+
+	m_s_MovingFloor4 = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor4->m_position = { 15500.0f, 200.0f, 200.0f };
+
+	m_modelRender.SetPosition(m_position);
+}
+
+//落ちる床(速)
+void Game::HS_fallingBlock_NewGO()
+{
+	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
+	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
+	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
+	m_modelRender.SetPosition(m_position);
+}
 
 void Game::Fade_NewGO()
 {
@@ -339,7 +320,6 @@ void Game::Update()
 		DeleteGO(m_movingFloor1);
 		DeleteGO(m_movingFloor2);
 		DeleteGO(m_block);
-		DeleteGO(m_signboard);
 		DeleteGO(m_scaffold);
 		DeleteGO(m_scaffold1);
 		DeleteGO(m_towel);

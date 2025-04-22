@@ -240,7 +240,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scaffold.cpp" />
     <ClCompile Include="ScaffoldBlock.cpp" />
-    <ClCompile Include="Signboard.cpp" />
     <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -248,6 +247,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="S_MovingFloor.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Towel.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
@@ -269,10 +269,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scaffold.h" />
     <ClInclude Include="ScaffoldBlock.h" />
-    <ClInclude Include="Signboard.h" />
     <ClInclude Include="StageClear.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="S_MovingFloor.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Towel.h" />
     <ClInclude Include="TransparentBlock.h" />

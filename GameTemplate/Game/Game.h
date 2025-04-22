@@ -1,4 +1,5 @@
 #pragma once
+
 class Player;						//プレイヤー
 class Block;						//ブロック
 class BackGround;					//ステージ		
@@ -9,14 +10,15 @@ class Needle;						//針
 class MovingFloor;					//移動する床
 class Scaffold;						//足場
 class ScaffoldBlock;				//T型の足場
-class Signboard;					//看板
-class StageClear;
+class StageClear;					//ステージクリア
+class S_MovingFloor;				//動く床(遅)
 class GameOver;						//ゲームオーバー
 class GameCamera;					//カメラ
-class HS_FallingBlock;				//落下速度の速い床
+class HS_FallingBlock;				//動く床(速)
 class TransparentBlock;				//透明ブロック
 class Towel;                        //タオル
 class Fade;							//フェード
+
 class Game : public IGameObject
 {
 public:
@@ -34,11 +36,10 @@ public:
 	void Needle_NewGO();
 	void Item_NewGO();
 	void ScaffoldBlock_NewGO();
-	void Signboard_NewGO();
 	void Scaffold_NewGO();
+	void S_MovingFloor_NewGO();
 	void HS_fallingBlock_NewGO();
 	void Fade_NewGO();
-	
 
 //	void InitSky();
 	
@@ -65,8 +66,14 @@ private:
 	ScaffoldBlock     * m_scaffoldBlock;
 	Scaffold		  * m_scaffold;
 	Scaffold		  * m_scaffold1;
-	Signboard         * m_signboard;
 	StageClear        * m_stageClear;
+	S_MovingFloor	  * m_s_MovingFloor;
+	S_MovingFloor     * m_s_MovingFloor1;
+	S_MovingFloor	  * m_s_MovingFloor2;
+	S_MovingFloor	  * m_s_MovingFloor3;
+	S_MovingFloor	  * m_s_MovingFloor4;
+
+
 	MovingFloor       * m_movingFloor;
 	MovingFloor       * m_movingFloor1;
 	MovingFloor       * m_movingFloor2;
@@ -110,8 +117,6 @@ private:
 	SpriteRender        m_gennzaitiRender;
 	SpriteRender        m_taorutoriRender;
 	SpriteRender        m_taorukuroRender;
-	//	SkyCube* m_SkyCube = nullptr; //背景
-	//	int m_skycubeType = enSkyCubeType_NightToon;
 	float               m_timer = 180.0f;
 	bool                drawFlag = true;
 };
