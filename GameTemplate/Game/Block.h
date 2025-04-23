@@ -1,4 +1,5 @@
 #pragma once
+class Player;
 class Block : public IGameObject
 {
 public:
@@ -26,5 +27,8 @@ public:
 	Vector3             m_firstposition;
 	Vector3             m_position;
 	Vector3			    m_scale = Vector3::One;
+	Vector3						  m_blockTouchDistanceX = Vector3::Zero;	 //ブロック叩く用距離(X軸)
+	Vector3						  m_blockTouchDistance = Vector3::Zero;		 //ブロック叩く用距離
+	Player* m_player;
 };
 
