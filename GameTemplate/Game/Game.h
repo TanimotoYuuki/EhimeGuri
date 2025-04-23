@@ -46,7 +46,7 @@ private:
 	Block             * m_block;
 	BackGround		  * m_backGround;
 	ClearPoint        * m_clearPoint;
-	Enemy			  * m_enemyList[4];
+	Enemy			  * m_enemyList[5];
 	FallingBlock	  * m_fallingBlock;
 	FallingBlock      * m_fallingBlock1;
 	FallingBlock      * m_fallingBlock2;

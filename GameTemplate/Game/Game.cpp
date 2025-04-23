@@ -25,7 +25,7 @@ namespace
 	Vector3 TRANSPARENTBLOCK_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	const int ENEMY_NUM = 4;
+	const int ENEMY_NUM = 5;
 }
 
 //îwåi
@@ -101,7 +101,8 @@ bool Game::Start()
 		{3200.0f,94.0f,0.0f},
 		{600.0f,94.0f,0.0f},
 		{4800.0f,94.0f,0.0f},
-		{5400.0f,94.0f,0.0f}
+		{5400.0f,94.0f,0.0f},
+		{12300.0f,200.0f,0.0f}
 	};
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -131,7 +132,7 @@ bool Game::Start()
 	ScaffoldBlock_NewGO();
 	Needle_NewGO();
 	MovingFloor_NewGO();
-//	Block_NewGO();
+	Block_NewGO();
 	Signboard_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
@@ -260,10 +261,30 @@ void Game::MovingFloor_NewGO()
 //ÉuÉçÉbÉNÇÃNewGOópä÷êî
 void Game::Block_NewGO()
 {
+	/*m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 11000.0f, 900.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;*/
+
+
 	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 11000.0f, 800.0f, 0.0f };
+	m_block->m_position = { 1000.0f, 300.0f, 0.0f };
 	m_block->m_firstposition = m_block->m_position;
 
+	m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 12300.0f, 300.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;
+
+	m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 14000.0f, 600.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;
+
+	m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 15000.0f, 600.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;
+
+	m_block = NewGO<Block>(0, "block");
+	m_block->m_position = { 3200.0f, 300.0f, 0.0f };
+	m_block->m_firstposition = m_block->m_position;
 	m_modelRender.SetPosition(m_position);
 
 }
