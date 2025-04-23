@@ -169,9 +169,12 @@ void Title::Action()
 		{
 		case enTitleTransition_Title: //タイトル
 			//Aボタンを押したらボタンを押したときの演出が流れる
-			if (g_pad[0]->IsTrigger(enButtonA))
+			if (m_pressButtonFlag != true)
 			{
-				m_pressButtonFlag = true;
+				if (g_pad[0]->IsTrigger(enButtonA))
+				{
+					m_pressButtonFlag = true;
+				}
 			}
 
 			//画面遷移フラグが立っていたら
@@ -180,6 +183,7 @@ void Title::Action()
 				//モード選択へ遷移
 				m_titleTransition = enTitleTransition_ModeSelect;
 				m_titleTransitionFlag = false;
+				m_pressButtonFlag = false;
 			}
 			break;
 		case enTitleTransition_ModeSelect: //モード選択
@@ -256,6 +260,7 @@ void Title::Action()
 			{
 				//モード選択へ遷移
 				m_titleTransition = enTitleTransition_ModeSelect;
+				m_pressButtonFlag = false;
 			}
 			break;
 		default:
@@ -324,7 +329,6 @@ void Title::SpriteMove()
 					{
 						m_titleTransitionFlag = true;
 						m_alpha = 0.0f;
-						m_pressButtonFlag = false;
 						m_pressButtonActionFlag = false;
 					}
 					return;
@@ -394,7 +398,6 @@ void Title::SpriteMove()
 					if (g_gameTime->StopWatch(0.1f) == true)
 					{
 						m_titleTransitionFlag = true;
-						m_pressButtonFlag = false;
 						m_pressButtonActionFlag = false;
 					}
 					return;
