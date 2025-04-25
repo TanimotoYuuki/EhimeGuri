@@ -9,12 +9,12 @@ class Player:public IGameObject
 public:
 	Player();
 	~Player();
-	void Update();								//XVˆ—
-	void Render(RenderContext& rc);				//•`‰æˆ—
-	void Move();								//ˆÚ“®ˆ—
-	void Rotation();							//‰ñ“]ˆ—
-	void ManageState();							//ƒXƒe[ƒgŠÇ—
-	void PlayAnimation();						//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶
+	void Update();								//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+	void Render(RenderContext& rc);				//ï¿½`ï¿½æˆï¿½ï¿½
+	void Move();								//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+	void Rotation();							//ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½
+	void ManageState();							//ï¿½Xï¿½eï¿½[ï¿½gï¿½Ç—ï¿½
+	void PlayAnimation();						//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌÄï¿½
 	void PlayerStamina();
 	void PlayerhealSutamina();
 	void Derei();
@@ -48,7 +48,7 @@ public:
 		return m_isOnGround;
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
+	//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½v
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -58,7 +58,7 @@ public:
 		enAnimationClip_num
 	};
 
-	//ƒvƒŒƒCƒ„[ƒXƒe[ƒg
+	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½g
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -91,7 +91,7 @@ public:
 	int					m_playernowsutamina = 300;
 	bool				m_sutaminaZeroFlag = false;
 	bool				m_jumpFlag = true;
-	bool				m_isOnGround = true;			//!<’n–Ê‚Ìã‚É‚¢‚éH
+	bool				m_isOnGround = true;			//!<ï¿½nï¿½Ê‚Ìï¿½É‚ï¿½ï¿½ï¿½H
 	bool G = true;
 	bool m_gameoverFlag = false;
 };

@@ -28,7 +28,7 @@ Player::Player() {
 	m_position = { -0.0f,94.0f,0.0f };
 
 	
-	//ƒeƒXƒgƒvƒŒƒC—p
+	//ï¿½eï¿½Xï¿½gï¿½vï¿½ï¿½ï¿½Cï¿½p
 //	m_position = { 13700.0f, 200.0f, 200.0f };
 
 
@@ -52,45 +52,45 @@ void Player::Update() {
 		m_sutaminaZeroFlag=true;
 	}
 	if (m_sutaminaZeroFlag == true) {
-		Derei();//ˆê’èŽžŠÔ‚½‚Á‚Ä‚©‚çB
+		Derei();//ï¿½ï¿½èŽžï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½B
 	}
-	//ˆÚ“®ˆ—
+	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 	Move();
-	//‰ñ“]ˆ—
+	//ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½
 	Rotation();
-	//ƒXƒe[ƒgˆ—
+	//ï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
 	ManageState();
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
 	PlayAnimation();
 
 	
 
-	//•`‰æˆ—
+	//ï¿½`ï¿½æˆï¿½ï¿½
 	m_modelRender.Update();
 	
 }
 void Player::Move() {
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
-	//ƒXƒeƒBƒbƒN‚Ì“ü—Í—Ê‚ðŽæ“¾
+	//ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ì“ï¿½ï¿½Í—Ê‚ï¿½æ“¾
 	Vector3 stickL;
 	if (m_gameoverFlag != true)
 	{
 		stickL.x = g_pad[0]->GetLStickXF();
 		stickL.y = g_pad[0]->GetLStickYF();
 	}
-	//ƒJƒƒ‰‚Ì‘O•ûŒü‚Æ‰E•ûŒü‚ÉƒxƒNƒgƒ‹‚ðŽ‚Á‚Ä‚­‚é
+	//ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ì‘Oï¿½ï¿½ï¿½ï¿½ï¿½Æ‰Eï¿½ï¿½ï¿½ï¿½ï¿½Éƒxï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 	Vector3 forward = g_camera3D->GetForward();
 	Vector3 right = g_camera3D->GetRight();
-	//y•ûŒü‚É‚ÍˆÚ“®‚µ‚È‚¢
+	//yï¿½ï¿½ï¿½ï¿½ï¿½É‚ÍˆÚ“ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 	forward.y = 0.0f;
 	right.y = 0.0f;
-	//¶ƒXƒeƒBƒbƒN‚Ì“ü—Í—Ê‚Æ120.0f‚ðæŽZ
+	//ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ì“ï¿½ï¿½Í—Ê‚ï¿½120.0fï¿½ï¿½ï¿½Z
 	right *= stickL.x * 480.0f;
 	forward *= stickL.y * 0.0f;
-	//ˆÚ“®‘¬“x‚Éã‹L‚ÅŒvŽZ‚µ‚½ƒxƒNƒgƒ‹‚ð‰ÁŽZ‚·‚é
+	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½xï¿½Éï¿½Lï¿½ÅŒvï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
 	m_moveSpeed += right + forward;
-	//ƒ_ƒbƒVƒ…
+	//ï¿½_ï¿½bï¿½Vï¿½ï¿½
 	if (m_gameoverFlag != true)
 	{
 		if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false && m_characterController.IsOnGround()) {
@@ -101,17 +101,17 @@ void Player::Move() {
 
  	float glavity = 20.0f;
 
-	// ’n–Ê‚É‚Â‚¢‚Ä‚¢‚½‚ç
+	// ï¿½nï¿½Ê‚É‚Â‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (m_characterController.IsOnGround())
 	{
-		//d—Í‚ð‚È‚­‚·
+		//ï¿½dï¿½Í‚ï¿½È‚ï¿½ï¿½ï¿½
 		m_moveSpeed.y = 0.0f;	
 
-		//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+		//Aï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
 		if (m_gameoverFlag != true)
 		{
 			if (g_pad[0]->IsTrigger(enButtonA)) {
-				//ƒWƒƒƒ“ƒv‚³‚¹‚é
+				//ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				m_moveSpeed.y = 525.0f;
 			}
 		}
@@ -131,24 +131,24 @@ void Player::Move() {
 	}
 
 
-	//ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ðŽg‚Á‚ÄÀ•W‚ðˆÚ“®‚³‚¹‚é
+	//ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½[ï¿½ï¿½gï¿½ï¿½ï¿½Äï¿½ï¿½Wï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
 	
 
 	m_position.z = 0.0f;
 
-	//ŠG•`‚«‚³‚ñ‚ÉÀ•W‚ð‹³‚¦‚é
+	//ï¿½Gï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_modelRender.SetPosition(m_position);
 
 
 }
 
 void Player::Rotation() {
-	//x‚©z‚ÌˆÚ“®‘¬“x‚ª‚ ‚Á‚½‚ç(ƒXƒeƒBƒbƒN‚Ì“ü—Í‚ª‚ ‚Á‚½‚ç)
+	//xï¿½ï¿½zï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ì“ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	if (fabsf(m_moveSpeed.x) >= 0.001f || fabsf(m_moveSpeed.z) >= 0.001f) {
-		//ƒLƒƒƒ‰ƒNƒ^[‚Ì•ûŒü‚ð•Ï‚¦‚é
+		//ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½
 		m_rotation.SetRotationYFromDirectionXZ(m_moveSpeed);
-		//ŠG•`‚«‚³‚ñ‚É‰ñ“]‚ð‹³‚¦‚é
+		//ï¿½Gï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_modelRender.SetRotation(m_rotation);
 	}
 }
@@ -159,14 +159,14 @@ void Player::ManageState() {
 		return;
 	}
 
-	//’n–Ê‚É‚Â‚¢‚Ä‚È‚©‚Á‚½‚ç
+	//ï¿½nï¿½Ê‚É‚Â‚ï¿½ï¿½Ä‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (m_characterController.IsOnGround() == false) {
 		m_playerState = enPlayer_jump;
-		//‚±‚±‚ÅManageStateŠÖ”‚Ìˆ—‚ðI‚í‚ç‚¹‚é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ManageStateï¿½Öï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ç‚¹ï¿½ï¿½
 		PlayerhealSutamina();
 		return;
 	}
-	//x‚©z‚ÌˆÚ“®‘¬“x‚ª‚ ‚Á‚½‚ç(ƒXƒeƒBƒbƒN‚Ì“ü—Í‚ª‚ ‚Á‚½‚ç)
+	//xï¿½ï¿½zï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ì“ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	if (fabsf(m_moveSpeed.x) >= 0.001f|| fabsf(m_moveSpeed.z) >= 0.001f){
 		if (g_pad[0]->IsPress(enButtonB)&&m_playernowsutamina>0&&m_sutaminaZeroFlag==false) {
 			m_playerState = enPlayer_run;
@@ -177,7 +177,7 @@ void Player::ManageState() {
 			PlayerhealSutamina();
 		}
 	}
-	//x‚Æz‚ÌˆÚ“®‘¬“x‚ª‚È‚©‚Á‚½‚ç(ƒXƒeƒBƒbƒN‚Ì“ü—Í‚ª‚È‚©‚Á‚½‚ç)
+	//xï¿½ï¿½zï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ì“ï¿½ï¿½Í‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	else {
 		m_playerState = enPlayer_idle;
 		PlayerhealSutamina();
