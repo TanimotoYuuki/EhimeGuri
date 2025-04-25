@@ -74,7 +74,6 @@ Game::~Game()
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
 	DeleteGO(m_block);
-	DeleteGO(m_signboard);
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
@@ -133,7 +132,7 @@ bool Game::Start()
 	Needle_NewGO();
 	MovingFloor_NewGO();
 	Block_NewGO();
-	Signboard_NewGO();
+	//Signboard_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
 	ClearPoint_NewGO();
@@ -351,9 +350,7 @@ void Game::Update()
 	//m_fontRender.SetColor(g_vec4Yellow);
 
 	//�j�ɓ������ăQ�[���I�[�o�[�ɂȂ����珈�����Ȃ�
-	if (m_needle->m_gameOverFlag == true ||
-		m_needle1->m_gameOverFlag == true
-		)
+	if (m_needle1->m_gameOverFlag == true)
 	{
 		return;
 	}
