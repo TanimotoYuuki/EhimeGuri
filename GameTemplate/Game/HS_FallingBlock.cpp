@@ -9,8 +9,6 @@ namespace
 	Vector3 HIGHSPEED_FBLOCK_SCALE = Vector3(1.5f, 1.5f, 5.0f);
 	float HIGHT_SPEED = 1500.0f;
 	float LIMITED = 2000.0f;
-//	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
-//	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
 }
 
 HS_FallingBlock::HS_FallingBlock()
@@ -30,21 +28,9 @@ bool HS_FallingBlock::Start()
 
 	m_player = FindGO<Player>("player");
 	m_movingFloor = FindGO<MovingFloor>("movingfloor");
-//	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
-	//m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
-
-	////ƒRƒŠƒWƒ‡ƒ“‚ð“®‚­°‚ÉÝ’u
-	//m_collisionObject->CreateBox
-	//(
-	//	m_position + COLLISION_HEIGHT,
-	//	Quaternion::Identity,
-	//	COLLISION_SIZE
-	//);
 
 	m_modelRender.SetPosition(m_position);
-	//m_collisionObject->SetIsEnableAutoDelete(false);
-	//m_firstposition = m_position;
 	return true;
 
 }
@@ -108,11 +94,11 @@ void HS_FallingBlock::Update()
 	Vector3 diffY;
 	diffY.y = m_position.y - m_player->m_position.y;
 
-	if (diffX.Length() < 70.0f && diffY.Length() < 10.0f)
-	{
-		NewGO<GameOver>(0, "gameover");
-		DeleteGO(this);
-	}
+	//if (diffX.Length() < 70.0f && diffY.Length() < 10.0f)
+	//{
+	//	NewGO<GameOver>(0, "gameover");
+	//	DeleteGO(this);
+	//}
 
 	m_modelRender.Update();
 //	m_physicsStaticObject.SetPosition(m_position);

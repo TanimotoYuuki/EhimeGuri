@@ -4,6 +4,7 @@
 #include "GameOver.h"
 #include "Enemy.h"
 #include"Towel.h"
+using namespace std;
 
 namespace {
 	const float SUTAMINA_MAX = 300.0f;
@@ -23,10 +24,13 @@ Player::Player() {
 		enAnimationClip_num, enModelUpAxisZ, true);
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	m_position = { 133.0f,94.0f,0.0f };
+
+	m_position = { -0.0f,94.0f,0.0f };
+
 	
 	//テストプレイ用
-//	m_position = { 16800.0f,700.0f, 200.0f };
+//	m_position = { 13700.0f, 200.0f, 200.0f };
+
 
 	m_initPosition = { 133.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
@@ -42,6 +46,8 @@ Player::~Player() {
 }
 
 void Player::Update() {
+
+
 	if (m_playernowsutamina == 0) {
 		m_sutaminaZeroFlag=true;
 	}
@@ -56,6 +62,9 @@ void Player::Update() {
 	ManageState();
 	//アニメーション
 	PlayAnimation();
+
+	
+
 	//描画処理
 	m_modelRender.Update();
 	
@@ -90,11 +99,14 @@ void Player::Move() {
 		}
 	}
 
-	float glavity = 9.0f;
-	//地面についていたら
-	if (m_characterController.IsOnGround()) {
+ 	float glavity = 20.0f;
+
+	// 地面についていたら
+	if (m_characterController.IsOnGround())
+	{
 		//重力をなくす
-		m_moveSpeed.y = 0.0f;
+		m_moveSpeed.y = 0.0f;	
+
 		//Aボタンが押されたら
 		if (m_gameoverFlag != true)
 		{
@@ -106,10 +118,6 @@ void Player::Move() {
 	}
 	
 	m_moveSpeed.y -= glavity;
-	
-	/*if (m_position.y <= 0.0f) {
-		m_position.y = 0.0f;
-	}*/
 
 	if (m_gameoverFlag != true)
 	{
@@ -123,15 +131,18 @@ void Player::Move() {
 	}
 
 
-
 	//キャラクターコントローラーを使って座標を移動させる
 	m_position = m_characterController.Execute(m_moveSpeed, 1.0f / 60.0f);
+	
 
 	m_position.z = 0.0f;
 
 	//絵描きさんに座標を教える
 	m_modelRender.SetPosition(m_position);
+
+
 }
+
 void Player::Rotation() {
 	//xかzの移動速度があったら(スティックの入力があったら)
 	if (fabsf(m_moveSpeed.x) >= 0.001f || fabsf(m_moveSpeed.z) >= 0.001f) {
