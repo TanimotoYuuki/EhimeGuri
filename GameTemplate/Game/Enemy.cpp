@@ -2,12 +2,12 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Game.h"
-#include"GameOver.h"
-#include"Needle.h"
-#include"FallingBlock.h"
-#include"ScaffoldBlock.h"
-#include"MovingFloor.h"
-#include"GameCamera.h"
+#include "GameOver.h"
+#include "Needle.h"
+#include "FallingBlock.h"
+#include "ScaffoldBlock.h"
+#include "MovingFloor.h"
+#include "GameCamera.h"
 bool Enemy::Start() {
 	animationclip[enAnimationclip_idle].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonIdle.tka");
 	animationclip[enAnimationclip_idle].SetLoopFlag(true);

@@ -5,12 +5,12 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(10.0f, 10.0f, 10.0f);
+	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
 }
 
 ClearPoint::ClearPoint()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/íÜêj.tkm");
+	m_modelRender.Init("Assets/modelData/Stage/Assets/GoalPole.tkm");
 	m_player = FindGO<Player>("player");
 }
 

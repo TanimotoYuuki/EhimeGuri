@@ -24,7 +24,6 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
     <ClCompile Include="Block.cpp" />
-    <ClCompile Include="Signboard.cpp" />
     <ClCompile Include="Scaffold.cpp" />
     <ClCompile Include="Towel.cpp" />
     <ClCompile Include="Fade.cpp" />
@@ -32,6 +31,7 @@
     <ClCompile Include="ClearPoint.cpp" />
     <ClCompile Include="HS_FallingBlock.cpp" />
     <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="S_MovingFloor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -51,7 +51,6 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="TransparentBlock.h" />
     <ClInclude Include="Block.h" />
-    <ClInclude Include="Signboard.h" />
     <ClInclude Include="Scaffold.h" />
     <ClInclude Include="Towel.h" />
     <ClInclude Include="Fade.h" />
@@ -59,5 +58,6 @@
     <ClInclude Include="ClearPoint.h" />
     <ClInclude Include="HS_FallingBlock.h" />
     <ClInclude Include="GameClear.h" />
+    <ClInclude Include="S_MovingFloor.h" />
   </ItemGroup>
 </Project>

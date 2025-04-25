@@ -1,6 +1,7 @@
 #pragma once
 class Game;
 class GameOver;
+class S_MovibgFloor;
 class Enemy;
 class Towel;
 class Player:public IGameObject
@@ -8,12 +9,12 @@ class Player:public IGameObject
 public:
 	Player();
 	~Player();
-	void Update();								//XVˆ—
-	void Render(RenderContext& rc);				//•`‰æˆ—
-	void Move();								//ˆÚ“®ˆ—
-	void Rotation();							//‰ñ“]ˆ—
-	void ManageState();							//ƒXƒe[ƒgŠÇ—
-	void PlayAnimation();						//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶
+	void Update();								//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+	void Render(RenderContext& rc);				//ï¿½`ï¿½æˆï¿½ï¿½
+	void Move();								//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+	void Rotation();							//ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½
+	void ManageState();							//ï¿½Xï¿½eï¿½[ï¿½gï¿½Ç—ï¿½
+	void PlayAnimation();						//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌÄï¿½
 	void PlayerStamina();
 	void PlayerhealSutamina();
 	void Derei();
@@ -22,16 +23,32 @@ public:
 	{
 		return m_position;
 	}
+
+	void SetPosition(const Vector3& position)
+	{
+		m_position = position;
+	}
 	void AddMoveSpeed(const Vector3& addMoveSpeed)
 	{
 		m_moveSpeed += addMoveSpeed;
 	}
-	CharacterController& GetCharacterController()
+
+	CharacterController& GetCharacterController() 
 	{
 		return m_characterController;
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
+	
+	Vector3 m_platformVelocity = Vector3::Zero;
+
+	
+
+	bool IsOnGround() const
+	{
+		return m_isOnGround;
+	}
+
+	//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½v
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -41,7 +58,7 @@ public:
 		enAnimationClip_num
 	};
 
-	//ƒvƒŒƒCƒ„[ƒXƒe[ƒg
+	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½g
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -53,24 +70,29 @@ public:
 	ModelRender			m_modelRender;			
 	Vector3				m_position;			
 	AnimationClip		m_animationClip[enAnimationClip_num];
-	CharacterController m_characterController;
 	Vector3				m_moveSpeed = Vector3::Zero;
 	Quaternion			m_rotation;
 	Vector3             m_initPosition;
+
 	Quaternion          m_initRotation;
-	
-	int  NeedleCount = 0;
-	int  clearCount = 0;
-	int  m_playerState = enPlayer_idle;
-	int  m_needleCount = 0;
-	int taoruCount = 0;
+	CharacterController m_characterController;
+
+
+	int					NeedleCount = 0;
+	int					clearCount = 0;
+	int					m_playerState = enPlayer_idle;
+	int					m_needleCount = 0;
+	int					taoruCount = 0;
 	Game			  * m_game;
-	Enemy* m_enemy;
-	GameOver* m_gameover;
-	Towel* m_towel;
-	int m_playermaxsutamina = 300;
-	int m_playernowsutamina = 300;
-	bool m_sutaminaZeroFlag = false;
+	Enemy			  * m_enemy;
+	GameOver		  * m_gameover;
+	Towel			  * m_towel;
+	int					m_playermaxsutamina = 300;
+	int					m_playernowsutamina = 300;
+	bool				m_sutaminaZeroFlag = false;
+	bool				m_jumpFlag = true;
+	bool				m_isOnGround = true;			//!<ï¿½nï¿½Ê‚Ìï¿½É‚ï¿½ï¿½ï¿½H
+	bool G = true;
 	bool m_gameoverFlag = false;
 };
 

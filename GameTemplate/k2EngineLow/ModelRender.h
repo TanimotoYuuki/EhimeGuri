@@ -105,6 +105,10 @@ namespace nsK2EngineLow
 		{
 			m_position = pos;
 		}
+		const Vector3& GetPosition() const 
+		{ 
+			return m_position; 
+		}
 
 		/// <summary>
 		/// ‰ñ“]‚ğİ’è
