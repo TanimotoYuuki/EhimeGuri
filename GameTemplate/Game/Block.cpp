@@ -21,16 +21,16 @@ Block::~Block()
 
 bool Block::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/’@‚©‚ê‚½‚ ‚Æ‚ÌƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/tatakareta_ato_no_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 //	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
-	//“–‚½‚è”»’è
+	//å½“ãŸã‚Šåˆ¤å®š
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 	m_player = FindGO<Player>("player");
 
-	//ƒRƒŠƒWƒ‡ƒ“‚ğ“®‚­°‚Éİ’u
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’å‹•ãåºŠã«è¨­ç½®
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,
@@ -54,10 +54,10 @@ void Block::Update()
 	m_blockTouchDistance = m_player->m_position - m_position;
 	if (m_blockTouchDistanceX.Length() < 50.0f)
 	{
-		//ˆê’è‚Ì‹——£‚Ü‚Ås‚Á‚Ä‚¢‚½‚ç
+		//ä¸€å®šã®è·é›¢ã¾ã§è¡Œã£ã¦ã„ãŸã‚‰
 		if (m_blockTouchDistance.Length() < 80.0f)
 		{
-			//ƒuƒƒbƒN‚É“–‚½‚Á‚½‚ÌƒvƒŒƒCƒ„[‚Ì“®‚«
+			//ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã£ãŸæ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ã
 			m_player->m_moveSpeed.y = m_position.y - 650.0f;
 		}
 	}

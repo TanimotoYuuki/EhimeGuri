@@ -119,14 +119,14 @@ namespace nsK2EngineLow
 
 	void ModelRender::Update()
 	{
-		//スケルトンを更新
+		//繧ｹ繧ｱ繝ｫ繝医Φ繧呈峩譁ｰ
 		m_skeleton.Update(m_model.GetWorldMatrix());
 
-		//モデルの更新
+		//繝｢繝�繝ｫ縺ｮ譖ｴ譁ｰ
 		m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 		m_shadowModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-		//アニメーションを進める
+		//繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ繧帝ｲ繧√ｋ
 		m_animation.Progress(g_gameTime->GetFrameDeltaTime() * m_animationSpeed);
 
 		if (m_scrollSpeed != 0.0f)

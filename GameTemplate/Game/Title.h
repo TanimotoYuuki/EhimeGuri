@@ -17,43 +17,43 @@ public:
 
 
 private:
-	//ƒXƒJƒCƒLƒ…[ƒu‚Ì‰Šú‰»
+	//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®åˆæœŸåŒ–
 	void InitSky();
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
 	void InitAnimation();
-	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 	void InitModel();
-	//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	void InitSprite();
-	//ƒJƒƒ‰‚Ì‰Šú‰»
+	//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 	void InitCamera();
-	//ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 	void Action();
-	//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 	void SpriteMove();
-	//ƒJƒƒ‰‚ÌXVˆ—
+	//ã‚«ãƒ¡ãƒ©ã®æ›´æ–°å‡¦ç†
 	void UpdateCamera();
-	//ƒXƒe[ƒWƒ‚ƒfƒ‹‚Ì“®ì
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 	void BackGroundModelMove();
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì“®ì
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 	void PlayerModelMove();
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 	void AnimationManage();
-	//ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 	void PlayAnimation();
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 	void PlayerModelAnimationManage();
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 	void PlayerModelPlayAnimation();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
 	enum EnAnimationClip {
 		enAnimationClip_walk,
 		enAnimationClip_run,
 		enAnimationClip_num
 	};
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 	enum EnPlayerModelAnimationState
 	{
 		enPlayerModelAnimationState_walk,
@@ -61,72 +61,72 @@ private:
 		enPlayerModelAnimationState_num
 	};
 
-	//ƒ‚[ƒh‘I‘ğ
+	//ãƒ¢ãƒ¼ãƒ‰é¸æŠ
 	enum EnModeSelect
 	{
-		enModeSelect_Start,				//ƒXƒ^[ƒg
-		enModeSelect_HowToPlay,			//—V‚Ñ•û
-		enModeSelect_Shutdown,			//ƒQ[ƒ€I—¹
-		enModeSelect_Num				//ƒ‚[ƒh‘I‘ğ”
+		enModeSelect_Start,				//ã‚¹ã‚¿ãƒ¼ãƒˆ
+		enModeSelect_HowToPlay,			//éŠã³æ–¹
+		enModeSelect_Shutdown,			//ã‚²ãƒ¼ãƒ çµ‚äº†
+		enModeSelect_Num				//ãƒ¢ãƒ¼ãƒ‰é¸æŠæ•°
 	};
 
-	//ƒQ[ƒ€ƒpƒbƒh
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰
 	enum EnGamePad
 	{
-		enGamePad_AButton,				//Aƒ{ƒ^ƒ“
-		enGamePad_BButton,				//Bƒ{ƒ^ƒ“
-		enGamePad_XButton,				//Xƒ{ƒ^ƒ“
-		enGamePad_YButton,				//Yƒ{ƒ^ƒ“
-		enGamePad_LStick,				//Lƒ{ƒ^ƒ“
-		enGamePad_RStick,				//Rƒ{ƒ^ƒ“
-		enGamePad_DPad,					//\šƒL[
-		enGamePad_Num,					//ƒQ[ƒ€ƒpƒbƒh”
+		enGamePad_AButton,				//Aãƒœã‚¿ãƒ³
+		enGamePad_BButton,				//Bãƒœã‚¿ãƒ³
+		enGamePad_XButton,				//Xãƒœã‚¿ãƒ³
+		enGamePad_YButton,				//Yãƒœã‚¿ãƒ³
+		enGamePad_LStick,				//Lãƒœã‚¿ãƒ³
+		enGamePad_RStick,				//Rãƒœã‚¿ãƒ³
+		enGamePad_DPad,					//åå­—ã‚­ãƒ¼
+		enGamePad_Num,					//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰æ•°
 	};
 
-	//ƒ^ƒCƒgƒ‹‰æ–Ê—p‘JˆÚ
+	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ç”¨é·ç§»
 	enum EnTitleTransition
 	{
-		enTitleTransition_Title,		//ƒ^ƒCƒgƒ‹
-		enTitleTransition_ModeSelect,	//ƒ‚[ƒh‘I‘ğ
-		enTitleTransition_HowToPlay,	//—V‚Ñ•û
-		enTitleTransition_Num			//‘JˆÚ”
+		enTitleTransition_Title,		//ã‚¿ã‚¤ãƒˆãƒ«
+		enTitleTransition_ModeSelect,	//ãƒ¢ãƒ¼ãƒ‰é¸æŠ
+		enTitleTransition_HowToPlay,	//éŠã³æ–¹
+		enTitleTransition_Num			//é·ç§»æ•°
 	};
 
-	//ƒXƒe[ƒWƒ‚ƒfƒ‹
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«
 	enum EnBackGroundModel
 	{
-		enBackGroundModel_Base,			//“y‘ä
-		enBackGroundModel_Grass,		//‘Œ´
-		enBackGroundModel_Num			//ƒXƒe[ƒWƒ‚ƒfƒ‹”
+		enBackGroundModel_Base,			//åœŸå°
+		enBackGroundModel_Grass,		//è‰åŸ
+		enBackGroundModel_Num			//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«æ•°
 	};
 
-	AnimationClip		m_animationClip[enAnimationClip_num];										//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
-	ModelRender         m_backGroundModel[enBackGroundModel_Num];									//ƒXƒe[ƒWƒ‚ƒfƒ‹
-	ModelRender			m_playerModel;																//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
-	Vector3				m_playerModelPosition=Vector3::Zero;										//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌˆÊ’u
-	Quaternion          m_playerModelRotation = Quaternion::Identity;								//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì‰ñ“]
-	Vector3             m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );								//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì‘å‚«‚³
-	int 				m_playerModelAnimationState = enPlayerModelAnimationState_walk;				//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg
-	int                 m_modeSelect = enModeSelect_Start;											//ƒ‚[ƒh‘I‘ğ
-	int					m_titleTransition = enTitleTransition_Title;								//ƒ^ƒCƒgƒ‹‰æ–Ê—p‘JˆÚ
-	Vector4             m_modeUIColor[enModeSelect_Num];											//ƒ‚[ƒh‘I‘ğUI‚ÌƒJƒ‰[
-	float				m_alpha = 0.0f;																//“§–¾“x
-	SpriteRender		m_titleBackGround;															//ƒ^ƒCƒgƒ‹”wŒi
-	SpriteRender        m_pressAButtonUI;															//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚·UI
-	SpriteRender        m_modeUI[enModeSelect_Num];													//ƒ‚[ƒhUI
-	SpriteRender        m_howToPlayUI;																//—V‚Ñ•ûUI
-	SpriteRender        m_gamePadUI[enGamePad_Num];													//ƒQ[ƒ€ƒpƒbƒhUI
-	SpriteRender		m_decisionUI;																//Œˆ’èUI
-	SpriteRender        m_selectUI;																	//‘I‘ğUI
-	SpriteRender		m_returnUI;																	//–ß‚éUI
-	bool                m_startFadeFinishFlag = false;												//ƒXƒ^[ƒg—pƒtƒF[ƒh‚ªI‚í‚Á‚½‚©?
-	bool                m_titleBackGroundFadeFinishFlag = false;									//ƒ^ƒCƒgƒ‹”wŒi‚ÌƒtƒF[ƒh‚ªI‚í‚Á‚½‚©?
-	bool				m_gameStartFlag = false;													//ƒQ[ƒ€ƒXƒ^[ƒgƒtƒ‰ƒO
-	bool				m_pressButtonFlag = false;													//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©?
-	bool                m_pressButtonActionFlag = false;											//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ‚µ‚½‚©?
-	bool                m_titleTransitionFlag = false;												//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚƒtƒ‰ƒO
-	Fade*				m_fade = nullptr;															//ƒtƒF[ƒh—pƒCƒ“ƒXƒ^ƒ“ƒX
-	SkyCube*			m_skyCube = nullptr;														//ƒXƒJƒCƒLƒ…[ƒu—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-	int					m_skyCubeType = enSkyCubeType_Day;											//ƒXƒJƒCƒLƒ…[ƒu‚Ì”wŒi
+	AnimationClip		m_animationClip[enAnimationClip_num];										//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
+	ModelRender         m_backGroundModel[enBackGroundModel_Num];									//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«
+	ModelRender			m_playerModel;																//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
+	Vector3				m_playerModelPosition=Vector3::Zero;										//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ä½ç½®
+	Quaternion          m_playerModelRotation = Quaternion::Identity;								//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å›è»¢
+	Vector3             m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );								//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å¤§ãã•
+	int 				m_playerModelAnimationState = enPlayerModelAnimationState_walk;				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
+	int                 m_modeSelect = enModeSelect_Start;											//ãƒ¢ãƒ¼ãƒ‰é¸æŠ
+	int					m_titleTransition = enTitleTransition_Title;								//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ç”¨é·ç§»
+	Vector4             m_modeUIColor[enModeSelect_Num];											//ãƒ¢ãƒ¼ãƒ‰é¸æŠUIã®ã‚«ãƒ©ãƒ¼
+	float				m_alpha = 0.0f;																//é€æ˜åº¦
+	SpriteRender		m_titleBackGround;															//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯
+	SpriteRender        m_pressAButtonUI;															//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã™UI
+	SpriteRender        m_modeUI[enModeSelect_Num];													//ãƒ¢ãƒ¼ãƒ‰UI
+	SpriteRender        m_howToPlayUI;																//éŠã³æ–¹UI
+	SpriteRender        m_gamePadUI[enGamePad_Num];													//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰UI
+	SpriteRender		m_decisionUI;																//æ±ºå®šUI
+	SpriteRender        m_selectUI;																	//é¸æŠUI
+	SpriteRender		m_returnUI;																	//æˆ»ã‚‹UI
+	bool                m_startFadeFinishFlag = false;												//ã‚¹ã‚¿ãƒ¼ãƒˆç”¨ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸã‹?
+	bool                m_titleBackGroundFadeFinishFlag = false;									//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯ã®ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸã‹?
+	bool				m_gameStartFlag = false;													//ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆãƒ•ãƒ©ã‚°
+	bool				m_pressButtonFlag = false;													//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹?
+	bool                m_pressButtonActionFlag = false;											//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’ã—ãŸã‹?
+	bool                m_titleTransitionFlag = false;												//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»ãƒ•ãƒ©ã‚°
+	Fade*				m_fade = nullptr;															//ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	SkyCube*			m_skyCube = nullptr;														//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	int					m_skyCubeType = enSkyCubeType_Day;											//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®èƒŒæ™¯
 };
 

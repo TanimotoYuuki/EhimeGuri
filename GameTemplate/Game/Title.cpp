@@ -11,19 +11,19 @@ Title::~Title()
 
 bool Title::Start()
 {
-	//ƒXƒJƒCƒLƒ…[ƒu‚Ì‰Šú‰»
+	//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®åˆæœŸåŒ–
 	InitSky();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
 	InitAnimation();
 
-	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 	InitModel();
 
-	//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	InitSprite();
 
-	//ƒJƒƒ‰‚Ì‰Šú‰»
+	//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 	InitCamera();
 
 	NewGO<Fade>(0, "fade");
@@ -32,10 +32,10 @@ bool Title::Start()
 	return true;
 }
 
-//XVˆ—
+//æ›´æ–°å‡¦ç†
 void Title::Update()
 {
-	//ƒXƒ^[ƒg—p‚ÌƒtƒF[ƒh‚ªI‚í‚Á‚½‚ç
+	//ã‚¹ã‚¿ãƒ¼ãƒˆç”¨ã®ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸã‚‰
 	if (m_startFadeFinishFlag != true)
 	{
 		if (g_gameTime->StopWatch(1.0f) == true)
@@ -43,100 +43,100 @@ void Title::Update()
 			m_startFadeFinishFlag = true;
 		}
 	}
-	//ƒXƒ^[ƒg—p‚ÌƒtƒF[ƒh‚ªI‚í‚Á‚½‚ç
+	//ã‚¹ã‚¿ãƒ¼ãƒˆç”¨ã®ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸã‚‰
 	else if (m_startFadeFinishFlag == true)
 	{
-		//ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 		Action();
 
-		//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+		//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 		SpriteMove();
 	}
 
-	//ƒXƒe[ƒWƒ‚ƒfƒ‹‚Ì“®ì
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 	BackGroundModelMove();
 
-	//ƒQ[ƒ€ƒXƒ^[ƒgƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚Æ‚«
+	//ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã¨ã
 	if (m_gameStartFlag == true)
 	{
-		//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì“®ì
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 		PlayerModelMove();
 	}
 
-	//ƒJƒƒ‰‚ÌXV
+	//ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
 	UpdateCamera();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 	AnimationManage();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 	PlayAnimation();
 
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	m_playerModel.Update();
 	m_backGroundModel[enBackGroundModel_Base].Update();
 	m_backGroundModel[enBackGroundModel_Grass].Update();
 }
 
-//•`‰æ
+//æç”»
 void Title::Render(RenderContext& rc)
 {
-	//ƒXƒe[ƒWƒ‚ƒfƒ‹
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«
 	m_backGroundModel[enBackGroundModel_Base].Draw(rc);
 	m_backGroundModel[enBackGroundModel_Grass].Draw(rc);
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
 	m_playerModel.Draw(rc);
 
-	//ƒQ[ƒ€ŠJnƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚©‚Â—V‚Ñ•û—p‚Ì‰æ–Ê‚É‘JˆÚ‚µ‚Ä‚¢‚È‚¢‚©?
+	//ã‚²ãƒ¼ãƒ é–‹å§‹ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„ã‹ã¤éŠã³æ–¹ç”¨ã®ç”»é¢ã«é·ç§»ã—ã¦ã„ãªã„ã‹?
 	if (m_gameStartFlag != true && m_titleTransition != enTitleTransition_HowToPlay)
 	{
-		//ƒ^ƒCƒgƒ‹”wŒi
+		//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯
 		m_titleBackGround.Draw(rc);
 	}
 
-	//ƒXƒ^[ƒg—pƒtƒF[ƒh‚ªI‚í‚Á‚½‚©H
+	//ã‚¹ã‚¿ãƒ¼ãƒˆç”¨ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸã‹ï¼Ÿ
 	if (m_startFadeFinishFlag == true)
 	{
-		//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚ
+		//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»
 		switch (m_titleTransition)
 		{
-		case enTitleTransition_Title: //ƒ^ƒCƒgƒ‹
-			//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚·UI
+		case enTitleTransition_Title: //ã‚¿ã‚¤ãƒˆãƒ«
+			//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã™UI
 			m_pressAButtonUI.Draw(rc);
 			break;
-		case enTitleTransition_ModeSelect: //ƒ‚[ƒh‘I‘ğ
-			//ƒQ[ƒ€ŠJnƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚©H
+		case enTitleTransition_ModeSelect: //ãƒ¢ãƒ¼ãƒ‰é¸æŠ
+			//ã‚²ãƒ¼ãƒ é–‹å§‹ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„ã‹ï¼Ÿ
 			if (m_gameStartFlag != true)
 			{
-				//ƒ‚[ƒh‘I‘ğUI
+				//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI
 				m_modeUI[enModeSelect_Start].Draw(rc);
 				m_modeUI[enModeSelect_HowToPlay].Draw(rc);
 				m_modeUI[enModeSelect_Shutdown].Draw(rc);
 				
-				//ƒQ[ƒ€ƒpƒbƒhUI
+				//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰UI
 				m_gamePadUI[enGamePad_DPad].Draw(rc);
 				m_gamePadUI[enGamePad_AButton].Draw(rc);
 				m_gamePadUI[enGamePad_BButton].Draw(rc);
 
-				//‘I‘ğUI
+				//é¸æŠUI
 				m_selectUI.Draw(rc);
 
-				//Œˆ’èUI
+				//æ±ºå®šUI
 				m_decisionUI.Draw(rc);
 
-				//–ß‚éUI
+				//æˆ»ã‚‹UI
 				m_returnUI.Draw(rc);
 			}
 			break;
-		case enTitleTransition_HowToPlay: //—V‚Ñ•û
-			//—V‚Ñ•ûUI
+		case enTitleTransition_HowToPlay: //éŠã³æ–¹
+			//éŠã³æ–¹UI
 			m_howToPlayUI.Draw(rc);
 
-			//ƒQ[ƒ€ƒpƒbƒhUI
+			//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰UI
 			m_gamePadUI[enGamePad_AButton].Draw(rc);
 
-			//–ß‚éUI
+			//æˆ»ã‚‹UI
 			m_returnUI.Draw(rc);
 			break;
 		default:
@@ -145,13 +145,13 @@ void Title::Render(RenderContext& rc)
 	}
 }
 
-//ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 void Title::Action()
 {
-	//ƒ^ƒCƒgƒ‹”wŒi‚ª•\¦‚µ‚Ä‚¢‚È‚¢‚Æ‚«
+	//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯ãŒè¡¨ç¤ºã—ã¦ã„ãªã„ã¨ã
 	if (m_titleBackGroundFadeFinishFlag != true)
 	{
-		//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç‰‰o‚ğƒXƒLƒbƒv‚Å‚«‚é
+		//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰æ¼”å‡ºã‚’ã‚¹ã‚­ãƒƒãƒ—ã§ãã‚‹
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -161,14 +161,14 @@ void Title::Action()
 		return;
 	}
 
-	//ƒQ[ƒ€ŠJnƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚©H
+	//ã‚²ãƒ¼ãƒ é–‹å§‹ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„ã‹ï¼Ÿ
 	if (m_gameStartFlag != true)
 	{
-		//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚ
+		//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»
 		switch (m_titleTransition)
 		{
-		case enTitleTransition_Title: //ƒ^ƒCƒgƒ‹
-			//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‰‰o‚ª—¬‚ê‚é
+		case enTitleTransition_Title: //ã‚¿ã‚¤ãƒˆãƒ«
+			//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ¼”å‡ºãŒæµã‚Œã‚‹
 			if (m_pressButtonFlag != true)
 			{
 				if (g_pad[0]->IsTrigger(enButtonA))
@@ -177,88 +177,88 @@ void Title::Action()
 				}
 			}
 
-			//‰æ–Ê‘JˆÚƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚½‚ç
+			//ç”»é¢é·ç§»ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãŸã‚‰
 			if (m_titleTransitionFlag == true)
 			{
-				//ƒ‚[ƒh‘I‘ğ‚Ö‘JˆÚ
+				//ãƒ¢ãƒ¼ãƒ‰é¸æŠã¸é·ç§»
 				m_titleTransition = enTitleTransition_ModeSelect;
 				m_titleTransitionFlag = false;
 				m_pressButtonFlag = false;
 			}
 			break;
-		case enTitleTransition_ModeSelect: //ƒ‚[ƒh‘I‘ğ
-			//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚¢‚È‚¢‚Æ‚«H
+		case enTitleTransition_ModeSelect: //ãƒ¢ãƒ¼ãƒ‰é¸æŠ
+			//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ã„ãªã„ã¨ãï¼Ÿ
 			if (m_pressButtonFlag != true)
 			{
-				//\šƒL[‚ğã‚É“|‚µ‚½‚ç
+				//åå­—ã‚­ãƒ¼ã‚’ä¸Šã«å€’ã—ãŸã‚‰
 				if (g_pad[0]->IsTrigger(enButtonUp))
 				{
-					//Œ»İ‚Ì‘I‘ğ‚ªƒXƒ^[ƒg‚¾‚Á‚½‚ç
+					//ç¾åœ¨ã®é¸æŠãŒã‚¹ã‚¿ãƒ¼ãƒˆã ã£ãŸã‚‰
 					if (m_modeSelect == enModeSelect_Start)
 					{
-						//ƒQ[ƒ€I—¹‚ÉˆÚ“®
+						//ã‚²ãƒ¼ãƒ çµ‚äº†ã«ç§»å‹•
 						m_modeSelect = enModeSelect_Shutdown;
 						return;
 					}
-					//ã‚Éã‚ª‚é
+					//ä¸Šã«ä¸ŠãŒã‚‹
 					m_modeSelect -= 1;
 				}
-				//\šƒL[‚ğ‰º‚É“|‚µ‚½‚ç
+				//åå­—ã‚­ãƒ¼ã‚’ä¸‹ã«å€’ã—ãŸã‚‰
 				else if (g_pad[0]->IsTrigger(enButtonDown))
 				{
-					//Œ»İ‚Ì‘I‘ğ‚ªƒQ[ƒ€I—¹‚¾‚Á‚½‚ç
+					//ç¾åœ¨ã®é¸æŠãŒã‚²ãƒ¼ãƒ çµ‚äº†ã ã£ãŸã‚‰
 					if (m_modeSelect == enModeSelect_Shutdown)
 					{
-						//ƒXƒ^[ƒg‚ÉˆÚ“®
+						//ã‚¹ã‚¿ãƒ¼ãƒˆã«ç§»å‹•
 						m_modeSelect = enModeSelect_Start;
 						return;
 					}
-					//‰º‚É‰º‚ª‚é
+					//ä¸‹ã«ä¸‹ãŒã‚‹
 					m_modeSelect += 1;
 				}
 
-				//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‰‰o‚ª—¬‚ê‚é
+				//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ¼”å‡ºãŒæµã‚Œã‚‹
 				if (g_pad[0]->IsTrigger(enButtonA))
 				{
 					m_pressButtonFlag = true;
 				}
-				//Bƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+				//Bãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
 				else if (g_pad[0]->IsTrigger(enButtonB))
 				{
-					//ƒ^ƒCƒgƒ‹‚Ö‘JˆÚ
+					//ã‚¿ã‚¤ãƒˆãƒ«ã¸é·ç§»
 					m_titleTransition = enTitleTransition_Title;
 				}
 			}
 
-			//‰æ–Ê‘JˆÚƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚½‚ç
+			//ç”»é¢é·ç§»ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãŸã‚‰
 			if (m_titleTransitionFlag == true)
 			{
-				//Œ»İ‚Ì‘I‘ğ‚ªƒXƒ^[ƒg‚¾‚Á‚½‚ç
+				//ç¾åœ¨ã®é¸æŠãŒã‚¹ã‚¿ãƒ¼ãƒˆã ã£ãŸã‚‰
 				if (m_modeSelect == enModeSelect_Start)
 				{
-					//ƒQ[ƒ€ŠJn
+					//ã‚²ãƒ¼ãƒ é–‹å§‹
 					m_gameStartFlag = true;
 				}
-				//Œ»İ‚Ì‘I‘ğ‚ª—V‚Ñ•û‚¾‚Á‚½‚ç
+				//ç¾åœ¨ã®é¸æŠãŒéŠã³æ–¹ã ã£ãŸã‚‰
 				else if (m_modeSelect == enModeSelect_HowToPlay)
 				{
-					//—V‚Ñ•û‚Ö‘JˆÚ
+					//éŠã³æ–¹ã¸é·ç§»
 					m_titleTransition = enTitleTransition_HowToPlay;
 				}
-				//Œ»İ‚Ì‘I‘ğ‚ªƒQ[ƒ€I—¹‚¾‚Á‚½‚ç
+				//ç¾åœ¨ã®é¸æŠãŒã‚²ãƒ¼ãƒ çµ‚äº†ã ã£ãŸã‚‰
 				else if (m_modeSelect == enModeSelect_Shutdown)
 				{
-					//ƒQ[ƒ€I—¹
+					//ã‚²ãƒ¼ãƒ çµ‚äº†
 					g_gameLoop.m_isLoop = false;
 				}
 				m_titleTransitionFlag = false;
 			}
 			break;
-		case enTitleTransition_HowToPlay: //—V‚Ñ•û
-			//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+		case enTitleTransition_HowToPlay: //éŠã³æ–¹
+			//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
 			if (g_pad[0]->IsTrigger(enButtonA))
 			{
-				//ƒ‚[ƒh‘I‘ğ‚Ö‘JˆÚ
+				//ãƒ¢ãƒ¼ãƒ‰é¸æŠã¸é·ç§»
 				m_titleTransition = enTitleTransition_ModeSelect;
 				m_pressButtonFlag = false;
 			}
@@ -269,13 +269,13 @@ void Title::Action()
 	}
 	else
 	{
-		//‰æ–Ê’[‚És‚Á‚½‚ç
+		//ç”»é¢ç«¯ã«è¡Œã£ãŸã‚‰
 		if (m_playerModelPosition.x > FRAME_BUFFER_W / 2)
 		{
 			m_fade->FadeTransition(enFadeState_FadeOut);
 			if (g_gameTime->StopWatch(2.5f))
 			{
-				//ƒQ[ƒ€ŠJn
+				//ã‚²ãƒ¼ãƒ é–‹å§‹
 				NewGO<Game>(0, "game");
 				DeleteGO(this);
 			}
@@ -283,14 +283,14 @@ void Title::Action()
 	}
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 void Title::SpriteMove()
 {
-	//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚ
+	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»
 	switch (m_titleTransition)
 	{
-	case enTitleTransition_Title: //ƒ^ƒCƒgƒ‹
-		//ƒ^ƒCƒgƒ‹”wŒi‚ª•\¦‚µ‚Ä‚¢‚È‚¢‚Æ‚«
+	case enTitleTransition_Title: //ã‚¿ã‚¤ãƒˆãƒ«
+		//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯ãŒè¡¨ç¤ºã—ã¦ã„ãªã„ã¨ã
 		if (m_titleBackGroundFadeFinishFlag != true)
 		{
 			m_alpha += g_gameTime->GetFrameDeltaTime();
@@ -304,10 +304,10 @@ void Title::SpriteMove()
 			return;
 		}
 
-		//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‰‰o‚ª—¬‚ê‚é
+		//Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ¼”å‡ºãŒæµã‚Œã‚‹
 		if (m_pressButtonFlag == true)
 		{
-			//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ‚µ‚½‚©H
+			//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’ã—ãŸã‹ï¼Ÿ
 			if (m_pressButtonActionFlag != true)
 			{
 				m_pressAButtonUI.SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
@@ -320,7 +320,7 @@ void Title::SpriteMove()
 			}
 			else
 			{
-				//‰æ–Ê‘JˆÚ‚µ‚Ä‚¢‚È‚¢‚Æ‚«
+				//ç”»é¢é·ç§»ã—ã¦ã„ãªã„ã¨ã
 				if (m_titleTransitionFlag != true)
 				{
 					m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -336,30 +336,30 @@ void Title::SpriteMove()
 			}
 		}
 
-		//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚·UI‚ğ“§–¾‚É‚µ‚½‚èŒ³‚É–ß‚µ‚½‚è‚·‚é
+		//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã™UIã‚’é€æ˜ã«ã—ãŸã‚Šå…ƒã«æˆ»ã—ãŸã‚Šã™ã‚‹
 		m_alpha += g_gameTime->GetFrameDeltaTime();
 		m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, fabsf(sinf(m_alpha))));
 		m_pressAButtonUI.Update();
 		break;
-	case enTitleTransition_ModeSelect: //ƒ‚[ƒh‘I‘ğ
-		//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‰‰o‚ª—¬‚ê‚é
+	case enTitleTransition_ModeSelect: //ãƒ¢ãƒ¼ãƒ‰é¸æŠ
+		//Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ¼”å‡ºãŒæµã‚Œã‚‹
 		if (m_pressButtonFlag == true)
 		{
-			//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ‚µ‚½‚©H
+			//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’ã—ãŸã‹ï¼Ÿ
 			if (m_pressButtonActionFlag != true)
 			{
-				//ƒ‚[ƒh‘I‘ğ
+				//ãƒ¢ãƒ¼ãƒ‰é¸æŠ
 				switch (m_modeSelect)
 				{
-				case enModeSelect_Start: //ƒXƒ^[ƒg
+				case enModeSelect_Start: //ã‚¹ã‚¿ãƒ¼ãƒˆ
 					m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_modeUI[enModeSelect_Start].Update();
 					break;
-				case enModeSelect_HowToPlay: //—V‚Ñ•û
+				case enModeSelect_HowToPlay: //éŠã³æ–¹
 					m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_modeUI[enModeSelect_HowToPlay].Update();
 					break;
-				case enModeSelect_Shutdown: //ƒQ[ƒ€I—¹
+				case enModeSelect_Shutdown: //ã‚²ãƒ¼ãƒ çµ‚äº†
 					m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_modeUI[enModeSelect_Shutdown].Update();
 					break;
@@ -374,21 +374,21 @@ void Title::SpriteMove()
 			}
 			else
 			{
-				//‰æ–Ê‘JˆÚ‚µ‚Ä‚¢‚È‚¢‚Æ‚«
+				//ç”»é¢é·ç§»ã—ã¦ã„ãªã„ã¨ã
 				if (m_titleTransitionFlag != true)
 				{
-					//ƒ‚[ƒh‘I‘ğ
+					//ãƒ¢ãƒ¼ãƒ‰é¸æŠ
 					switch (m_modeSelect)
 					{
-					case enModeSelect_Start: //ƒXƒ^[ƒg
+					case enModeSelect_Start: //ã‚¹ã‚¿ãƒ¼ãƒˆ
 						m_modeUI[enModeSelect_Start].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 						m_modeUI[enModeSelect_Start].Update();
 						break;
-					case enModeSelect_HowToPlay: //—V‚Ñ•û
+					case enModeSelect_HowToPlay: //éŠã³æ–¹
 						m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 						m_modeUI[enModeSelect_HowToPlay].Update();
 						break;
-					case enModeSelect_Shutdown: //ƒQ[ƒ€I—¹
+					case enModeSelect_Shutdown: //ã‚²ãƒ¼ãƒ çµ‚äº†
 						m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 						m_modeUI[enModeSelect_Shutdown].Update();
 						break;
@@ -405,45 +405,45 @@ void Title::SpriteMove()
 			}
 		}
 
-		//Œ»İ‚Ì‘I‘ğ‚ªƒXƒ^[ƒg‚¾‚Á‚½‚ç
+		//ç¾åœ¨ã®é¸æŠãŒã‚¹ã‚¿ãƒ¼ãƒˆã ã£ãŸã‚‰
 		if (m_modeSelect == enModeSelect_Start)
 		{
-			//ƒ‚[ƒh‘I‘ğUI
+			//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI
 			m_modeUI[enModeSelect_Start].SetMulColor(m_modeUIColor[enModeSelect_Start]);
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		}
-		//Œ»İ‚Ì‘I‘ğ‚ª—V‚Ñ•û‚¾‚Á‚½‚ç
+		//ç¾åœ¨ã®é¸æŠãŒéŠã³æ–¹ã ã£ãŸã‚‰
 		else if (m_modeSelect == enModeSelect_HowToPlay)
 		{
-			//ƒ‚[ƒh‘I‘ğUI
+			//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI
 			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		}
-		//Œ»İ‚Ì‘I‘ğ‚ªƒQ[ƒ€I—¹‚¾‚Á‚½‚ç
+		//ç¾åœ¨ã®é¸æŠãŒã‚²ãƒ¼ãƒ çµ‚äº†ã ã£ãŸã‚‰
 		else if (m_modeSelect == enModeSelect_Shutdown)
 		{
-			//ƒ‚[ƒh‘I‘ğUI
+			//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI
 			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
 		}
 
-		//ƒQ[ƒ€ƒpƒbƒh(Aƒ{ƒ^ƒ“)
+		//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Aãƒœã‚¿ãƒ³)
 		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
 		m_gamePadUI[enGamePad_AButton].Update();
 
-		//–ß‚éUI
+		//æˆ»ã‚‹UI
 		m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 		break;
-	case enTitleTransition_HowToPlay: //—V‚Ñ•û
-		//ƒQ[ƒ€ƒpƒbƒh(Aƒ{ƒ^ƒ“)
+	case enTitleTransition_HowToPlay: //éŠã³æ–¹
+		//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Aãƒœã‚¿ãƒ³)
 		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(575.0f, -345.0f, 0.0f));
 		m_gamePadUI[enGamePad_AButton].Update();
 
-		//–ß‚éUI
+		//æˆ»ã‚‹UI
 		m_returnUI.SetPosition(Vector3(650.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 	default:
@@ -451,7 +451,7 @@ void Title::SpriteMove()
 	}
 }
 
-//ƒXƒJƒCƒLƒ…[ƒu‚Ì‰Šú‰»
+//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®åˆæœŸåŒ–
 void Title::InitSky()
 {
 	DeleteGO(m_skyCube);
@@ -464,70 +464,70 @@ void Title::InitSky()
 	m_skyCube->Update();
 }
 
-//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
 void Title::InitAnimation()
 {
-	//0.•à‚­ƒAƒjƒ[ƒVƒ‡ƒ“
+	//0.æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
 	m_animationClip[enAnimationClip_walk].SetLoopFlag(true);
-	//1.‘–‚éƒAƒjƒ[ƒVƒ‡ƒ“
+	//1.èµ°ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
 	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
 }
 
-//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 void Title::InitModel()
 {
-	//0 ƒXƒe[ƒW‚Ì‰Šú‰»
+	//0 ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆæœŸåŒ–
 	m_backGroundModel[enBackGroundModel_Base].Init("Assets/title/background_base.tkm");
 	m_backGroundModel[enBackGroundModel_Grass].Init("Assets/title/background_grass.tkm", 0,
 		0, enModelUpAxisZ, false, true);
 
-	//0.1 ‘å‚«‚³‚ğİ’è
+	//0.1 å¤§ãã•ã‚’è¨­å®š
 	m_backGroundModel[enBackGroundModel_Base].SetScale(Vector3(10.0f, 10.0f, 10.0f));
 	m_backGroundModel[enBackGroundModel_Base].Update();
 
 	m_backGroundModel[enBackGroundModel_Grass].SetScale(Vector3(10.0f, 10.0f, 10.0f));
 	m_backGroundModel[enBackGroundModel_Grass].Update();
 
-	//0.2 ƒXƒNƒ[ƒ‹‘¬“x‚ğİ’è
+	//0.2 ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦ã‚’è¨­å®š
 	m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f);
 	m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f);
 
-	//1 ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	//1 ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 	m_playerModel.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
-	//1.1 ˆÊ’u‚ğİ’è
+	//1.1 ä½ç½®ã‚’è¨­å®š
 	m_playerModel.SetPosition(m_playerModelPosition);
 
-	//1.2 ‰ñ“]‚ğİ’è
+	//1.2 å›è»¢ã‚’è¨­å®š
 	m_playerModelRotation.SetRotationDegY(90.0f);
 	m_playerModel.SetRotation(m_playerModelRotation);
 
-	//1.3 ‘å‚«‚³‚ğİ’è
+	//1.3 å¤§ãã•ã‚’è¨­å®š
 	m_playerModel.SetScale(m_playerModelScale);
 	m_playerModel.Update();
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 void Title::InitSprite()
 {
-	//ƒ^ƒCƒgƒ‹”wŒi
+	//ã‚¿ã‚¤ãƒˆãƒ«èƒŒæ™¯
 	m_titleBackGround.Init("Assets/title/title.dds", 1024, 1024);
 	m_titleBackGround.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 	m_titleBackGround.SetScale(Vector3(0.65f, 0.65f, 0.65f));
 	m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_alpha));
 	m_titleBackGround.Update();
 
-	//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚·UI
+	//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã™UI
 	m_pressAButtonUI.Init("Assets/title/text/pressabutton.dds", 1024, 128);
 	m_pressAButtonUI.SetPosition(Vector3(0.0f, -150.0f, 0.0f));
 	m_pressAButtonUI.SetScale(Vector3(0.75f, 0.75f, 0.75f));
 	m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_alpha));
 	m_pressAButtonUI.Update();
 
-	//ƒ‚[ƒh‘I‘ğUI(ƒXƒ^[ƒg)
+	//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI(ã‚¹ã‚¿ãƒ¼ãƒˆ)
 	m_modeUI[enModeSelect_Start].Init("Assets/title/text/start.dds", 1024, 128);
 	m_modeUI[enModeSelect_Start].SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 	m_modeUI[enModeSelect_Start].SetScale(Vector3(0.5f,0.5f,0.5f));
@@ -535,7 +535,7 @@ void Title::InitSprite()
 	m_modeUI[enModeSelect_Start].Update();
 	m_modeUIColor[enModeSelect_Start] = m_modeUI[enModeSelect_Start].GetMulColor();
 
-	//ƒ‚[ƒh‘I‘ğUI(—V‚Ñ•û)
+	//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI(éŠã³æ–¹)
 	m_modeUI[enModeSelect_HowToPlay].Init("Assets/title/text/howtoplay.dds", 1024, 128);
 	m_modeUI[enModeSelect_HowToPlay].SetPosition(Vector3(0.0f, -75.0f, 0.0f));
 	m_modeUI[enModeSelect_HowToPlay].SetScale(Vector3(0.5f,0.5f,0.5f));
@@ -543,7 +543,7 @@ void Title::InitSprite()
 	m_modeUI[enModeSelect_HowToPlay].Update();
 	m_modeUIColor[enModeSelect_HowToPlay] = m_modeUI[enModeSelect_HowToPlay].GetMulColor();
 
-	//ƒ‚[ƒh‘I‘ğUI(ƒQ[ƒ€I—¹)
+	//ãƒ¢ãƒ¼ãƒ‰é¸æŠUI(ã‚²ãƒ¼ãƒ çµ‚äº†)
 	m_modeUI[enModeSelect_Shutdown].Init("Assets/title/text/shutdown.dds", 1024, 128);
 	m_modeUI[enModeSelect_Shutdown].SetPosition(Vector3(0.0f, -150.0f, 0.0f));
 	m_modeUI[enModeSelect_Shutdown].SetScale(Vector3(0.5f, 0.5f, 0.5f));
@@ -551,147 +551,147 @@ void Title::InitSprite()
 	m_modeUI[enModeSelect_Shutdown].Update();
 	m_modeUIColor[enModeSelect_Shutdown] = m_modeUI[enModeSelect_Shutdown].GetMulColor();
 
-	//—V‚Ñ•ûUI
+	//éŠã³æ–¹UI
 	m_howToPlayUI.Init("Assets/title/screen/howtoplay.dds", 1500, 800);
 
-	//ƒQ[ƒ€ƒpƒbƒh(Aƒ{ƒ^ƒ“)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Aãƒœã‚¿ãƒ³)UI
 	m_gamePadUI[enGamePad_AButton].Init("Assets/title/gamepad/abutton.dds", 512, 512);
 	m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
 	m_gamePadUI[enGamePad_AButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_gamePadUI[enGamePad_AButton].Update();
 
-	//ƒQ[ƒ€ƒpƒbƒh(Bƒ{ƒ^ƒ“)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Bãƒœã‚¿ãƒ³)UI
 	m_gamePadUI[enGamePad_BButton].Init("Assets/title/gamepad/bbutton.dds", 512, 512);
 	m_gamePadUI[enGamePad_BButton].SetPosition(Vector3(525.0f, -345.0f, 0.0f));
 	m_gamePadUI[enGamePad_BButton].SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_gamePadUI[enGamePad_BButton].Update();
 
-	//ƒQ[ƒ€ƒpƒbƒh(Xƒ{ƒ^ƒ“)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Xãƒœã‚¿ãƒ³)UI
 	m_gamePadUI[enGamePad_XButton].Init("Assets/title/gamepad/xbutton.dds", 512, 512);
 
-	//ƒQ[ƒ€ƒpƒbƒh(Yƒ{ƒ^ƒ“)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Yãƒœã‚¿ãƒ³)UI
 	m_gamePadUI[enGamePad_YButton].Init("Assets/title/gamepad/ybutton.dds", 512, 512);
 
-	//ƒQ[ƒ€ƒpƒbƒh(LƒXƒeƒBƒbƒN)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Lã‚¹ãƒ†ã‚£ãƒƒã‚¯)UI
 	m_gamePadUI[enGamePad_LStick].Init("Assets/title/gamepad/lstick.dds", 512, 512);
 
-	//ƒQ[ƒ€ƒpƒbƒh(RƒXƒeƒBƒbƒN)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(Rã‚¹ãƒ†ã‚£ãƒƒã‚¯)UI
 	m_gamePadUI[enGamePad_RStick].Init("Assets/title/gamepad/rstick.dds", 512, 512);
 
-	//ƒQ[ƒ€ƒpƒbƒh(\šƒL[)UI
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰(åå­—ã‚­ãƒ¼)UI
 	m_gamePadUI[enGamePad_DPad].Init("Assets/title/gamepad/dpad.dds", 512, 512);
 	m_gamePadUI[enGamePad_DPad].SetPosition(Vector3(125.0f, -345.0f, 0.0f));
 	m_gamePadUI[enGamePad_DPad].SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_gamePadUI[enGamePad_DPad].Update();
 
-	//‘I‘ğUI
+	//é¸æŠUI
 	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
 	m_selectUI.SetPosition(Vector3(200.0f, -345.0f, 0.0f));
 	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_selectUI.Update();
 
-	//Œˆ’èUI
+	//æ±ºå®šUI
 	m_decisionUI.Init("Assets/title/text/decision.dds", 1024, 128);
 	m_decisionUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_decisionUI.Update();
 
-	//–ß‚éUI
+	//æˆ»ã‚‹UI
 	m_returnUI.Init("Assets/title/text/return.dds", 1024, 128);
 	m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 	m_returnUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_returnUI.Update();
 }
 
-//ƒJƒƒ‰‚Ì‰Šú‰»
+//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 void Title::InitCamera()
 {
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(15000.0f);
 }
 
-//ƒXƒe[ƒWƒ‚ƒfƒ‹‚Ì“®ì
+//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 void Title::BackGroundModelMove()
 {
-	//—V‚Ñ•û—p‚Ì‰æ–Ê‚É‘JˆÚ‚µ‚Ä‚¢‚½‚ç
+	//éŠã³æ–¹ç”¨ã®ç”»é¢ã«é·ç§»ã—ã¦ã„ãŸã‚‰
 	if (m_titleTransition == enTitleTransition_HowToPlay)
 	{
-		//ƒXƒe[ƒWƒ‚ƒfƒ‹‚Ì“®‚«‚ğ~‚ß‚é
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã®å‹•ãã‚’æ­¢ã‚ã‚‹
 		m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(0.0f);
 		m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(0.0f);
 	}
 	else
 	{
-		//ƒXƒe[ƒWƒ‚ƒfƒ‹‚ğ“®‚«‘±‚¯‚é
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã‚’å‹•ãç¶šã‘ã‚‹
 		m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f);
 		m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f);
 	}
 }
 
-//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì“®ì
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å‹•ä½œ
 void Title::PlayerModelMove()
 {
 	m_playerModelPosition.x += 7.5f;
 	m_playerModel.SetPosition(m_playerModelPosition);
 }
 
-//ƒJƒƒ‰‚ÌXV
+//ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
 void Title::UpdateCamera()
 {
 	if (m_gameStartFlag != true)
 	{
-		//ƒJƒƒ‰‚ÌˆÊ’u
+		//ã‚«ãƒ¡ãƒ©ã®ä½ç½®
 		Vector3 CameraPosition = m_playerModelPosition + Vector3(0.0f, 100.0f, -500.0f);
-		//ƒJƒƒ‰‚Ì’‹“_
+		//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹
 		Vector3 CameraTarget = m_playerModelPosition;
 		CameraTarget.y += 100.0f;
 
-		//ƒJƒƒ‰‚ÌˆÊ’u‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’è¨­å®š
 		g_camera3D->SetPosition(CameraPosition);
-		//ƒJƒƒ‰‚Ì’‹“_‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã‚’è¨­å®š
 		g_camera3D->SetTarget(CameraTarget);
 	}
 }
 
-//ƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 void Title::AnimationManage()
 {
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
 	PlayerModelAnimationManage();
 }
 
-//ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 void Title::PlayAnimation()
 {
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
 	PlayerModelPlayAnimation();
 }
 
-//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 void Title::PlayerModelAnimationManage()
 {
-	//ƒQ[ƒ€ŠJnƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚Æ‚«
+	//ã‚²ãƒ¼ãƒ é–‹å§‹ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã¨ã
 	if (m_gameStartFlag == true)
 	{
-		//‘–‚éƒAƒjƒ[ƒVƒ‡ƒ“
+		//èµ°ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		m_playerModelAnimationState = enPlayerModelAnimationState_run;
 	}
 	else
 	{
-		//•à‚«ƒAƒjƒ[ƒVƒ‡ƒ“
+		//æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		m_playerModelAnimationState = enPlayerModelAnimationState_walk;
 	}
 }
 
-//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 void Title::PlayerModelPlayAnimation()
 {
 	switch (m_playerModelAnimationState)
 	{
-	case enPlayerModelAnimationState_walk:	//•à‚­ƒAƒjƒ[ƒVƒ‡ƒ“
+	case enPlayerModelAnimationState_walk:	//æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		m_playerModel.PlayAnimation(enAnimationClip_walk);
 		break;
-	case enPlayerModelAnimationState_run:	//‘–‚éƒAƒjƒ[ƒVƒ‡ƒ“
+	case enPlayerModelAnimationState_run:	//èµ°ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		m_playerModel.PlayAnimation(enAnimationClip_run);
 		break;
 	default:

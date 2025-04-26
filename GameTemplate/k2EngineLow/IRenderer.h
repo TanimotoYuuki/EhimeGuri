@@ -6,7 +6,7 @@ namespace nsK2EngineLow
 	{
 	public:
 		/// <summary>
-		/// モデルの描画
+		/// 繝｢繝�繝ｫ縺ｮ謠冗判
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnRenderModel(RenderContext& rc)
@@ -15,7 +15,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// シャドウマップの描画
+		/// 繧ｷ繝｣繝峨え繝槭ャ繝励�ｮ謠冗判
 		/// </summary>
 		/// <param name="rc"></param>
 		/// <param name="ca"></param>
@@ -25,7 +25,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// 2Dの描画
+		/// 2D縺ｮ謠冗判
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnRender2D(RenderContext& rc)
@@ -34,7 +34,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// 背景の描画
+		/// 閭梧勹縺ｮ謠冗判
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnRenderBackGround(RenderContext& rc)

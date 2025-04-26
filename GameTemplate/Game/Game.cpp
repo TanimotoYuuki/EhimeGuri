@@ -28,8 +28,8 @@ namespace
 	const int ENEMY_NUM = 4;
 }
 
-//�w�i
-////�w�i�̊֐�
+//・ｽw・ｽi
+////・ｽw・ｽi・ｽﾌ関撰ｿｽ
 //void Game::InitSky()
 //{
 //	DeleteGO(m_SkyCube);
@@ -39,9 +39,9 @@ namespace
 //	m_SkyCube->SetScale(100000.0f);
 //
 //
-//	// �����̌v�Z�̂��߂�IBL�e�N�X�`����Z�b�g����B
+//	// ・ｽﾂ具ｿｽ・ｽ・ｽ・ｽﾌ計・ｽZ・ｽﾌゑｿｽ・ｽﾟゑｿｽIBL・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽ・ｽZ・ｽb・ｽg・ｽ・ｽ・ｽ・ｽB
 //	g_renderingEngine->SetAmbientByIBLTexture(m_SkyCube->GetTextureFilePath(), 1.0f);
-//	// �������̉e����������₷���悤�ɁA�f�B���N�V�������C�g�̓I�t�ɁB
+//	// ・ｽﾂ具ｿｽ・ｽ・ｽ・ｽ・ｽ・ｽﾌ影・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ竄ｷ・ｽ・ｽ・ｽ謔､・ｽﾉ、・ｽf・ｽB・ｽ・ｽ・ｽN・ｽV・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽC・ｽg・ｽﾍオ・ｽt・ｽﾉ。
 //	g_renderingEngine->SetDirectionLight(0, g_vec3Zero, g_vec3Zero);
 //}
 
@@ -90,9 +90,9 @@ bool Game::Start()
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
-	//�����蔻���쐬
+	//・ｽ・ｽ・ｽ・ｽ・ｽ阡ｻ・ｽ・ｽ・ｽ・ｬ
 	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
-	//�X�e�[�W�Ƀ��C�p�̑�����^����B
+	//・ｽX・ｽe・ｽ[・ｽW・ｽﾉ・ｿｽ・ｽC・ｽp・ｽﾌ托ｿｽ・ｽ・ｽ・ｽ・ｽ^・ｽ・ｽ・ｽ・ｽB
 	m_physicsStaticObject.GetbtCollisionObject()->setUserIndex(enCollisionAttr_Stage1);
 
 
@@ -149,10 +149,10 @@ bool Game::Start()
 }
 
 
-//�����u���b�N
+//・ｽ・ｽ・ｽ・ｽ・ｽu・ｽ・ｽ・ｽb・ｽN
 void Game::TransparentBlock_NewGO()
 {
-	//㩗p�̍��W
+	//罠用・ｽﾌ搾ｿｽ・ｽW
 	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock3->m_position = { 4700.0f, 270.0f, 0.0f };
 	m_transparentBlock3->m_firstposition = m_transparentBlock3->m_position;
@@ -181,7 +181,7 @@ void Game::TransparentBlock_NewGO()
 	m_transparentBlock9->m_position = { 5300.0f, 270.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 
-	//�ړ��p
+	//・ｽﾚ難ｿｽ・ｽp
 	/*m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock10->m_position = { 10300.0f, 200.0f, 0.0f };
 	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;*/
@@ -189,7 +189,7 @@ void Game::TransparentBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�����鏰
+//・ｽ・ｽ・ｽ・ｽ・ｽ髀ｰ
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
@@ -207,7 +207,7 @@ void Game::FallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//T�^����u���b�N
+//T・ｽ^・ｽ・ｽ・ｽ・ｽu・ｽ・ｽ・ｽb・ｽN
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
@@ -216,7 +216,7 @@ void Game::ScaffoldBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�j
+//・ｽj
 void Game::Needle_NewGO()
 {
 	m_needle1 = NewGO<Needle>(0, "needle");
@@ -226,7 +226,7 @@ void Game::Needle_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//������(�ʏ푬�x)
+//・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ(・ｽﾊ常速・ｽx)
 void Game::MovingFloor_NewGO()
 {
 	
@@ -239,7 +239,7 @@ void Game::MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�u���b�N
+//・ｽu・ｽ・ｽ・ｽb・ｽN
 void Game::Block_NewGO()
 {
 	/*m_block = NewGO<Block>(0, "block");
@@ -270,17 +270,17 @@ void Game::Block_NewGO()
 
 }
 
-//����u���b�N
+//・ｽ・ｽ・ｽ・ｽu・ｽ・ｽ・ｽb・ｽN
 void Game::Scaffold_NewGO()
 {
-	//x �c 13300	
+	//x ・ｽc 13300	
 	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
 	m_scaffold1->m_position = { 12950.0f, 200.0f, 200.0f };
 	m_scaffold1->m_firstposition = m_scaffold1->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
-//�A�C�e��
+//・ｽA・ｽC・ｽe・ｽ・ｽ
 void Game::Item_NewGO()
 {
    m_towel = NewGO<Towel>(0,"towel");
@@ -288,7 +288,7 @@ void Game::Item_NewGO()
    m_modelRender.SetPosition(m_position);
 }
 
-//�N���A�|�C���g
+//・ｽN・ｽ・ｽ・ｽA・ｽ|・ｽC・ｽ・ｽ・ｽg
 void Game::ClearPoint_NewGO()
 {
 	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
@@ -296,7 +296,7 @@ void Game::ClearPoint_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//������(�x)
+//・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ(・ｽx)
 void Game::S_MovingFloor_NewGO()
 {
 	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
@@ -315,7 +315,7 @@ void Game::S_MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�����鏰(��)
+//・ｽ・ｽ・ｽ・ｽ・ｽ髀ｰ(・ｽ・ｽ)
 void Game::HS_fallingBlock_NewGO()
 {
 	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
@@ -333,26 +333,26 @@ void Game::Fade_NewGO()
 
 void Game::Update()
 {
-	////���l�m�F�p�B
+	////・ｽ・ｽ・ｽl・ｽm・ｽF・ｽp・ｽB
 	//wchar_t wcsbuf[256];
-	//swprintf_s(wcsbuf, 256, L"�c�莞��%d�b", (int)(m_player->m_playernowsutamina));
-	////�\������e�L�X�g��ݒ�B
+	//swprintf_s(wcsbuf, 256, L"・ｽc・ｽ闔橸ｿｽ・ｽ%d・ｽb", (int)(m_player->m_playernowsutamina));
+	////・ｽ\・ｽ・ｽ・ｽ・ｽ・ｽ・ｽe・ｽL・ｽX・ｽg・ｽ・ｽﾝ抵ｿｽB
 	//m_fontRender.SetText(wcsbuf);
-	////�t�H���g�̈ʒu��ݒ�B
+	////・ｽt・ｽH・ｽ・ｽ・ｽg・ｽﾌ位置・ｽ・ｽﾝ抵ｿｽB
 	//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
-	////�t�H���g�̑傫����ݒ�B
+	////・ｽt・ｽH・ｽ・ｽ・ｽg・ｽﾌ大き・ｽ・ｽ・ｽ・ｽﾝ抵ｿｽB
 	//m_fontRender.SetScale(1.2f);
-	////�t�H���g�̐F��ݒ�B
+	////・ｽt・ｽH・ｽ・ｽ・ｽg・ｽﾌ色・ｽ・ｽﾝ抵ｿｽB
 	//m_fontRender.SetColor(g_vec4Yellow);  
 	
-	//�e�X�g�p
-	//m_fontRender.SetText(L"�J�E���g�̏㏸");
+	//・ｽe・ｽX・ｽg・ｽp
+	//m_fontRender.SetText(L"・ｽJ・ｽE・ｽ・ｽ・ｽg・ｽﾌ上昇");
 	//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
 	//m_fontRender.SetScale(1.2f);
-	//////�t�H���g�̐F��ݒ�B
+	//////・ｽt・ｽH・ｽ・ｽ・ｽg・ｽﾌ色・ｽ・ｽﾝ抵ｿｽB
 	//m_fontRender.SetColor(g_vec4Yellow);
 
-	//�j�ɓ������ăQ�[���I�[�o�[�ɂȂ����珈�����Ȃ�
+	//・ｽj・ｽﾉ難ｿｽ・ｽ・ｽ・ｽ・ｽ・ｽﾄゲ・ｽ[・ｽ・ｽ・ｽI・ｽ[・ｽo・ｽ[・ｽﾉなゑｿｽ・ｽ・ｽ・ｽ迴茨ｿｽ・ｽ・ｽ・ｽ・ｽﾈゑｿｽ
 	if (m_needle1->m_gameOverFlag == true)
 	{
 		return;
@@ -412,7 +412,7 @@ void Game::Update()
 	m_sutaminaMaxrender.SetScale(heri);
 
 	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"�c��%.1f�b", float(m_timer));
+	swprintf_s(wcsbuf, 256, L"・ｽc・ｽ・ｽ%.1f・ｽb", float(m_timer));
 	m_timerRender.SetText(wcsbuf);
 	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
 	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
@@ -437,7 +437,7 @@ void Game::Render(RenderContext& rc)
 	
 	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
-	//�X�^�~�i���R�O�O�ȉ��̂Ƃ��ɃQ�[�W��o��
+	//・ｽX・ｽ^・ｽ~・ｽi・ｽ・ｽ・ｽR・ｽO・ｽO・ｽﾈ会ｿｽ・ｽﾌとゑｿｽ・ｽﾉゲ・ｽ[・ｽW・ｽ・ｽo・ｽ・ｽ
 	if (m_player->m_gameoverFlag != true)
 	{
 		if (m_player->m_playernowsutamina < 300) {

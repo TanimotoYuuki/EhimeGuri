@@ -3,7 +3,7 @@
 class Player;
 class BackGround;
 /// <summary>
-/// “®‚­°B
+/// å‹•ãåºŠã€‚
 /// </summary>
 class S_MovingFloor : public IGameObject
 {
@@ -14,15 +14,15 @@ public:
 	bool Start() override;
 	void Update()override;
 
-	/////«//////
-	///ì’†///
+	/////â†“//////
+	///è©¦ä½œä¸­///
 //	void Trap();
-	/////ª/////
+	/////â†‘/////
 
 	void Render(RenderContext& rc)override;
 
 	/// <summary>
-	/// À•W‚ğİ’èB
+	/// åº§æ¨™ã‚’è¨­å®šã€‚
 	/// </summary>
 	void SetPosition(const Vector3& position)
 	{
@@ -46,7 +46,7 @@ public:
 	}
 
 	/// <summary>
-	/// ˆÚ“®ˆ—B
+	/// ç§»å‹•å‡¦ç†ã€‚
 	/// </summary>
 	void Move();
 	int count = 0;
@@ -57,7 +57,7 @@ public:
 private:
 
 	Player									  * m_player = nullptr;
-	CollisionObject							  * m_collisionObject = nullptr;		//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒgB
+	CollisionObject							  * m_collisionObject = nullptr;		//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€‚
 	CharacterController							m_charactecController;
 
 	ModelRender									m_modelRender;

@@ -21,7 +21,7 @@ ScaffoldBlock::~ScaffoldBlock()
 
 bool ScaffoldBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/繧ｭ繝弱さ縺ｮ雜ｳ蝣ｴ繝悶Ο繝�繧ｯ.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
@@ -29,7 +29,7 @@ bool ScaffoldBlock::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//コリジョンを動く床に設置
+	//繧ｳ繝ｪ繧ｸ繝ｧ繝ｳ繧貞虚縺丞ｺ翫↓險ｭ鄂ｮ
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,

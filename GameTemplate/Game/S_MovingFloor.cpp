@@ -27,17 +27,17 @@ S_MovingFloor::~S_MovingFloor()
 
 bool S_MovingFloor::Start()
 {
-	//“®‚©‚µ‚½‚¢ƒIƒuƒWƒFƒNƒg‚Ìƒtƒ@ƒCƒ‹ƒpƒX
-	m_modelRender.Init("Assets/modelData/Stage/Assets/‘«êƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	//å‹•ã‹ã—ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	m_modelRender.Init("Assets/modelData/Stage/Assets/è¶³å ´ãƒ–ãƒ­ãƒƒã‚¯.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
-	//“–‚½‚è”»’è
+	//å½“ãŸã‚Šåˆ¤å®š
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//ƒRƒŠƒWƒ‡ƒ“‚ğ“®‚­°‚Éİ’u
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’å‹•ãåºŠã«è¨­ç½®
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,
@@ -88,8 +88,8 @@ void S_MovingFloor::Move()
 	}
 
 
-	//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ÆƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ªB
-	//Õ“Ë‚µ‚½‚çB(ƒLƒƒƒ‰ƒNƒ^[‚ª“®‚­°‚Ìã‚É)B
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒã€‚
+	//è¡çªã—ãŸã‚‰ã€‚(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå‹•ãåºŠã®ä¸Šã«)ã€‚
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true && m_player->m_characterController.IsOnGround())
 	{
 		m_player->SetPosition
@@ -100,7 +100,7 @@ void S_MovingFloor::Move()
 							  m_player->m_position.z
 				    )
 		);
-		//“®‚­°‚ÌˆÚ“®‘¬“x‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®‘¬“x‚É‰ÁZB
+		//å‹•ãåºŠã®ç§»å‹•é€Ÿåº¦ã‚’ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç§»å‹•é€Ÿåº¦ã«åŠ ç®—ã€‚
 		m_player->AddMoveSpeed(moveSpeed);
 
 	}
@@ -110,7 +110,7 @@ void S_MovingFloor::Move()
 }
 
 //////////////////////
-//////«ì’†////////
+//////â†“è©¦ä½œä¸­////////
 /////////////////////
 
 //void S_MovingFloor::Trap()
@@ -149,17 +149,17 @@ void S_MovingFloor::Move()
 //
 //	m_modelRender.SetPosition(m_position);
 //
-//	//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ÆƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ªB
-//	//Õ“Ë‚µ‚½‚çB(ƒLƒƒƒ‰ƒNƒ^[‚ª“®‚­°‚Ìã‚Éæ‚Á‚½‚ç)B
+//	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒã€‚
+//	//è¡çªã—ãŸã‚‰ã€‚(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå‹•ãåºŠã®ä¸Šã«ä¹—ã£ãŸã‚‰)ã€‚
 //	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 //	{
-//		//“®‚­°‚ÌˆÚ“®‘¬“x‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®‘¬“x‚É‰ÁZB
+//		//å‹•ãåºŠã®ç§»å‹•é€Ÿåº¦ã‚’ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç§»å‹•é€Ÿåº¦ã«åŠ ç®—ã€‚
 //		m_player->AddMoveSpeed(moveSpeed);
 //	}
 //}
 
 //////////////////////
-/////ªì’†////////
+/////â†‘è©¦ä½œä¸­////////
 /////////////////////
 
 void S_MovingFloor::Update()
@@ -171,8 +171,8 @@ void S_MovingFloor::Update()
 	distanceX.x = m_player->m_position.x - m_position.x;
 	distanceY.y = m_player->m_position.y - m_position.y;
 
-	//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ÆƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ªB
-	//Õ“Ë‚µ‚½‚çB(ƒLƒƒƒ‰ƒNƒ^[‚ª“®‚­°‚Ìã‚Éæ‚Á‚½‚ç)B
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒã€‚
+	//è¡çªã—ãŸã‚‰ã€‚(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå‹•ãåºŠã®ä¸Šã«ä¹—ã£ãŸã‚‰)ã€‚
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
 		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())

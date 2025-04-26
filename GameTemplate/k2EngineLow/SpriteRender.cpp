@@ -20,13 +20,13 @@ namespace nsK2EngineLow
 
 	void SpriteRender::Update()
 	{
-		//ƒŠƒjƒAƒƒCƒv‚Ì•`‰æƒ‚[ƒh‚ÅLinearWipeDrawingMode_NoneˆÈŠO‘I‘ğ‚³‚ê‚Ä‚¢‚½‚ç
+		//ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—ã®æç”»ãƒ¢ãƒ¼ãƒ‰ã§LinearWipeDrawingMode_Noneä»¥å¤–é¸æŠã•ã‚Œã¦ã„ãŸã‚‰
 		if (m_spriteRenderConstantBuffer.linearWipeDrawingMode != LinearWipeDrawingMode_None)
 		{
 			LinearWipeUpdate();
 		}
 
-		//‰æ‘œ‰ÁH‚Ì•`‰æƒ‚[ƒh‚ÅScreenDrawingMode_NoneˆÈŠO‘I‘ğ‚³‚ê‚Ä‚¢‚½‚ç
+		//ç”»åƒåŠ å·¥ã®æç”»ãƒ¢ãƒ¼ãƒ‰ã§ScreenDrawingMode_Noneä»¥å¤–é¸æŠã•ã‚Œã¦ã„ãŸã‚‰
 		if (m_spriteRenderConstantBuffer.screenDrawingMode != ScreenDrawingMode_None)
 		{
 			ScreenDrawingUpdate();

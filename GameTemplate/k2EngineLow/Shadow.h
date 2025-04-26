@@ -6,19 +6,19 @@ namespace nsK2EngineLow
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Init();
 
 		/// <summary>
-		/// •`‰æˆ—‚ğÀs
+		/// æç”»å‡¦ç†ã‚’å®Ÿè¡Œ
 		/// </summary>
 		/// <param name="rc"></param>
 		/// <param name="roj"></param>
 		void Execute(RenderContext& rc, std::vector<IRenderer*>& ro);
 
 		/// <summary>
-		/// ƒVƒƒƒhƒEƒ}ƒbƒv‚ğæ“¾
+		/// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		RenderTarget& GetRenderTarget()

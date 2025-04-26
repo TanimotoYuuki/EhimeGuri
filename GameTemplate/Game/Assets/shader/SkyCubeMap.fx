@@ -1,5 +1,5 @@
 ////////////////////////////////////////////
-// ’è”ƒoƒbƒtƒ@
+// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 ///////////////////////////////////////////
 
 cbuffer ModelCb : register(b0)
@@ -10,36 +10,36 @@ cbuffer ModelCb : register(b0)
 };
 
 ////////////////////////////////////////////
-// \‘¢‘Ì
+// æ§‹é€ ä½“
 ///////////////////////////////////////////
 
-//’¸“_ƒVƒF[ƒ_[‚Ì“ü—Í
+//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®å…¥åŠ›
 struct SVSIn
 {
-    float4 pos : POSITION; //À•W
-    float3 normal : NORMAL; //–@ü
-    float2 uv : TEXCOORD0; //UVÀ•W
-    float3 tangent : TANGENT; //ÚƒxƒNƒgƒ‹
-    float3 biNormal : BINORMAL; //]ƒxƒNƒgƒ‹
+    float4 pos : POSITION; //åº§æ¨™
+    float3 normal : NORMAL; //æ³•ç·š
+    float2 uv : TEXCOORD0; //UVåº§æ¨™
+    float3 tangent : TANGENT; //æ¥ãƒ™ã‚¯ãƒˆãƒ«
+    float3 biNormal : BINORMAL; //å¾“ãƒ™ã‚¯ãƒˆãƒ«
 };
 
-//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ö‚Ì“ü—Í
+//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã¸ã®å…¥åŠ›
 struct SPSIn
 {
-    float4 pos : SV_POSITION; //À•W
-    float3 normal : NORMAL; //–@ü
-    float3 tangent : TANGENT; //ÚƒxƒNƒgƒ‹
-    float3 biNormal : BINORMAL; //]ƒxƒNƒgƒ‹
-    float2 uv : TEXCOORD0; //UVÀ•W
-    float3 worldPos : TEXCOORD1; //ƒ[ƒ‹ƒhÀ•W
+    float4 pos : SV_POSITION; //åº§æ¨™
+    float3 normal : NORMAL; //æ³•ç·š
+    float3 tangent : TANGENT; //æ¥ãƒ™ã‚¯ãƒˆãƒ«
+    float3 biNormal : BINORMAL; //å¾“ãƒ™ã‚¯ãƒˆãƒ«
+    float2 uv : TEXCOORD0; //UVåº§æ¨™
+    float3 worldPos : TEXCOORD1; //ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
 };
 cbuffer SkyCubeCb : register(b1)
 {
-    float luminance; //–¾‚é‚³
+    float luminance; //æ˜ã‚‹ã•
 };
 
 ////////////////////////////////////////////
-// ƒVƒF[ƒ_[ƒŠƒ\[ƒX
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹
 ////////////////////////////////////////////
 Texture2D<float4> g_albedo : register(t0);
 Texture2D<float4> g_normal : register(t1);
@@ -47,15 +47,15 @@ Texture2D<float4> g_spacular : register(t2);
 TextureCube<float4> g_skyCubeMap : register(t10);
 
 ////////////////////////////////////////////
-// ƒTƒ“ƒvƒ‰[ƒXƒe[ƒg
+// ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆ
 ////////////////////////////////////////////
 sampler g_sampler : register(s0);
 
 ////////////////////////////////////////////
-// ŠÖ”’è‹`
+// é–¢æ•°å®šç¾©
 ////////////////////////////////////////////
 
-//ƒm[ƒ}ƒ‹ƒ}ƒbƒv‚©‚ç–@ü‚ğæ“¾
+//ãƒãƒ¼ãƒãƒ«ãƒãƒƒãƒ—ã‹ã‚‰æ³•ç·šã‚’å–å¾—
 float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, float2 uv)
 {
     float3 binSpaceNormal = g_normal.SampleLevel(g_sampler, uv, 0.0f).xyz;

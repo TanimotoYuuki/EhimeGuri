@@ -54,7 +54,7 @@ void Enemy::Move() {
 	m_position = charactercontroller.Execute(movespeed, 1.0f);
 	float glavity = 3.0f;
 	if (charactercontroller.IsOnGround()) {
-		//d—Í‚ğ‚È‚­‚·
+		//é‡åŠ›ã‚’ãªãã™
 		movespeed.y = 0.0f;
 	}
 	movespeed.y -= glavity;
@@ -71,7 +71,7 @@ void Enemy::Rotation() {
 	}
 	//rotation.SetRotationDegX(270.0f);
 	rotation.AddRotationDegX(-180.0f);
-	//ŠG•`‚«‚³‚ñ‚É‰ñ“]‚ğ‹³‚¦‚éB
+	//çµµæãã•ã‚“ã«å›è»¢ã‚’æ•™ãˆã‚‹ã€‚
 	m_modelrender.SetRotation(rotation);
 }
 void Enemy::EnemyAnimation() {

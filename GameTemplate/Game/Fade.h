@@ -7,16 +7,16 @@ public:
 	void Render(RenderContext& rc);
 
 	/// <summary>
-	/// ƒ[ƒfƒBƒ“ƒO‚Ì“®ì
+	/// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã®å‹•ä½œ
 	/// </summary>
 	void LoadingMove();
 
 	/// <summary>
-	/// ƒtƒF[ƒh‚ğØ‚è‘Ö‚¦‚é
+	/// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	/// </summary>
 	void FadeTransition(EnFadeState enFadeState)
 	{
-		//ƒtƒF[ƒhƒXƒe[ƒg‚ªˆÙ‚È‚Á‚Ä‚¢‚é‚Æ‚«
+		//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆãŒç•°ãªã£ã¦ã„ã‚‹ã¨ã
 		if (m_fadeState != enFadeState)
 		{
 			m_fadeState = enFadeState;
@@ -43,24 +43,24 @@ public:
 
 private:
 
-	//“_
+	//ç‚¹
 	enum EnPoint
 	{
-		enPoint_Left,		//¶
-		enPoint_Center,		//^‚ñ’†
-		enPoint_Right,		//‰E
-		enPoint_Num			//“_‚Ì”
+		enPoint_Left,		//å·¦
+		enPoint_Center,		//çœŸã‚“ä¸­
+		enPoint_Right,		//å³
+		enPoint_Num			//ç‚¹ã®æ•°
 	};
 
-	SpriteRender m_fade;						//ƒtƒF[ƒh
-	SpriteRender m_loading;						//ƒ[ƒfƒBƒ“ƒO
-	SpriteRender m_point[enPoint_Num];			//“_
-	Vector3 m_pointInitPosition[enPoint_Num];	//“_‚Ì‰ŠúˆÊ’u
-	Vector3 m_pointPosition[enPoint_Num];		//“_‚ÌŒ»İˆÊ’u
-	int m_fadeState = enFadeState_FadeIn;		//ƒtƒF[ƒhƒXƒe[ƒg
-	int m_pointMove = enPoint_Left;				//“_“®ì
-	bool m_loadingFlag = false;					//ƒ[ƒfƒBƒ“ƒOƒtƒ‰ƒO
-	bool m_pointFallFlag = false;				//“_—‰ºƒtƒ‰ƒO
-	bool m_fadeTransitionFlag = false;			//ƒtƒF[ƒh‚ªØ‚è‘Ö‚í‚Á‚½‚©?
+	SpriteRender m_fade;						//ãƒ•ã‚§ãƒ¼ãƒ‰
+	SpriteRender m_loading;						//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
+	SpriteRender m_point[enPoint_Num];			//ç‚¹
+	Vector3 m_pointInitPosition[enPoint_Num];	//ç‚¹ã®åˆæœŸä½ç½®
+	Vector3 m_pointPosition[enPoint_Num];		//ç‚¹ã®ç¾åœ¨ä½ç½®
+	int m_fadeState = enFadeState_FadeIn;		//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆ
+	int m_pointMove = enPoint_Left;				//ç‚¹å‹•ä½œ
+	bool m_loadingFlag = false;					//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãƒ•ãƒ©ã‚°
+	bool m_pointFallFlag = false;				//ç‚¹è½ä¸‹ãƒ•ãƒ©ã‚°
+	bool m_fadeTransitionFlag = false;			//ãƒ•ã‚§ãƒ¼ãƒ‰ãŒåˆ‡ã‚Šæ›¿ã‚ã£ãŸã‹?
 };
 

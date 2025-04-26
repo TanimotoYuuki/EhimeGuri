@@ -25,7 +25,7 @@ FallingBlock::~FallingBlock()
 
 bool FallingBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/‘«êƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	
 	
 	m_modelRender.SetScale(FALLINGBLOCK_SCALE);
@@ -37,7 +37,7 @@ bool FallingBlock::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//ƒRƒŠƒWƒ‡ƒ“‚ğ“®‚­°‚Éİ’u
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’å‹•ãåºŠã«è¨­ç½®
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,
@@ -68,11 +68,11 @@ void FallingBlock::Move()
 
 		m_modelRender.SetPosition(m_position);
 
-		//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ÆƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ªB
-		//Õ“Ë‚µ‚½‚çB(ƒLƒƒƒ‰ƒNƒ^[‚ª“®‚­°‚Ìã‚Éæ‚Á‚½‚ç)B
+		//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒã€‚
+		//è¡çªã—ãŸã‚‰ã€‚(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå‹•ãåºŠã®ä¸Šã«ä¹—ã£ãŸã‚‰)ã€‚
 		if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 		{
-			//“®‚­°‚ÌˆÚ“®‘¬“x‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®‘¬“x‚É‰ÁZB
+			//å‹•ãåºŠã®ç§»å‹•é€Ÿåº¦ã‚’ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç§»å‹•é€Ÿåº¦ã«åŠ ç®—ã€‚
 			m_player->AddMoveSpeed(moveSpeed);
 		}
 }
@@ -95,7 +95,7 @@ void FallingBlock::Update()
 	distanceY.y = m_player->m_position.y - m_position.y;
 
 
-	//’Êí”Å‚Ì°
+	//é€šå¸¸ç‰ˆã®åºŠ
 	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();

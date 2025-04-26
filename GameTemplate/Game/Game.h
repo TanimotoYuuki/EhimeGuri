@@ -1,23 +1,23 @@
 #pragma once
 
-class Player;						//ƒvƒŒƒCƒ„[
-class Block;						//ƒuƒƒbƒN
-class BackGround;					//ƒXƒe[ƒW		
-class Enemy;						//ƒGƒlƒ~[
-class ClearPoint;                   //ƒNƒŠƒAƒ|ƒCƒ“ƒg
-class FallingBlock;					//—‚¿‚é°
-class Needle;						//j
-class MovingFloor;					//ˆÚ“®‚·‚é°
-class Scaffold;						//‘«ê
-class ScaffoldBlock;				//TŒ^‚Ì‘«ê
-class StageClear;					//ƒXƒe[ƒWƒNƒŠƒA
-class S_MovingFloor;				//“®‚­°(’x)
-class GameOver;						//ƒQ[ƒ€ƒI[ƒo[
-class GameCamera;					//ƒJƒƒ‰
-class HS_FallingBlock;				//“®‚­°(‘¬)
-class TransparentBlock;				//“§–¾ƒuƒƒbƒN
-class Towel;                        //ƒ^ƒIƒ‹
-class Fade;							//ƒtƒF[ƒh
+class Player;						//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+class Block;						//ãƒ–ãƒ­ãƒƒã‚¯
+class BackGround;					//ã‚¹ãƒ†ãƒ¼ã‚¸		
+class Enemy;						//ã‚¨ãƒãƒŸãƒ¼
+class ClearPoint;                   //ã‚¯ãƒªã‚¢ãƒã‚¤ãƒ³ãƒˆ
+class FallingBlock;					//è½ã¡ã‚‹åºŠ
+class Needle;						//é‡
+class MovingFloor;					//ç§»å‹•ã™ã‚‹åºŠ
+class Scaffold;						//è¶³å ´
+class ScaffoldBlock;				//Tå‹ã®è¶³å ´
+class StageClear;					//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢
+class S_MovingFloor;				//å‹•ãåºŠ(é…)
+class GameOver;						//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
+class GameCamera;					//ã‚«ãƒ¡ãƒ©
+class HS_FallingBlock;				//å‹•ãåºŠ(é€Ÿ)
+class TransparentBlock;				//é€æ˜ãƒ–ãƒ­ãƒƒã‚¯
+class Towel;                        //ã‚¿ã‚ªãƒ«
+class Fade;							//ãƒ•ã‚§ãƒ¼ãƒ‰
 
 class Game : public IGameObject
 {

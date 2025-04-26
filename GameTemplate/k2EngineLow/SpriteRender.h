@@ -1,171 +1,171 @@
 #pragma once
 namespace nsK2EngineLow
 {
-	//ƒŠƒjƒAƒƒCƒv•`‰æƒ‚[ƒh
+	//ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—æç”»ãƒ¢ãƒ¼ãƒ‰
 	enum LinearWipeDrawingMode
 	{
-		LinearWipeDrawingMode_Normal, //’ÊíƒƒCƒv
-		LinearWipeDrawingMode_Direction, //•ûŒüƒƒCƒv
-		LinearWipeDrawingMode_Round, //‰~Œ`ƒƒCƒv
-		LinearWipeDrawingMode_Vertical, //c‚¶‚ÜƒƒCƒv
-		LinearWipeDrawingMode_Horizontal, //‰¡‚¶‚ÜƒƒCƒv
-		LinearWipeDrawingMode_CheckerBoard, //ƒ`ƒFƒbƒJ[ƒ{[ƒhƒƒCƒv
-		LinearWipeDrawingMode_None //•`‰æ‚µ‚È‚¢
+		LinearWipeDrawingMode_Normal, //é€šå¸¸ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_Direction, //æ–¹å‘ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_Round, //å††å½¢ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_Vertical, //ç¸¦ã˜ã¾ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_Horizontal, //æ¨ªã˜ã¾ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_CheckerBoard, //ãƒã‚§ãƒƒã‚«ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ¯ã‚¤ãƒ—
+		LinearWipeDrawingMode_None //æç”»ã—ãªã„
 	};
 
-	//‰æ‘œ‰ÁH
+	//ç”»åƒåŠ å·¥
 	enum ScreenDrawingMode
 	{
-		ScreenDrawingMode_Monochrome, //ƒ‚ƒmƒNƒ
-		ScreenDrawingMode_Sepia, //ƒZƒsƒA
-		ScreenDrawingMode_Nega, //ƒlƒK
-		ScreenDrawingMode_Noise, //ƒmƒCƒY
-		ScreenDrawingMode_None, //•`‰æ‚µ‚È‚¢
+		ScreenDrawingMode_Monochrome, //ãƒ¢ãƒã‚¯ãƒ­
+		ScreenDrawingMode_Sepia, //ã‚»ãƒ”ã‚¢
+		ScreenDrawingMode_Nega, //ãƒã‚¬
+		ScreenDrawingMode_Noise, //ãƒã‚¤ã‚º
+		ScreenDrawingMode_None, //æç”»ã—ãªã„
 	};
 
 	enum EnFadeState
 	{
-		enFadeState_FadeIn,		//ƒtƒF[ƒhƒCƒ“
-		enFadeState_Loading,	//ƒ[ƒfƒBƒ“ƒO
-		enFadeState_FadeOut,	//ƒtƒF[ƒhƒAƒEƒg
-		enFadeState_None,		//•`‰æ‚µ‚È‚¢
-		enFadeState_Num			//ƒtƒF[ƒh”
+		enFadeState_FadeIn,		//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³
+		enFadeState_Loading,	//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
+		enFadeState_FadeOut,	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
+		enFadeState_None,		//æç”»ã—ãªã„
+		enFadeState_Num			//ãƒ•ã‚§ãƒ¼ãƒ‰æ•°
 	};
 
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_[
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼
 	/// </summary>
 	class SpriteRender : public IRenderer
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="w">‰æ‘œ‚Ì‰¡•</param>
-		/// <param name="h">‰æ‘œ‚Ìc•</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="w">ç”»åƒã®æ¨ªå¹…</param>
+		/// <param name="h">ç”»åƒã®ç¸¦å¹…</param>
 		void Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
 		/// <summary>
-		/// À•W‚ğİ’è
+		/// åº§æ¨™ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pos">À•W</param>
+		/// <param name="pos">åº§æ¨™</param>
 		void SetPosition(const Vector3& pos)
 		{
 			m_position = pos;
 		}
 
 		/// <summary>
-		/// À•W‚ğæ“¾
+		/// åº§æ¨™ã‚’å–å¾—
 		/// </summary>
-		/// <returns>À•W</returns>
+		/// <returns>åº§æ¨™</returns>
 		const Vector3& GetPosition() const
 		{
 			return m_position;
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğİ’è
+		/// å¤§ãã•ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="scale">‘å‚«‚³</param>
+		/// <param name="scale">å¤§ãã•</param>
 		void SetScale(const Vector3& scale)
 		{
 			m_scale = scale;
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğæ“¾
+		/// å¤§ãã•ã‚’å–å¾—
 		/// </summary>
-		/// <returns>‘å‚«‚³</returns>
+		/// <returns>å¤§ãã•</returns>
 		const Vector3& GetScale() const
 		{
 			return m_scale;
 		}
 
 		/// <summary>
-		/// ‰ñ“]‚ğİ’è
+		/// å›è»¢ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="rot">‰ñ“]</param>
+		/// <param name="rot">å›è»¢</param>
 		void SetRotation(const Quaternion& rot)
 		{
 			m_rotation = rot;
 		}
 
 		/// <summary>
-		/// ‰ñ“]‚ğæ“¾
+		/// å›è»¢ã‚’å–å¾—
 		/// </summary>
-		/// <returns>‰ñ“]</returns>
+		/// <returns>å›è»¢</returns>
 		const Quaternion& GetRotation() const
 		{
 			return m_rotation;
 		}
 
 		/// <summary>
-		/// ƒsƒ{ƒbƒg‚ğİ’è
+		/// ãƒ”ãƒœãƒƒãƒˆã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pivot">ƒsƒ{ƒbƒg</param>
+		/// <param name="pivot">ãƒ”ãƒœãƒƒãƒˆ</param>
 		void SetPivot(const Vector2& pivot)
 		{
 			m_pivot = pivot;
 		}
 
 		/// <summary>
-		/// ƒsƒ{ƒbƒg‚ğæ“¾
+		/// ãƒ”ãƒœãƒƒãƒˆã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒsƒ{ƒbƒg</returns>
+		/// <returns>ãƒ”ãƒœãƒƒãƒˆ</returns>
 		const Vector2& GetPivot() const
 		{
 			return m_pivot;
 		}
 
 		/// <summary>
-		/// æZƒJƒ‰[‚ğİ’è
+		/// ä¹—ç®—ã‚«ãƒ©ãƒ¼ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="mulColor">æZƒJƒ‰[</param>
+		/// <param name="mulColor">ä¹—ç®—ã‚«ãƒ©ãƒ¼</param>
 		void SetMulColor(const Vector4& mulColor)
 		{
 			m_sprite.SetMulColor(mulColor);
 		}
 
 		/// <summary>
-		/// æZƒJƒ‰[‚ğæ“¾
+		/// ä¹—ç®—ã‚«ãƒ©ãƒ¼ã‚’å–å¾—
 		/// </summary>
-		/// <returns>æZƒJƒ‰[</returns>
+		/// <returns>ä¹—ç®—ã‚«ãƒ©ãƒ¼</returns>
 		const Vector4& GetMulColor() const
 		{
 			return m_sprite.GetMulColor();
 		}
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update();
 		
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
-		/// <param name="rc">ƒŒƒ“ƒ_[ƒRƒ“ƒeƒLƒXƒg</param>
+		/// <param name="rc">ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
 		void Draw(RenderContext& rc);
 		
 		struct LinearWipe
 		{
-			Vector2 direction; //•ûŒü
-			float size = 0.0f; //ƒƒCƒvƒTƒCƒY
+			Vector2 direction; //æ–¹å‘
+			float size = 0.0f; //ãƒ¯ã‚¤ãƒ—ã‚µã‚¤ã‚º
 		};
 
-		//ƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_[—p‚Ì’è”ƒoƒbƒtƒ@
+		//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		struct SpriteRenderConstantBuffer
 		{
-			LinearWipe linearWipe; //ƒŠƒjƒAƒƒCƒv
-			int linearWipeDrawingMode = LinearWipeDrawingMode_None; //•`‰æƒ‚[ƒh
-			float drawingRate = 0.0f; //ƒC[ƒWƒ“ƒOŠ„‡
-			int screenDrawingMode = ScreenDrawingMode_None; //‰æ‘œ‰ÁH
+			LinearWipe linearWipe; //ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—
+			int linearWipeDrawingMode = LinearWipeDrawingMode_None; //æç”»ãƒ¢ãƒ¼ãƒ‰
+			float drawingRate = 0.0f; //ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å‰²åˆ
+			int screenDrawingMode = ScreenDrawingMode_None; //ç”»åƒåŠ å·¥
 		};
 
 		/// <summary>
-		///	ƒŠƒjƒAƒƒCƒv‚Ì•`‰æƒ‚[ƒh‚ğİ’è
+		///	ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—ã®æç”»ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="linearWipeMode">•`‰æƒ‚[ƒh@LinearWipeMode_Direction‚ğİ’è‚·‚éê‡‚ÍSetLinearWipeDirection()‚Å•ûŒü‚ğİ’è‚µ‚Ä‰º‚³‚¢</param>
+		/// <param name="linearWipeMode">æç”»ãƒ¢ãƒ¼ãƒ‰ã€€LinearWipeMode_Directionã‚’è¨­å®šã™ã‚‹å ´åˆã¯SetLinearWipeDirection()ã§æ–¹å‘ã‚’è¨­å®šã—ã¦ä¸‹ã•ã„</param>
 		void SetLinearWipeDrawingMode(LinearWipeDrawingMode linearWipeMode)
 		{
 			m_spriteRenderConstantBuffer.linearWipeDrawingMode = linearWipeMode;
@@ -173,28 +173,28 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒƒCƒvƒTƒCƒY‚ğİ’è
+		/// ãƒ¯ã‚¤ãƒ—ã‚µã‚¤ã‚ºã‚’è¨­å®š
 		/// </summary>
-		/// <param name="wipeSize">ƒƒCƒvƒTƒCƒY</param>
+		/// <param name="wipeSize">ãƒ¯ã‚¤ãƒ—ã‚µã‚¤ã‚º</param>
 		void SetWipeSize(float wipeSize)
 		{
 			m_spriteRenderConstantBuffer.linearWipe.size = wipeSize;
 		}
 
 		/// <summary>
-		/// ƒŠƒjƒAƒƒCƒv‚Ì‘¬“x‚ğİ’è
+		/// ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—ã®é€Ÿåº¦ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="wipeScroolSpeed">‘¬“x</param>
+		/// <param name="wipeScroolSpeed">é€Ÿåº¦</param>
 		void SetWipeScrollSpeed(float wipeScroolSpeed)
 		{
 			m_wipeScrollSpeed = wipeScroolSpeed;
 		}
 
 		/// <summary>
-		/// ƒŠƒjƒAƒƒCƒv(•ûŒü)
+		/// ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—(æ–¹å‘)
 		/// </summary>
-		/// <param name="x">x²•ûŒü(1.0f~0.0f)</param>
-		/// <param name="y">y²•ûŒü(1.0f~0.0f)</param>
+		/// <param name="x">xè»¸æ–¹å‘(1.0f~0.0f)</param>
+		/// <param name="y">yè»¸æ–¹å‘(1.0f~0.0f)</param>
 		void SetLinearWipeDirection(float x, float y)
 		{
 			m_spriteRenderConstantBuffer.linearWipe.direction.Set(x, y);
@@ -202,9 +202,9 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ‰æ‘œ‰ÁH‚Ì•`‰æƒ‚[ƒh‚ğİ’è
+		/// ç”»åƒåŠ å·¥ã®æç”»ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="screenMode">•`‰æƒ‚[ƒh</param>
+		/// <param name="screenMode">æç”»ãƒ¢ãƒ¼ãƒ‰</param>
 		void SetScreenDrawingMode(ScreenDrawingMode screenDrawingMode)
 		{
 			m_spriteRenderConstantBuffer.screenDrawingMode = screenDrawingMode;
@@ -212,25 +212,25 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ‰æ‘œ‰ÁH‚ğƒC[ƒWƒ“ƒO‚·‚é‘¬“x‚ğİ’è
+		/// ç”»åƒåŠ å·¥ã‚’ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã™ã‚‹é€Ÿåº¦ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="screenDrawingEasingSpeed">‘¬“x</param>
+		/// <param name="screenDrawingEasingSpeed">é€Ÿåº¦</param>
 		void SetScreenDrawingEasingSpeed(float screenDrawingSpeed)
 		{
 			m_screenDrawingEasingSpeed = screenDrawingSpeed;
 		}
 
 		/// <summary>
-		/// ƒtƒF[ƒhƒXƒe[ƒg‚ÌØ‚è‘Ö‚¦
+		/// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆ‡ã‚Šæ›¿ãˆ
 		/// </summary>
-		/// <param name="enFadeState">ƒtƒF[ƒhƒXƒe[ƒg</param>
+		/// <param name="enFadeState">ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆ</param>
 		void SetFadeTransition(EnFadeState enFadeState)
 		{
 			m_fadeState = enFadeState;
 		}
 
 		/// <summary>
-		/// ƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_[—p‚Ì’è”ƒoƒbƒtƒ@‚ğæ“¾
+		/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		SpriteRenderConstantBuffer& GetSpriteRenderConstantBuffer()
@@ -240,7 +240,7 @@ namespace nsK2EngineLow
 
 	private:
 		/// <summary>
-		/// ƒŠƒjƒAƒƒCƒv‚ÌXVˆ—
+		/// ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—ã®æ›´æ–°å‡¦ç†
 		/// </summary>
 		void LinearWipeUpdate()
 		{
@@ -255,7 +255,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ‰æ‘œ‰ÁH‚ÌXVˆ—
+		/// ç”»åƒåŠ å·¥ã®æ›´æ–°å‡¦ç†
 		/// </summary>
 		void ScreenDrawingUpdate()
 		{
@@ -267,7 +267,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		///	2D‚Ì•`‰æ
+		///	2Dã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void OnRender2D(RenderContext& rc) override
@@ -275,15 +275,15 @@ namespace nsK2EngineLow
 			m_sprite.Draw(rc);
 		}
 
-		Sprite m_sprite; //ƒXƒvƒ‰ƒCƒg
-		Vector3 m_position = Vector3::Zero; //À•W
-		Quaternion m_rotation = Quaternion::Identity; //‰ñ“]
-		Vector3 m_scale = Vector3::One; //Šg‘å—¦
-		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ƒsƒ{ƒbƒg
-		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //ƒŠƒjƒAƒƒCƒv
-		float m_wipeScrollSpeed = 1.0f; //ƒƒCƒv‘¬“x
-		float m_screenDrawingEasingSpeed = 0.01f; //‰æ‘œ‰ÁH—p‚ÌƒC[ƒWƒ“ƒO‘¬“x
-		int m_fadeState = enFadeState_FadeIn;	//ƒtƒF[ƒhƒXƒe[ƒg
+		Sprite m_sprite; //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		Vector3 m_position = Vector3::Zero; //åº§æ¨™
+		Quaternion m_rotation = Quaternion::Identity; //å›è»¢
+		Vector3 m_scale = Vector3::One; //æ‹¡å¤§ç‡
+		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ãƒ”ãƒœãƒƒãƒˆ
+		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //ãƒªãƒ‹ã‚¢ãƒ¯ã‚¤ãƒ—
+		float m_wipeScrollSpeed = 1.0f; //ãƒ¯ã‚¤ãƒ—é€Ÿåº¦
+		float m_screenDrawingEasingSpeed = 0.01f; //ç”»åƒåŠ å·¥ç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°é€Ÿåº¦
+		int m_fadeState = enFadeState_FadeIn;	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆ
 	};
 }
 

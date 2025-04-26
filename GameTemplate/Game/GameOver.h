@@ -14,103 +14,103 @@ public:
 
 private:
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	/// </summary>
 	void InitSprite();
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 	/// </summary>
 	void Action();
 
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 	/// </summary>
 	void SpriteMove();
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ğİ’è
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã‚’è¨­å®š
 	/// </summary>
 	void SetGameOverSpriteEasingPosition();
 	
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ÌXVˆ—
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã®æ›´æ–°å‡¦ç†
 	/// </summary>
 	void UpdateGameOverSpriteEasingPosition();
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(‰ñ“])‚ğİ’è
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(å›è»¢)ã‚’è¨­å®š
 	/// </summary>
-	/// <param name="angle">Šp“x</param>
+	/// <param name="angle">è§’åº¦</param>
 	void SetGameOverSpriteEasingRotation(float angle);
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(‰ñ“])‚ÌXVˆ—
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(å›è»¢)ã®æ›´æ–°å‡¦ç†
 	/// </summary>
 	void UpdateGameOverSpriteEasingRotation();
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚Ì’e—Í«‚ÌXVˆ—
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®å¼¾åŠ›æ€§ã®æ›´æ–°å‡¦ç†
 	/// </summary>
 	void UpdateGameOverSpriteElasticity();
 
 	/// <summary>
-	/// ”½”­ŒW”‚ğİ’è‚·‚é
+	/// åç™ºä¿‚æ•°ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="beforeSpeed">Õ“Ë’¼‘O‚Ì‘¬“x</param>
-	/// <param name="afterSpeed">Õ“Ë’¼Œã‚Ì‘¬“x</param>
+	/// <param name="beforeSpeed">è¡çªç›´å‰ã®é€Ÿåº¦</param>
+	/// <param name="afterSpeed">è¡çªç›´å¾Œã®é€Ÿåº¦</param>
 	void SetCoefficientOfRestitution(float beforeSpeed, float afterSpeed)
 	{
 		m_coefficientOfRestitution = afterSpeed / beforeSpeed;
 	}
 
-	//‘I‘ğ
+	//é¸æŠ
 	enum EnSelect
 	{
-		enSelect_Continue,			//ƒRƒ“ƒeƒBƒjƒ…[
-		enSelect_ReturnTitle,		//ƒ^ƒCƒgƒ‹‚Ö–ß‚é
-		enSelect_Num				//‘I‘ğ”
+		enSelect_Continue,			//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
+		enSelect_ReturnTitle,		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
+		enSelect_Num				//é¸æŠæ•°
 	};
 
-	//ƒQ[ƒ€ƒI[ƒo[‰‰o
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡º
 	enum EnGameOverDirection
 	{
-		enGameOverDirection_GameOver,	//ƒQ[ƒ€ƒI[ƒo[
-		enGameOverDirection_Select,		//‘I‘ğ
-		enGameOverDirection_Num			//ƒQ[ƒ€ƒI[ƒo[‰‰o”
+		enGameOverDirection_GameOver,	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
+		enGameOverDirection_Select,		//é¸æŠ
+		enGameOverDirection_Num			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºæ•°
 	};
 
-	int					NeedleCount = 0;											//j—p‚ÌƒJƒEƒ“ƒg
-	SpriteRender		m_gameOverUI;												//ƒQ[ƒ€ƒI[ƒo[UI
-	SpriteRender		m_gameOverSelectUI[enSelect_Num];							//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI
-	SpriteRender		m_dPadUI;													//\šƒL[UI
-	SpriteRender		m_aButtonUI;												//Aƒ{ƒ^ƒ“UI
-	SpriteRender		m_selectUI;													//‘I‘ğUI
-	SpriteRender		m_decisionUI;												//Œˆ’èUI
-	Vector3				m_gameOverUIPosition = Vector3(15.0f, 500.0f, 0.0f);		//ƒQ[ƒ€ƒI[ƒo[UI—p‚ÌˆÊ’u
-	Vector3				m_gameOverUIFarstHeight;									//ƒQ[ƒ€ƒI[ƒo[UI—p‚ÌÅ‰‚Ì‚‚³
-	Quaternion			m_gameOverUIRotation;										//ƒQ[ƒ€ƒI[ƒo[UI—p‚Ì‰ñ“]
-	Vector3				m_beforeEasingPosition;										//ƒC[ƒWƒ“ƒO‘O‚ÌˆÊ’u
-	Vector3				m_afterEasingPosition;										//ƒC[ƒWƒ“ƒOŒã‚ÌˆÊ’u
-	Quaternion			m_beforeEasingRotation;										//ƒC[ƒWƒ“ƒO‘O‚Ì‰ñ“]
-	Quaternion			m_afterEasingRotation;										//ƒC[ƒWƒ“ƒOŒã‚Ì‰ñ“]
-	Vector4				m_gameOverSelectUIColor[enSelect_Num];						//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI—p‚ÌƒJƒ‰[
-	int					m_gameOverDirectionState = enGameOverDirection_GameOver;	//ƒQ[ƒ€ƒI[ƒo[‰‰oƒXƒe[ƒg
-	int					m_gameOverSelect = enSelect_Continue;						//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğ
-	int					m_exponentiation = 2;										//—İæ
-	int					m_gameOverUIHitCount = 1;									//ƒQ[ƒ€ƒI[ƒo[UI‚ª‰½‰ñ’µ‚Ë‚½‚©
-	float               m_easingTime = 0.0f;										//Š„‡
-	float				m_coefficientOfRestitution = 0.0f;							//”½”­ŒW”
-	float				m_angle = -10.0f;											//Šp“x
-	float				m_gameOverSelectUIAlphaColor = 0.0f;						//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI“§–¾“x
-	bool				m_easingFinishFlag = false;									//ƒC[ƒWƒ“ƒO‚ªI‚í‚Á‚½‚©?
-	bool				m_pressButtonFlag = false;									//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©?
-	bool				m_pressButtonActionFlag = false;							//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ‚µ‚½‚©?
-	bool				m_gameOverUIFallFlag = false;								//ƒQ[ƒ€ƒI[ƒo[UI‚ª—‰º‚·‚é‚©?
-	bool				m_gameOverDirectionFlag = false;							//ƒQ[ƒ€ƒI[ƒo[‰‰oƒtƒ‰ƒO
-	bool                m_transitionFlag = false;									//‘JˆÚƒtƒ‰ƒO
-	Player*				m_player;													//ƒvƒŒƒCƒ„[—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-	Fade*				m_fade;														//ƒtƒF[ƒh—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-	Game*				m_game;														//ƒQ[ƒ€—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	int					NeedleCount = 0;											//é‡ç”¨ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	SpriteRender		m_gameOverUI;												//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UI
+	SpriteRender		m_gameOverSelectUI[enSelect_Num];							//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI
+	SpriteRender		m_dPadUI;													//åå­—ã‚­ãƒ¼UI
+	SpriteRender		m_aButtonUI;												//Aãƒœã‚¿ãƒ³UI
+	SpriteRender		m_selectUI;													//é¸æŠUI
+	SpriteRender		m_decisionUI;												//æ±ºå®šUI
+	Vector3				m_gameOverUIPosition = Vector3(15.0f, 500.0f, 0.0f);		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIç”¨ã®ä½ç½®
+	Vector3				m_gameOverUIFarstHeight;									//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIç”¨ã®æœ€åˆã®é«˜ã•
+	Quaternion			m_gameOverUIRotation;										//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIç”¨ã®å›è»¢
+	Vector3				m_beforeEasingPosition;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å‰ã®ä½ç½®
+	Vector3				m_afterEasingPosition;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å¾Œã®ä½ç½®
+	Quaternion			m_beforeEasingRotation;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å‰ã®å›è»¢
+	Quaternion			m_afterEasingRotation;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å¾Œã®å›è»¢
+	Vector4				m_gameOverSelectUIColor[enSelect_Num];						//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUIç”¨ã®ã‚«ãƒ©ãƒ¼
+	int					m_gameOverDirectionState = enGameOverDirection_GameOver;	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºã‚¹ãƒ†ãƒ¼ãƒˆ
+	int					m_gameOverSelect = enSelect_Continue;						//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠ
+	int					m_exponentiation = 2;										//ç´¯ä¹—
+	int					m_gameOverUIHitCount = 1;									//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIãŒä½•å›è·³ã­ãŸã‹
+	float               m_easingTime = 0.0f;										//å‰²åˆ
+	float				m_coefficientOfRestitution = 0.0f;							//åç™ºä¿‚æ•°
+	float				m_angle = -10.0f;											//è§’åº¦
+	float				m_gameOverSelectUIAlphaColor = 0.0f;						//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUIé€æ˜åº¦
+	bool				m_easingFinishFlag = false;									//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ãŒçµ‚ã‚ã£ãŸã‹?
+	bool				m_pressButtonFlag = false;									//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹?
+	bool				m_pressButtonActionFlag = false;							//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’ã—ãŸã‹?
+	bool				m_gameOverUIFallFlag = false;								//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIãŒè½ä¸‹ã™ã‚‹ã‹?
+	bool				m_gameOverDirectionFlag = false;							//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºãƒ•ãƒ©ã‚°
+	bool                m_transitionFlag = false;									//é·ç§»ãƒ•ãƒ©ã‚°
+	Player*				m_player;													//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	Fade*				m_fade;														//ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	Game*				m_game;														//ã‚²ãƒ¼ãƒ ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 };
 

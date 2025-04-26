@@ -12,7 +12,7 @@ GameOver::~GameOver()
 
 bool GameOver::Start()
 {
-	//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	InitSprite();
 
 	m_player = FindGO<Player>("player");
@@ -28,49 +28,49 @@ bool GameOver::Start()
 
 void GameOver::Update()
 {
-	//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 	SpriteMove();
 
-	//ƒQ[ƒ€ƒI[ƒo[‰‰o‚ªI‚í‚Á‚½‚ç
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‚‰
 	if (m_gameOverDirectionFlag == true)
 	{
-		//ƒvƒŒƒCƒ„[‚Ì‘€ì
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œ
 		Action();
 	}
 }
 
 void GameOver::Render(RenderContext& rc)
 {
-	//ƒQ[ƒ€ƒI[ƒo[UI
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UI
 	m_gameOverUI.Draw(rc);
 
-	//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI(ƒRƒ“ƒeƒBƒjƒ…[)
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI(ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼)
 	m_gameOverSelectUI[enSelect_Continue].Draw(rc);
 
-	//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI(ƒ^ƒCƒgƒ‹‚Ö–ß‚é)
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI(ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹)
 	m_gameOverSelectUI[enSelect_ReturnTitle].Draw(rc);
 
-	//ƒQ[ƒ€ƒI[ƒo[‰‰o‚ªI‚í‚Á‚½‚ç
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‚‰
 	if (m_gameOverDirectionFlag == true)
 	{
-		//\šƒL[UI
+		//åå­—ã‚­ãƒ¼UI
 		m_dPadUI.Draw(rc);
 
-		//Aƒ{ƒ^ƒ“UI
+		//Aãƒœã‚¿ãƒ³UI
 		m_aButtonUI.Draw(rc);
 
-		//‘I‘ğUI
+		//é¸æŠUI
 		m_selectUI.Draw(rc);
 
-		//Œˆ’èUI
+		//æ±ºå®šUI
 		m_decisionUI.Draw(rc);
 	}
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 void GameOver::InitSprite()
 {
-	//ƒQ[ƒ€ƒI[ƒo[UI
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UI
 	m_gameOverUI.Init("Assets/gameover/text/gameover.dds", 1024, 128);
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
 	m_gameOverUIRotation.SetRotationDegZ(20.0f);
@@ -78,7 +78,7 @@ void GameOver::InitSprite()
 	m_gameOverUI.SetPivot(Vector2(0.5f, 0.0f));
 	m_gameOverUI.Update();
 
-	//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI(ƒRƒ“ƒeƒBƒjƒ…[)
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI(ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼)
 	m_gameOverSelectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", 1024, 128);
 	m_gameOverSelectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
 	m_gameOverSelectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
@@ -87,7 +87,7 @@ void GameOver::InitSprite()
 	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_gameOverSelectUI[enSelect_Continue].Update();
 
-	//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI(ƒ^ƒCƒgƒ‹‚Ö–ß‚é)
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI(ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹)
 	m_gameOverSelectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", 1024, 128);
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
@@ -96,80 +96,80 @@ void GameOver::InitSprite()
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 
-	//\šƒL[UI
+	//åå­—ã‚­ãƒ¼UI
 	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", 512, 512);
 	m_dPadUI.SetPosition(Vector3(325.0f, -345.0f, 0.0f));
 	m_dPadUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_dPadUI.Update();
 
-	//Aƒ{ƒ^ƒ“UI
+	//Aãƒœã‚¿ãƒ³UI
 	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", 512, 512);
 	m_aButtonUI.SetPosition(Vector3(Vector3(525.0f, -345.0f, 0.0f)));
 	m_aButtonUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
 	m_aButtonUI.Update();
 
-	//‘I‘ğUI
+	//é¸æŠUI
 	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
 	m_selectUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
 	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_selectUI.Update();
 
-	//Œˆ’èUI
+	//æ±ºå®šUI
 	m_decisionUI.Init("Assets/gameover/text/decision.dds", 1024, 128);
 	m_decisionUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
 	m_decisionUI.Update();
 
-	//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ğİ’è
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã‚’è¨­å®š
 	SetGameOverSpriteEasingPosition();
 }
 
-//ƒvƒŒƒCƒ„[‚Ì‘€ì
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œ
 void GameOver::Action()
 {
-	//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚¢‚È‚¢‚Æ‚«‘I‘ğ‚ª‚Å‚«‚é
+	//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ã„ãªã„ã¨ãé¸æŠãŒã§ãã‚‹
 	if (m_pressButtonFlag != true)
 	{
-		//\šƒL[‚ğ¶‚É“|‚µ‚½‚ç
+		//åå­—ã‚­ãƒ¼ã‚’å·¦ã«å€’ã—ãŸã‚‰
 		if (g_pad[0]->IsTrigger(enButtonLeft))
 		{
-			//Œ»İ‚Ì‘I‘ğ‚ªƒXƒ^[ƒg‚¾‚Á‚½‚ç
+			//ç¾åœ¨ã®é¸æŠãŒã‚¹ã‚¿ãƒ¼ãƒˆã ã£ãŸã‚‰
 			if (m_gameOverSelect == enSelect_Continue)
 			{
-				//ƒQ[ƒ€I—¹‚ÉˆÚ“®
+				//ã‚²ãƒ¼ãƒ çµ‚äº†ã«ç§»å‹•
 				m_gameOverSelect = enSelect_ReturnTitle;
 				return;
 			}
-			//¶‚É‚¢‚­
+			//å·¦ã«ã„ã
 			m_gameOverSelect -= 1;
 		}
-		//\šƒL[‚ğ‰E‚É“|‚µ‚½‚ç
+		//åå­—ã‚­ãƒ¼ã‚’å³ã«å€’ã—ãŸã‚‰
 		else if (g_pad[0]->IsTrigger(enButtonRight))
 		{
-			//Œ»İ‚Ì‘I‘ğ‚ªƒQ[ƒ€I—¹‚¾‚Á‚½‚ç
+			//ç¾åœ¨ã®é¸æŠãŒã‚²ãƒ¼ãƒ çµ‚äº†ã ã£ãŸã‚‰
 			if (m_gameOverSelect == enSelect_ReturnTitle)
 			{
-				//ƒXƒ^[ƒg‚ÉˆÚ“®
+				//ã‚¹ã‚¿ãƒ¼ãƒˆã«ç§»å‹•
 				m_gameOverSelect = enSelect_Continue;
 				return;
 			}
-			//‰E‚É‚¢‚­
+			//å³ã«ã„ã
 			m_gameOverSelect += 1;
 		}
 
-		//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‰‰o‚ª—¬‚ê‚é
+		//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ¼”å‡ºãŒæµã‚Œã‚‹
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_pressButtonFlag = true;
 		}
 	}
-	//‘JˆÚƒtƒ‰ƒO‚ª—§‚Á‚½‚ç‘I‘ğ‚É‰‚¶‚Ä”½‰f‚·‚é
+	//é·ç§»ãƒ•ãƒ©ã‚°ãŒç«‹ã£ãŸã‚‰é¸æŠã«å¿œã˜ã¦åæ˜ ã™ã‚‹
 	else if (m_transitionFlag == true)
 	{
-		//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğ
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠ
 		switch (m_gameOverSelect)
 		{
-		case enSelect_Continue:			//ƒRƒ“ƒeƒBƒjƒ…[
+		case enSelect_Continue:			//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
 			m_fade->FadeTransition(enFadeState_FadeOut);
 			if (g_gameTime->StopWatch(3.0f))
 			{
@@ -178,7 +178,7 @@ void GameOver::Action()
 				NewGO<Game>(0, "game");
 			}
 			break;
-		case enSelect_ReturnTitle:		//ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+		case enSelect_ReturnTitle:		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 			if (g_gameTime->StopWatch(2.0f))
 			{
 				DeleteGO(this);
@@ -192,32 +192,32 @@ void GameOver::Action()
 	}
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 void GameOver::SpriteMove()
 {
-	//ƒQ[ƒ€ƒI[ƒo[‰‰o‚ªI‚í‚Á‚Ä‚¢‚È‚¢‚©?
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºãŒçµ‚ã‚ã£ã¦ã„ãªã„ã‹?
 	if (m_gameOverDirectionFlag != true)
 	{
-		//ƒQ[ƒ€ƒI[ƒo[‰‰oƒXƒe[ƒg
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡ºã‚¹ãƒ†ãƒ¼ãƒˆ
 		switch (m_gameOverDirectionState)
 		{
-		case enGameOverDirection_GameOver:		//ƒQ[ƒ€ƒI[ƒo[
-			//ƒC[ƒWƒ“ƒO‚ªI‚í‚Á‚Ä‚¢‚È‚¢‚©?
+		case enGameOverDirection_GameOver:		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
+			//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ãŒçµ‚ã‚ã£ã¦ã„ãªã„ã‹?
 			if (m_easingFinishFlag != true)
 			{
-				//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ÌXVˆ—
+				//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã®æ›´æ–°å‡¦ç†
 				UpdateGameOverSpriteEasingPosition();
 			}
 			else
 			{
-				//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚Ì’e—Í«‚ÌXVˆ—
+				//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®å¼¾åŠ›æ€§ã®æ›´æ–°å‡¦ç†
 				UpdateGameOverSpriteElasticity();
 			}
 			break;
-		case enGameOverDirection_Select:		//‘I‘ğ
+		case enGameOverDirection_Select:		//é¸æŠ
 			m_gameOverSelectUIAlphaColor += 0.75f * g_gameTime->GetFrameDeltaTime();
 
-			//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI‚ª•s“§–¾‚É‚È‚Á‚½‚ç
+			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUIãŒä¸é€æ˜ã«ãªã£ãŸã‚‰
 			if (m_gameOverSelectUIAlphaColor > 1.0f)
 			{
 				m_gameOverSelectUIAlphaColor = 1.0f;
@@ -225,7 +225,7 @@ void GameOver::SpriteMove()
 				return;
 			}
 
-			//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI
+			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI
 			m_gameOverSelectUI[enGameOverDirection_GameOver].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
 			m_gameOverSelectUI[enGameOverDirection_Select].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
 			break;
@@ -234,23 +234,23 @@ void GameOver::SpriteMove()
 		}
 		return;
 	}
-	//‘JˆÚƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚Æ‚«
+	//é·ç§»ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„ã¨ã
 	else if (m_transitionFlag != true)
 	{
-		//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+		//Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰
 		if (m_pressButtonFlag == true)
 		{
-			//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ‚µ‚Ä‚¢‚È‚¢‚©?
+			//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’ã—ã¦ã„ãªã„ã‹?
 			if (m_pressButtonActionFlag != true)
 			{
-				//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğ
+				//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠ
 				switch (m_gameOverSelect)
 				{
-				case enSelect_Continue:			//ƒRƒ“ƒeƒBƒjƒ…[
+				case enSelect_Continue:			//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
 					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
-				case enSelect_ReturnTitle:		//ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+				case enSelect_ReturnTitle:		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
@@ -265,14 +265,14 @@ void GameOver::SpriteMove()
 			}
 			else
 			{
-				//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğ
+				//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠ
 				switch (m_gameOverSelect)
 				{
-				case enSelect_Continue:			//ƒRƒ“ƒeƒBƒjƒ…[
+				case enSelect_Continue:			//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
 					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
-				case enSelect_ReturnTitle:		//ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+				case enSelect_ReturnTitle:		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
@@ -289,16 +289,16 @@ void GameOver::SpriteMove()
 		}
 	}
 
-	//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğ
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠ
 	switch (m_gameOverSelect)
 	{
-	case enSelect_Continue:			//ƒRƒ“ƒeƒBƒjƒ…[
-		//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI
+	case enSelect_Continue:			//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI
 		m_gameOverSelectUI[enSelect_Continue].SetMulColor(m_gameOverSelectUIColor[enSelect_Continue]);
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		break;
-	case enSelect_ReturnTitle:		//ƒ^ƒCƒgƒ‹‚Ö–ß‚é
-		//ƒQ[ƒ€ƒI[ƒo[‚Ì‘I‘ğUI
+	case enSelect_ReturnTitle:		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®é¸æŠUI
 		m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(m_gameOverSelectUIColor[enSelect_ReturnTitle]);
 		break;
@@ -307,7 +307,7 @@ void GameOver::SpriteMove()
 	}
 }
 
-//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ğİ’è
+//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã‚’è¨­å®š
 void GameOver::SetGameOverSpriteEasingPosition()
 {
 	m_beforeEasingPosition = m_gameOverUIPosition;
@@ -315,7 +315,7 @@ void GameOver::SetGameOverSpriteEasingPosition()
 	m_easingTime = 0.0f;
 }
 
-//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(ˆÊ’u)‚ÌXVˆ—
+//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(ä½ç½®)ã®æ›´æ–°å‡¦ç†
 void GameOver::UpdateGameOverSpriteEasingPosition()
 {
 	m_easingTime += 2.0f * g_gameTime->GetFrameDeltaTime();
@@ -333,7 +333,7 @@ void GameOver::UpdateGameOverSpriteEasingPosition()
 	m_gameOverUI.Update();
 }
 
-//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(‰ñ“])‚ğİ’è
+//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(å›è»¢)ã‚’è¨­å®š
 void GameOver::SetGameOverSpriteEasingRotation(float angle)
 {
 	m_beforeEasingRotation = m_gameOverUIRotation;
@@ -345,7 +345,7 @@ void GameOver::SetGameOverSpriteEasingRotation(float angle)
 	m_easingTime = 0.0f;
 }
 
-//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO(‰ñ“])‚ÌXVˆ—
+//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°(å›è»¢)ã®æ›´æ–°å‡¦ç†
 void GameOver::UpdateGameOverSpriteEasingRotation()
 {
 	m_easingTime += 1.7f * g_gameTime->GetFrameDeltaTime();
@@ -360,10 +360,10 @@ void GameOver::UpdateGameOverSpriteEasingRotation()
 	m_gameOverUI.Update();
 }
 
-//ƒQ[ƒ€ƒI[ƒo[ƒXƒvƒ‰ƒCƒg—p‚Ì’e—Í«‚ÌXVˆ—
+//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®å¼¾åŠ›æ€§ã®æ›´æ–°å‡¦ç†
 void GameOver::UpdateGameOverSpriteElasticity()
 {
-	//ƒQ[ƒ€ƒI[ƒo[UI—p‚Ì‰‰o‚ªI‚í‚Á‚½‚çŸ‚Ì‰‰o‚ÉˆÚ‚é
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIç”¨ã®æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‚‰æ¬¡ã®æ¼”å‡ºã«ç§»ã‚‹
 	if (m_gameOverUIHitCount == 5)
 	{
 		m_gameOverDirectionState = enGameOverDirection_Select;
@@ -372,7 +372,7 @@ void GameOver::UpdateGameOverSpriteElasticity()
 		m_gameOverUI.Update();
 	}
 
-	//ƒQ[ƒ€ƒI[ƒo[UI‚ª—‰º‚µ‚Ä‚¢‚È‚¢‚Æ‚«
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIãŒè½ä¸‹ã—ã¦ã„ãªã„ã¨ã
 	if (m_gameOverUIFallFlag != true)
 	{
 		m_gameOverUIPosition.y += pow(m_coefficientOfRestitution, m_exponentiation) * 250.0f;
@@ -383,7 +383,7 @@ void GameOver::UpdateGameOverSpriteElasticity()
 	{
 		m_gameOverUIPosition.y -= pow(m_coefficientOfRestitution, m_exponentiation) * 9.8f;
 		UpdateGameOverSpriteEasingRotation();
-		//ƒQ[ƒ€ƒI[ƒo[UI‚ªÅ‰‚Ì‚‚³‚É–ß‚Á‚½‚©?
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIãŒæœ€åˆã®é«˜ã•ã«æˆ»ã£ãŸã‹?
 		if (m_gameOverUIPosition.y <= m_gameOverUIFarstHeight.y)
 		{
 			if (m_gameOverUIFallFlag == true)
@@ -391,13 +391,13 @@ void GameOver::UpdateGameOverSpriteElasticity()
 				m_gameOverUIPosition.y = m_gameOverUIFarstHeight.y;
 				m_exponentiation += 3;
 
-				//‹ô”‚ÍŠp“x—p‚Ì•Ï”‚ğ”½“]‚µ‚Ä‰ÁZ
+				//å¶æ•°ã¯è§’åº¦ç”¨ã®å¤‰æ•°ã‚’åè»¢ã—ã¦åŠ ç®—
 				if (m_gameOverUIHitCount % 2 == 0)
 				{
 					m_angle *= -1.0f;
 					m_angle += 5.0f / m_gameOverUIHitCount;
 				}
-				//Šï”‚ÍŠp“x—p‚Ì•Ï”‚ğ”½“]‚µ‚ÄŒ¸Z
+				//å¥‡æ•°ã¯è§’åº¦ç”¨ã®å¤‰æ•°ã‚’åè»¢ã—ã¦æ¸›ç®—
 				else
 				{
 					m_angle *= -1.0f;

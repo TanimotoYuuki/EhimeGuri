@@ -23,7 +23,7 @@ namespace nsK2EngineLow
 		std::function<bool(LevelObjectData& objData)> hookFunc
 	)
 	{
-		//tklƒtƒ@ƒCƒ‹‚ğƒ[ƒh‚·‚é
+		//tklãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
 		m_tklFile.Load(filePath);
 
 		MatrixTklToLevel();
@@ -32,39 +32,39 @@ namespace nsK2EngineLow
 			auto bone = m_bonelist[i].get();
 			if (bone->GetParentBoneNo() == 0) {
 
-				//s—ñ‚©‚çƒ|ƒWƒVƒ‡ƒ“‚ğì¬‚·‚é
+				//è¡Œåˆ—ã‹ã‚‰ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ä½œæˆã™ã‚‹
 				LevelObjectData levelObjData;
 				bone->CalcWorldTRS(levelObjData.position, levelObjData.rotation, levelObjData.scale);
 
-				//Zup‚ÆYup‚Ì•ÏX
-				//À•W
+				//Zupã¨Yupã®å¤‰æ›´
+				//åº§æ¨™
 				float fix = levelObjData.position.y;
 				levelObjData.position.y = levelObjData.position.z;
 				levelObjData.position.z = -fix;
-				//‰ñ“]
+				//å›è»¢
 				fix = levelObjData.rotation.y;
 				levelObjData.rotation.y = levelObjData.rotation.z;
 				levelObjData.rotation.z = -fix;
-				//‘å‚«‚³
+				//å¤§ãã•
 				std::swap(levelObjData.scale.y, levelObjData.scale.z);
-				//Zup‚ÆYup‚Ì•ÏX@I‚í‚è
+				//Zupã¨Yupã®å¤‰æ›´ã€€çµ‚ã‚ã‚Š
 
 				levelObjData.name = m_bonelist[i]->GetName();
 				std::wstring name = levelObjData.name;
-				//@‚ª‚ ‚é‚©‚Ç‚¤‚©AŒŸõ‚·‚é
+				//@ãŒã‚ã‚‹ã‹ã©ã†ã‹ã€æ¤œç´¢ã™ã‚‹
 				int pos = static_cast<int>(name.find('@'));
-				//@‚ª‘¶İ‚µ‚Ä‚¢‚ê‚ÎA@Œã‚Ì”š‚ğæ“¾‚·‚é
+				//@ãŒå­˜åœ¨ã—ã¦ã„ã‚Œã°ã€@å¾Œã®æ•°å­—ã‚’å–å¾—ã™ã‚‹
 				if (pos != std::wstring::npos)
 				{
 					std::wstring number = name.substr(static_cast<size_t>(pos) + 1);
-					//wcharŒ^‚ğintŒ^‚É•ÏŠ·‚µ‚Ä‚¢‚é
+					//wcharå‹ã‚’intå‹ã«å¤‰æ›ã—ã¦ã„ã‚‹
 					levelObjData.number = std::stoi(number.c_str());
 				}
 
-				//Hook‚ª“o˜^Ï‚İ‚È‚ç‚Îƒ}ƒbƒvƒ`ƒbƒv‚Íì¬•s—v
-					//false ‚Ì‚Ü‚Ü‚È‚çì¬‚·‚éB
+				//HookãŒç™»éŒ²æ¸ˆã¿ãªã‚‰ã°ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã¯ä½œæˆä¸è¦
+					//false ã®ã¾ã¾ãªã‚‰ä½œæˆã™ã‚‹ã€‚
 				bool isHooked = false;
-				//hookFunc‚É‚È‚É‚à“ü‚Á‚Ä‚¢‚È‚¢Sobject‚É‚Í‰½‚à‚È‚¢B
+				//hookFuncã«ãªã«ã‚‚å…¥ã£ã¦ã„ãªã„ï¼Sobjectã«ã¯ä½•ã‚‚ãªã„ã€‚
 				if (hookFunc != nullptr) {
 					isHooked = hookFunc(levelObjData);
 				}
@@ -75,8 +75,8 @@ namespace nsK2EngineLow
 	void Level3DRender::MatrixTklToLevel()
 	{
 		m_tklFile.QuaryObject([&](TklFile::SObject& tklObj) {
-			//ƒRƒs[B
-			//ƒoƒCƒ“ƒhƒ|[ƒYB
+			//ã‚³ãƒ”ãƒ¼ã€‚
+			//ãƒã‚¤ãƒ³ãƒ‰ãƒãƒ¼ã‚ºã€‚
 			Matrix bindPoseMatrix;
 			memcpy(bindPoseMatrix.m[0], &tklObj.bindPose[0], sizeof(tklObj.bindPose[0]));
 			memcpy(bindPoseMatrix.m[1], &tklObj.bindPose[1], sizeof(tklObj.bindPose[1]));
@@ -88,8 +88,8 @@ namespace nsK2EngineLow
 			bindPoseMatrix.m[3][3] = 1.0f;
 
 			/// <summary>
-			/// ƒoƒCƒ“ƒhƒ|[ƒY‚Ì‹ts—ñ
-			/// —ñ3‚ÍVector3•ÏŠ·‚ÌÛ‚É•s—v‚È‚Ì‚Å‰Šú‰»B
+			/// ãƒã‚¤ãƒ³ãƒ‰ãƒãƒ¼ã‚ºã®é€†è¡Œåˆ—
+			/// åˆ—3ã¯Vector3å¤‰æ›ã®éš›ã«ä¸è¦ãªã®ã§åˆæœŸåŒ–ã€‚
 			/// </summary>
 			Matrix invBindPoseMatirx;
 			memcpy(invBindPoseMatirx.m[0], &tklObj.invBindPose[0], sizeof(tklObj.invBindPose[0]));
@@ -104,11 +104,11 @@ namespace nsK2EngineLow
 			wchar_t boneName[Level3DConst::MAX_FONT_COUNT];
 
 			/// <summary>
-			/// tkl‚ÌƒIƒuƒWƒFƒNƒg–¼‚ÌŒ^‚ğƒƒCƒh•¶š‚É•ÏŠ·B
+			/// tklã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåã®å‹ã‚’ãƒ¯ã‚¤ãƒ‰æ–‡å­—ã«å¤‰æ›ã€‚
 			/// char -> wchar_t
-			/// •ÏŠ·‚·‚écharŒ^‚Ì•¶š—ñB
-			/// •ÏŠ·Œ‹‰Ê‚Ìwchar_tŒ^•¶š—ñB
-			/// ƒTƒCƒY
+			/// å¤‰æ›ã™ã‚‹charå‹ã®æ–‡å­—åˆ—ã€‚
+			/// å¤‰æ›çµæœã®wchar_tå‹æ–‡å­—åˆ—ã€‚
+			/// ã‚µã‚¤ã‚º
 			/// </summary>
 			mbstowcs(boneName, tklObj.name.get(), Level3DConst::MAX_FONT_COUNT);
 			BonePtr bone = std::make_unique<Bone>(
@@ -118,9 +118,9 @@ namespace nsK2EngineLow
 				tklObj.parentNo,
 				tklObj.no
 			);
-			//ƒ{[ƒ“‚ğÏ‚ŞB
+			//ãƒœãƒ¼ãƒ³ã‚’ç©ã‚€ã€‚
 			m_bonelist.push_back(std::move(bone));
-			//ƒRƒs[I‚í‚èB
+			//ã‚³ãƒ”ãƒ¼çµ‚ã‚ã‚Šã€‚
 			});
 	}
 }

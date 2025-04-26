@@ -6,35 +6,35 @@ namespace nsK2EngineLow
 	struct LevelObjectData : public Noncopyable
 	{
 		/// <summary>
-		/// ˆø”‚Å“n‚µ‚½ƒIƒuƒWƒFƒNƒg–¼‚ÌƒIƒuƒWƒFƒNƒg‚©’²‚×‚é
+		/// å¼•æ•°ã§æ¸¡ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹èª¿ã¹ã‚‹
 		/// </summary>
-		/// <param name="objName">’²‚×‚é–¼‘O</param>
-		/// <returns>–¼‘O‚ª“¯‚¶ê‡true‚ğ•Ô‚·</returns>
+		/// <param name="objName">èª¿ã¹ã‚‹åå‰</param>
+		/// <returns>åå‰ãŒåŒã˜å ´åˆtrueã‚’è¿”ã™</returns>
 		const bool EqualObjectName(const wchar_t* objName)
 		{
 			return wcscmp(objName, name) == 0;
 		}
 
 		/// <summary>
-		/// –¼‘O‚ª‘O•ûˆê’v‚©’²‚×‚é
+		/// åå‰ãŒå‰æ–¹ä¸€è‡´ã‹èª¿ã¹ã‚‹
 		/// </summary>
-		/// <param name="n">’²‚×‚é–¼‘O</param>
-		/// <returns>ˆê’v‚µ‚Ä‚¢‚½‚çtrue‚ğ•Ô‚·</returns>
+		/// <param name="n">èª¿ã¹ã‚‹åå‰</param>
+		/// <returns>ä¸€è‡´ã—ã¦ã„ãŸã‚‰trueã‚’è¿”ã™</returns>
 		const bool ForwardMatchName(const wchar_t* n)
 		{
 			auto len = wcslen(n);
 			auto namelen = wcslen(name);
 			if (len > namelen) {
-				//–¼‘O‚ª’·‚¢B•sˆê’v
+				//åå‰ãŒé•·ã„ã€‚ä¸ä¸€è‡´
 				return false;
 			}
 			return wcsncmp(n, name, len) == 0;
 		}
 
-		Vector3 position; //À•W
-		Quaternion rotation; //‰ñ“]
-		Vector3 scale; //Šg‘å—¦
-		const wchar_t* name; //–¼‘O
+		Vector3 position; //åº§æ¨™
+		Quaternion rotation; //å›è»¢
+		Vector3 scale; //æ‹¡å¤§ç‡
+		const wchar_t* name; //åå‰
 		int number = 0;
 	};
 
@@ -45,14 +45,14 @@ namespace nsK2EngineLow
 		~Level3DRender();
 
 		/// <summary>
-		/// ƒŒƒxƒ‹‚ğ‰Šú‰»
+		/// ãƒ¬ãƒ™ãƒ«ã‚’åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">tklƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="filePath">tklãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		/// <param name="hookFunc"></param>
 		void Init(const char* filePath, std::function<bool(LevelObjectData& objData)> hookFunc);
 
 	private:
-		//tklƒtƒ@ƒCƒ‹‚Ìs—ñ‚ğ•ÏŠ·‚·‚é
+		//tklãƒ•ã‚¡ã‚¤ãƒ«ã®è¡Œåˆ—ã‚’å¤‰æ›ã™ã‚‹
 		void MatrixTklToLevel();
 
 	private:

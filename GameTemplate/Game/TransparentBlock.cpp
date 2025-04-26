@@ -15,26 +15,26 @@ TransparentBlock::~TransparentBlock()
 
 bool TransparentBlock::Start()
 {
-	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
-	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/’@‚©‚ê‚½‚ ‚Æ‚ÌƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
+	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/brock2.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_transparentBlockModel.SetPosition(m_position);
 	m_transparentBlockModel.Update();
 
-	//ƒ‚ƒfƒ‹‚ğ“§–¾‚Éİ’è
+	//ãƒ¢ãƒ‡ãƒ«ã‚’é€æ˜ã«è¨­å®š
 	m_transparentBlockModel.SetAlpha(0.0f);
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	m_player = FindGO<Player>("player");
 	return true;
 }
 
 void TransparentBlock::Update()
 {
-	//‹——£‚ğ‹‚ß‚é
-	//“§–¾ƒuƒƒbƒN‚ğ’@‚¢‚½‚©H
+	//è·é›¢ã‚’æ±‚ã‚ã‚‹
+	//é€æ˜ãƒ–ãƒ­ãƒƒã‚¯ã‚’å©ã„ãŸã‹ï¼Ÿ
 	if (m_blockTouchFlag != true)
 	{
-		//X²‚ÍƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚½‚ç‹——£‚ğ‹‚ß‚È‚¢
+		//Xè»¸ã¯ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã„ãŸã‚‰è·é›¢ã‚’æ±‚ã‚ãªã„
 		if (m_position.y > m_player->m_position.y + 75.0f || m_player->m_playerState != m_player->enPlayer_jump)
 		{
 			m_blockTouchDistanceX.x = m_player->m_position.x - m_position.x;
@@ -47,25 +47,25 @@ void TransparentBlock::Update()
 		m_blockTouchDistance = m_player->m_position - m_position;
 	}
 
-	//ƒuƒƒbƒN‚ğ’@‚¢‚½‚©H
+	//ãƒ–ãƒ­ãƒƒã‚¯ã‚’å©ã„ãŸã‹ï¼Ÿ
 	if (m_blockTouchFlag != true)
 	{
-		//ˆê’è‚Ì‹——£‚Ü‚Ås‚Á‚Ä‚¢‚½‚ç
+		//ä¸€å®šã®è·é›¢ã¾ã§è¡Œã£ã¦ã„ãŸã‚‰
 		if (m_blockTouchDistanceX.Length() < 50.0f)
 		{
-			//ˆê’è‚Ì‹——£‚Ü‚Ås‚Á‚Ä‚¢‚½‚ç
+			//ä¸€å®šã®è·é›¢ã¾ã§è¡Œã£ã¦ã„ãŸã‚‰
 			if (m_blockTouchDistanceY.Length() < 70.0f)
 			{
-				//ƒuƒƒbƒN‚É“–‚½‚Á‚½‚ÌƒvƒŒƒCƒ„[‚Ì“®‚«
+				//ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã£ãŸæ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ã
 				m_player->m_moveSpeed.y = m_position.y - 650.0f;
 
-				//ƒ‚ƒfƒ‹‚ğ•s“§–¾‚É‚·‚é
+				//ãƒ¢ãƒ‡ãƒ«ã‚’ä¸é€æ˜ã«ã™ã‚‹
 				m_transparentBlockModel.SetAlpha(1.0f);
 
-				//ƒuƒƒbƒN‚ğ’@‚¢‚½
+				//ãƒ–ãƒ­ãƒƒã‚¯ã‚’å©ã„ãŸ
 				m_blockTouchFlag = true;
 
-				//“–‚½‚è”»’è‚ªì‚ç‚ê‚Ä‚¢‚È‚¢‚©H
+				//å½“ãŸã‚Šåˆ¤å®šãŒä½œã‚‰ã‚Œã¦ã„ãªã„ã‹ï¼Ÿ
 				if (m_collisionCreatFlag != true)
 				{
 					m_physicsStaticObject.CreateFromModel(m_transparentBlockModel.GetModel(), m_transparentBlockModel.GetModel().GetWorldMatrix());
@@ -76,13 +76,13 @@ void TransparentBlock::Update()
 	}
 	else
 	{
-		//ˆê’è‚Ì‹——£‚Ü‚Ås‚Á‚Ä‚¢‚½‚ç
+		//ä¸€å®šã®è·é›¢ã¾ã§è¡Œã£ã¦ã„ãŸã‚‰
 		if (m_blockTouchDistanceX.Length() < 50.0f)
 		{
-			//ˆê’è‚Ì‹——£‚Ü‚Ås‚Á‚Ä‚¢‚½‚ç
+			//ä¸€å®šã®è·é›¢ã¾ã§è¡Œã£ã¦ã„ãŸã‚‰
 			if (m_blockTouchDistance.Length() < 70.0f)
 			{
-				//ƒuƒƒbƒN‚É“–‚½‚Á‚½‚ÌƒvƒŒƒCƒ„[‚Ì“®‚«
+				//ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã£ãŸæ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ã
 				m_player->m_moveSpeed.y = m_position.y - 650.0f;
 			}
 		}

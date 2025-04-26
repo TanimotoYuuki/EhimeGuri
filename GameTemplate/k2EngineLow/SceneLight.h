@@ -1,78 +1,78 @@
 #pragma once
 namespace nsK2EngineLow
 {
-	//ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg
+	//ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆ
 	struct DirectionLight
 	{
-		Vector3 direction; //ƒ‰ƒCƒg‚Ì•ûŒü
+		Vector3 direction; //ãƒ©ã‚¤ãƒˆã®æ–¹å‘
 		float pad0;
-		Vector3 color; //ƒ‰ƒCƒg‚ÌƒJƒ‰[
+		Vector3 color; //ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼
 		float pad1;
 	};
 
-	//ƒ|ƒCƒ“ƒgƒ‰ƒCƒg
+	//ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆ
 	struct PointLight
 	{
-		Vector3 position; //ƒ‰ƒCƒg‚ÌˆÊ’u
+		Vector3 position; //ãƒ©ã‚¤ãƒˆã®ä½ç½®
 		float pad0;
-		Vector3 color; //ƒ‰ƒCƒg‚ÌƒJƒ‰[
-		float range; //ƒ‰ƒCƒg‚Ì‰e‹¿”ÍˆÍ
+		Vector3 color; //ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼
+		float range; //ãƒ©ã‚¤ãƒˆã®å½±éŸ¿ç¯„å›²
 	};
 
-	//ƒXƒ|ƒbƒgƒ‰ƒCƒg
+	//ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆ
 	struct SpotLight
 	{
-		Vector3 position; //ƒ‰ƒCƒg‚ÌˆÊ’u
+		Vector3 position; //ãƒ©ã‚¤ãƒˆã®ä½ç½®
 		float pad0;
-		Vector3 color; //ƒ‰ƒCƒg‚ÌƒJƒ‰[
-		float range; //ƒ‰ƒCƒg‚Ì‰e‹¿”ÍˆÍ
-		Vector3 direction; //ƒ‰ƒCƒg‚Ì•úË•ûŒü
-		float angle; //ƒ‰ƒCƒg‚Ì•úËŠp“x
+		Vector3 color; //ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼
+		float range; //ãƒ©ã‚¤ãƒˆã®å½±éŸ¿ç¯„å›²
+		Vector3 direction; //ãƒ©ã‚¤ãƒˆã®æ”¾å°„æ–¹å‘
+		float angle; //ãƒ©ã‚¤ãƒˆã®æ”¾å°„è§’åº¦
 	};
 
-	//”¼‹…ƒ‰ƒCƒg
+	//åŠçƒãƒ©ã‚¤ãƒˆ
 	struct HemLight
 	{
-		Vector3 groundColor; //’n–ÊF
+		Vector3 groundColor; //åœ°é¢è‰²
 		float pad0;
-		Vector3 skyColor; //“V‹…F
+		Vector3 skyColor; //å¤©çƒè‰²
 		float pad1;
-		Vector3 groundNormal; //’n–Ê‚Ì–@ü
+		Vector3 groundNormal; //åœ°é¢ã®æ³•ç·š
 	};
 
-	//ƒ‰ƒCƒg
+	//ãƒ©ã‚¤ãƒˆ
 	struct Light
 	{
-		DirectionLight directionLight; //ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg
-		Vector3 eyePos; //ƒJƒƒ‰‚ÌˆÊ’u
+		DirectionLight directionLight; //ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆ
+		Vector3 eyePos; //ã‚«ãƒ¡ãƒ©ã®ä½ç½®
 		float pad0;
-		Vector3 ambientLight; //ŠÂ‹«Œõ
+		Vector3 ambientLight; //ç’°å¢ƒå…‰
 		float pad1;
-		PointLight pointLight[10]; //ƒ|ƒCƒ“ƒgƒ‰ƒCƒg
-		SpotLight spotLight[10]; //ƒXƒ|ƒbƒgƒ‰ƒCƒg
-		HemLight hemLight; //”¼‹…ƒ‰ƒCƒg
+		PointLight pointLight[10]; //ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆ
+		SpotLight spotLight[10]; //ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆ
+		HemLight hemLight; //åŠçƒãƒ©ã‚¤ãƒˆ
 		float pad2;
-		Matrix mLVP; //ƒ‰ƒCƒgƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+		Matrix mLVP; //ãƒ©ã‚¤ãƒˆãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
 	};
 
 	class SceneLight : public Noncopyable
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Init();
 
 		/// <summary>
-		/// ƒ‰ƒCƒgƒJƒƒ‰XVˆ—
+		/// ãƒ©ã‚¤ãƒˆã‚«ãƒ¡ãƒ©æ›´æ–°å‡¦ç†
 		/// </summary>
 		void LightCameraUpdate();
 
 		/// <summary>
-		/// ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg‚ğİ’è‚·‚é
+		/// ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="direction">ƒ‰ƒCƒg‚Ì•ûŒü</param>
-		/// <param name="color">ƒ‰ƒCƒg‚ÌF</param>
+		/// <param name="direction">ãƒ©ã‚¤ãƒˆã®æ–¹å‘</param>
+		/// <param name="color">ãƒ©ã‚¤ãƒˆã®è‰²</param>
 		void SetDirectionLight(Vector3 direction, Vector3 color)
 		{
 			m_light.directionLight.direction = direction;
@@ -81,21 +81,21 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ŠÂ‹«Œõ‚ğİ’è‚·‚é
+		/// ç’°å¢ƒå…‰ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="ambient">ŠÂ‹«Œõ</param>
+		/// <param name="ambient">ç’°å¢ƒå…‰</param>
 		void SetAmbient(Vector3 ambient)
 		{
 			m_light.ambientLight = ambient;
 		}
 
 		/// <summary>
-		/// ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ğİ’è‚·‚é
+		/// ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="num">ƒ‰ƒCƒg”Ô†</param>
-		/// <param name="position">ƒ‰ƒCƒg‚ÌˆÊ’u</param>
-		/// <param name="color">ƒ‰ƒCƒg‚ÌƒJƒ‰[</param>
-		/// <param name="range">ƒ‰ƒCƒg‚Ì‰e‹¿”ÍˆÍ</param>
+		/// <param name="num">ãƒ©ã‚¤ãƒˆç•ªå·</param>
+		/// <param name="position">ãƒ©ã‚¤ãƒˆã®ä½ç½®</param>
+		/// <param name="color">ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼</param>
+		/// <param name="range">ãƒ©ã‚¤ãƒˆã®å½±éŸ¿ç¯„å›²</param>
 		void SetPointLight(int num, Vector3 position, Vector3 color, float range)
 		{
 			m_light.pointLight[num].position = position;
@@ -104,14 +104,14 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒXƒ|ƒbƒgƒ‰ƒCƒg‚ğİ’è‚·‚é
+		/// ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="num">ƒ‰ƒCƒg”Ô†</param>
-		/// <param name="position">ƒ‰ƒCƒg‚ÌˆÊ’u</param>
-		/// <param name="color">ƒ‰ƒCƒg‚ÌƒJƒ‰[</param>
-		/// <param name="range">ƒ‰ƒCƒg‚Ì‰e‹¿”ÍˆÍ</param>
-		/// <param name="direction">ƒ‰ƒCƒg‚Ì•úË•ûŒü</param>
-		/// <param name="angle">ƒ‰ƒCƒg‚Ì•úËŠp“x</param>
+		/// <param name="num">ãƒ©ã‚¤ãƒˆç•ªå·</param>
+		/// <param name="position">ãƒ©ã‚¤ãƒˆã®ä½ç½®</param>
+		/// <param name="color">ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼</param>
+		/// <param name="range">ãƒ©ã‚¤ãƒˆã®å½±éŸ¿ç¯„å›²</param>
+		/// <param name="direction">ãƒ©ã‚¤ãƒˆã®æ”¾å°„æ–¹å‘</param>
+		/// <param name="angle">ãƒ©ã‚¤ãƒˆã®æ”¾å°„è§’åº¦</param>
 		void SetSpotLight(int num, Vector3 position, Vector3 color, float range, Vector3 direction, float angle)
 		{
 			m_light.spotLight[num].position = position;
@@ -123,11 +123,11 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ”¼‹…ƒ‰ƒCƒg‚ğİ’è‚·‚é
+		/// åŠçƒãƒ©ã‚¤ãƒˆã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="groundColor">’n–ÊF</param>
-		/// <param name="skyColor">“V‹…F</param>
-		/// <param name="groundNormal">’n–Ê‚Ì–@ü</param>
+		/// <param name="groundColor">åœ°é¢è‰²</param>
+		/// <param name="skyColor">å¤©çƒè‰²</param>
+		/// <param name="groundNormal">åœ°é¢ã®æ³•ç·š</param>
 		void SetHemLight(Vector3 groundColor, Vector3 skyColor, Vector3 groundNormal)
 		{
 			m_light.hemLight.groundColor = groundColor;
@@ -136,7 +136,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒV[ƒ“ƒ‰ƒCƒg‚ğæ“¾
+		/// ã‚·ãƒ¼ãƒ³ãƒ©ã‚¤ãƒˆã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Light& GetLight()
@@ -145,7 +145,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒ‰ƒCƒgƒJƒƒ‰‚ğæ“¾ 
+		/// ãƒ©ã‚¤ãƒˆã‚«ãƒ¡ãƒ©ã‚’å–å¾— 
 		/// </summary>
 		Camera& GetLightCamera()
 		{

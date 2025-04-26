@@ -22,8 +22,8 @@ Needle::~Needle()
 }
 bool Needle::Start()
 {
-	//Needleƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒX
-	m_modelRender.Init("Assets/modelData/Stage/Assets/j.tkm");
+	//Needleãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	m_modelRender.Init("Assets/modelData/Stage/Assets/é‡.tkm");
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
 	m_player = FindGO<Player>("player");
@@ -31,7 +31,7 @@ bool Needle::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//ƒRƒŠƒWƒ‡ƒ“‚ğ“®‚­°‚Éİ’u
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’å‹•ãåºŠã«è¨­ç½®
 	m_collisionObject->CreateBox
 	(
 		m_needlePosition + COLLISION_HEIGHT,

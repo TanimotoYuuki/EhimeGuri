@@ -4,50 +4,50 @@ namespace nsK2EngineLow
 {
 	void SceneLight::Init()
 	{
-		//ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg‚Ì•ûŒü
+		//ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆã®æ–¹å‘
 		m_light.directionLight.direction.x = 0.0f;
 		m_light.directionLight.direction.y = -1.0f;
 		m_light.directionLight.direction.z = 1.0f;
 
-		//³‹K‰»
+		//æ­£è¦åŒ–
 		m_light.directionLight.direction.Normalize();
 
-		//ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg‚ÌƒJƒ‰[
+		//ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼
 		m_light.directionLight.color.x = 0.5f;
 		m_light.directionLight.color.y = 0.5f;
 		m_light.directionLight.color.z = 0.5f;
 
-		//ŠÂ‹«Œõ
+		//ç’°å¢ƒå…‰
 		m_light.ambientLight.x = 0.3f;
 		m_light.ambientLight.y = 0.3f;
 		m_light.ambientLight.z = 0.3f;
 		m_light.eyePos = g_camera3D->GetPosition();
 
-		//”¼‹…ƒ‰ƒCƒg‚Ì’n–ÊF
+		//åŠçƒãƒ©ã‚¤ãƒˆã®åœ°é¢è‰²
 		m_light.hemLight.groundColor = Vector3(0.1f, 0.1f, 0.1f);
-		//”¼‹…ƒ‰ƒCƒg‚Ì“V‹…F
+		//åŠçƒãƒ©ã‚¤ãƒˆã®å¤©çƒè‰²
 		m_light.hemLight.skyColor = Vector3(0.05f, 0.1f, 0.2f);
-		//”¼‹…ƒ‰ƒCƒg‚Ì’n–Ê‚Ì–@ü
+		//åŠçƒãƒ©ã‚¤ãƒˆã®åœ°é¢ã®æ³•ç·š
 		m_light.hemLight.groundNormal = Vector3(0.0f, 1.0f, 0.0f);
 
-		//ƒJƒƒ‰‚ÌˆÊ’u‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’è¨­å®š
 		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(0, 600, 0));
-		//ƒJƒƒ‰‚Ì’‹“_‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã‚’è¨­å®š
 		m_lightCamera.SetTarget(g_camera3D->GetTarget());
-		//ã•ûŒü‚ğİ’è
+		//ä¸Šæ–¹å‘ã‚’è¨­å®š
 		m_lightCamera.SetUp(1, 0, 0);
-		//ƒ‰ƒCƒgƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚ÌŒvZ
+		//ãƒ©ã‚¤ãƒˆãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®è¨ˆç®—
 		m_lightCamera.Update();
 		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
 	}
 
 	void SceneLight::LightCameraUpdate()
 	{
-		//ƒJƒƒ‰‚ÌˆÊ’u‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’è¨­å®š
 		m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(-300, 600, 200));
-		//ƒJƒƒ‰‚Ì’‹“_‚ğİ’è
+		//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã‚’è¨­å®š
 		m_lightCamera.SetTarget(g_camera3D->GetTarget());
-		//ƒ‰ƒCƒgƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚ÌŒvZ
+		//ãƒ©ã‚¤ãƒˆãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®è¨ˆç®—
 		m_lightCamera.Update();
 		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
 	}

@@ -10,13 +10,13 @@ GameClear::~GameClear()
 
 bool GameClear::Start()
 {
-	//ƒJƒƒ‰‚Ì‰Šú‰»
+	//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 	InitCamera();
 
-	//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	InitSprite();
 
-	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 	InitModel();
 
 	NewGO<Fade>(0, "fade");
@@ -28,20 +28,20 @@ bool GameClear::Start()
 
 void GameClear::Update()
 {
-	//ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 	Action();
 
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o‚ªI‚í‚Á‚½‚©?
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‹?
 	if (m_gameClearDirectionFlag != true)
 	{
-		//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+		//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 		SpriteMove();
 	}
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 	PlayerModelAnimationManage();
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 	PlayerModelPlayAnimation();
 
 	m_playerModel.Update();
@@ -49,274 +49,274 @@ void GameClear::Update()
 
 void GameClear::Render(RenderContext& rc)
 {
-	//ƒQ[ƒ€”wŒi
+	//ã‚²ãƒ¼ãƒ èƒŒæ™¯
 	m_gameBackground.Draw(rc);
 
-	//ƒŠƒUƒ‹ƒg‰æ–Ê
+	//ãƒªã‚¶ãƒ«ãƒˆç”»é¢
 	m_result.Draw(rc);
 
-	//ƒp[ƒZƒ“ƒgUI
+	//ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆUI
 	m_percentUI.Draw(rc);
 
-	//ˆÊUI
+	//ä½UI
 	m_placeUI.Draw(rc);
 
-	//ƒ‰ƒ“ƒNUI
+	//ãƒ©ãƒ³ã‚¯UI
 	m_rankUI[m_rankState].Draw(rc);
 
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o‚ªI‚í‚Á‚Ä‚¢‚é‚Æ‚«
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã¨ã
 	if (m_gameClearDirectionFlag == true)
 	{
-		//Aƒ{ƒ^ƒ“UI
+		//Aãƒœã‚¿ãƒ³UI
 		m_aButtonUI.Draw(rc);
 
-		//ƒ^ƒCƒgƒ‹‚Ö–ß‚éUI
+		//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹UI
 		m_returnTitleUI.Draw(rc);
 	}
 
 	//100%
 	if (m_hundredPlace[enNumberDraw_GatheringRate] >= 1.0f)
 	{
-		//ûW—¦—p”šUI(•S‚ÌˆÊ)
+		//åé›†ç‡ç”¨æ•°å­—UI(ç™¾ã®ä½)
 		m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].Draw(rc);
 	}
 
-	//10%`
+	//10%ï½
 	if (m_tenPlace[enNumberDraw_GatheringRate] >= 1.0f)
 	{
-		//ûW—¦—p”šUI(\‚ÌˆÊ)
+		//åé›†ç‡ç”¨æ•°å­—UI(åã®ä½)
 		m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].Draw(rc);
 	}
 
-	//0%`
-	//ûW—¦—p”šUI(ˆê‚ÌˆÊ)
+	//0%ï½
+	//åé›†ç‡ç”¨æ•°å­—UI(ä¸€ã®ä½)
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].Draw(rc);
 
-	//100ˆÊ
+	//100ä½
 	if (m_hundredPlace[enNumberDraw_Ranking] >= 1.0f)
 	{
 		m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].Draw(rc);
 	}
 
-	//10ˆÊ`
+	//10ä½ï½
 	if (m_tenPlace[enNumberDraw_Ranking] >= 1.0f)
 	{
-		//‡ˆÊ—p”šUI(\‚ÌˆÊ)
+		//é †ä½ç”¨æ•°å­—UI(åã®ä½)
 		m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].Draw(rc);
 	}
 
-	//1ˆÊ`
-	//‡ˆÊ—p”šUI(ˆê‚ÌˆÊ)
+	//1ä½ï½
+	//é †ä½ç”¨æ•°å­—UI(ä¸€ã®ä½)
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].Draw(rc);
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
 	m_playerModel.Draw(rc);
 }
 
-//ƒJƒƒ‰‚Ì‰Šú‰»
+//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 void GameClear::InitCamera()
 {
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 void GameClear::InitSprite()
 {
-	//ƒŠƒUƒ‹ƒg‰æ–Ê
+	//ãƒªã‚¶ãƒ«ãƒˆç”»é¢
 	m_result.Init("Assets/result/screen/result.dds", 1600, 900);
 
-	//ƒp[ƒZƒ“ƒgUI
+	//ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆUI
 	m_percentUI.Init("Assets/result/text/percent.dds", 1024, 128);
 	m_percentUI.SetPosition(Vector3(675.0f, 275.0f, 0.0f));
 	m_percentUI.Update();
 
-	//ˆÊUI
+	//ä½UI
 	m_placeUI.Init("Assets/result/text/place.dds", 1024, 128);
 	m_placeUI.SetPosition(Vector3(672.5f, 10.0f, 0.0f));
 	m_placeUI.Update();
 
-	//Aƒ{ƒ^ƒ“UI
+	//Aãƒœã‚¿ãƒ³UI
 	m_aButtonUI.Init("Assets/result/gamepad/abutton.dds", 512, 512);
 	m_aButtonUI.SetPosition(Vector3(Vector3(475.0f, -400.0f, 0.0f)));
 	m_aButtonUI.SetScale(Vector3(Vector3(0.1f, 0.1f, 0.1f)));
 	m_aButtonUI.Update();
 
-	//ƒ^ƒCƒgƒ‹‚Ö–ß‚éUI
+	//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹UI
 	m_returnTitleUI.Init("Assets/result/text/returntitle.dds", 1024, 128);
 	m_returnTitleUI.SetPosition(Vector3(615.0f, -400.0f, 0.0f));
 	m_returnTitleUI.SetScale(Vector3(0.3f,0.3f,0.3f));
 	m_returnTitleUI.Update();
 
-	//ûW—¦‚ÌŒvZ
+	//åé›†ç‡ã®è¨ˆç®—
 	GatheringRate(m_gatheringItemNum, m_totalItemNum);
 
-	//ûW—¦—p”šUI(•S‚ÌˆÊ)
+	//åé›†ç‡ç”¨æ•°å­—UI(ç™¾ã®ä½)
 	GetNumberSpriteFilePaht(m_hundredPlace[enNumberDraw_GatheringRate]);
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(400.0f, 283.5f, 0.0f));
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].Update();
 
-	//ûW—¦—p”šUI(\‚ÌˆÊ)
+	//åé›†ç‡ç”¨æ•°å­—UI(åã®ä½)
 	GetNumberSpriteFilePaht(m_tenPlace[enNumberDraw_GatheringRate]);
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(480.0f, 283.5f, 0.0f));
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].Update();
 
-	//ûW—¦—p”šUI(ˆê‚ÌˆÊ)
+	//åé›†ç‡ç”¨æ•°å­—UI(ä¸€ã®ä½)
 	GetNumberSpriteFilePaht(m_onePlace[enNumberDraw_GatheringRate]);
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(560.0f, 283.5f, 0.0f));
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].Update();
 
-	//‡ˆÊ‚ğİ’è‚·‚é
+	//é †ä½ã‚’è¨­å®šã™ã‚‹
 	SetRanking();
 
-	//‡ˆÊ—p”šUI(\‚ÌˆÊ)
+	//é †ä½ç”¨æ•°å­—UI(åã®ä½)
 	GetNumberSpriteFilePaht(m_hundredPlace[enNumberDraw_Ranking]);
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetPosition(Vector3(400.0f, 7.5f, 0.0f));
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f,1.0f,1.0f,0.0f));
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].Update();
 
-	//‡ˆÊ—p”šUI(\‚ÌˆÊ)
+	//é †ä½ç”¨æ•°å­—UI(åã®ä½)
 	GetNumberSpriteFilePaht(m_tenPlace[enNumberDraw_Ranking]);
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetPosition(Vector3(480.0f, 7.5f, 0.0f));
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].Update();
 
-	//‡ˆÊ—p”šUI(ˆê‚ÌˆÊ)
+	//é †ä½ç”¨æ•°å­—UI(ä¸€ã®ä½)
 	GetNumberSpriteFilePaht(m_onePlace[enNumberDraw_Ranking]);
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].Init(m_numberSpriteFilePath, 1024, 128);
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetPosition(Vector3(560.0f, 7.5f, 0.0f));
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].Update();
 
-	//ƒ‰ƒ“ƒN‚ğİ’è‚·‚é
+	//ãƒ©ãƒ³ã‚¯ã‚’è¨­å®šã™ã‚‹
 	SetRank();
 
-	//ƒ‰ƒ“ƒNUI
+	//ãƒ©ãƒ³ã‚¯UI
 	m_rankUI[m_rankState].Init(m_rankSpriteFilePath, 1024, 128);
 	m_rankUI[m_rankState].SetPosition(Vector3(480.0f, -275.5f, 0.0f));
 	m_rankUI[m_rankState].SetMulColor(m_rankSpriteColor);
 	m_rankUI[m_rankState].Update();
 
-	//ƒQ[ƒ€”wŒi
+	//ã‚²ãƒ¼ãƒ èƒŒæ™¯
 	m_gameBackground.Init("Assets/Sprite/yellow.dds");
 	m_gameBackground.Update();
 }
 
-//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+//ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 void GameClear::InitModel()
 {
-	//0.‘Ò‹@ƒAƒjƒ[ƒVƒ‡ƒ“
+	//0.å¾…æ©Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_Idle].Load("Assets/animData/playeridle.tka");
 	m_animationClip[enAnimationClip_Idle].SetLoopFlag(true);
-	//1.‰÷‚µ‚¢ƒAƒjƒ[ƒVƒ‡ƒ“
+	//1.æ‚”ã—ã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_Defeat].Load("Assets/animData/defeat.tka");
 	m_animationClip[enAnimationClip_Defeat].SetLoopFlag(true);
-	//2.ƒKƒbƒcƒAƒjƒ[ƒVƒ‡ƒ“
+	//2.ã‚¬ãƒƒãƒ„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_FistPump].Load("Assets/animData/fistpump.tka");
 	m_animationClip[enAnimationClip_FistPump].SetLoopFlag(true);
-	//3.Šğ‚µ‚¢ƒAƒjƒ[ƒVƒ‡ƒ“
+	//3.å¬‰ã—ã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_animationClip[enAnimationClip_Victory].Load("Assets/animData/victory.tka");
 	m_animationClip[enAnimationClip_Victory].SetLoopFlag(true);
 
-	//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
 	m_playerModel.Init("Assets/modelData/player/player.tkm", m_animationClip, enAnimationClip_Num, enModelUpAxisZ);
 
-	//ˆÊ’u‚Ìİ’è
+	//ä½ç½®ã®è¨­å®š
 	m_playerModel.SetPosition(m_playerModelPosition);
 
-	//‰ñ“]‚Ìİ’è
+	//å›è»¢ã®è¨­å®š
 	m_playerModelRotation.SetRotationDegY(180.0f);
 	m_playerModel.SetRotation(m_playerModelRotation);
 
-	//‘å‚«‚³‚Ìİ’è
+	//å¤§ãã•ã®è¨­å®š
 	m_playerModel.SetScale(m_playerModelScale);
 
 	m_playerModel.Update();
 }
 
-//ûW—¦‚ÌŒvZ
+//åé›†ç‡ã®è¨ˆç®—
 void GameClear::GatheringRate(int gatheringItemNum, int totalItemNum)
 {
-	//ûW—¦
+	//åé›†ç‡
 	m_gatheringRate = (double(gatheringItemNum) / double(totalItemNum)) * 100.0f;
 
-	//UI‚ğ•\¦‚·‚é‚½‚ß‚ÌŒvZ
-	//•S‚ÌˆÊ
+	//UIã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®è¨ˆç®—
+	//ç™¾ã®ä½
 	m_hundredPlace[enNumberDraw_GatheringRate] = m_gatheringRate / 100;
 
-	//\‚ÌˆÊ
+	//åã®ä½
 	m_tenPlace[enNumberDraw_GatheringRate] = m_gatheringRate / 10;
 	if (m_tenPlace[enNumberDraw_GatheringRate] >= 10.0f)
 	{
 		m_tenPlace[enNumberDraw_GatheringRate] = enNumver_TenOver;
 	}
 
-	//ˆê‚ÌˆÊ
+	//ä¸€ã®ä½
 	m_onePlace[enNumberDraw_GatheringRate] = m_gatheringRate % 10;
 }
 
-//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 void GameClear::PlayerModelAnimationManage()
 {
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o‚ªI‚í‚Á‚½‚ç
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‚‰
 	if (m_gameClearDirectionFlag == true)
 	{
-		//ûW—¦‚ª80%ˆÈã‚È‚ç(S`Aƒ‰ƒ“ƒN)
+		//åé›†ç‡ãŒ80%ä»¥ä¸Šãªã‚‰(Sï½Aãƒ©ãƒ³ã‚¯)
 		if (m_gatheringRate >= 80)
 		{
-			m_animationState = enAnimationState_Victory;	//Šğ‚µ‚¢
+			m_animationState = enAnimationState_Victory;	//å¬‰ã—ã„
 		}
-		//ûW—¦‚ª40%ˆÈã‚È‚ç(B`Cƒ‰ƒ“ƒN)
+		//åé›†ç‡ãŒ40%ä»¥ä¸Šãªã‚‰(Bï½Cãƒ©ãƒ³ã‚¯)
 		else if (m_gatheringRate >= 40)
 		{
-			m_animationState = enAnimationState_FistPump;	//ƒKƒbƒc
+			m_animationState = enAnimationState_FistPump;	//ã‚¬ãƒƒãƒ„
 		}
-		//ûW—¦‚ª40%–¢–‚È‚ç(D`Eƒ‰ƒ“ƒN)
+		//åé›†ç‡ãŒ40%æœªæº€ãªã‚‰(Dï½Eãƒ©ãƒ³ã‚¯)
 		else
 		{
-			m_animationState = enAnimationState_Defeat;		//‰÷‚µ‚¢
+			m_animationState = enAnimationState_Defeat;		//æ‚”ã—ã„
 		}
 	}
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o‚ªI‚í‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãŒçµ‚ã‚ã£ã¦ã„ãªã‹ã£ãŸã‚‰
 	else
 	{
-		m_animationState = enAnimationClip_Idle;	//‘Ò‹@
+		m_animationState = enAnimationClip_Idle;	//å¾…æ©Ÿ
 	}
 }
 
-//ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 void GameClear::SpriteMove()
 {
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰oƒXƒe[ƒg
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºã‚¹ãƒ†ãƒ¼ãƒˆ
 	switch (m_gameClearDirectionState)
 	{
-	case enGameClearDirection_GatheringRate:	//ûW—¦
+	case enGameClearDirection_GatheringRate:	//åé›†ç‡
 		m_gatheringRateUIAlphaColor += g_gameTime->GetFrameDeltaTime();
 
-		//ûW—¦UI‚ª•s“§–¾‚É‚È‚Á‚½‚ç
+		//åé›†ç‡UIãŒä¸é€æ˜ã«ãªã£ãŸã‚‰
 		if (m_gatheringRateUIAlphaColor > 1.0f)
 		{
 			m_gatheringRateUIAlphaColor = 1.0f;
 			m_gameClearDirectionState = enGameClearDirection_Ranking;
 		}
 
-		//ûW—¦—p”šUI
+		//åé›†ç‡ç”¨æ•°å­—UI
 		m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
 		m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
 		m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gatheringRateUIAlphaColor));
 		break;
-	case enGameClearDirection_Ranking:			//‡ˆÊ
+	case enGameClearDirection_Ranking:			//é †ä½
 		m_rankingUIAlphaColor += g_gameTime->GetFrameDeltaTime();
 
-		//‡ˆÊ—pUI‚ª•s“§–¾‚É‚È‚Á‚½‚ç
+		//é †ä½ç”¨UIãŒä¸é€æ˜ã«ãªã£ãŸã‚‰
 		if (m_rankingUIAlphaColor > 1.0f)
 		{
 			m_rankingUIAlphaColor = 1.0f;
@@ -324,15 +324,15 @@ void GameClear::SpriteMove()
 			return;
 		}
 
-		//‡ˆÊ—p”šUI
+		//é †ä½ç”¨æ•°å­—UI
 		m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
 		m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
 		m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_rankingUIAlphaColor));
 		break;
-	case enGameClearDirection_Rank:				//ƒ‰ƒ“ƒN
+	case enGameClearDirection_Rank:				//ãƒ©ãƒ³ã‚¯
 		m_rankUIAlphaColor += g_gameTime->GetFrameDeltaTime();
 
-		//ƒ‰ƒ“ƒN—pUI‚ª•s“§–¾‚É‚È‚Á‚½‚ç
+		//ãƒ©ãƒ³ã‚¯ç”¨UIãŒä¸é€æ˜ã«ãªã£ãŸã‚‰
 		if (m_rankUIAlphaColor > 1.0f)
 		{
 			m_rankUIAlphaColor = 1.0f;
@@ -340,7 +340,7 @@ void GameClear::SpriteMove()
 			return;
 		}
 
-		//ƒ‰ƒ“ƒNUI
+		//ãƒ©ãƒ³ã‚¯UI
 		m_rankUI[m_rankState].SetMulColor(Vector4(m_rankSpriteColor.x, m_rankSpriteColor.y, m_rankSpriteColor.z, m_rankUIAlphaColor));
 		break;
 	default:
@@ -348,26 +348,26 @@ void GameClear::SpriteMove()
 	}
 }
 
-//ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 void GameClear::Action()
 {
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o‚ªI‚í‚Á‚Ä‚¢‚È‚¢‚Æ‚«
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãŒçµ‚ã‚ã£ã¦ã„ãªã„ã¨ã
 	if (m_gameClearDirectionFlag != true)
 	{
-		//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç‰‰o‚ğƒXƒLƒbƒv‚Å‚«‚é
+		//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰æ¼”å‡ºã‚’ã‚¹ã‚­ãƒƒãƒ—ã§ãã‚‹
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
-			//ûW—¦UI
+			//åé›†ç‡UI
 			m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-			//‡ˆÊUI
+			//é †ä½UI
 			m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-			//ƒ‰ƒ“ƒNUI
+			//ãƒ©ãƒ³ã‚¯UI
 			m_rankUI[m_rankState].SetMulColor(Vector4(m_rankSpriteColor.x, m_rankSpriteColor.y, m_rankSpriteColor.z, 1.0f));
 
 			m_gameClearDirectionFlag = true;
@@ -375,10 +375,10 @@ void GameClear::Action()
 		return;
 	}
 
-	//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚Æ‚«
+	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„ã¨ã
 	if (m_titleScreenTransitionFlag != true)
 	{
-		//Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒ^ƒCƒgƒ‹‚Ö–ß‚é
+		//Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_titleScreenTransitionFlag = true;
@@ -395,22 +395,22 @@ void GameClear::Action()
 	}
 }
 
-//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 void GameClear::PlayerModelPlayAnimation()
 {
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 	switch (m_animationState)
 	{
-	case enAnimationState_Idle:			//‘Ò‹@
+	case enAnimationState_Idle:			//å¾…æ©Ÿ
 		m_playerModel.PlayAnimation(enAnimationClip_Idle);
 		break;
-	case enAnimationState_Defeat:		//‰÷‚µ‚¢
+	case enAnimationState_Defeat:		//æ‚”ã—ã„
 		m_playerModel.PlayAnimation(enAnimationClip_Defeat);
 		break;
-	case enAnimationState_FistPump:		//ƒKƒbƒc
+	case enAnimationState_FistPump:		//ã‚¬ãƒƒãƒ„
 		m_playerModel.PlayAnimation(enAnimationClip_FistPump);
 		break;
-	case enAnimationState_Victory:		//Šğ‚µ‚¢
+	case enAnimationState_Victory:		//å¬‰ã—ã„
 		m_playerModel.PlayAnimation(enAnimationClip_Victory);
 		break;
 	default:

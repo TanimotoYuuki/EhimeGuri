@@ -1,11 +1,11 @@
 /*!
- * @brief ƒuƒ‹[ƒ€
+ * @brief ãƒ–ãƒ«ãƒ¼ãƒ 
  */
 
 cbuffer cb : register(b0)
 {
-    float4x4 mvp; // MVPs—ñ
-    float4 mulColor; // æZƒJƒ‰[
+    float4x4 mvp; // MVPè¡Œåˆ—
+    float4 mulColor; // ä¹—ç®—ã‚«ãƒ©ãƒ¼
 };
 
 struct VSInput
@@ -21,7 +21,7 @@ struct PSInput
 };
 
 /*!
- * @brief ’¸“_ƒVƒF[ƒ_[
+ * @brief é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
  */
 PSInput VSMain(VSInput In)
 {
@@ -31,11 +31,11 @@ PSInput VSMain(VSInput In)
     return psIn;
 }
 
-Texture2D<float4> mainRenderTargetTexture : register(t0); // ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒeƒNƒXƒ`ƒƒ
+Texture2D<float4> mainRenderTargetTexture : register(t0); // ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
 sampler Sampler : register(s0);
 
 /////////////////////////////////////////////////////////
-// ƒuƒ‰[
+// ãƒ–ãƒ©ãƒ¼
 /////////////////////////////////////////////////////////
 struct PS_BlurInput
 {
@@ -50,62 +50,62 @@ struct PS_BlurInput
     float4 tex7 : TEXCOORD7;
 };
 
-Texture2D<float4> sceneTexture : register(t0); // ƒV[ƒ“ƒeƒNƒXƒ`ƒƒ
+Texture2D<float4> sceneTexture : register(t0); // ã‚·ãƒ¼ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£
 
 /*!
- * @brief ƒuƒ‰[—p‚Ì’è”ƒoƒbƒtƒ@[
+ * @brief ãƒ–ãƒ©ãƒ¼ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ¼
  */
 cbuffer CBBlur : register(b1)
 {
-    float4 weight[2]; // d‚İ
+    float4 weight[2]; // é‡ã¿
 }
 
 /*!
- * @brief ‰¡ƒuƒ‰[’¸“_ƒVƒF[ƒ_[
+ * @brief æ¨ªãƒ–ãƒ©ãƒ¼é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
  */
 PS_BlurInput VSXBlur(VSInput In)
 {
-    // step-13 ‰¡ƒuƒ‰[—p‚Ì’¸“_ƒVƒF[ƒ_[‚ğÀ‘•
+    // step-13 æ¨ªãƒ–ãƒ©ãƒ¼ç”¨ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’å®Ÿè£…
 
     PS_BlurInput Out;
 
-    // À•W•ÏŠ·
+    // åº§æ¨™å¤‰æ›
     Out.pos = mul(mvp, In.pos);
 
-    // ƒeƒNƒXƒ`ƒƒƒTƒCƒY‚ğæ“¾
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µã‚¤ã‚ºã‚’å–å¾—
     float2 texSize;
     float level;
     sceneTexture.GetDimensions(0, texSize.x, texSize.y, level);
 
-    // Šî€ƒeƒNƒZƒ‹‚ÌUVÀ•W‚ğ‹L˜^
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã®UVåº§æ¨™ã‚’è¨˜éŒ²
     float2 tex = In.uv;
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+1ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+1ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex0.xy = float2(1.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+3ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+3ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
 
     Out.tex1.xy = float2(3.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+5ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+5ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex2.xy = float2(5.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+7ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+7ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex3.xy = float2(7.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+9ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+9ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex4.xy = float2(9.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+11ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+11ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex5.xy = float2(11.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+13ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+13ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex6.xy = float2(13.0f / texSize.x, 0.0f);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çUÀ•W‚ğ+15ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Uåº§æ¨™ã‚’+15ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex7.xy = float2(15.0f / texSize.x, 0.0f);
 
-    // ƒIƒtƒZƒbƒg‚É-1‚ğŠ|‚¯‚Äƒ}ƒCƒiƒX•ûŒü‚ÌƒIƒtƒZƒbƒg‚àŒvZ‚·‚é
+    // ã‚ªãƒ•ã‚»ãƒƒãƒˆã«-1ã‚’æ›ã‘ã¦ãƒã‚¤ãƒŠã‚¹æ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚‚è¨ˆç®—ã™ã‚‹
     Out.tex0.zw = Out.tex0.xy * -1.0f;
     Out.tex1.zw = Out.tex1.xy * -1.0f;
     Out.tex2.zw = Out.tex2.xy * -1.0f;
@@ -115,8 +115,8 @@ PS_BlurInput VSXBlur(VSInput In)
     Out.tex6.zw = Out.tex6.xy * -1.0f;
     Out.tex7.zw = Out.tex7.xy * -1.0f;
 
-    // ƒIƒtƒZƒbƒg‚ÉŠî€ƒeƒNƒZƒ‹‚ÌUVÀ•W‚ğ‘«‚µZ‚µ‚ÄA
-    // ÀÛ‚ÉƒTƒ“ƒvƒŠƒ“ƒO‚·‚éUVÀ•W‚É•ÏŠ·‚·‚é
+    // ã‚ªãƒ•ã‚»ãƒƒãƒˆã«åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã®UVåº§æ¨™ã‚’è¶³ã—ç®—ã—ã¦ã€
+    // å®Ÿéš›ã«ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹UVåº§æ¨™ã«å¤‰æ›ã™ã‚‹
     Out.tex0 += float4(tex, tex);
     Out.tex1 += float4(tex, tex);
     Out.tex2 += float4(tex, tex);
@@ -130,49 +130,49 @@ PS_BlurInput VSXBlur(VSInput In)
 }
 
 /*!
- * @brief Yƒuƒ‰[’¸“_ƒVƒF[ƒ_[
+ * @brief Yãƒ–ãƒ©ãƒ¼é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
  */
 PS_BlurInput VSYBlur(VSInput In)
 {
-    // step-14 Yƒuƒ‰[—p‚Ì’¸“_ƒVƒF[ƒ_[‚ğÀ‘•
+    // step-14 Yãƒ–ãƒ©ãƒ¼ç”¨ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’å®Ÿè£…
     PS_BlurInput Out;
 
-    // À•W•ÏŠ·
+    // åº§æ¨™å¤‰æ›
     Out.pos = mul(mvp, In.pos);
 
-    // ƒeƒNƒXƒ`ƒƒƒTƒCƒY‚ğæ“¾
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µã‚¤ã‚ºã‚’å–å¾—
     float2 texSize;
     float level;
     sceneTexture.GetDimensions(0, texSize.x, texSize.y, level);
 
-    // Šî€ƒeƒNƒZƒ‹‚ÌUVÀ•W‚ğ‹L˜^
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã®UVåº§æ¨™ã‚’è¨˜éŒ²
     float2 tex = In.uv;
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+1ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+1ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex0.xy = float2(0.0f, 1.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+3ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+3ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex1.xy = float2(0.0f, 3.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+5ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+5ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex2.xy = float2(0.0f, 5.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+7ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+7ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex3.xy = float2(0.0f, 7.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+9ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+9ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex4.xy = float2(0.0f, 9.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+11ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+11ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex5.xy = float2(0.0f, 11.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+13ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+13ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex6.xy = float2(0.0f, 13.0f / texSize.y);
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çVÀ•W‚ğ+15ƒeƒNƒZƒ‹‚¸‚ç‚·‚½‚ß‚ÌƒIƒtƒZƒbƒg‚ğŒvZ‚·‚é
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰Våº§æ¨™ã‚’+15ãƒ†ã‚¯ã‚»ãƒ«ãšã‚‰ã™ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—ã™ã‚‹
     Out.tex7.xy = float2(0.0f, 15.0f / texSize.y);
 
-    // ƒIƒtƒZƒbƒg‚É-1‚ğŠ|‚¯‚Äƒ}ƒCƒiƒX•ûŒü‚ÌƒIƒtƒZƒbƒg‚àŒvZ‚·‚é
+    // ã‚ªãƒ•ã‚»ãƒƒãƒˆã«-1ã‚’æ›ã‘ã¦ãƒã‚¤ãƒŠã‚¹æ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚‚è¨ˆç®—ã™ã‚‹
     Out.tex0.zw = Out.tex0.xy * -1.0f;
     Out.tex1.zw = Out.tex1.xy * -1.0f;
     Out.tex2.zw = Out.tex2.xy * -1.0f;
@@ -182,8 +182,8 @@ PS_BlurInput VSYBlur(VSInput In)
     Out.tex6.zw = Out.tex6.xy * -1.0f;
     Out.tex7.zw = Out.tex7.xy * -1.0f;
 
-    // ƒIƒtƒZƒbƒg‚ÉŠî€ƒeƒNƒZƒ‹‚ÌUVÀ•W‚ğ‘«‚µZ‚µ‚ÄA
-    // ÀÛ‚ÉƒTƒ“ƒvƒŠƒ“ƒO‚·‚éUVÀ•W‚É•ÏŠ·‚·‚é
+    // ã‚ªãƒ•ã‚»ãƒƒãƒˆã«åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã®UVåº§æ¨™ã‚’è¶³ã—ç®—ã—ã¦ã€
+    // å®Ÿéš›ã«ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹UVåº§æ¨™ã«å¤‰æ›ã™ã‚‹
     Out.tex0 += float4(tex, tex);
     Out.tex1 += float4(tex, tex);
     Out.tex2 += float4(tex, tex);
@@ -196,14 +196,14 @@ PS_BlurInput VSYBlur(VSInput In)
 }
 
 /*!
- * @brief ƒuƒ‰[ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+ * @brief ãƒ–ãƒ©ãƒ¼ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
  */
 float4 PSBlur(PS_BlurInput In) : SV_Target0
 {
-    // step-15 X,Yƒuƒ‰[—p‚ÌƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ğÀ‘•
+    // step-15 X,Yãƒ–ãƒ©ãƒ¼ç”¨ã®ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’å®Ÿè£…
     float4 Color;
 
-    // Šî€ƒeƒNƒZƒ‹‚©‚çƒvƒ‰ƒX•ûŒü‚É8ƒeƒNƒZƒ‹Ad‚İ•t‚«‚ÅƒTƒ“ƒvƒŠƒ“ƒO
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã‹ã‚‰ãƒ—ãƒ©ã‚¹æ–¹å‘ã«8ãƒ†ã‚¯ã‚»ãƒ«ã€é‡ã¿ä»˜ãã§ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°
     Color = weight[0].x * sceneTexture.Sample(Sampler, In.tex0.xy);
     Color += weight[0].y * sceneTexture.Sample(Sampler, In.tex1.xy);
     Color += weight[0].z * sceneTexture.Sample(Sampler, In.tex2.xy);
@@ -213,7 +213,7 @@ float4 PSBlur(PS_BlurInput In) : SV_Target0
     Color += weight[1].z * sceneTexture.Sample(Sampler, In.tex6.xy);
     Color += weight[1].w * sceneTexture.Sample(Sampler, In.tex7.xy);
 
-    // Šî€ƒeƒNƒZƒ‹‚Éƒ}ƒCƒiƒX•ûŒü‚É8ƒeƒNƒZƒ‹Ad‚İ•t‚«‚ÅƒTƒ“ƒvƒŠƒ“ƒO
+    // åŸºæº–ãƒ†ã‚¯ã‚»ãƒ«ã«ãƒã‚¤ãƒŠã‚¹æ–¹å‘ã«8ãƒ†ã‚¯ã‚»ãƒ«ã€é‡ã¿ä»˜ãã§ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°
     Color += weight[0].x * sceneTexture.Sample(Sampler, In.tex0.zw);
     Color += weight[0].y * sceneTexture.Sample(Sampler, In.tex1.zw);
     Color += weight[0].z * sceneTexture.Sample(Sampler, In.tex2.zw);

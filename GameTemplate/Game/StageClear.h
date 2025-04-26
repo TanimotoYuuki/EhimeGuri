@@ -10,20 +10,20 @@ public:
 	void Render(RenderContext& rc);
 private:
 	/// <summary>
-	/// ƒXƒe[ƒWƒNƒŠƒAƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO‚ğİ’è
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã‚’è¨­å®š
 	/// </summary>
 	void SetStageClearSpriteEasing();
 	/// <summary>
-	/// ƒXƒe[ƒWƒNƒŠƒAƒXƒvƒ‰ƒCƒg—p‚ÌƒC[ƒWƒ“ƒO‚ÌXVˆ—
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã®æ›´æ–°å‡¦ç†
 	/// </summary>
 	void UpdateStageClearSpriteEasing();
 
-	SpriteRender		m_stageClearUI;												//ƒXƒe[ƒWƒNƒŠƒAUI
-	Vector3				m_position = Vector3(-1100.0f, 275.0f, 0.0f);				//ˆÊ’u
-	Vector3				m_beforeEasingPosition;										//ƒC[ƒWƒ“ƒO‘O‚ÌˆÊ’u
-	Vector3				m_afterEasingPosition;										//ƒC[ƒWƒ“ƒOŒã‚ÌˆÊ’u
-	float               m_easingTime = 0.0f;										//Š„‡
-	bool                m_gameClearRenditionFinishFlag = false;						//ƒQ[ƒ€ƒNƒŠƒA‰‰oI—¹ƒtƒ‰ƒO
-	Player*				m_player;													//ƒvƒŒƒCƒ„[—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	SpriteRender		m_stageClearUI;												//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢UI
+	Vector3				m_position = Vector3(-1100.0f, 275.0f, 0.0f);				//ä½ç½®
+	Vector3				m_beforeEasingPosition;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å‰ã®ä½ç½®
+	Vector3				m_afterEasingPosition;										//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å¾Œã®ä½ç½®
+	float               m_easingTime = 0.0f;										//å‰²åˆ
+	bool                m_gameClearRenditionFinishFlag = false;						//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºçµ‚äº†ãƒ•ãƒ©ã‚°
+	Player*				m_player;													//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 };
 

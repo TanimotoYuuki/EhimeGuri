@@ -5,12 +5,12 @@
 
 bool StageClear::Start()
 {
-	//僗僥乕僕僋儕傾UI
+	//銈广儐銉笺偢銈儶銈I
 	m_stageClearUI.Init("Assets/Sprite/stageclear.dds", 1024, 128);
 	m_stageClearUI.SetPosition(m_position);
 	m_stageClearUI.Update();
 
-	//僗僥乕僕僋儕傾僗僾儔僀僩梡偺僀乕僕儞僌傪愝掕
+	//銈广儐銉笺偢銈儶銈€偣銉椼儵銈ゃ儓鐢ㄣ伄銈ゃ兗銈搞兂銈般倰瑷畾
 	SetStageClearSpriteEasing();
 
 	m_player = FindGO<Player>("player");
@@ -19,17 +19,17 @@ bool StageClear::Start()
 
 void StageClear::Update()
 {
-	//僗僥乕僕僋儕傾僗僾儔僀僩梡偺僀乕僕儞僌偺峏怴張棟
+	//銈广儐銉笺偢銈儶銈€偣銉椼儵銈ゃ儓鐢ㄣ伄銈ゃ兗銈搞兂銈般伄鏇存柊鍑︾悊
 	UpdateStageClearSpriteEasing();
 }
 
 void StageClear::Render(RenderContext& rc)
 {
-	//僗僥乕僕僋儕傾UI
+	//銈广儐銉笺偢銈儶銈I
 	m_stageClearUI.Draw(rc);
 }
 
-//僗僥乕僕僋儕傾僗僾儔僀僩梡偺僀乕僕儞僌傪愝掕
+//銈广儐銉笺偢銈儶銈€偣銉椼儵銈ゃ儓鐢ㄣ伄銈ゃ兗銈搞兂銈般倰瑷畾
 void StageClear::SetStageClearSpriteEasing()
 {
 	m_beforeEasingPosition = m_position;
@@ -37,10 +37,10 @@ void StageClear::SetStageClearSpriteEasing()
 	m_easingTime = 0.0f;
 }
 
-//僗僥乕僕僋儕傾僗僾儔僀僩梡偺僀乕僕儞僌偺峏怴張棟
+//銈广儐銉笺偢銈儶銈€偣銉椼儵銈ゃ儓鐢ㄣ伄銈ゃ兗銈搞兂銈般伄鏇存柊鍑︾悊
 void StageClear::UpdateStageClearSpriteEasing()
 {
-	//摿掕偺埵抲偵峴偭偨傜僗僥乕僕僋儕傾墘弌傪偡傞
+	//鐗瑰畾銇綅缃伀琛屻仯銇熴倝銈广儐銉笺偢銈儶銈㈡紨鍑恒倰銇欍倠
 	if (m_position.x > 0.0f && m_gameClearRenditionFinishFlag != true)
 	{
 		if (g_gameTime->StopWatch(1.0f))

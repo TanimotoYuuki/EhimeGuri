@@ -11,22 +11,22 @@ public:
 
 	
 
-	Vector3                      m_position;//À•W
+	Vector3                      m_position;//åº§æ¨™
 	Vector3						 m_firstposition;
 
 public:
-	//ƒƒ“ƒo•Ï”
-	ModelRender                   m_transparentBlockModel;					 //ƒ‚ƒfƒ‹
-	Quaternion                    m_rotation = Quaternion::Identity;		 //‰ñ“]
-	Vector3						  m_scale = Vector3::One;					 //‘å‚«‚³
-	Vector3						  m_blockTouchDistanceX = Vector3::Zero;	 //“§–¾ƒuƒƒbƒN’@‚­—p‹——£(X²)
-	Vector3						  m_blockTouchDistanceY = Vector3::Zero;	 //“§–¾ƒuƒƒbƒN’@‚­—p‹——£(Y²)
-	Vector3						  m_blockTouchDistance = Vector3::Zero;		 //ƒuƒƒbƒN’@‚­—p‹——£
-	bool						  m_blockTouchFlag = false;					 //ƒuƒƒbƒN’@‚¢‚½‚©H
-	bool						  m_collisionCreatFlag = false;				 //“–‚½‚è”»’è‚ªì‚ç‚ê‚½‚©H
-	PhysicsStaticObject           m_physicsStaticObject;				     //Ã“I•¨—ƒIƒuƒWƒFƒNƒg
+	//ãƒ¡ãƒ³ãƒå¤‰æ•°
+	ModelRender                   m_transparentBlockModel;					 //ãƒ¢ãƒ‡ãƒ«
+	Quaternion                    m_rotation = Quaternion::Identity;		 //å›è»¢
+	Vector3						  m_scale = Vector3::One;					 //å¤§ãã•
+	Vector3						  m_blockTouchDistanceX = Vector3::Zero;	 //é€æ˜ãƒ–ãƒ­ãƒƒã‚¯å©ãç”¨è·é›¢(Xè»¸)
+	Vector3						  m_blockTouchDistanceY = Vector3::Zero;	 //é€æ˜ãƒ–ãƒ­ãƒƒã‚¯å©ãç”¨è·é›¢(Yè»¸)
+	Vector3						  m_blockTouchDistance = Vector3::Zero;		 //ãƒ–ãƒ­ãƒƒã‚¯å©ãç”¨è·é›¢
+	bool						  m_blockTouchFlag = false;					 //ãƒ–ãƒ­ãƒƒã‚¯å©ã„ãŸã‹ï¼Ÿ
+	bool						  m_collisionCreatFlag = false;				 //å½“ãŸã‚Šåˆ¤å®šãŒä½œã‚‰ã‚ŒãŸã‹ï¼Ÿ
+	PhysicsStaticObject           m_physicsStaticObject;				     //é™çš„ç‰©ç†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	Player* m_player = nullptr;
 
 };
