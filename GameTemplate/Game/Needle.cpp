@@ -23,7 +23,7 @@ Needle::~Needle()
 bool Needle::Start()
 {
 	//Needleモデルのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/針.tkm");
+	m_modelRender.Init("Assets/modelData/Stage/Assets/Needle.tkm");
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
 	m_player = FindGO<Player>("player");

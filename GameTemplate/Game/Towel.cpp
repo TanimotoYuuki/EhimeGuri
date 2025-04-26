@@ -10,7 +10,7 @@ namespace
 
 bool Towel::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/タオル.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/Towel.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();
 	return true;

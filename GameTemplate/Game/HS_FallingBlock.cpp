@@ -22,7 +22,7 @@ HS_FallingBlock::~HS_FallingBlock()
 
 bool HS_FallingBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(HIGHSPEED_FBLOCK_SCALE);
 	m_modelRender.Update();
 

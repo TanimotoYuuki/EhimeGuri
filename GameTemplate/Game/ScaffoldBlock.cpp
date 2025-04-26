@@ -21,7 +21,7 @@ ScaffoldBlock::~ScaffoldBlock()
 
 bool ScaffoldBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/キノコの足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/kinoko_ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());

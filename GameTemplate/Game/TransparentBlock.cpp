@@ -16,7 +16,7 @@ TransparentBlock::~TransparentBlock()
 bool TransparentBlock::Start()
 {
 	//モデルの初期化
-	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/brock2.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/tatakareta_ato_no_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_transparentBlockModel.SetPosition(m_position);
 	m_transparentBlockModel.Update();
 

@@ -28,7 +28,7 @@ S_MovingFloor::~S_MovingFloor()
 bool S_MovingFloor::Start()
 {
 	//動かしたいオブジェクトのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	//当たり判定

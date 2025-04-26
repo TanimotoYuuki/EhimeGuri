@@ -9,12 +9,12 @@ class Player:public IGameObject
 public:
 	Player();
 	~Player();
-	void Update();								//・ｽX・ｽV・ｽ・ｽ・ｽ・ｽ
-	void Render(RenderContext& rc);				//・ｽ`・ｽ謠茨ｿｽ・ｽ
-	void Move();								//・ｽﾚ難ｿｽ・ｽ・ｽ・ｽ・ｽ
-	void Rotation();							//・ｽ・ｽ]・ｽ・ｽ・ｽ・ｽ
-	void ManageState();							//・ｽX・ｽe・ｽ[・ｽg・ｽﾇ暦ｿｽ
-	void PlayAnimation();						//・ｽA・ｽj・ｽ・ｽ・ｽ[・ｽV・ｽ・ｽ・ｽ・ｽ・ｽﾌ再撰ｿｽ
+	void Update();								
+	void Render(RenderContext& rc);				
+	void Move();								
+	void Rotation();							
+	void ManageState();							
+	void PlayAnimation();						
 	void PlayerStamina();
 	void PlayerhealSutamina();
 	void Derei();
@@ -48,7 +48,6 @@ public:
 		return m_isOnGround;
 	}
 
-	//・ｽA・ｽj・ｽ・ｽ・ｽ[・ｽV・ｽ・ｽ・ｽ・ｽ・ｽN・ｽ・ｽ・ｽb・ｽv
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -58,7 +57,6 @@ public:
 		enAnimationClip_num
 	};
 
-	//・ｽv・ｽ・ｽ・ｽC・ｽ・ｽ・ｽ[・ｽX・ｽe・ｽ[・ｽg
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -91,7 +89,7 @@ public:
 	int					m_playernowsutamina = 300;
 	bool				m_sutaminaZeroFlag = false;
 	bool				m_jumpFlag = true;
-	bool				m_isOnGround = true;			//!<・ｽn・ｽﾊの擾ｿｽﾉゑｿｽ・ｽ・ｽH
+	bool				m_isOnGround = true;
 	bool G = true;
 	bool m_gameoverFlag = false;
 };

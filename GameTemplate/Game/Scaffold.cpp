@@ -20,7 +20,7 @@ Scaffold::~Scaffold()
 
 bool Scaffold::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	
 	m_modelRender.Update();
