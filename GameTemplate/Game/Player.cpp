@@ -25,14 +25,14 @@ Player::Player() {
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 
-	m_position = { -0.0f,94.0f,0.0f };
+	m_position = { 0.0f,94.0f,0.0f };
 
 	
 	//�e�X�g�v���C�p
-//	m_position = { 13700.0f, 200.0f, 200.0f };
+//	m_position = { 16250.0f, 800.0f, 0.0f };
 
 
-	m_initPosition = { 133.0f,94.0f,0.0f };
+	m_initPosition = { 0.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
 	m_initRotation.SetRotationDegY(90.0f);
@@ -99,7 +99,7 @@ void Player::Move() {
 		}
 	}
 
- 	float glavity = 20.0f;
+ 	float glavity = 15.0f;
 
 	// �n�ʂɂ��Ă�����
 	if (m_characterController.IsOnGround())

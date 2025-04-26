@@ -25,7 +25,7 @@ namespace
 	Vector3 TRANSPARENTBLOCK_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	const int ENEMY_NUM = 5;
+	const int ENEMY_NUM = 4;
 }
 
 //�w�i
@@ -74,6 +74,10 @@ Game::~Game()
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
 	DeleteGO(m_block);
+	DeleteGO(m_block1);
+	DeleteGO(m_block2);
+	DeleteGO(m_block3);
+	DeleteGO(m_block4);
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
@@ -97,10 +101,9 @@ bool Game::Start()
 	m_gameCamera->SetTarget(m_player);
 
 	Vector3 enemyPosList[ENEMY_NUM] = {
-		{3200.0f,94.0f,0.0f},
-		{600.0f,94.0f,0.0f},
+		{2800.0f,94.0f,0.0f},
+		{400.0f,94.0f,0.0f},
 		{4800.0f,94.0f,0.0f},
-		{5400.0f,94.0f,0.0f},
 		{12300.0f,200.0f,0.0f}
 	};
 
@@ -190,15 +193,15 @@ void Game::TransparentBlock_NewGO()
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 7400.0f, 360.0f, 0.0f };
+	m_fallingBlock->m_position = { 7400.0f, 420.0f, 20.0f };
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 
 	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock1->m_position = { 8000.0f, 400.0f, 0.0f };
+	m_fallingBlock1->m_position = { 8000.0f, 470.0f, 20.0f };
 	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
 
 	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock2->m_position = { 8600.0f, 400.0f, 0.0f };
+	m_fallingBlock2->m_position = { 8600.0f, 515.0f, 20.0f };
 	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
 
 	m_modelRender.SetPosition(m_position);
@@ -245,24 +248,24 @@ void Game::Block_NewGO()
 
 
 	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 1000.0f, 300.0f, 0.0f };
+	m_block->m_position = { 500.0f, 300.0f, 0.0f };
 	m_block->m_firstposition = m_block->m_position;
 
-	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 12300.0f, 300.0f, 0.0f };
-	m_block->m_firstposition = m_block->m_position;
+	m_block1 = NewGO<Block>(0, "block");
+	m_block1->m_position = { 12300.0f, 400.0f, 0.0f };
+	m_block1->m_firstposition = m_block->m_position;
 
-	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 14000.0f, 600.0f, 0.0f };
-	m_block->m_firstposition = m_block->m_position;
+	m_block2 = NewGO<Block>(0, "block");
+	m_block2->m_position = { 14000.0f, 600.0f, 0.0f };
+	m_block2->m_firstposition = m_block->m_position;
 
-	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 15000.0f, 600.0f, 0.0f };
-	m_block->m_firstposition = m_block->m_position;
+	m_block3 = NewGO<Block>(0, "block");
+	m_block3->m_position = { 15000.0f, 600.0f, 0.0f };
+	m_block3->m_firstposition = m_block->m_position;
 
-	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 3200.0f, 300.0f, 0.0f };
-	m_block->m_firstposition = m_block->m_position;
+	m_block4 = NewGO<Block>(0, "block");
+	m_block4->m_position = { 2800.0f, 300.0f, 0.0f };
+	m_block4->m_firstposition = m_block->m_position;
 	m_modelRender.SetPosition(m_position);
 
 }
@@ -297,17 +300,17 @@ void Game::ClearPoint_NewGO()
 void Game::S_MovingFloor_NewGO()
 {
 	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor->m_position = { 13700.0f, 100.0f, 200.0f };
+	m_s_MovingFloor->m_position = { 13575.0f, 300.0f, 10.0f };
 	m_s_MovingFloor->m_firstPosition = m_s_MovingFloor->m_position;
 
 	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor->m_position = { 14300.0f, 200.0f, 200.0f };
+	m_s_MovingFloor->m_position = { 14175.0f, 300.0f, 10.0f };
 
 	m_s_MovingFloor3 = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor3->m_position = { 14900.0f, 200.0f, 200.0f };
+	m_s_MovingFloor3->m_position = { 14775.0f, 300.0f, 10.0f };
 
 	m_s_MovingFloor4 = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor4->m_position = { 15500.0f, 200.0f, 200.0f };
+	m_s_MovingFloor4->m_position = { 15375.0f, 300.0f, 10.0f };
 
 	m_modelRender.SetPosition(m_position);
 }

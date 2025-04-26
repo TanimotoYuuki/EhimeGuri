@@ -46,6 +46,7 @@ bool FallingBlock::Start()
 	);
 
 	m_modelRender.SetPosition(m_position);
+	m_initPosition = m_position;
 
 	m_collisionObject->SetIsEnableAutoDelete(false);
 	m_firstposition = m_position;
@@ -98,6 +99,11 @@ void FallingBlock::Update()
 	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();
+	}
+
+	if (m_player->m_position.y <= -500.0f) {
+		m_position = m_initPosition;
+		m_modelRender.SetPosition(m_position);
 	}
 	
 	m_modelRender.Update();

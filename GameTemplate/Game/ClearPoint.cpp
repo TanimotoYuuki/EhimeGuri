@@ -28,7 +28,7 @@ void ClearPoint::Update()
 
 	Vector3 diff;
 	diff.x = position.x - m_player->m_position.x;
-	if (diff.Length() < 5.0f)
+	if (diff.Length() < 20.0f)
 	{
 		NewGO<StageClear>(0);
 		DeleteGO(this);

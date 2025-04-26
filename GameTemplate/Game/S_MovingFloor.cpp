@@ -104,7 +104,6 @@ void S_MovingFloor::Move()
 		m_player->AddMoveSpeed(moveSpeed);
 
 	}
-	m_modelRender.SetPosition(m_position);
 
 	m_modelRender.Update();
 
@@ -172,13 +171,19 @@ void S_MovingFloor::Update()
 	distanceX.x = m_player->m_position.x - m_position.x;
 	distanceY.y = m_player->m_position.y - m_position.y;
 
-	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが動く床の上に乗ったら)。
+	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		Move();
+		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+		{
+			Move();
+		}
 	}
 	
 	m_modelRender.Update();
 
+	m_modelRender.SetPosition(m_position);
 	m_physicsStaticObject.SetPosition(m_position);
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 }
