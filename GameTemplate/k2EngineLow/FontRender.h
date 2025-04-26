@@ -2,137 +2,137 @@
 namespace nsK2EngineLow
 {
 	/// <summary>
-	/// ƒtƒHƒ“ƒgƒŒƒ“ƒ_[
+	/// ãƒ•ã‚©ãƒ³ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼
 	/// </summary>
 	class FontRender : public IRenderer
 	{
 	public:
 		/// <summary>
-		/// •\¦‚·‚é•¶š‚ğİ’è
+		/// è¡¨ç¤ºã™ã‚‹æ–‡å­—ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="text">•\¦‚·‚é•¶š</param>
+		/// <param name="text">è¡¨ç¤ºã™ã‚‹æ–‡å­—</param>
 		void SetText(const wchar_t* text)
 		{
 			swprintf(m_text, text);
 		}
 
 		/// <summary>
-		/// •\¦‚·‚é•¶š‚ğæ“¾
+		/// è¡¨ç¤ºã™ã‚‹æ–‡å­—ã‚’å–å¾—
 		/// </summary>
-		/// <returns>•\¦‚·‚é•¶š</returns>
+		/// <returns>è¡¨ç¤ºã™ã‚‹æ–‡å­—</returns>
 		const wchar_t* GetText() const
 		{
 			return m_text;
 		}
 
 		/// <summary>
-		/// À•W‚ğİ’è
+		/// åº§æ¨™ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="position">À•W</param>
+		/// <param name="position">åº§æ¨™</param>
 		void SetPosition(const Vector3& position)
 		{
 			m_position = position;
 		}
 
 		/// <summary>
-		/// À•W‚ğæ“¾
+		/// åº§æ¨™ã‚’å–å¾—
 		/// </summary>
-		/// <returns>À•W</returns>
+		/// <returns>åº§æ¨™</returns>
 		const Vector3& GetPosition() const
 		{
 			return m_position;
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğİ’è
+		/// å¤§ãã•ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="scale">‘å‚«‚³</param>
+		/// <param name="scale">å¤§ãã•</param>
 		void SetScale(const float scale)
 		{
 			m_scale = scale;
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğæ“¾
+		/// å¤§ãã•ã‚’å–å¾—
 		/// </summary>
-		/// <returns>‘å‚«‚³</returns>
+		/// <returns>å¤§ãã•</returns>
 		const float GetScale() const
 		{
 			return m_scale;
 		}
 
 		/// <summary>
-		/// F‚ğİ’è
+		/// è‰²ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="color">F</param>
+		/// <param name="color">è‰²</param>
 		void SetColor(const Vector4& color)
 		{
 			m_color = color;
 		}
 		/// <summary>
-		/// F‚ğæ“¾
+		/// è‰²ã‚’å–å¾—
 		/// </summary>
-		/// <returns>F</returns>
+		/// <returns>è‰²</returns>
 		const Vector4& GetColor() const
 		{
 			return m_color;
 		}
 
 		/// <summary>
-		/// ‰ñ“]‚ğİ’è
+		/// å›è»¢ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="rotation">‰ñ“]</param>
+		/// <param name="rotation">å›è»¢</param>
 		void SetRotation(const float rotation)
 		{
 			m_rotation = rotation;
 		}
 
 		/// <summary>
-		/// ‰ñ“]‚ğæ“¾
+		/// å›è»¢ã‚’å–å¾—
 		/// </summary>
-		/// <returns>‰ñ“]</returns>
+		/// <returns>å›è»¢</returns>
 		const float GetRotation() const
 		{
 			return m_rotation;
 		}
 
 		/// <summary>
-		/// ƒsƒ{ƒbƒg‚ğİ’è
+		/// ãƒ”ãƒœãƒƒãƒˆã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pivot">ƒsƒ{ƒbƒg</param>
+		/// <param name="pivot">ãƒ”ãƒœãƒƒãƒˆ</param>
 		void SetPivot(const Vector2& pivot)
 		{
 			m_pivot = pivot;
 		}
 
 		/// <summary>
-		/// ƒsƒ{ƒbƒg‚ğæ“¾
+		/// ãƒ”ãƒœãƒƒãƒˆã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒsƒ{ƒbƒg</returns>
+		/// <returns>ãƒ”ãƒœãƒƒãƒˆ</returns>
 		const Vector2& GetPivot() const
 		{
 			return m_pivot;
 		}
 
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
-		/// <param name="rc">ƒŒƒ“ƒ_\ƒRƒ“ƒeƒLƒXƒg</param>
+		/// <param name="rc">ãƒ¬ãƒ³ãƒ€â€•ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
 		void Draw(RenderContext& rc);
 
 		/// <summary>
-		/// ‰e‚Ìƒpƒ‰ƒ[ƒ^‚ğİ’è
+		/// å½±ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="isDrawShadow">‰e‚ğ•`‰æ‚·‚éH</param>
-		/// <param name="shadowOffset">‰e‚ğ•`‰æ‚·‚é‚Æ‚«‚ÌƒsƒNƒZƒ‹‚ÌƒIƒtƒZƒbƒg—Ê</param>
-		/// <param name="shadowColor">‰e‚ÌF</param>
+		/// <param name="isDrawShadow">å½±ã‚’æç”»ã™ã‚‹ï¼Ÿ</param>
+		/// <param name="shadowOffset">å½±ã‚’æç”»ã™ã‚‹ã¨ãã®ãƒ”ã‚¯ã‚»ãƒ«ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆé‡</param>
+		/// <param name="shadowColor">å½±ã®è‰²</param>
 		void SetShadowParam(bool isDrawShadow, float shadowOffset, const Vector4& shadowColor)
 		{
 			m_font.SetShadowParam(isDrawShadow, shadowOffset, shadowColor);
 		}
 	private:
 		/// <summary>
-		///	2D‚Ì•`‰æ
+		///	2Dã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void OnRender2D(RenderContext& rc) override
@@ -142,13 +142,13 @@ namespace nsK2EngineLow
 			m_font.End(rc);
 		}
 
-		Vector3 m_position = Vector3::Zero; //À•W
-		float m_scale = 1.0f; //•¶š‚Ì‘å‚«‚³
-		Vector4 m_color = g_vec4White; //•¶š‚ÌF
-		float m_rotation = 0.0f; //‰ñ“]
-		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ƒsƒ{ƒbƒg
-		wchar_t m_text[256]; //•¶š
-		Font m_font; //ƒtƒHƒ“ƒg
+		Vector3 m_position = Vector3::Zero; //åº§æ¨™
+		float m_scale = 1.0f; //æ–‡å­—ã®å¤§ãã•
+		Vector4 m_color = g_vec4White; //æ–‡å­—ã®è‰²
+		float m_rotation = 0.0f; //å›è»¢
+		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ãƒ”ãƒœãƒƒãƒˆ
+		wchar_t m_text[256]; //æ–‡å­—
+		Font m_font; //ãƒ•ã‚©ãƒ³ãƒˆ
 	};
 }
 

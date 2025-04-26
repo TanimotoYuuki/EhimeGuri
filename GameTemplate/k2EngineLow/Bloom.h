@@ -6,12 +6,12 @@ namespace nsK2EngineLow
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Init(RenderTarget& rt);
 
 		/// <summary>
-		/// •`‰æˆ—‚ğÀs
+		/// æç”»å‡¦ç†ã‚’å®Ÿè¡Œ
 		/// </summary>
 		/// <param name="rc"></param>
 		/// <param name="rt"></param>
@@ -21,32 +21,32 @@ namespace nsK2EngineLow
 
 	private:
 		/// <summary>
-		/// ‹P“x’Šo—pƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì‰Šú‰»
+		/// è¼åº¦æŠ½å‡ºç”¨ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸåŒ–
 		/// </summary>
 		/// <param name="rc"></param>
 		void InitLuminnceRenderTarget(RenderTarget& rt);
 		
 		/// <summary>
-		/// ‹P“x’Šo—pƒXƒvƒ‰ƒCƒg‚Ìİ’è
+		/// è¼åº¦æŠ½å‡ºç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®è¨­å®š
 		/// </summary>
 		/// <param name="rt"></param>
 		void SetLuminanceSprite(RenderTarget& rt);
 
 		/// <summary>
-		/// ƒKƒEƒVƒAƒ“ƒuƒ‰[‚ğ‰Šú‰»
+		/// ã‚¬ã‚¦ã‚·ã‚¢ãƒ³ãƒ–ãƒ©ãƒ¼ã‚’åˆæœŸåŒ–
 		/// </summary>
 		void InitGaussianBlur();
 
 		/// <summary>
-		/// ÅI‡¬—pƒXƒvƒ‰ƒCƒg‚Ìİ’è
+		/// æœ€çµ‚åˆæˆç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®è¨­å®š
 		/// </summary>
 		/// <param name="rt"></param>
 		void SetFinalSprite(RenderTarget& rt);
 
-		RenderTarget m_luminnceRenderTarget; //‹P“x’Šo—pƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		Sprite m_luminanceSprite; //‹P“x’Šo—pƒXƒvƒ‰ƒCƒg
-		GaussianBlur m_gaussianBlur[4]; //ƒKƒEƒVƒAƒ“ƒuƒ‰[
-		Sprite m_finalSprite; //ÅI‡¬—pƒXƒvƒ‰ƒCƒg
+		RenderTarget m_luminnceRenderTarget; //è¼åº¦æŠ½å‡ºç”¨ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		Sprite m_luminanceSprite; //è¼åº¦æŠ½å‡ºç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		GaussianBlur m_gaussianBlur[4]; //ã‚¬ã‚¦ã‚·ã‚¢ãƒ³ãƒ–ãƒ©ãƒ¼
+		Sprite m_finalSprite; //æœ€çµ‚åˆæˆç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	};
 }
 

@@ -9,12 +9,12 @@ class Player:public IGameObject
 public:
 	Player();
 	~Player();
-	void Update();								//�X�V����
-	void Render(RenderContext& rc);				//�`�揈��
-	void Move();								//�ړ�����
-	void Rotation();							//��]����
-	void ManageState();							//�X�e�[�g�Ǘ�
-	void PlayAnimation();						//�A�j���[�V�����̍Đ�
+	void Update();								
+	void Render(RenderContext& rc);				
+	void Move();								
+	void Rotation();							
+	void ManageState();							
+	void PlayAnimation();						
 	void PlayerStamina();
 	void PlayerhealSutamina();
 	void Derei();
@@ -48,7 +48,6 @@ public:
 		return m_isOnGround;
 	}
 
-	//�A�j���[�V�����N���b�v
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -58,7 +57,6 @@ public:
 		enAnimationClip_num
 	};
 
-	//�v���C���[�X�e�[�g
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -91,7 +89,7 @@ public:
 	int					m_playernowsutamina = 300;
 	bool				m_sutaminaZeroFlag = false;
 	bool				m_jumpFlag = true;
-	bool				m_isOnGround = true;			//!<�n�ʂ̏�ɂ���H
+	bool				m_isOnGround = true;
 	bool G = true;
 	bool m_gameoverFlag = false;
 };

@@ -22,8 +22,8 @@ Needle::~Needle()
 }
 bool Needle::Start()
 {
-	//Needleモデルのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/針.tkm");
+	//Needle繝｢繝�繝ｫ縺ｮ繝輔ぃ繧､繝ｫ繝代せ
+	m_modelRender.Init("Assets/modelData/Stage/Assets/Needle.tkm");
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
 	m_player = FindGO<Player>("player");
@@ -31,7 +31,7 @@ bool Needle::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//コリジョンを動く床に設置
+	//繧ｳ繝ｪ繧ｸ繝ｧ繝ｳ繧貞虚縺丞ｺ翫↓險ｭ鄂ｮ
 	m_collisionObject->CreateBox
 	(
 		m_needlePosition + COLLISION_HEIGHT,

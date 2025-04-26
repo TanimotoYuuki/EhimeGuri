@@ -2,21 +2,21 @@
 namespace nsK2EngineLow
 {
 	/// <summary>
-	/// ƒ‚ƒfƒ‹ƒŒƒ“ƒ_[
+	/// ãƒ¢ãƒ‡ãƒ«ãƒ¬ãƒ³ãƒ€ãƒ¼
 	/// </summary>
 	class ModelRender : public IRenderer
 	{
 	public:
 
 		/// <summary>
-		/// ’Êí•`‰æ—p‚Ì‰Šú‰»
+		/// é€šå¸¸æç”»ç”¨ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="animationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv</param>
-		/// <param name="numAnimationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚Ìã•ûŒü</param>
-		/// <param name="isShadowCaster">true‚È‚ç‰e‚ğ•`‰æ‚·‚é</param>
-		/// <param name="isShadowReceiver">true‚È‚ç‰e‚ğó‚¯‚é</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="animationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—</param>
+		/// <param name="numAnimationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®æ•°</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘</param>
+		/// <param name="isShadowCaster">trueãªã‚‰å½±ã‚’æç”»ã™ã‚‹</param>
+		/// <param name="isShadowReceiver">trueãªã‚‰å½±ã‚’å—ã‘ã‚‹</param>
 		void Init(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
@@ -26,14 +26,14 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_None);
 
 		/// <summary>
-		/// ”¼“§–¾•`‰æ—p‚Ì‰Šú‰»
+		/// åŠé€æ˜æç”»ç”¨ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="animationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv</param>
-		/// <param name="numAnimationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚Ìã•ûŒü</param>
-		/// <param name="isShadowCaster">true‚È‚ç‰e‚ğ•`‰æ‚·‚é</param>
-		/// <param name="isShadowReceiver">true‚È‚ç‰e‚ğó‚¯‚é</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="animationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—</param>
+		/// <param name="numAnimationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®æ•°</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘</param>
+		/// <param name="isShadowCaster">trueãªã‚‰å½±ã‚’æç”»ã™ã‚‹</param>
+		/// <param name="isShadowReceiver">trueãªã‚‰å½±ã‚’å—ã‘ã‚‹</param>
 		void IniTranslucent(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
@@ -43,33 +43,33 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
 		/// <summary>
-		/// ƒXƒJƒCƒLƒ…[ƒu‚ğ‰Šú‰»
+		/// ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’åˆæœŸåŒ–
 		/// </summary>
 		void InitSkyCube(ModelInitData& initData);
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
-		/// <param name="rc">ƒŒƒ“ƒ_[ƒRƒ“ƒeƒLƒXƒg</param>
+		/// <param name="rc">ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
 		void Draw(RenderContext& rc);
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		/// </summary>
-		/// <param name="animNo">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”Ô†</param>
-		/// <param name="interpolateTime">•âŠ®ŠÔ(’PˆÊ:•b)</param>
+		/// <param name="animNo">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®ç•ªå·</param>
+		/// <param name="interpolateTime">è£œå®Œæ™‚é–“(å˜ä½:ç§’)</param>
 		void PlayAnimation(int animNo, float interpolateTime = 0.0f)
 		{
 			m_animation.Play(animNo, interpolateTime);
 		}
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶’†H
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿä¸­ï¼Ÿ
 		/// </summary>
 		bool IsPlayingAnimation() const
 		{
@@ -77,7 +77,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚ğæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ã‚’å–å¾—
 		/// </summary>
 		Model& GetModel()
 		{
@@ -85,11 +85,11 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// À•WA‰ñ“]AŠg‘å‚ğ‘S‚ÄXV
+		/// åº§æ¨™ã€å›è»¢ã€æ‹¡å¤§ã‚’å…¨ã¦æ›´æ–°
 		/// </summary>
-		/// <param name="pos">À•W</param>
-		/// <param name="rotation">‰ñ“]</param>
-		/// <param name="scale">Šg‘å</param>
+		/// <param name="pos">åº§æ¨™</param>
+		/// <param name="rotation">å›è»¢</param>
+		/// <param name="scale">æ‹¡å¤§</param>
 		void SetTRS(const Vector3& pos, const Quaternion& rotation, const Vector3& scale)
 		{
 			SetPosition(pos);
@@ -98,9 +98,9 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// À•W‚ğİ’è
+		/// åº§æ¨™ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pos">À•W</param>
+		/// <param name="pos">åº§æ¨™</param>
 		void SetPosition(const Vector3& pos)
 		{
 			m_position = pos;
@@ -111,16 +111,16 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ‰ñ“]‚ğİ’è
+		/// å›è»¢ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="rotation">‰ñ“]</param>
+		/// <param name="rotation">å›è»¢</param>
 		void SetRotation(const Quaternion& rotation)
 		{
 			m_rotation = rotation;
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğİ’è
+		/// å¤§ãã•ã‚’è¨­å®š
 		/// </summary>
 		/// <param name="scale"></param>
 		void SetScale(const Vector3& scale)
@@ -129,7 +129,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚Ì’Ç‰Á
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã®è¿½åŠ 
 		/// </summary>
 		/// <param name="eventListener"></param>
 		void AddAnimationEvent(AnimationEventListener eventListener)
@@ -138,7 +138,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‘¬“x‚ğİ’è
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®é€Ÿåº¦ã‚’è¨­å®š
 		/// </summary>
 		/// <param name="animationSpeed"></param>
 		void SetAnimationSpeed(const float animationSpeed)
@@ -147,10 +147,10 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒ{[ƒ“‚Ì–¼‘O‚©‚çƒ{[ƒ“”Ô†‚ğŒŸõ
+		/// ãƒœãƒ¼ãƒ³ã®åå‰ã‹ã‚‰ãƒœãƒ¼ãƒ³ç•ªå·ã‚’æ¤œç´¢
 		/// </summary>
-		/// <param name="boneName">ƒ{[ƒ“‚Ì–¼‘O</param>
-		/// <returns>ƒ{[ƒ“”Ô†BŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡‚Í-1‚ª•Ô‚Á‚Ä‚«‚Ü‚·</returns>
+		/// <param name="boneName">ãƒœãƒ¼ãƒ³ã®åå‰</param>
+		/// <returns>ãƒœãƒ¼ãƒ³ç•ªå·ã€‚è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã¯-1ãŒè¿”ã£ã¦ãã¾ã™</returns>
 		int FindBoneID(const wchar_t* boneName) const
 		{
 			return m_skeleton.FindBoneID(boneName);
@@ -162,34 +162,34 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// “§–¾“x‚ğİ’è
+		/// é€æ˜åº¦ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="alpha">“§–¾“x</param>
+		/// <param name="alpha">é€æ˜åº¦</param>
 		void SetAlpha(const float alpha)
 		{
 			m_alpha = alpha;
 		}
 
 		/// <summary>
-		/// “§–¾“x‚ğæ“¾
+		/// é€æ˜åº¦ã‚’å–å¾—
 		/// </summary>
-		/// <returns>“§–¾“x</returns>
+		/// <returns>é€æ˜åº¦</returns>
 		const float& GetAlpha() const
 		{
 			return m_alpha;
 		}
 
 		/// <summary>
-		/// ƒXƒNƒ[ƒ‹‘¬“x‚ğİ’è
+		/// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="scrollSpeed">ƒXƒNƒ[ƒ‹‘¬“x</param>
+		/// <param name="scrollSpeed">ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦</param>
 		void SetScrollSpeed(float scrollSpeed)
 		{
 			m_scrollSpeed = scrollSpeed;
 		}
 
 		/// <summary>
-		/// ŠÔ‚ÌXVˆ—
+		/// æ™‚é–“ã®æ›´æ–°å‡¦ç†
 		/// </summary>
 		void UpdateDeltaTime()
 		{
@@ -202,63 +202,63 @@ namespace nsK2EngineLow
 
 	private:
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+		/// ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚Ìã•ûŒü</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘</param>
 		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis, bool isShadowReceiver ,AlphaBlendMode alphaBlendMode);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹(‰e•`‰æ)‚Ì‰Šú‰»
+		/// ãƒ¢ãƒ‡ãƒ«(å½±æç”»)ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚Ìã•ûŒü</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘</param>
 		void InitShadowCasterDrawing(const char* filePath, EnModelUpAxis enModelUpAxis, AlphaBlendMode alphaBlendMode);
 
 		/// <summary>
-		/// ƒXƒPƒ‹ƒgƒ“‚Ì‰Šú‰»
+		/// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		void InitSkeleton(const char* filePath);
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="animationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv</param>
-		/// <param name="numAnimationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚Ìã•ûŒü</param>
+		/// <param name="animationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—</param>
+		/// <param name="numAnimationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®æ•°</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘</param>
 		void InitAnimation(AnimationClip* animationClips,
 			int numAnimationClips,
 			EnModelUpAxis enModelUpAxis);
 
 		/// <summary>
-		/// ƒVƒƒƒhƒEƒ}ƒbƒv‚Ì•`‰æ
+		/// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		/// <param name="ca"></param>
 		void OnRenderShadowMap(RenderContext& rc, Camera& ca) override;
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚Ì•`‰æ
+		/// ãƒ¢ãƒ‡ãƒ«ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void OnRenderModel(RenderContext& rc) override;
 
-		AnimationClip* m_animationClips = nullptr; //ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
-		int m_numAnimationClips = 0; //ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”
-		Vector3 m_position = Vector3::Zero; //À•W
-		Quaternion m_rotation = Quaternion::Identity; //‰ñ“]
-		Vector3 m_scale = Vector3::One; //Šg‘å—¦
-		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ; //ƒ‚ƒfƒ‹‚Ìã•ûŒü
-		Animation m_animation; //ƒAƒjƒ[ƒVƒ‡ƒ“	
-		Model m_model; //ƒ‚ƒfƒ‹
-		Model m_shadowModel; //‰e•`‰æ—pƒ‚ƒfƒ‹
-		bool m_isUpdateAnimation = true; //ƒAƒjƒ[ƒVƒ‡ƒ“‚ğXV‚·‚éH
-		Skeleton m_skeleton; //œ
-		float m_animationSpeed = 1.0f; //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶‘¬“x
-		float m_alpha = 1.0f; //“§–¾“x
-		float m_scrollSpeed = 0.0f; //ƒXƒNƒ[ƒ‹‘¬“x
-		float m_deltaTime = 0.0f; //ŠÔ
+		AnimationClip* m_animationClips = nullptr; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
+		int m_numAnimationClips = 0; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ•°
+		Vector3 m_position = Vector3::Zero; //åº§æ¨™
+		Quaternion m_rotation = Quaternion::Identity; //å›è»¢
+		Vector3 m_scale = Vector3::One; //æ‹¡å¤§ç‡
+		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ; //ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘
+		Animation m_animation; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³	
+		Model m_model; //ãƒ¢ãƒ‡ãƒ«
+		Model m_shadowModel; //å½±æç”»ç”¨ãƒ¢ãƒ‡ãƒ«
+		bool m_isUpdateAnimation = true; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ›´æ–°ã™ã‚‹ï¼Ÿ
+		Skeleton m_skeleton; //éª¨
+		float m_animationSpeed = 1.0f; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿé€Ÿåº¦
+		float m_alpha = 1.0f; //é€æ˜åº¦
+		float m_scrollSpeed = 0.0f; //ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦
+		float m_deltaTime = 0.0f; //æ™‚é–“
 	};
 }
 

@@ -21,7 +21,7 @@ bool BackGround::Start()
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
-	//“–‚½‚è”»’è‚ğì¬
+	//å½“ãŸã‚Šåˆ¤å®šã‚’ä½œæˆ
 	m_physicsSraricObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
 	return true;
 }

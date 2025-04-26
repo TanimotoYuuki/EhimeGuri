@@ -3,28 +3,28 @@
 namespace nsK2EngineLow
 {
 	enum EnSkyCubeType {
-		enSkyCubeType_Day, //’‹ŠÔ
-		enSkyCubeType_Night, //–éŠÔ
-		enSkyCubeType_Snow, //áR
-		enSkyCubeType_Snow_2, //áR_2
-		enSkyCubeType_Wild, //r–ì
-		enSkyCubeType_Wild_2, //r–ì
-		enSkyCubeType_Wild_Night, //r–ì(–éŠÔ)
-		enSkyCubeType_Grass, //Å¶
-		enSkyCubeType_Euro, //‰¢B
-		enSkyCubeType_DayToon, //’‹ŠÔ(ƒgƒD[ƒ“’²)
-		enSkyCubeType_DayToon_2, //’‹ŠÔ(ƒgƒD[ƒ“’²)2
-		enSkyCubeType_DayToon_3, //’‹ŠÔ(ƒgƒD[ƒ“’²)3
-		enSkyCubeType_DayToon_4, //’‹ŠÔ(ƒgƒD[ƒ“’²)4
-		enSkyCubeType_NightToon, //–éŠÔ(ƒgƒD[ƒ“’²)
-		enSkyCubeType_NightToon_2, //–éŠÔ(ƒgƒD[ƒ“’²)2
-		enSkyCubeType_SunriseToon, //–¾‚¯•û(ƒgƒD[ƒ“’²)
-		enSkyCubeType_SpaceToon, //‘å‹CŒ—(ƒgƒD[ƒ“’²)
+		enSkyCubeType_Day, //æ˜¼é–“
+		enSkyCubeType_Night, //å¤œé–“
+		enSkyCubeType_Snow, //é›ªå±±
+		enSkyCubeType_Snow_2, //é›ªå±±_2
+		enSkyCubeType_Wild, //è’é‡
+		enSkyCubeType_Wild_2, //è’é‡
+		enSkyCubeType_Wild_Night, //è’é‡(å¤œé–“)
+		enSkyCubeType_Grass, //èŠç”Ÿ
+		enSkyCubeType_Euro, //æ¬§å·
+		enSkyCubeType_DayToon, //æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_DayToon_2, //æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)2
+		enSkyCubeType_DayToon_3, //æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)3
+		enSkyCubeType_DayToon_4, //æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)4
+		enSkyCubeType_NightToon, //å¤œé–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_NightToon_2, //å¤œé–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)2
+		enSkyCubeType_SunriseToon, //æ˜ã‘æ–¹(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_SpaceToon, //å¤§æ°—åœ(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
 		enSkyCubeType_Num,
 	};
 
 	/// <summary>
-	/// ƒXƒJƒCƒLƒ…[ƒu
+	/// ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–
 	/// </summary>
 	class SkyCube : public IGameObject
 	{
@@ -37,9 +37,9 @@ namespace nsK2EngineLow
 
 	public:
 		/// <summary>
-		/// À•W‚ğİ’è
+		/// åº§æ¨™ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pos">À•W</param>
+		/// <param name="pos">åº§æ¨™</param>
 		void SetPosition(float x, float y, float z)
 		{
 			SetPosition({ x,y,z });
@@ -51,9 +51,9 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ‘å‚«‚³‚ğİ’è
+		/// å¤§ãã•ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="scale">‘å‚«‚³</param>
+		/// <param name="scale">å¤§ãã•</param>
 		void SetScale(const float scale)
 		{
 			m_scale = g_vec3One;
@@ -67,27 +67,27 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒXƒJƒCƒLƒ…[ƒu‚Ìƒ^ƒCƒv‚ğİ’è
+		/// ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®ã‚¿ã‚¤ãƒ—ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="type">ƒXƒJƒCƒLƒ…[ƒu‚Ìƒ^ƒCƒv</param>
+		/// <param name="type">ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®ã‚¿ã‚¤ãƒ—</param>
 		void SetType(EnSkyCubeType type)
 		{
 			m_type = type;
 		}
 
 		/// <summary>
-		/// –¾‚é‚³‚ğİ’è
+		/// æ˜ã‚‹ã•ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="lum">–¾‚é‚³</param>
+		/// <param name="lum">æ˜ã‚‹ã•</param>
 		void SetLuminance(const float lum)
 		{
 			m_luminance = lum;
 		}
 
 		/// <summary>
-		/// ƒXƒJƒCƒLƒ…[ƒu‚ÌƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+		/// ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ</returns>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£</returns>
 		const wchar_t* GetTextureFilePath()
 		{
 			return m_textureFilePaths[m_type];

@@ -1,7 +1,7 @@
 cbuffer cb : register(b0)
 {
-    float4x4 mvp;       //MVPs—ñ
-    float4 mulColor;    //æZƒJƒ‰[
+    float4x4 mvp;       //MVPè¡Œåˆ—
+    float4 mulColor;    //ä¹—ç®—ã‚«ãƒ©ãƒ¼
 };
 
 struct VSInput

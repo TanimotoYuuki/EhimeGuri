@@ -49,20 +49,20 @@ namespace nsK2EngineLow
 			clearColor
 		);
 
-		//ÅI‡¬—p‚ÌƒXƒvƒ‰ƒCƒg‚ğ‰Šú‰»‚·‚é
+		//æœ€çµ‚åˆæˆç”¨ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹
 		SpriteInitData spriteInitData;
-		//ƒeƒNƒXƒ`ƒƒ‚Í”wŒi—pƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯èƒŒæ™¯ç”¨ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
 		spriteInitData.m_width = m_backGroundRenderTarget.GetWidth();
 		spriteInitData.m_height = m_backGroundRenderTarget.GetHeight();
-		//‰ğ‘œ“x‚ÍƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì•‚Æ‚‚³
-		//2D—p‚ÌƒVƒF[ƒ_[‚ğg—p‚·‚é
+		//è§£åƒåº¦ã¯ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å¹…ã¨é«˜ã•
+		//2Dç”¨ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
 		spriteInitData.m_vsEntryPointFunc = "VSMain";
 		spriteInitData.m_psEntryPoinFunc = "PSMain";
-		//ã‘‚«
+		//ä¸Šæ›¸ã
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒtƒH[ƒ}ƒbƒg
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		spriteInitData.m_colorBufferFormat[0] = m_backGroundRenderTarget.GetColorBufferFormat();
 
 		m_backGroundSprite.Init(spriteInitData);
@@ -81,34 +81,34 @@ namespace nsK2EngineLow
 			clearColor
 		);
 
-		//ÅI‡¬—p‚ÌƒXƒvƒ‰ƒCƒg‚ğ‰Šú‰»‚·‚é
+		//æœ€çµ‚åˆæˆç”¨ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹
 		SpriteInitData spriteInitData;
-		//ƒeƒNƒXƒ`ƒƒ‚Í2DƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯2Dãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		spriteInitData.m_textures[0] = &m_2DRenderTarget.GetRenderTargetTexture();
-		//‰ğ‘œ“x‚ÍƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì•‚Æ‚‚³
+		//è§£åƒåº¦ã¯ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å¹…ã¨é«˜ã•
 		spriteInitData.m_width = m_mainRenderTarget.GetWidth();
 		spriteInitData.m_height = m_mainRenderTarget.GetHeight();
-		//2D—p‚ÌƒVƒF[ƒ_[‚ğg—p‚·‚é
+		//2Dç”¨ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
 		spriteInitData.m_vsEntryPointFunc = "VSMain";
 		spriteInitData.m_psEntryPoinFunc = "PSMain";
-		//ã‘‚«
+		//ä¸Šæ›¸ã
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒtƒH[ƒ}ƒbƒg
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		spriteInitData.m_colorBufferFormat[0] = m_mainRenderTarget.GetColorBufferFormat();
 
 		m_2DSprite.Init(spriteInitData);
 
-		//ƒeƒNƒXƒ`ƒƒ‚ÍƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
-		//‰ğ‘œ“x‚Í2DƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì•‚Æ‚‚³
+		//è§£åƒåº¦ã¯2Dãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å¹…ã¨é«˜ã•
 		spriteInitData.m_width = m_2DRenderTarget.GetWidth();
 		spriteInitData.m_height = m_2DRenderTarget.GetHeight();
-		//2D—p‚ÌƒVƒF[ƒ_[‚ğg—p‚·‚é
+		//2Dç”¨ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
-		//ã‘‚«
+		//ä¸Šæ›¸ã
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒtƒH[ƒ}ƒbƒg
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		spriteInitData.m_colorBufferFormat[0] = m_2DRenderTarget.GetColorBufferFormat();
 
 		m_mainSprite.Init(spriteInitData);
@@ -127,18 +127,18 @@ namespace nsK2EngineLow
 			clearColor
 		);
 
-		//ÅI‡¬—p‚ÌƒXƒvƒ‰ƒCƒg‚ğ‰Šú‰»‚·‚é
+		//æœ€çµ‚åˆæˆç”¨ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹
 		SpriteInitData spriteInitData;
-		//ƒeƒNƒXƒ`ƒƒ‚Íƒ‚ƒmƒNƒ—p‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ãƒ¢ãƒã‚¯ãƒ­ç”¨ã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
-		//‰ğ‘œ“x‚Íƒ‚ƒmƒNƒ—p‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì•‚Æ‚‚³
+		//è§£åƒåº¦ã¯ãƒ¢ãƒã‚¯ãƒ­ç”¨ã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å¹…ã¨é«˜ã•
 		spriteInitData.m_width = m_monochromeRenderTarget.GetWidth();
 		spriteInitData.m_height = m_monochromeRenderTarget.GetHeight();
-		//ƒ|ƒXƒgƒGƒtƒFƒNƒg—p‚ÌƒVƒF[ƒ_[‚ğg—p‚·‚é
+		//ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”¨ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 		spriteInitData.m_fxFilePath = "Assets/shader/postEffect.fx";
-		//ã‘‚«
+		//ä¸Šæ›¸ã
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒtƒH[ƒ}ƒbƒg
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		spriteInitData.m_colorBufferFormat[0] = m_monochromeRenderTarget.GetColorBufferFormat();
 
 		m_monochromeSprite.Init(spriteInitData);
@@ -148,12 +148,12 @@ namespace nsK2EngineLow
 	{
 		SpriteInitData spriteInitData;
 
-		//ƒeƒNƒXƒ`ƒƒ‚ÍƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
-		//‰ğ‘œ“x‚ÍƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì•‚Æ‚‚³
+		//è§£åƒåº¦ã¯ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å¹…ã¨é«˜ã•
 		spriteInitData.m_width = g_graphicsEngine->GetFrameBufferWidth();
 		spriteInitData.m_height = g_graphicsEngine->GetFrameBufferHeight();
-		//2D—p‚ÌƒVƒF[ƒ_[‚ğg—p‚·‚é
+		//2Dç”¨ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
 		
 		m_copyToFrameBufferSprite.Init(spriteInitData);
@@ -182,11 +182,11 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::BackGroundDraw(RenderContext& rc)
 	{
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Æ‚µ‚Ä—˜—p‚Å‚«‚é‚Ü‚Å‘Ò‚Â
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦åˆ©ç”¨ã§ãã‚‹ã¾ã§å¾…ã¤
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğİ’è
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğƒNƒŠƒA
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ã‚¯ãƒªã‚¢
 		rc.ClearRenderTargetView(m_mainRenderTarget);
 
 		m_backGroundSprite.Draw(rc);
@@ -196,15 +196,15 @@ namespace nsK2EngineLow
 			renderObj->OnRenderBackGround(rc);
 		}
 
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ö‚Ì‘‚«‚İI—¹‘Ò‚¿
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®æ›¸ãè¾¼ã¿çµ‚äº†å¾…ã¡
 		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 
 	void RenderingEngine::ModelDraw(RenderContext& rc)
 	{
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Æ‚µ‚Ä—˜—p‚Å‚«‚é‚Ü‚Å‘Ò‚Â
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦åˆ©ç”¨ã§ãã‚‹ã¾ã§å¾…ã¤
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğİ’è
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		for (auto renderObj : m_renderObjects)
@@ -212,17 +212,17 @@ namespace nsK2EngineLow
 			renderObj->OnRenderModel(rc);
 		}
 
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ö‚Ì‘‚«‚İI—¹‘Ò‚¿
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®æ›¸ãè¾¼ã¿çµ‚äº†å¾…ã¡
 		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 
 	void RenderingEngine::SpriteFontDraw(RenderContext& rc)
 	{
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Æ‚µ‚Ä—˜—p‚Å‚«‚é‚Ü‚Å‘Ò‚Â
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦åˆ©ç”¨ã§ãã‚‹ã¾ã§å¾…ã¤
 		rc.WaitUntilToPossibleSetRenderTarget(m_2DRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğİ’è
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
 		rc.SetRenderTargetAndViewport(m_2DRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğƒNƒŠƒA
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ã‚¯ãƒªã‚¢
 		rc.ClearRenderTargetView(m_2DRenderTarget);
 
 		m_mainSprite.Draw(rc);
@@ -232,30 +232,30 @@ namespace nsK2EngineLow
 			renderObj->OnRender2D(rc);
 		}
 
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ö‚Ì‘‚«‚İI—¹‘Ò‚¿
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®æ›¸ãè¾¼ã¿çµ‚äº†å¾…ã¡
 		rc.WaitUntilFinishDrawingToRenderTarget(m_2DRenderTarget);
 
-		//ƒ^[ƒQƒbƒg‚ğƒƒCƒ“‚É–ß‚·
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ãƒ¡ã‚¤ãƒ³ã«æˆ»ã™
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğİ’è
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		m_2DSprite.Draw(rc);
 
-		//ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ö‚Ì‘‚«‚İI—¹‘Ò‚¿
+		//ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®æ›¸ãè¾¼ã¿çµ‚äº†å¾…ã¡
 		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 
 	void RenderingEngine::OnMonochromeRendering(RenderContext& rc)
 	{
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Æ‚µ‚Ä—˜—p‚Å‚«‚é‚Ü‚Å‘Ò‚Â
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦åˆ©ç”¨ã§ãã‚‹ã¾ã§å¾…ã¤
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğİ’è
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
 
 		m_monochromeSprite.Draw(rc);
 
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ö‚Ì‘‚«‚İI—¹‘Ò‚¿
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®æ›¸ãè¾¼ã¿çµ‚äº†å¾…ã¡
 		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 

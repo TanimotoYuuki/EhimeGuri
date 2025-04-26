@@ -20,7 +20,7 @@ Scaffold::~Scaffold()
 
 bool Scaffold::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/足場ブロック.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);
 	
 	m_modelRender.Update();
@@ -29,7 +29,7 @@ bool Scaffold::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//コリジョンを動く床に設置
+	//繧ｳ繝ｪ繧ｸ繝ｧ繝ｳ繧貞虚縺丞ｺ翫↓險ｭ鄂ｮ
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,

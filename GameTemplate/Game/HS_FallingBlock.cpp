@@ -22,7 +22,7 @@ HS_FallingBlock::~HS_FallingBlock()
 
 bool HS_FallingBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/‘«êƒuƒƒbƒN.tkm", 0, 0, enModelUpAxisZ, false, true);
+	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(HIGHSPEED_FBLOCK_SCALE);
 	m_modelRender.Update();
 
@@ -41,7 +41,7 @@ void HS_FallingBlock::Move()
 
 	m_modelRender.Update();
 
-	//—‰º‘¬“x
+	//è½ä¸‹é€Ÿåº¦
 	if (m_movingFloorState == enMovingFloorState_MovingRight)
 	{
 		moveSpeed.y = -HIGHT_SPEED;
@@ -59,11 +59,11 @@ void HS_FallingBlock::Move()
 
 	m_modelRender.SetPosition(m_position);
 
-	//ƒRƒŠƒWƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ÆƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚ªB
-	//Õ“Ë‚µ‚½‚çB(ƒLƒƒƒ‰ƒNƒ^[‚ª“®‚­°‚Ìã‚Éæ‚Á‚½‚ç)B
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒã€‚
+	//è¡çªã—ãŸã‚‰ã€‚(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå‹•ãåºŠã®ä¸Šã«ä¹—ã£ãŸã‚‰)ã€‚
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		//“®‚­°‚ÌˆÚ“®‘¬“x‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®‘¬“x‚É‰ÁZB
+		//å‹•ãåºŠã®ç§»å‹•é€Ÿåº¦ã‚’ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç§»å‹•é€Ÿåº¦ã«åŠ ç®—ã€‚
 		m_player->AddMoveSpeed(moveSpeed);
 	}
 }
@@ -82,7 +82,7 @@ void HS_FallingBlock::Update()
 		return;
 	}
 
-	//“®ìˆ—
+	//å‹•ä½œå‡¦ç†
 	if (distanceY.Length() <= 300.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();

@@ -11,12 +11,12 @@ namespace nsK2EngineLow
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Init();
 
 		/// <summary>
-		/// •`‰æˆ—‚ğÀs
+		/// æç”»å‡¦ç†ã‚’å®Ÿè¡Œ
 		/// </summary>
 		/// <param name="rc"></param>
 		void Execute(RenderContext& rc);
@@ -27,7 +27,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒVƒƒƒhƒEƒ}ƒbƒv‚ğæ“¾
+		/// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		RenderTarget& GetShadow()
@@ -36,7 +36,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒ‰ƒCƒg‚ğæ“¾
+		/// ãƒ©ã‚¤ãƒˆã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Light& GetLight()
@@ -45,7 +45,7 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
-		/// ƒ‰ƒCƒgƒJƒƒ‰‚ğæ“¾
+		/// ãƒ©ã‚¤ãƒˆã‚«ãƒ¡ãƒ©ã‚’å–å¾—
 		/// </summary>
 		Camera& GetLightCamera()
 		{
@@ -55,74 +55,74 @@ namespace nsK2EngineLow
 	private:
 
 		/// <summary>
-		/// ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì‰Šú‰»
+		/// ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸåŒ–
 		/// </summary>
 		void InitMainRenderTarget();
 
 		/// <summary>
-		/// ”wŒi‚Ì‰Šú‰»
+		/// èƒŒæ™¯ã®åˆæœŸåŒ–
 		/// </summary>
 		void InitBackGround();
 
 		/// <summary>
-		/// 2D(ƒtƒHƒ“ƒg‚ÆƒXƒvƒ‰ƒCƒg)‚Ì‰Šú‰»
+		/// 2D(ãƒ•ã‚©ãƒ³ãƒˆã¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ)ã®åˆæœŸåŒ–
 		/// </summary>
 		void Init2DSprite();
 
 		/// <summary>
-		/// ƒ‚ƒmƒNƒ—p‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì‰Šú‰»
+		/// ãƒ¢ãƒã‚¯ãƒ­ç”¨ã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸåŒ–
 		/// </summary>
 		void InitMonochromeRenderTarget();
 
 		/// <summary>
-		/// ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÌƒJƒ‰[ƒoƒbƒtƒ@‚Ì“à—e‚ğ
-		/// ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚ÉƒRƒs[‚·‚é‚½‚ß‚ÌƒXƒvƒ‰ƒCƒg‚ğ‰Šú‰»‚·‚é
+		/// ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹ãŸã‚ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹
 		/// </summary>
 		void InitCopyMainRenderTargetToFrameBuffer();
 
 		/// <summary>
-		/// ”wŒi‚Ì•`‰æ
+		/// èƒŒæ™¯ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void BackGroundDraw(RenderContext& rc);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚Ì•`‰æ
+		/// ãƒ¢ãƒ‡ãƒ«ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void ModelDraw(RenderContext& rc);
 
 		/// <summary>
-		/// 2D(ƒtƒHƒ“ƒg‚ÆƒXƒvƒ‰ƒCƒg)‚Ì•`‰æ
+		/// 2D(ãƒ•ã‚©ãƒ³ãƒˆã¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ)ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void SpriteFontDraw(RenderContext& rc);
 
 		/// <summary>
-		/// ƒ‚ƒmƒNƒ‚Ì•`‰æ
+		/// ãƒ¢ãƒã‚¯ãƒ­ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void OnMonochromeRendering(RenderContext& rc);
 
 		/// <summary>
-		/// ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì“à—e‚ğƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚ÉƒRƒs[‚·‚é
+		/// ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å†…å®¹ã‚’ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
 		/// </summary>
 		/// <param name="rc"></param>
 		void CopyMainRenderTargetToFrameBuffer(RenderContext& rc);
 
-		SceneLight m_sceneLight; //ƒV[ƒ“ƒ‰ƒCƒg
-		RenderTarget m_mainRenderTarget; //ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		RenderTarget m_backGroundRenderTarget; //”wŒi—pƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		RenderTarget m_2DRenderTarget; //2DƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		RenderTarget m_monochromeRenderTarget; //ƒ‚ƒmƒNƒ—pƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		Sprite m_backGroundSprite; //”wŒi—pƒXƒvƒ‰ƒCƒg
-		Sprite m_2DSprite; //2D(ƒtƒHƒ“ƒg‚ÆƒXƒvƒ‰ƒCƒg)—pƒXƒNƒŠƒvƒg
-		Sprite m_mainSprite; //ƒƒCƒ“(ƒ‚ƒfƒ‹)—pƒXƒvƒ‰ƒCƒg
-		Sprite m_monochromeSprite; //ƒ‚ƒmƒNƒ—pƒXƒvƒ‰ƒCƒg
-		Sprite m_copyToFrameBufferSprite; //ƒƒCƒ“ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ğƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚ÉƒRƒs[‚·‚é‚½‚ß‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-		Bloom m_bloom; //ƒuƒ‹[ƒ€
-		Shadow m_shadow; //ƒVƒƒƒhƒEƒ}ƒbƒv
-		std::vector< IRenderer* > m_renderObjects; //ƒŒƒ“ƒ_ƒŠƒ“ƒOƒIƒuƒWƒFƒNƒg‚ÌŠi”[
+		SceneLight m_sceneLight; //ã‚·ãƒ¼ãƒ³ãƒ©ã‚¤ãƒˆ
+		RenderTarget m_mainRenderTarget; //ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		RenderTarget m_backGroundRenderTarget; //èƒŒæ™¯ç”¨ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		RenderTarget m_2DRenderTarget; //2Dãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		RenderTarget m_monochromeRenderTarget; //ãƒ¢ãƒã‚¯ãƒ­ç”¨ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		Sprite m_backGroundSprite; //èƒŒæ™¯ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		Sprite m_2DSprite; //2D(ãƒ•ã‚©ãƒ³ãƒˆã¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ)ç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+		Sprite m_mainSprite; //ãƒ¡ã‚¤ãƒ³(ãƒ¢ãƒ‡ãƒ«)ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		Sprite m_monochromeSprite; //ãƒ¢ãƒã‚¯ãƒ­ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		Sprite m_copyToFrameBufferSprite; //ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹ãŸã‚ã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		Bloom m_bloom; //ãƒ–ãƒ«ãƒ¼ãƒ 
+		Shadow m_shadow; //ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—
+		std::vector< IRenderer* > m_renderObjects; //ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ ¼ç´
 	};
 }
 

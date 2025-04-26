@@ -3,18 +3,18 @@
 
 bool Fade::Start()
 {
-	//ƒtƒF[ƒh
+	//ãƒ•ã‚§ãƒ¼ãƒ‰
 	m_fade.Init("Assets/fade/fade.dds", 1600, 900);
 	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
 	m_fade.SetWipeScrollSpeed(1000.0f);
 
-	//ƒ[ƒfƒBƒ“ƒO
+	//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
 	m_loading.Init("Assets/fade/loading.dds", 1024,128);
 	m_loading.SetPosition(Vector3(475.0f, -345.0f, 0.0f));
 	m_loading.SetScale(Vector3(0.75f, 0.75f, 0.75f));
 	m_loading.Update();
 
-	//“_
+	//ç‚¹
 	for (int i = 0; i < 3; i++)
 	{
 		m_point[i].Init("Assets/fade/point.dds", 1024, 128);
@@ -27,19 +27,19 @@ bool Fade::Start()
 	return true;
 }
 
-//XVˆ—
+//æ›´æ–°å‡¦ç†
 void Fade::Update()
 {
-	//ƒtƒF[ƒh‚ÌØ‚è‘Ö‚¦‚ğ‚µ‚½‚©?
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ã®åˆ‡ã‚Šæ›¿ãˆã‚’ã—ãŸã‹?
 	if (m_fadeTransitionFlag != true)
 	{
 		switch (m_fadeState)
 		{
-		case enFadeState_FadeIn:	//ƒtƒF[ƒhƒCƒ“
+		case enFadeState_FadeIn:	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³
 			m_fade.SetWipeSize(-50.0f);
 			m_fadeTransitionFlag = true;
 			break;
-		case enFadeState_FadeOut:	//ƒtƒF[ƒhƒAƒEƒg
+		case enFadeState_FadeOut:	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
 			m_fade.SetWipeSize(900.0f);
 			m_fadeTransitionFlag = true;
 			break;
@@ -50,48 +50,48 @@ void Fade::Update()
 
 	if (m_fadeState == enFadeState_Loading)
 	{
-		//ƒ[ƒfƒBƒ“ƒO‚Ì“®ì
+		//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã®å‹•ä½œ
 		LoadingMove();
 	}
 
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	m_fade.Update();
 }
 
-//ƒ[ƒfƒBƒ“ƒO‚Ì“®ì
+//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã®å‹•ä½œ
 void Fade::LoadingMove()
 {
-	//“Á’è‚Ì‚‚³‚Ü‚Ås‚Á‚½‚ç
+	//ç‰¹å®šã®é«˜ã•ã¾ã§è¡Œã£ãŸã‚‰
 	if (m_pointPosition[m_pointMove].y > m_pointInitPosition[m_pointMove].y + 25.0f)
 	{
 		m_pointFallFlag = true;
 	}
 
-	//“_—‰º
+	//ç‚¹è½ä¸‹
 	if (m_pointFallFlag == true)
 	{
 		m_pointPosition[m_pointMove].y -= 2.0f;
-		//“Á’è‚ÌˆÊ’u‚Ü‚Ås‚Á‚½‚ç
+		//ç‰¹å®šã®ä½ç½®ã¾ã§è¡Œã£ãŸã‚‰
 		if (m_pointPosition[m_pointMove].y < m_pointInitPosition[m_pointMove].y)
 		{
-			//ˆÊ’u‚ğŒÅ’è
+			//ä½ç½®ã‚’å›ºå®š
 			m_pointPosition[m_pointMove].y = m_pointInitPosition[m_pointMove].y;
 
-			//“_“®ì‚ÌˆÊ’u‚ª‰E‚È‚ç
+			//ç‚¹å‹•ä½œã®ä½ç½®ãŒå³ãªã‚‰
 			if (m_pointMove == enPoint_Right)
 			{
-				//“_“®ì‚ÌˆÊ’u‚ğ¶‚É•ÏX
+				//ç‚¹å‹•ä½œã®ä½ç½®ã‚’å·¦ã«å¤‰æ›´
 				m_pointMove = enPoint_Left;
 			}
 			else
 			{
-				//“_“®ì‚ÌˆÊ’u‚ÌØ‚è‘Ö‚¦
+				//ç‚¹å‹•ä½œã®ä½ç½®ã®åˆ‡ã‚Šæ›¿ãˆ
 				m_pointMove++;
 			}
 			m_pointFallFlag = false;
 		}
 	}
-	//“_ã¸
+	//ç‚¹ä¸Šæ˜‡
 	else
 	{
 		m_pointPosition[m_pointMove].y += 2.0f;
@@ -101,23 +101,23 @@ void Fade::LoadingMove()
 	m_point[m_pointMove].Update();
 }
 
-//•`‰æ
+//æç”»
 void Fade::Render(RenderContext& rc)
 {
-	//ƒtƒF[ƒh
-	//ƒtƒF[ƒhƒXƒe[ƒg‚ªenFadeState_NoneˆÈŠO‚Í•`‰æ‚·‚é
+	//ãƒ•ã‚§ãƒ¼ãƒ‰
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆãŒenFadeState_Noneä»¥å¤–ã¯æç”»ã™ã‚‹
 	if (m_fadeState != enFadeState_None)
 	{
 		m_fade.Draw(rc);
 	}
 
-	//ƒtƒF[ƒhƒXƒe[ƒg‚ªƒ[ƒfƒBƒ“ƒO‚È‚ç
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆãŒãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãªã‚‰
 	if (m_fadeState == enFadeState_Loading)
 	{
-		//ƒ[ƒfƒBƒ“ƒO
+		//ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
 		m_loading.Draw(rc);
 
-		//“_
+		//ç‚¹
 		for (int i = 0; i < 3; i++)
 		{
 			m_point[i].Draw(rc);

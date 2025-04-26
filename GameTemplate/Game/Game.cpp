@@ -28,8 +28,6 @@ namespace
 	const int ENEMY_NUM = 4;
 }
 
-//�w�i
-////�w�i�̊֐�
 //void Game::InitSky()
 //{
 //	DeleteGO(m_SkyCube);
@@ -37,11 +35,8 @@ namespace
 //	m_SkyCube->SetType(enSkyCubeType_NightToon);
 //	m_SkyCube->SetLuminance(1.0f);
 //	m_SkyCube->SetScale(100000.0f);
-//
-//
-//	// �����̌v�Z�̂��߂�IBL�e�N�X�`����Z�b�g����B
+// 
 //	g_renderingEngine->SetAmbientByIBLTexture(m_SkyCube->GetTextureFilePath(), 1.0f);
-//	// �������̉e����������₷���悤�ɁA�f�B���N�V�������C�g�̓I�t�ɁB
 //	g_renderingEngine->SetDirectionLight(0, g_vec3Zero, g_vec3Zero);
 //}
 
@@ -90,9 +85,8 @@ bool Game::Start()
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
-	//�����蔻���쐬
+
 	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
-	//�X�e�[�W�Ƀ��C�p�̑�����^����B
 	m_physicsStaticObject.GetbtCollisionObject()->setUserIndex(enCollisionAttr_Stage1);
 
 
@@ -149,10 +143,8 @@ bool Game::Start()
 }
 
 
-//�����u���b�N
 void Game::TransparentBlock_NewGO()
 {
-	//㩗p�̍��W
 	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock3->m_position = { 4700.0f, 270.0f, 0.0f };
 	m_transparentBlock3->m_firstposition = m_transparentBlock3->m_position;
@@ -181,7 +173,6 @@ void Game::TransparentBlock_NewGO()
 	m_transparentBlock9->m_position = { 5300.0f, 270.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 
-	//�ړ��p
 	/*m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
 	m_transparentBlock10->m_position = { 10300.0f, 200.0f, 0.0f };
 	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;*/
@@ -189,7 +180,6 @@ void Game::TransparentBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�����鏰
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
@@ -207,7 +197,6 @@ void Game::FallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//T�^����u���b�N
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
@@ -216,7 +205,6 @@ void Game::ScaffoldBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�j
 void Game::Needle_NewGO()
 {
 	m_needle1 = NewGO<Needle>(0, "needle");
@@ -226,7 +214,6 @@ void Game::Needle_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//������(�ʏ푬�x)
 void Game::MovingFloor_NewGO()
 {
 	
@@ -239,7 +226,6 @@ void Game::MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�u���b�N
 void Game::Block_NewGO()
 {
 	/*m_block = NewGO<Block>(0, "block");
@@ -270,17 +256,14 @@ void Game::Block_NewGO()
 
 }
 
-//����u���b�N
 void Game::Scaffold_NewGO()
 {
-	//x �c 13300	
 	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
 	m_scaffold1->m_position = { 12950.0f, 200.0f, 200.0f };
 	m_scaffold1->m_firstposition = m_scaffold1->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
-//�A�C�e��
 void Game::Item_NewGO()
 {
    m_towel = NewGO<Towel>(0,"towel");
@@ -288,7 +271,6 @@ void Game::Item_NewGO()
    m_modelRender.SetPosition(m_position);
 }
 
-//�N���A�|�C���g
 void Game::ClearPoint_NewGO()
 {
 	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
@@ -296,7 +278,6 @@ void Game::ClearPoint_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//������(�x)
 void Game::S_MovingFloor_NewGO()
 {
 	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
@@ -315,7 +296,6 @@ void Game::S_MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-//�����鏰(��)
 void Game::HS_fallingBlock_NewGO()
 {
 	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
@@ -333,26 +313,6 @@ void Game::Fade_NewGO()
 
 void Game::Update()
 {
-	////���l�m�F�p�B
-	//wchar_t wcsbuf[256];
-	//swprintf_s(wcsbuf, 256, L"�c�莞��%d�b", (int)(m_player->m_playernowsutamina));
-	////�\������e�L�X�g��ݒ�B
-	//m_fontRender.SetText(wcsbuf);
-	////�t�H���g�̈ʒu��ݒ�B
-	//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
-	////�t�H���g�̑傫����ݒ�B
-	//m_fontRender.SetScale(1.2f);
-	////�t�H���g�̐F��ݒ�B
-	//m_fontRender.SetColor(g_vec4Yellow);  
-	
-	//�e�X�g�p
-	//m_fontRender.SetText(L"�J�E���g�̏㏸");
-	//m_fontRender.SetPosition(Vector3(-160.0f, 500.0f, 0.0f));
-	//m_fontRender.SetScale(1.2f);
-	//////�t�H���g�̐F��ݒ�B
-	//m_fontRender.SetColor(g_vec4Yellow);
-
-	//�j�ɓ������ăQ�[���I�[�o�[�ɂȂ����珈�����Ȃ�
 	if (m_needle1->m_gameOverFlag == true)
 	{
 		return;
@@ -412,7 +372,7 @@ void Game::Update()
 	m_sutaminaMaxrender.SetScale(heri);
 
 	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"�c��%.1f�b", float(m_timer));
+	swprintf_s(wcsbuf, 256, L"残り%.1f秒", float(m_timer));
 	m_timerRender.SetText(wcsbuf);
 	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
 	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
@@ -437,7 +397,6 @@ void Game::Render(RenderContext& rc)
 	
 	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
-	//�X�^�~�i���R�O�O�ȉ��̂Ƃ��ɃQ�[�W��o��
 	if (m_player->m_gameoverFlag != true)
 	{
 		if (m_player->m_playernowsutamina < 300) {

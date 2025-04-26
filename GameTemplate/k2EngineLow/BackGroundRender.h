@@ -6,29 +6,29 @@ namespace nsK2EngineLow
 	{
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <param name="w">‰æ‘œ‚Ì‰¡•</param>
-		/// <param name="h">‰æ‘œ‚Ìc•</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <param name="w">ç”»åƒã®æ¨ªå¹…</param>
+		/// <param name="h">ç”»åƒã®ç¸¦å¹…</param>
 		void Init(const char* filePath);
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
-		/// <param name="rc">ƒŒƒ“ƒ_[ƒRƒ“ƒeƒLƒXƒg</param>
+		/// <param name="rc">ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
 		void Draw(RenderContext& rc);
 
 
 	private:
 
 		/// <summary>
-		/// ”wŒi‚Ì•`‰æ
+		/// èƒŒæ™¯ã®æç”»
 		/// </summary>
 		/// <param name="rc"></param>
 		void OnRenderBackGround(RenderContext& rc) override
@@ -36,7 +36,7 @@ namespace nsK2EngineLow
 			m_sprite.Draw(rc);
 		}
 
-		Sprite			m_sprite;	//ƒXƒvƒ‰ƒCƒg
+		Sprite			m_sprite;	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	};
 }
 

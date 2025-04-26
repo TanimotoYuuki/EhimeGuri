@@ -1,11 +1,11 @@
-//ƒXƒLƒjƒ“ƒO—p‚Ì’¸“_ƒf[ƒ^‚ğ‚Ğ‚Æ‚Ü‚Æ‚ßB
+//ã‚¹ã‚­ãƒ‹ãƒ³ã‚°ç”¨ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’ã²ã¨ã¾ã¨ã‚ã€‚
 struct SSkinVSIn
 {
     int4 Indices : BLENDINDICES0;
     float4 Weights : BLENDWEIGHT0;
 };
 
-//ƒ‚ƒfƒ‹—p‚Ì’è”ƒoƒbƒtƒ@
+//ãƒ¢ãƒ‡ãƒ«ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡
 cbuffer ModelCb : register(b0)
 {
     float4x4 mWorld;
@@ -15,15 +15,15 @@ cbuffer ModelCb : register(b0)
 
 struct SVSIn
 {
-    float4 pos      : POSITION;     //ƒ‚ƒfƒ‹‚Ì’¸“_À•WB
-    float2 uv       : TEXCOORD0;    // UVÀ•W
-    SSkinVSIn skinVert;             //ƒXƒLƒ“—p‚Ìƒf[ƒ^B
+    float4 pos      : POSITION;     //ãƒ¢ãƒ‡ãƒ«ã®é ‚ç‚¹åº§æ¨™ã€‚
+    float2 uv       : TEXCOORD0;    // UVåº§æ¨™
+    SSkinVSIn skinVert;             //ã‚¹ã‚­ãƒ³ç”¨ã®ãƒ‡ãƒ¼ã‚¿ã€‚
 };
 
 struct SPSIn
 {
-    float4 pos      : SV_POSITION;  //ƒXƒNƒŠ[ƒ“‹óŠÔ‚Å‚ÌƒsƒNƒZƒ‹‚ÌÀ•WB
-    float2 uv       : TEXCOORD0;    // UVÀ•W
+    float4 pos      : SV_POSITION;  //ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ç©ºé–“ã§ã®ãƒ”ã‚¯ã‚»ãƒ«ã®åº§æ¨™ã€‚
+    float2 uv       : TEXCOORD0;    // UVåº§æ¨™
 };
 
 cbuffer ShadowMapCb : register(b1)
@@ -31,10 +31,10 @@ cbuffer ShadowMapCb : register(b1)
     float alphaColor;
 }
 
-StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ƒ{[ƒ“s—ñ
+StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ãƒœãƒ¼ãƒ³è¡Œåˆ—
 
 /// <summary>
-//ƒXƒLƒ“s—ñ‚ğŒvZ‚·‚éB
+//ã‚¹ã‚­ãƒ³è¡Œåˆ—ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 /// </summary>
 float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 {
@@ -53,7 +53,7 @@ float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 }
 
 /// <summary>
-/// ’¸“_ƒVƒF[ƒ_[‚ÌƒRƒAŠÖ”B
+/// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚³ã‚¢é–¢æ•°ã€‚
 /// </summary>
 SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 {
@@ -74,14 +74,14 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 }
 
 /// <summary>
-/// ƒXƒLƒ“‚È‚µƒƒbƒVƒ…—p‚Ì’¸“_ƒVƒF[ƒ_[‚ÌƒGƒ“ƒgƒŠ[ŠÖ”B
+/// ã‚¹ã‚­ãƒ³ãªã—ãƒ¡ãƒƒã‚·ãƒ¥ç”¨ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¨ãƒ³ãƒˆãƒªãƒ¼é–¢æ•°ã€‚
 /// </summary>
 SPSIn VSMain(SVSIn vsIn)
 {
     return VSMainCore(vsIn, false);
 }
 /// <summary>
-/// ƒXƒLƒ“‚ ‚èƒƒbƒVƒ…‚Ì’¸“_ƒVƒF[ƒ_[‚ÌƒGƒ“ƒgƒŠ[ŠÖ”B
+/// ã‚¹ã‚­ãƒ³ã‚ã‚Šãƒ¡ãƒƒã‚·ãƒ¥ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¨ãƒ³ãƒˆãƒªãƒ¼é–¢æ•°ã€‚
 /// </summary>
 SPSIn VSSkinMain(SVSIn vsIn)
 {

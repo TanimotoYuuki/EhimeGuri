@@ -43,8 +43,8 @@ public:
 	FallingBlock* m_fallingblock;
 	ScaffoldBlock* m_scaffolblock;
 	GameCamera* m_gamecamera;
-	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x²‚Ì”»’è
-	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y²‚Ì”»’è
+	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//xè»¸ã®åˆ¤å®š
+	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//yè»¸ã®åˆ¤å®š
 };
 
 

@@ -11,137 +11,137 @@ public:
 	void Render(RenderContext& rc);
 
 	/// <summary>
-	/// ûW‚µ‚½ƒAƒCƒeƒ€‚Ì”‚ğİ’è‚·‚é
+	/// åé›†ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã®æ•°ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="gatheringItemNum">ûW‚µ‚½ƒAƒCƒeƒ€‚Ì”</param>
+	/// <param name="gatheringItemNum">åé›†ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã®æ•°</param>
 	void SetGatheringItemNum(int gatheringItemNum)
 	{
 		m_gatheringItemNum = gatheringItemNum;
 	}
 
 	/// <summary>
-	/// ƒAƒCƒeƒ€‚Ì‘”‚ğİ’è‚·‚é
+	/// ã‚¢ã‚¤ãƒ†ãƒ ã®ç·æ•°ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="totalItemNum">ƒAƒCƒeƒ€‚Ì‘”</param>
+	/// <param name="totalItemNum">ã‚¢ã‚¤ãƒ†ãƒ ã®ç·æ•°</param>
 	void SetTotalItemNum(int totalItemNum)
 	{
 		m_totalItemNum = totalItemNum;
 	}
 
 	/// <summary>
-	/// ûW—¦‚ÌŒvZ
+	/// åé›†ç‡ã®è¨ˆç®—
 	/// </summary>
-	/// <param name="num">ûW‚µ‚½ƒAƒCƒeƒ€‚Ì”</param>
-	/// <param name="totalNum">ƒAƒCƒeƒ€‚Ì‘”</param>
+	/// <param name="num">åé›†ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã®æ•°</param>
+	/// <param name="totalNum">ã‚¢ã‚¤ãƒ†ãƒ ã®ç·æ•°</param>
 	void GatheringRate(int gatheringItemNum, int totalItemNum);
 
 private:
 	/// <summary>
-	/// ƒJƒƒ‰‚Ì‰Šú‰»
+	/// ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 	/// </summary>
 	void InitCamera();
 
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒg‚Ì‰Šú‰»
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®åˆæœŸåŒ–
 	/// </summary>
 	void InitSprite();
 
 	/// <summary>
-	/// ƒ‚ƒfƒ‹‚Ì‰Šú‰»
+	/// ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–
 	/// </summary>
 	void InitModel();
 
 	/// <summary>
-	/// ƒ‰ƒ“ƒN‚ğİ’è‚·‚é
+	/// ãƒ©ãƒ³ã‚¯ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	void SetRank()
 	{
-		//ûW—¦‚ª100%‚È‚ç
+		//åé›†ç‡ãŒ100%ãªã‚‰
 		if (m_gatheringRate >= 100)
 		{
-			//Sƒ‰ƒ“ƒN
+			//Sãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/s.dds";
-			m_rankSpriteColor = { 0.7f,0.0f,0.7f,0.0f };	//‡F
+			m_rankSpriteColor = { 0.7f,0.0f,0.7f,0.0f };	//ç´«è‰²
 			m_rankState = enRank_S;
 		}
-		//ûW—¦‚ª80%ˆÈã‚È‚ç
+		//åé›†ç‡ãŒ80%ä»¥ä¸Šãªã‚‰
 		else if (m_gatheringRate >= 80)
 		{
-			//Aƒ‰ƒ“ƒN
+			//Aãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/a.dds";
-			m_rankSpriteColor = { 1.0f,1.0f,0.0f,0.0f };	//‰©F
+			m_rankSpriteColor = { 1.0f,1.0f,0.0f,0.0f };	//é»„è‰²
 			m_rankState = enRank_A;
 		}
-		//ûW—¦‚ª60%ˆÈã‚È‚ç
+		//åé›†ç‡ãŒ60%ä»¥ä¸Šãªã‚‰
 		else if (m_gatheringRate >= 60)
 		{
-			//Bƒ‰ƒ“ƒN
+			//Bãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/b.dds";
-			m_rankSpriteColor = { 1.0f,0.0f,0.0f,0.0f };	//ÔF
+			m_rankSpriteColor = { 1.0f,0.0f,0.0f,0.0f };	//èµ¤è‰²
 			m_rankState = enRank_B;
 		}
-		//ûW—¦‚ª40%ˆÈã‚È‚ç
+		//åé›†ç‡ãŒ40%ä»¥ä¸Šãªã‚‰
 		else if (m_gatheringRate >= 40)
 		{
-			//Cƒ‰ƒ“ƒN
+			//Cãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/c.dds";
-			m_rankSpriteColor = { 0.0f,0.7f,0.0f,0.0f };	//—ÎF
+			m_rankSpriteColor = { 0.0f,0.7f,0.0f,0.0f };	//ç·‘è‰²
 			m_rankState = enRank_C;
 		}
-		//ûW—¦‚ª20%ˆÈã‚È‚ç
+		//åé›†ç‡ãŒ20%ä»¥ä¸Šãªã‚‰
 		else if (m_gatheringRate >= 20)
 		{
-			//Dƒ‰ƒ“ƒN
+			//Dãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/d.dds";
-			m_rankSpriteColor = { 0.5f,0.9f,0.9f,0.0f };	//…F
+			m_rankSpriteColor = { 0.5f,0.9f,0.9f,0.0f };	//æ°´è‰²
 			m_rankState = enRank_D;
 		}
-		//ûW—¦‚ª20%–¢–‚È‚ç
+		//åé›†ç‡ãŒ20%æœªæº€ãªã‚‰
 		else
 		{
-			//Eƒ‰ƒ“ƒN
+			//Eãƒ©ãƒ³ã‚¯
 			m_rankSpriteFilePath = "Assets/result/rank/e.dds";
-			m_rankSpriteColor = { 0.5f,0.5f,0.5f,0.0f };	//ŠDF
+			m_rankSpriteColor = { 0.5f,0.5f,0.5f,0.0f };	//ç°è‰²
 			m_rankState = enRank_E;
 		}
 	}
 
 	/// <summary>
-	/// ‡ˆÊ‚ğİ’è‚·‚é
+	/// é †ä½ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	void SetRanking()
 	{
-		//‡ˆÊ
+		//é †ä½
 		int rank = m_totalItemNum - m_gatheringItemNum;
 
-		//‡ˆÊ‚ğŒvZŒ‹‰Ê‚ª0ˆÈ‰º‚Ìê‡
+		//é †ä½ã‚’è¨ˆç®—çµæœãŒ0ä»¥ä¸‹ã®å ´åˆ
 		if (rank <= 0)
 		{
-			//1ˆÊ‚ğ•`‰æ‚·‚é
+			//1ä½ã‚’æç”»ã™ã‚‹
 			m_hundredPlace[enNumberDraw_Ranking] = enNumver_Zero;
 			m_tenPlace[enNumberDraw_Ranking] = enNumver_Zero;
 			m_onePlace[enNumberDraw_Ranking] = enNumver_One;
 			return;
 		}
 
-		//UI‚ğ•\¦‚·‚é‚½‚ß‚ÌŒvZ
-		//•S‚ÌˆÊ
+		//UIã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®è¨ˆç®—
+		//ç™¾ã®ä½
 		m_hundredPlace[enNumberDraw_Ranking] = rank / 100;
 
-		//\‚ÌˆÊ
+		//åã®ä½
 		m_tenPlace[enNumberDraw_Ranking] = rank / 10;
 
-		//ˆê‚ÌˆÊ
+		//ä¸€ã®ä½
 		m_onePlace[enNumberDraw_Ranking] = rank % 10;
 	}
 
 	/// <summary>
-	/// ”šƒXƒvƒ‰ƒCƒg‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚Ìæ“¾
+	/// æ•°å­—ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®å–å¾—
 	/// </summary>
-	/// <param name="num">”š</param>
+	/// <param name="num">æ•°å­—</param>
 	void GetNumberSpriteFilePaht(int num)
 	{
-		//”š
+		//æ•°å­—
 		switch (num)
 		{
 		case enNumver_Zero:				//0
@@ -174,41 +174,41 @@ private:
 		case enNumver_Nine:				//9
 			m_numberSpriteFilePath = "Assets/result/number/9.dds";
 			break;
-		default:						//10`
+		default:						//10ï½
 			m_numberSpriteFilePath = "Assets/result/number/0.dds";
 			break;
 		}
 	}
 
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒg‚Ì“®ì
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å‹•ä½œ
 	/// </summary>
 	void SpriteMove();
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‘¤‚Ì‘€ì
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ã®æ“ä½œ
 	/// </summary>
 	void Action();
 	
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÇ—
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç®¡ç†
 	/// </summary>
 	void PlayerModelAnimationManage();
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 	/// </summary>
 	void PlayerModelPlayAnimation();
 
-	//”šUI•`‰æ
+	//æ•°å­—UIæç”»
 	enum enNumberDraw
 	{
-		enNumberDraw_GatheringRate,		//ûW—¦
-		enNumberDraw_Ranking,			//‡ˆÊ
-		enNumberDraw_Num				//”šUI•`‰æ”
+		enNumberDraw_GatheringRate,		//åé›†ç‡
+		enNumberDraw_Ranking,			//é †ä½
+		enNumberDraw_Num				//æ•°å­—UIæç”»æ•°
 	};
 
-	//”š
+	//æ•°å­—
 	enum enNumber
 	{
 		enNumver_Zero,		//0
@@ -221,94 +221,94 @@ private:
 		enNumver_Seven,		//7
 		enNumver_Eight,		//8
 		enNumver_Nine,		//9
-		enNumver_TenOver,   //10`
-		enNumver_Num		//”š”
+		enNumver_TenOver,   //10ï½
+		enNumver_Num		//æ•°å­—æ•°
 	};
 
-	//Z‚ÌˆÊ
+	//ã€‡ã®ä½
 	enum enNumberPlace
 	{
-		enNumberPlace_Hundred,		//•S‚ÌˆÊ
-		enNumberPlace_Ten,			//\‚ÌˆÊ
-		enNumberPlace_One,			//ˆê‚ÌˆÊ
-		enNumberPlace_Num			//Z‚ÌˆÊ”
+		enNumberPlace_Hundred,		//ç™¾ã®ä½
+		enNumberPlace_Ten,			//åã®ä½
+		enNumberPlace_One,			//ä¸€ã®ä½
+		enNumberPlace_Num			//ã€‡ã®ä½æ•°
 	};
 
-	//ƒ‰ƒ“ƒN
+	//ãƒ©ãƒ³ã‚¯
 	enum enRank
 	{
-		enRank_S,			//Sƒ‰ƒ“ƒN
-		enRank_A,			//Aƒ‰ƒ“ƒN
-		enRank_B,			//Bƒ‰ƒ“ƒN
-		enRank_C,			//Cƒ‰ƒ“ƒN
-		enRank_D,			//Dƒ‰ƒ“ƒN
-		enRank_E,			//Eƒ‰ƒ“ƒN
-		enRank_Num			//ƒ‰ƒ“ƒN”
+		enRank_S,			//Sãƒ©ãƒ³ã‚¯
+		enRank_A,			//Aãƒ©ãƒ³ã‚¯
+		enRank_B,			//Bãƒ©ãƒ³ã‚¯
+		enRank_C,			//Cãƒ©ãƒ³ã‚¯
+		enRank_D,			//Dãƒ©ãƒ³ã‚¯
+		enRank_E,			//Eãƒ©ãƒ³ã‚¯
+		enRank_Num			//ãƒ©ãƒ³ã‚¯æ•°
 	};
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
 	enum EnAnimationClip {
-		enAnimationClip_Idle,		//‘Ò‹@
-		enAnimationClip_Defeat,		//‰÷‚µ‚¢
-		enAnimationClip_FistPump,	//ƒKƒbƒc
-		enAnimationClip_Victory,	//Šğ‚µ‚¢
-		enAnimationClip_Num			//ƒAƒjƒ[ƒVƒ‡ƒ“”
+		enAnimationClip_Idle,		//å¾…æ©Ÿ
+		enAnimationClip_Defeat,		//æ‚”ã—ã„
+		enAnimationClip_FistPump,	//ã‚¬ãƒƒãƒ„
+		enAnimationClip_Victory,	//å¬‰ã—ã„
+		enAnimationClip_Num			//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°
 	};
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 	enum EnAnimationState
 	{
-		enAnimationState_Idle,		//‘Ò‹@
-		enAnimationState_Defeat,	//‰÷‚µ‚¢
-		enAnimationState_FistPump,	//ƒKƒbƒc
-		enAnimationState_Victory,	//Šğ‚µ‚¢
-		enAnimationState_Num		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg”
+		enAnimationState_Idle,		//å¾…æ©Ÿ
+		enAnimationState_Defeat,	//æ‚”ã—ã„
+		enAnimationState_FistPump,	//ã‚¬ãƒƒãƒ„
+		enAnimationState_Victory,	//å¬‰ã—ã„
+		enAnimationState_Num		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆæ•°
 	};
 
-	//ƒQ[ƒ€ƒNƒŠƒA‰‰o
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡º
 	enum EnGameClearDirection
 	{
-		enGameClearDirection_GatheringRate,		//ûW—¦
-		enGameClearDirection_Ranking,			//‡ˆÊ
-		enGameClearDirection_Rank,				//ƒ‰ƒ“ƒN
-		enGameClearDirection_Num				//ƒQ[ƒ€ƒNƒŠƒA‰‰o”
+		enGameClearDirection_GatheringRate,		//åé›†ç‡
+		enGameClearDirection_Ranking,			//é †ä½
+		enGameClearDirection_Rank,				//ãƒ©ãƒ³ã‚¯
+		enGameClearDirection_Num				//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºæ•°
 	};
 
-	SpriteRender		m_result;															//ƒŠƒUƒ‹ƒg‰æ–Ê
-	SpriteRender		m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//ûW—¦—p”šUI(•S‚ÌˆÊ)
-	SpriteRender		m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//ûW—¦—p”šUI(\‚ÌˆÊ)
-	SpriteRender		m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//ûW—¦—p”šUI(ˆê‚ÌˆÊ)	
-	SpriteRender		m_rankingNumberHundredPlaceUI[enNumver_Num];						//‡ˆÊ—p”šUI(•S‚ÌˆÊ)
-	SpriteRender		m_rankingNumberTenPlaceUI[enNumver_Num];							//‡ˆÊ—p”šUI(\‚ÌˆÊ)
-	SpriteRender		m_rankingNumberOnePlaceUI[enNumver_Num];							//‡ˆÊ—p”šUI(ˆê‚ÌˆÊ)
-	SpriteRender        m_rankUI[enRank_Num];												//ƒ‰ƒ“ƒNUI
-	SpriteRender        m_percentUI;														//ƒp[ƒZƒ“ƒgUI
-	SpriteRender        m_placeUI;															//ˆÊUI
-	SpriteRender		m_aButtonUI;														//Aƒ{ƒ^ƒ“UI
-	SpriteRender        m_returnTitleUI;													//ƒ^ƒCƒgƒ‹‚Ö–ß‚éUI
-	BackGroundRender    m_gameBackground;													//ƒQ[ƒ€”wŒi
-	AnimationClip		m_animationClip[enAnimationClip_Num];								//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
-	ModelRender			m_playerModel;														//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
-	Vector3				m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);				//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÌˆÊ’u
-	Quaternion          m_playerModelRotation = Quaternion::Identity;						//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì‰ñ“]
-	Vector3				m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);					//ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚Ì‘å‚«‚³
-	Vector4				m_rankSpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ƒ‰ƒ“ƒNƒXƒvƒ‰ƒCƒg—pƒJƒ‰[
-	int                 m_hundredPlace[enNumberDraw_Num] = { 0,0 };							//•S‚ÌˆÊ
-	int                 m_tenPlace[enNumberDraw_Num] = { 0,0 };								//\‚ÌˆÊ
-	int                 m_onePlace[enNumberDraw_Num] = { 0,0 };								//ˆê‚ÌˆÊ
-	int                 m_gatheringItemNum = 0;												//ûW‚µ‚½ƒAƒCƒeƒ€‚Ì”
-	int                 m_totalItemNum = 1;													//ƒAƒCƒeƒ€‚Ì‘”
-	int					m_gatheringRate = 0;												//ûW—¦
-	int					m_animationState = enAnimationState_Idle;							//ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg
-	int                 m_rankState = enRank_Num;											//ƒ‰ƒ“ƒNƒXƒe[ƒg
-	int                 m_gameClearDirectionState = enGameClearDirection_GatheringRate;		//ƒQ[ƒ€ƒNƒŠƒA‰‰oƒXƒe[ƒg
-	float               m_gatheringRateUIAlphaColor = -0.5f;								//ûW—¦UI—p“§–¾“x
-	float				m_rankingUIAlphaColor = -0.5f;										//‡ˆÊUI—p“§–¾“x
-	float				m_rankUIAlphaColor = -0.5f;											//ƒ‰ƒ“ƒNUI—p“§–¾“x
-	bool				m_gameClearDirectionFlag = false;									//ƒQ[ƒ€ƒNƒŠƒA‰‰oƒtƒ‰ƒO
-	bool				m_titleScreenTransitionFlag = false;								//ƒ^ƒCƒgƒ‹‰æ–Ê‘JˆÚƒtƒ‰ƒO
-	const char*			m_numberSpriteFilePath = nullptr;									//”šƒXƒvƒ‰ƒCƒg—pƒtƒ@ƒCƒ‹ƒpƒX
-	const char*			m_rankSpriteFilePath = nullptr;										//ƒ‰ƒ“ƒNƒXƒvƒ‰ƒCƒg—pƒtƒ@ƒCƒ‹ƒpƒX
-	Fade*				m_fade = nullptr;													//ƒtƒF[ƒh—pƒCƒ“ƒXƒ^ƒ“ƒX
+	SpriteRender		m_result;															//ãƒªã‚¶ãƒ«ãƒˆç”»é¢
+	SpriteRender		m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//åé›†ç‡ç”¨æ•°å­—UI(ç™¾ã®ä½)
+	SpriteRender		m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//åé›†ç‡ç”¨æ•°å­—UI(åã®ä½)
+	SpriteRender		m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//åé›†ç‡ç”¨æ•°å­—UI(ä¸€ã®ä½)	
+	SpriteRender		m_rankingNumberHundredPlaceUI[enNumver_Num];						//é †ä½ç”¨æ•°å­—UI(ç™¾ã®ä½)
+	SpriteRender		m_rankingNumberTenPlaceUI[enNumver_Num];							//é †ä½ç”¨æ•°å­—UI(åã®ä½)
+	SpriteRender		m_rankingNumberOnePlaceUI[enNumver_Num];							//é †ä½ç”¨æ•°å­—UI(ä¸€ã®ä½)
+	SpriteRender        m_rankUI[enRank_Num];												//ãƒ©ãƒ³ã‚¯UI
+	SpriteRender        m_percentUI;														//ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆUI
+	SpriteRender        m_placeUI;															//ä½UI
+	SpriteRender		m_aButtonUI;														//Aãƒœã‚¿ãƒ³UI
+	SpriteRender        m_returnTitleUI;													//ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹UI
+	BackGroundRender    m_gameBackground;													//ã‚²ãƒ¼ãƒ èƒŒæ™¯
+	AnimationClip		m_animationClip[enAnimationClip_Num];								//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
+	ModelRender			m_playerModel;														//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
+	Vector3				m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®ä½ç½®
+	Quaternion          m_playerModelRotation = Quaternion::Identity;						//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å›è»¢
+	Vector3				m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);					//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å¤§ãã•
+	Vector4				m_rankSpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ãƒ©ãƒ³ã‚¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã‚«ãƒ©ãƒ¼
+	int                 m_hundredPlace[enNumberDraw_Num] = { 0,0 };							//ç™¾ã®ä½
+	int                 m_tenPlace[enNumberDraw_Num] = { 0,0 };								//åã®ä½
+	int                 m_onePlace[enNumberDraw_Num] = { 0,0 };								//ä¸€ã®ä½
+	int                 m_gatheringItemNum = 0;												//åé›†ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã®æ•°
+	int                 m_totalItemNum = 1;													//ã‚¢ã‚¤ãƒ†ãƒ ã®ç·æ•°
+	int					m_gatheringRate = 0;												//åé›†ç‡
+	int					m_animationState = enAnimationState_Idle;							//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
+	int                 m_rankState = enRank_Num;											//ãƒ©ãƒ³ã‚¯ã‚¹ãƒ†ãƒ¼ãƒˆ
+	int                 m_gameClearDirectionState = enGameClearDirection_GatheringRate;		//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºã‚¹ãƒ†ãƒ¼ãƒˆ
+	float               m_gatheringRateUIAlphaColor = -0.5f;								//åé›†ç‡UIç”¨é€æ˜åº¦
+	float				m_rankingUIAlphaColor = -0.5f;										//é †ä½UIç”¨é€æ˜åº¦
+	float				m_rankUIAlphaColor = -0.5f;											//ãƒ©ãƒ³ã‚¯UIç”¨é€æ˜åº¦
+	bool				m_gameClearDirectionFlag = false;									//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ¼”å‡ºãƒ•ãƒ©ã‚°
+	bool				m_titleScreenTransitionFlag = false;								//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢é·ç§»ãƒ•ãƒ©ã‚°
+	const char*			m_numberSpriteFilePath = nullptr;									//æ•°å­—ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	const char*			m_rankSpriteFilePath = nullptr;										//ãƒ©ãƒ³ã‚¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	Fade*				m_fade = nullptr;													//ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 };
 
