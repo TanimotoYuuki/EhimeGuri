@@ -45,6 +45,10 @@ public:
 	
 private:
 	Block             * m_block;
+	Block             * m_block1;
+	Block             * m_block2;
+	Block             * m_block3;
+	Block             * m_block4;
 	BackGround		  * m_backGround;
 	ClearPoint        * m_clearPoint;
 	Enemy			  * m_enemyList[5];

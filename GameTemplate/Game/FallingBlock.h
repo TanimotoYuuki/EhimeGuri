@@ -30,6 +30,7 @@ public:
 	Vector3										m_position;
 	Vector3										m_firstposition;
 	Vector3										fallingSpeed;
+	Vector3										m_initPosition;
 
 	FontRender									m_fontRender;
 	ModelRender									m_modelRender;

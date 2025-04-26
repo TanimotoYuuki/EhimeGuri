@@ -50,7 +50,7 @@ bool Needle::Start()
 void Needle::DisplayModel()
 {
 	Vector3 diff = m_player->m_position - m_needlePosition;
-	if (diff.Length() <= 100.0f)
+	if (diff.Length() <= 50.0f)
 	{
 		if (m_gameOverFlag != true)
 		{
