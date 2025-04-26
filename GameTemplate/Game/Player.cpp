@@ -27,7 +27,7 @@ Player::Player() {
 
 	m_position = { 0.0f,94.0f,0.0f };
 
-//	m_position = { 16250.0f, 800.0f, 0.0f };
+//	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	m_initPosition = { 0.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
