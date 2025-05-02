@@ -16,5 +16,6 @@ public:
 	Vector3     position;
 
 	int clearCount = 0;
+	bool m_stageClearFlag = false;
 };
 
