@@ -58,7 +58,7 @@ private:
 
 	Player									  * m_player = nullptr;
 	CollisionObject							  * m_collisionObject = nullptr;		//コリジョンオブジェクト。
-	CharacterController							m_charactecController;
+	//CharacterController							m_charactecController;
 
 	ModelRender									m_modelRender;
 	

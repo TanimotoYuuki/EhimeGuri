@@ -3,21 +3,39 @@
 
 namespace nsK2EngineLow
 {
-	void BackGroundRender::Init(const char* filePath)
+	void BackGroundRender::Init(const char* filePath, const float w, const float h, bool isScroll)
 	{
 		SpriteInitData spriteInitData;
 		spriteInitData.m_ddsFilePath[0] = filePath;
-		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
-		spriteInitData.m_width = FRAME_BUFFER_W;
-		spriteInitData.m_height = FRAME_BUFFER_H;
+		spriteInitData.m_fxFilePath = "Assets/shader/backGround.fx";
+		spriteInitData.m_width = w;
+		spriteInitData.m_height = h;
+
+		spriteInitData.m_expandConstantBuffer = &GetBackGroundRenderConstantBuffer();
+		spriteInitData.m_expandConstantBufferSize = sizeof(GetBackGroundRenderConstantBuffer());
 
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_Trans;
+
+		m_backGroundConstantBuffer.scrollFlag = isScroll;
+		if (m_backGroundConstantBuffer.scrollFlag == true)
+		{
+			if (w > FRAME_BUFFER_W)
+			{
+				m_backGroundConstantBuffer.screenEdgeCorrection = w / FRAME_BUFFER_W - 1;
+			}
+		}
+
 		m_sprite.Init(spriteInitData);
 	}
 
 	void BackGroundRender::Update()
 	{
-		m_sprite.Update(Vector3::Zero, Quaternion::Identity, Vector3::One, Sprite::DEFAULT_PIVOT);
+		if (m_backGroundConstantBuffer.scrollFlag == true)
+		{
+			UpdateBackGroundScroll();
+		}
+
+		m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 	}
 
 	void BackGroundRender::Draw(RenderContext& rc)

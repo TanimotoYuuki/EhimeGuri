@@ -53,11 +53,11 @@ namespace nsK2EngineLow
 		SpriteInitData spriteInitData;
 		//テクスチャは背景用レンダリングターゲット
 		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
+		//解像度はメインレンダリングターゲットの幅と高さ
 		spriteInitData.m_width = m_backGroundRenderTarget.GetWidth();
 		spriteInitData.m_height = m_backGroundRenderTarget.GetHeight();
-		//解像度はメインレンダリングターゲットの幅と高さ
-		//2D用のシェーダーを使用する
-		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+		//背景用のシェーダーを使用する
+		spriteInitData.m_fxFilePath = "Assets/shader/backGround.fx";
 		spriteInitData.m_vsEntryPointFunc = "VSMain";
 		spriteInitData.m_psEntryPoinFunc = "PSMain";
 		//上書き

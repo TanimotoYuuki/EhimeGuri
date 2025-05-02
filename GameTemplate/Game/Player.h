@@ -53,6 +53,7 @@ public:
 		enAnimationClip_walk,
 		enAnimationClip_run,
 		enAnimationClip_jump,
+		enAnimationClip_stageclear,
 		enAnimationClip_gameover,
 		enAnimationClip_num
 	};
@@ -62,6 +63,7 @@ public:
 		enPlayer_walk,
 		enPlayer_run,
 		enPlayer_jump,
+		enPlayer_stageclear,
 		enPlayer_gameover,
 		enPlayer_num
 	};
@@ -91,6 +93,7 @@ public:
 	bool				m_jumpFlag = true;
 	bool				m_isOnGround = true;
 	bool G = true;
-	bool m_gameoverFlag = false;
+	bool m_stageClearFlag = false;
+	bool m_gameOverFlag = false;
 };
 

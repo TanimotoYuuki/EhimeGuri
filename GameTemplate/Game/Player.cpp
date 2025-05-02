@@ -18,6 +18,8 @@ Player::Player() {
 	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
 	m_animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
 	m_animationClip[enAnimationClip_jump].SetLoopFlag(false);
+	m_animationClip[enAnimationClip_stageclear].Load("Assets/animData/stageclear.tka");
+	m_animationClip[enAnimationClip_stageclear].SetLoopFlag(true);
 	m_animationClip[enAnimationClip_gameover].Load("Assets/animData/gameover.tka");
 	m_animationClip[enAnimationClip_gameover].SetLoopFlag(false);
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
@@ -68,7 +70,7 @@ void Player::Move() {
 	m_moveSpeed.z = 0.0f;
 	
 	Vector3 stickL;
-	if (m_gameoverFlag != true)
+	if (m_stageClearFlag != true && m_gameOverFlag != true)
 	{
 		stickL.x = g_pad[0]->GetLStickXF();
 		stickL.y = g_pad[0]->GetLStickYF();
@@ -85,7 +87,7 @@ void Player::Move() {
 	
 	m_moveSpeed += right + forward;
 	
-	if (m_gameoverFlag != true)
+	if (m_stageClearFlag != true && m_gameOverFlag != true)
 	{
 		if (g_pad[0]->IsPress(enButtonB) && m_playernowsutamina > 0 && m_sutaminaZeroFlag == false && m_characterController.IsOnGround()) {
 			m_moveSpeed.x *= 2.0f;
@@ -102,7 +104,7 @@ void Player::Move() {
 		m_moveSpeed.y = 0.0f;	
 
 		
-		if (m_gameoverFlag != true)
+		if (m_stageClearFlag != true && m_gameOverFlag != true)
 		{
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				
@@ -113,7 +115,7 @@ void Player::Move() {
 	
 	m_moveSpeed.y -= glavity;
 
-	if (m_gameoverFlag != true)
+	if (m_stageClearFlag != true && m_gameOverFlag != true)
 	{
 		if (m_position.y <= -500.0f) {
 			m_position = m_initPosition;
@@ -141,7 +143,14 @@ void Player::Rotation() {
 	}
 }
 void Player::ManageState() {
-	if (m_gameoverFlag == true)
+	if (m_stageClearFlag == true)
+	{
+		m_playerState = enPlayer_stageclear;
+		m_rotation.SetRotationDegY(180.0f);
+		m_modelRender.SetRotation(m_rotation);
+		return;
+	}
+	else if (m_gameOverFlag == true)
 	{
 		m_playerState = enPlayer_gameover;
 		return;
@@ -182,6 +191,9 @@ void Player::PlayAnimation() {
 	case enPlayer_run:
 		m_modelRender.PlayAnimation(enAnimationClip_run,0.1f);
 		m_moveSpeed.z *= 0.0f;
+		break;
+	case enPlayer_stageclear:
+		m_modelRender.PlayAnimation(enAnimationClip_stageclear, 0.1f);
 		break;
 	case enPlayer_gameover:
 		m_modelRender.PlayAnimation(enAnimationClip_gameover, 0.1f);

@@ -16,7 +16,7 @@ bool GameOver::Start()
 	InitSprite();
 
 	m_player = FindGO<Player>("player");
-	m_player->m_gameoverFlag = true;
+	m_player->m_gameOverFlag = true;
 
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");

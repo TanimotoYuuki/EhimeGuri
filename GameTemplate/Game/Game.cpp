@@ -77,6 +77,11 @@ Game::~Game()
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
 	DeleteGO(m_clearPoint);
+	DeleteGO(m_s_MovingFloor);
+	DeleteGO(m_s_MovingFloor1);
+	DeleteGO(m_s_MovingFloor2);
+	DeleteGO(m_s_MovingFloor3);
+	DeleteGO(m_HS_FallingBlock);
 }
 
 bool Game::Start()
@@ -123,6 +128,24 @@ bool Game::Start()
 	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
 	m_taorutoriRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 
+	m_stageBackGround.Init("Assets/Sprite/background/1stage.dds", 12800, 900, true);
+	m_stageBackGround.Update();
+
+	for (int i = 0; i < enEhimePlace_Num; i++)
+	{
+		GetEhimePlaceSpriteData(i);
+		m_ehimePlace[i].Init(m_ehimePlaceFilePath, 1024, 128);
+		m_ehimePlace[i].SetPosition(m_ehimePlacePosition);
+		m_ehimePlace[i].SetScale(Vector3(0.35f, 0.35f, 0.35f));
+		m_ehimePlace[i].Update();
+
+		GetEhimeFamousPlaceSpriteData(i);
+		m_ehimeFamousPlace[i].Init(m_ehimeFamousPlaceFilePath, 1024, 128);
+		m_ehimeFamousPlace[i].SetPosition(m_ehimeFamousPlacePosition);
+		m_ehimeFamousPlace[i].SetScale(Vector3(0.35f, 0.35f, 0.35f));
+		m_ehimeFamousPlace[i].Update();
+	}
+
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
@@ -137,6 +160,8 @@ bool Game::Start()
 	S_MovingFloor_NewGO();
 	Fade_NewGO();
 
+	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	m_stageBackGround.SetGoalPosition(m_clearPoint->position);
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
@@ -284,14 +309,14 @@ void Game::S_MovingFloor_NewGO()
 	m_s_MovingFloor->m_position = { 13575.0f, 300.0f, 10.0f };
 	m_s_MovingFloor->m_firstPosition = m_s_MovingFloor->m_position;
 
-	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor->m_position = { 14175.0f, 300.0f, 10.0f };
+	m_s_MovingFloor1 = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor1->m_position = { 14175.0f, 300.0f, 10.0f };
+
+	m_s_MovingFloor2 = NewGO<S_MovingFloor>(0, "s_movingfloor");
+	m_s_MovingFloor2->m_position = { 14775.0f, 300.0f, 10.0f };
 
 	m_s_MovingFloor3 = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor3->m_position = { 14775.0f, 300.0f, 10.0f };
-
-	m_s_MovingFloor4 = NewGO<S_MovingFloor>(0, "s_movingfloor");
-	m_s_MovingFloor4->m_position = { 15375.0f, 300.0f, 10.0f };
+	m_s_MovingFloor3->m_position = { 15375.0f, 300.0f, 10.0f };
 
 	m_modelRender.SetPosition(m_position);
 }
@@ -313,7 +338,10 @@ void Game::Fade_NewGO()
 
 void Game::Update()
 {
-	if (m_needle1->m_gameOverFlag == true)
+	//ステージクリアとゲームオーバーの時は処理しない
+	if (m_player->m_stageClearFlag == true || 
+		m_player->m_gameOverFlag == true
+		)
 	{
 		return;
 	}
@@ -363,6 +391,9 @@ void Game::Update()
 		//m_gameCamera->SetTarget(nullptr);
 	}
 
+	SetNowEhimePlace(m_player->m_position);
+	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	m_stageBackGround.Update();
 	
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
@@ -394,11 +425,17 @@ void Game::Update()
 
 void Game::Render(RenderContext& rc)
 {
-	
+	m_stageBackGround.Draw(rc);
 	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
-	if (m_player->m_gameoverFlag != true)
+
+	//ステージクリアとゲームオーバーではないときは描画する
+	if (m_player->m_stageClearFlag != true && 
+		m_player->m_gameOverFlag != true
+		)
 	{
+		m_ehimePlace[m_nowEhimePlace].Draw(rc);
+		m_ehimeFamousPlace[m_nowEhimePlace].Draw(rc);
 		if (m_player->m_playernowsutamina < 300) {
 			m_sutamina0render.Draw(rc);
 			m_sutaminaMaxrender.Draw(rc);
@@ -413,5 +450,29 @@ void Game::Render(RenderContext& rc)
 		else if (m_player->taoruCount == 1) {
 			m_taorutoriRender.Draw(rc);
 		}
+	}
+}
+
+void Game::SetNowEhimePlace(const Vector3& pos)
+{
+	if (pos.x >= 15060.0f)
+	{
+		m_nowEhimePlace = enEhimePlace_Onihoku;
+	}
+	else if (pos.x >= 10945.0f)
+	{
+		m_nowEhimePlace = enEhimePlace_Uwajima;
+	}
+	else if (pos.x >= 6940.0f)
+	{
+		m_nowEhimePlace = enEhimePlace_Yawatahama;
+	}
+	else if (pos.x >= 2730.0f)
+	{
+		m_nowEhimePlace = enEhimePlace_Ooze;
+	}
+	else
+	{
+		m_nowEhimePlace = enEhimePlace_Iyo;
 	}
 }

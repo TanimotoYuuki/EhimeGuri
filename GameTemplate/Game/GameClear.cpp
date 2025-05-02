@@ -206,7 +206,7 @@ void GameClear::InitSprite()
 	m_rankUI[m_rankState].Update();
 
 	//ゲーム背景
-	m_gameBackground.Init("Assets/Sprite/yellow.dds");
+	m_gameBackground.Init("Assets/Sprite/yellow.dds", 1600, 900);
 	m_gameBackground.Update();
 }
 

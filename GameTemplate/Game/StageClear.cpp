@@ -14,6 +14,7 @@ bool StageClear::Start()
 	SetStageClearSpriteEasing();
 
 	m_player = FindGO<Player>("player");
+	m_player->m_stageClearFlag = true;
 	return true;
 }
 
@@ -55,7 +56,6 @@ void StageClear::UpdateStageClearSpriteEasing()
 	if (m_easingTime > 1.0f)
 	{
 		m_easingTime = 1.0f;
-		DeleteGO(this);
 	}
 
 	m_position.Lerp(m_easingTime, m_beforeEasingPosition, m_afterEasingPosition);
