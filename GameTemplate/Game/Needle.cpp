@@ -6,9 +6,9 @@
 
 namespace
 {
-	Vector3	NEEDLE_SCALE = Vector3(5.0f, 5.0f, 10.0f);
-	Vector3 COLLISION_HEIGHT = Vector3(50.0f, 50.0f, 0.0f);
-	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
+	Vector3	NEEDLE_SCALE = Vector3(5.0f, 5.0f, 10.0f);// オブジェクトの大きさ。
+	Vector3 COLLISION_HEIGHT = Vector3(50.0f, 50.0f, 0.0f);// コリジョンの高さ。
+	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);// コリジョンの大きさ。
 }
 
 Needle::Needle()
@@ -22,7 +22,7 @@ Needle::~Needle()
 }
 bool Needle::Start()
 {
-	//Needleモデルのファイルパス
+	//モデルのファイルパス
 	m_modelRender.Init("Assets/modelData/Stage/Assets/Needle.tkm");
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
@@ -47,6 +47,15 @@ bool Needle::Start()
 	return true;
 }
 
+// 更新作業。
+void Needle::Update()
+{
+	DisplayModel();
+	m_modelRender.Update();
+	m_collisionObject->SetPosition(m_needlePosition + COLLISION_HEIGHT);
+}
+
+
 void Needle::DisplayModel()
 {
 	Vector3 diff = m_player->m_position - m_needlePosition;
@@ -62,19 +71,7 @@ void Needle::DisplayModel()
 	}
 }
 
-void Needle::Update()
-{
-	DisplayModel();
-	m_modelRender.Update();
-	m_collisionObject->SetPosition(m_needlePosition + COLLISION_HEIGHT);	
-}
-
 void Needle::Render(RenderContext& rc)
 {
-	//if (flag == false)
-	//{
-	//	m_modelRender.Draw(rc);
-	//}
-
 	m_modelRender.Draw(rc);
 }    

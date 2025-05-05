@@ -4,6 +4,10 @@ class Player;
 class StageClear : public IGameObject
 {
 public:
+	/// <summary>
+	/// ステージクリア
+    /// </summary>
+
 	bool Start();
 	void Update();
 

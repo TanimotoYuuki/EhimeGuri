@@ -2,18 +2,19 @@
 
 class Player;
 class BackGround;
-/// <summary>
-/// 動く床。
-/// </summary>
 class MovingFloor : public IGameObject
 {
 public:
-	MovingFloor();
-	~MovingFloor();
+	/// <summary>
+    /// 動く床。
+    /// </summary>
+
+	MovingFloor() {};
+	~MovingFloor() {};
 
 	bool Start() override;
-	void Update()override;
-	void Render(RenderContext& rc)override;
+	void Update()override; // 更新作業。
+	void Render(RenderContext& rc)override; // 描画処理。
 
 	/// <summary>
 	/// 座標を設定。
@@ -23,30 +24,33 @@ public:
 		m_position = position;
 	}
 
+	/// <summary>
+    /// 座標を取得。
+    /// </summary>
 	const Vector3& GetPosition()const
 	{
 		return m_position;
 	}
+
+	/// <summary>
+    /// 移動処理。
+    /// </summary>
 	void Move();
 private:
-	/// <summary>
-	/// 移動処理。
-	/// </summary>
+	Player* m_player = nullptr;
+	CollisionObject* m_collisionObject = nullptr;		
+	Vector3 m_firstPosition;
+	ModelRender m_modelRender;
+	Vector3 m_position;
+	PhysicsStaticObject m_physicsStaticObject;				
 	
-
-	Player									  * m_player = nullptr;
-	CollisionObject							  * m_collisionObject = nullptr;		//コリジョンオブジェクト。
-
-	Vector3										m_firstPosition;
-	ModelRender									m_modelRender;
-	Vector3										m_position;
-	PhysicsStaticObject							m_physicsStaticObject;				
-	
-
+	// 移動方向を決めるステート。
 	enum enMovingFloorState
 	{
-		enMovingFloorState_MovingRight,
-		enMovingFloorState_MovingLeft
+		enMovingFloorState_MovingRight, // 右。
+		enMovingFloorState_MovingLeft// 左。
 	};
-	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
+
+	// ステートの初期化。
+	enMovingFloorState m_movingFloorState = enMovingFloorState_MovingRight;
 };
