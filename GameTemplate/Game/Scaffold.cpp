@@ -3,31 +3,26 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 250.0f, 0.0f);
-	Vector3	COLLISION_SIZE = Vector3(500.0f, 3.0f, 225.0f);
+	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);// 大きさ。
+	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
+	Vector3	COLLISION_SIZE = Vector3(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 }
 
-Scaffold::Scaffold()
-{
-
-}
-
-Scaffold::~Scaffold()
-{
-
-}
 
 bool Scaffold::Start()
 {
+	// ファイルパス。
 	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+
+	// スケール。
 	m_modelRender.SetScale(SCALE);
 	
+	// モデルの更新。
 	m_modelRender.Update();
 
+	//当たり判定とコリジョン。
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
-
 
 	//コリジョンを動く床に設置
 	m_collisionObject->CreateBox
@@ -37,7 +32,6 @@ bool Scaffold::Start()
 		COLLISION_SIZE
 	);
 	m_modelRender.SetPosition(m_position);
-
 	m_collisionObject->SetIsEnableAutoDelete(false);
 	m_firstposition = m_position;
 
@@ -45,6 +39,7 @@ bool Scaffold::Start()
 
 }
 
+// 更新作業。
 void Scaffold::Update()
 {
 	m_modelRender.Update();
@@ -53,6 +48,7 @@ void Scaffold::Update()
 
 }
 
+// 描画処理。
 void Scaffold::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);

@@ -2,24 +2,19 @@
 
 class Player;
 class BackGround;
-/// <summary>
-/// 動く床。
-/// </summary>
 class S_MovingFloor : public IGameObject
 {
 public:
-	S_MovingFloor();
-	~S_MovingFloor();
+	/// <summary>
+    /// 動く床。
+    /// </summary>
+
+	S_MovingFloor() {};
+	~S_MovingFloor() {};
 
 	bool Start() override;
-	void Update()override;
-
-	/////↓//////
-	///試作中///
-//	void Trap();
-	/////↑/////
-
-	void Render(RenderContext& rc)override;
+	void Update()override;// 更新作業。
+	void Render(RenderContext& rc)override;// 描画処理。
 
 	/// <summary>
 	/// 座標を設定。
@@ -29,17 +24,9 @@ public:
 		m_position = position;
 	}
 
-	void SetGroundPlatformVelocity(const Vector3& moveSPEED)
-	{
-		moveSpeed = moveSPEED;
-	}
-
-	Vector3 m_platformVelocity = Vector3::Zero;
-	void GroundPlatformVelocity(const Vector3& vel)
-	{
-		m_platformVelocity = vel;
-	}
-
+	/// <summary>
+    /// 座標を取得。
+    /// </summary>
 	const Vector3& GetPosition()const
 	{
 		return m_position;
@@ -50,24 +37,24 @@ public:
 	/// </summary>
 	void Move();
 	int count = 0;
-	Vector3										m_firstPosition;
-	Vector3										m_position;
-	Vector3									    moveSpeed = Vector3::Zero;
+	Vector3 m_firstPosition;
+	Vector3	m_position;
+	Vector3	moveSpeed = Vector3::Zero;
 
 private:
 
-	Player									  * m_player = nullptr;
-	CollisionObject							  * m_collisionObject = nullptr;		//コリジョンオブジェクト。
-	//CharacterController							m_charactecController;
+	Player* m_player = nullptr;
+	CollisionObject* m_collisionObject = nullptr;		
+	ModelRender m_modelRender;
+	PhysicsStaticObject m_physicsStaticObject;
 
-	ModelRender									m_modelRender;
-	
-	PhysicsStaticObject							m_physicsStaticObject;
-
+	// 移動方向を決めるステート。
 	enum enMovingFloorState
 	{
-		enMovingFloorState_MovingRight,
-		enMovingFloorState_MovingLeft
+		enMovingFloorState_MovingRight,// 左。
+		enMovingFloorState_MovingLeft// 右。
 	};
-	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
+
+	// ステートの初期化。
+	enMovingFloorState m_movingFloorState = enMovingFloorState_MovingRight;
 };

@@ -3,10 +3,8 @@
 #include"Player.h"
 namespace
 {
-	Vector3 SCALE = Vector3{ 2.0f,2.0f,3.0f };
+	Vector3 SCALE = Vector3{ 2.0f,2.0f,3.0f }; // 大きさ。
 }
-
-
 
 bool Towel::Start()
 {
@@ -16,12 +14,7 @@ bool Towel::Start()
 	return true;
 }
 
-void Towel::Rotation()
-{
-	m_Rot.AddRotationDegY(2.0f);
-	m_modelRender.SetRotation(m_Rot);
-}
-
+// 更新作業。
 void Towel::Update()
 {
 	Rotation();
@@ -35,6 +28,14 @@ void Towel::Update()
 	}
 }
 
+// 回転処理。
+void Towel::Rotation()
+{
+	m_Rot.AddRotationDegY(2.0f);
+	m_modelRender.SetRotation(m_Rot);
+}
+
+// 描画処理。
 void Towel::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);

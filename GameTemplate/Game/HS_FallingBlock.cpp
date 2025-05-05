@@ -11,15 +11,6 @@ namespace
 	float LIMITED = 2000.0f;
 }
 
-HS_FallingBlock::HS_FallingBlock()
-{
-	
-}
-
-HS_FallingBlock::~HS_FallingBlock()
-{
-}
-
 bool HS_FallingBlock::Start()
 {
 	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
@@ -35,39 +26,7 @@ bool HS_FallingBlock::Start()
 
 }
 
-void HS_FallingBlock::Move()
-{
-	Vector3 moveSpeed = Vector3::Zero;
-
-	m_modelRender.Update();
-
-	//落下速度
-	if (m_movingFloorState == enMovingFloorState_MovingRight)
-	{
-		moveSpeed.y = -HIGHT_SPEED;
-	}
-
-	m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
-
-	if (m_movingFloorState == enMovingFloorState_MovingRight)
-	{
-		if (m_firstposition.y - LIMITED >= m_position.y)
-		{
-			m_movingFloorState = enMovingFloorState_MovingLeft;
-		}
-	}
-
-	m_modelRender.SetPosition(m_position);
-
-	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
-	//衝突したら。(キャラクターが動く床の上に乗ったら)。
-	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
-	{
-		//動く床の移動速度をキャラクターの移動速度に加算。
-		m_player->AddMoveSpeed(moveSpeed);
-	}
-}
-
+// 更新作業。
 void HS_FallingBlock::Update()
 {
 	Vector3 distanceX;
@@ -89,23 +48,53 @@ void HS_FallingBlock::Update()
 	}
 
 	m_modelRender.SetPosition(m_position);
-	Vector3 diffX;
-	diffX.x = m_position.x - m_player->m_position.x;
-	Vector3 diffY;
-	diffY.y = m_position.y - m_player->m_position.y;
-
-	//if (diffX.Length() < 70.0f && diffY.Length() < 10.0f)
-	//{
-	//	NewGO<GameOver>(0, "gameover");
-	//	DeleteGO(this);
-	//}
 
 	m_modelRender.Update();
-//	m_physicsStaticObject.SetPosition(m_position);
-//	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 
 }
 
+// 移動処理。
+void HS_FallingBlock::Move()
+{
+	// 移動速度の初期化。
+	Vector3 moveSpeed = Vector3::Zero;
+
+	// モデルの更新。
+	m_modelRender.Update();
+
+	// 落下速度
+	if (m_movingFloorState == enMovingFloorState_MovingRight)
+	{
+		moveSpeed.y = -HIGHT_SPEED;
+	}
+
+	// ポジションの更新。
+	m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
+
+	// ステートがRightなら。
+	if (m_movingFloorState == enMovingFloorState_MovingRight)
+	{
+		// LIMITED上限に達したら。
+		if (m_firstposition.y - LIMITED >= m_position.y)
+		{
+			// ステートを切り替える。
+			m_movingFloorState = enMovingFloorState_MovingLeft;
+		}
+	}
+
+	// モデルの座標更新。
+	m_modelRender.SetPosition(m_position);
+
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが動く床の上に乗ったら)。
+	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
+	{
+		//動く床の移動速度をキャラクターの移動速度に加算。
+		m_player->AddMoveSpeed(moveSpeed);
+	}
+}
+
+// 描画処理。
 void HS_FallingBlock::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);

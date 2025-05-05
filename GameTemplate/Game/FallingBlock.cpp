@@ -5,12 +5,12 @@
 
 namespace
 {
-	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);
+	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);	//モデルの大きさ
 
-	float SPEED = 340.0f;
-	float LIMITED = 300.0f;
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
-	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);
+	const float SPEED = 340.0f;//モデルの落下速度
+	const float LIMITED = 300.0f;//モデルが動ける上限数
+	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);//コリジョンの高さ
+	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);//コリジョンの大きさ
 }
 
 FallingBlock::FallingBlock()
@@ -25,6 +25,7 @@ FallingBlock::~FallingBlock()
 
 bool FallingBlock::Start()
 {
+	//ファイルパス
 	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
 	
 	
@@ -55,26 +56,27 @@ bool FallingBlock::Start()
 
 void FallingBlock::Move()
 {
-		Vector3 moveSpeed = Vector3::Zero;
-		m_modelRender.Update();
+	Vector3 moveSpeed = Vector3::Zero;
+	m_modelRender.Update();
 
-		if (m_movingFloorState == enMovingFloorState_MovingRight)
-		{
-			moveSpeed.y = -SPEED;
-		}
+	//ステートがRightになったら下降
+	if (m_movingFloorState == enMovingFloorState_MovingRight)
+	{
+		moveSpeed.y = -SPEED;
+	}
 		
-		m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
+	m_position += moveSpeed * g_gameTime->GetFrameDeltaTime();
 
 
-		m_modelRender.SetPosition(m_position);
+	m_modelRender.SetPosition(m_position);
 
-		//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
-		//衝突したら。(キャラクターが動く床の上に乗ったら)。
-		if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
-		{
-			//動く床の移動速度をキャラクターの移動速度に加算。
-			m_player->AddMoveSpeed(moveSpeed);
-		}
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが動く床の上に乗ったら)。
+	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
+	{
+		//動く床の移動速度をキャラクターの移動速度に加算。
+		m_player->AddMoveSpeed(moveSpeed);
+	}
 }
 
 
@@ -90,17 +92,17 @@ void FallingBlock::Update()
 	Vector3 distanceX;
 	Vector3 distanceY;
 
-	
 	distanceX.x = m_player->m_position.x - m_position.x;
 	distanceY.y = m_player->m_position.y - m_position.y;
 
 
-	//通常版の床
+	//床が感知する範囲
 	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
 	{
 		Move();
 	}
 
+	//Playerが一定座標に到達すると座標をm_initPositionに
 	if (m_player->m_position.y <= -500.0f) {
 		m_position = m_initPosition;
 		m_modelRender.SetPosition(m_position);

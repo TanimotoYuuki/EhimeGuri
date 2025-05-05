@@ -6,6 +6,9 @@ class MovingFloor;
 class GameOver;
 class FallingBlock : public IGameObject
 {
+	/// <summary>
+	/// 落下する床
+	/// </summary>
 public:
 	FallingBlock();
 	~FallingBlock();
@@ -16,29 +19,34 @@ public:
 	void Move();
 
 
-
+	/// <summary>
+	/// 座標のセット
+	/// </summary>
 	void SetPosition(const Vector3 position)
 	{
 		m_position = position;
 	}
 
+	/// <summary>
+	/// 座標を取得
+	/// </summary>
 	const Vector3& GetPosition()const
 	{
 		return m_position;
 	}
 
-	Vector3										m_position;
-	Vector3										m_firstposition;
-	Vector3										fallingSpeed;
-	Vector3										m_initPosition;
+	Vector3 m_position;
+	Vector3	m_firstposition;
+	Vector3	fallingSpeed;
+	Vector3 m_initPosition;
 
-	FontRender									m_fontRender;
-	ModelRender									m_modelRender;
-	ModelRender									m_HightSpeedFallingBlock_Render;
-	PhysicsStaticObject							m_physicsStaticObject;
-	Player									  * m_player;
-	MovingFloor								  * m_movingFloor;
-	GameOver								  * m_gameOver;
+	FontRender m_fontRender;
+	ModelRender m_modelRender;
+	ModelRender	m_HightSpeedFallingBlock_Render;
+	PhysicsStaticObject	m_physicsStaticObject;
+	Player* m_player;
+	MovingFloor* m_movingFloor;
+	GameOver* m_gameOver;
 
 
 private:
@@ -47,7 +55,7 @@ private:
 		enMovingFloorState_MovingRight,
 		enMovingFloorState_MovingLeft
 	};
-	enMovingFloorState							m_movingFloorState = enMovingFloorState_MovingRight;
-	CollisionObject							  * m_collisionObject = nullptr;
+	enMovingFloorState m_movingFloorState = enMovingFloorState_MovingRight;
+	CollisionObject* m_collisionObject = nullptr;
 };
 
