@@ -3,13 +3,16 @@
 
 namespace nsK2EngineLow
 {
+	/// <summary>
+	/// コリジョンオブジェクト
+	/// </summary>
 	class CollisionObject : public IGameObject
 	{
 	public:
-		CollisionObject();
-		~CollisionObject();
-		bool Start();
-		void Update();
+		CollisionObject(); //コンストラクタ
+		~CollisionObject(); //デストラクタ
+		bool Start(); //開始処理
+		void Update(); //更新処理
 		/// <summary>
 		/// ボックス形状のゴーストオブジェクトを作成。
 		/// </summary>
@@ -71,7 +74,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 名前を取得。
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>名前</returns>
 		const char* GetName() const
 		{
 			return m_name;
@@ -79,7 +82,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 座標を設定。
 		/// </summary>
-		/// <param name="position"></param>
+		/// <param name="position">座標</param>
 		void SetPosition(const Vector3& position)
 		{
 			m_physicsGhostObject.SetPosition(position);
@@ -87,7 +90,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 回転を設定。
 		/// </summary>
-		/// <param name="rotation"></param>
+		/// <param name="rotation">回転</param>
 		void SetRotation(const Quaternion& rotation)
 		{
 			m_physicsGhostObject.SetRotation(rotation);
@@ -202,11 +205,14 @@ namespace nsK2EngineLow
 		bool		m_isEnable = true; //trueなら当たり判定有効。
 	};
 
+	/// <summary>
+	/// コリジョンオブジェクトマネージャー
+	/// </summary>
 	class CollisionObjectManager
 	{
 	public:
-		CollisionObjectManager();
-		~CollisionObjectManager();
+		CollisionObjectManager(); //コンストラクタ
+		~CollisionObjectManager(); //デストラクタ
 		void AddCollisionObject(CollisionObject* collisionObject)
 		{
 			m_collisionObjectVector.push_back(collisionObject);

@@ -2,6 +2,7 @@
 #include "SceneLight.h"
 namespace nsK2EngineLow
 {
+	//初期化
 	void SceneLight::Init()
 	{
 		//ディレクションライトの方向
@@ -41,6 +42,7 @@ namespace nsK2EngineLow
 		m_light.mLVP = m_lightCamera.GetViewProjectionMatrix();
 	}
 
+	//ライトカメラの更新処理
 	void SceneLight::LightCameraUpdate()
 	{
 		//カメラの位置を設定

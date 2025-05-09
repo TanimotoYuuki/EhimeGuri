@@ -13,6 +13,7 @@ cbuffer ModelCb : register(b0)
     float4x4 mProj;
 }
 
+//頂点シェーダーの入力
 struct SVSIn
 {
     float4 pos      : POSITION;     //モデルの頂点座標。
@@ -20,15 +21,17 @@ struct SVSIn
     SSkinVSIn skinVert;             //スキン用のデータ。
 };
 
+//ピクセルシェーダーの入力
 struct SPSIn
 {
     float4 pos      : SV_POSITION;  //スクリーン空間でのピクセルの座標。
     float2 uv       : TEXCOORD0;    // UV座標
 };
 
+//シャドウマップの定数バッファ
 cbuffer ShadowMapCb : register(b1)
 {
-    float alphaColor;
+    float alphaColor; //透明度
 }
 
 StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ボーン行列
@@ -90,6 +93,7 @@ SPSIn VSSkinMain(SVSIn vsIn)
 
 float4 PSShadowCaster(SPSIn psIn) : SV_Target0
 {
+    //モデルが透明なら影を描画しない
     if(alphaColor<=0.0f)
     {
         return float4(psIn.pos.z, psIn.pos.z, psIn.pos.z, 0.0f);

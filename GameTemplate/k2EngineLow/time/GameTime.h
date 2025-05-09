@@ -105,7 +105,7 @@ namespace nsK2EngineLow {
 		/// ストップウォッチ
 		/// </summary>
 		/// <param name="time">(単位:秒)</param>
-		/// <returns></returns>
+		/// <returns>設定した時間が経過したらtrueを返します</returns>
 		bool StopWatch(float time)
 		{
 			m_stopWatchTime += GetFrameDeltaTime();
@@ -114,7 +114,6 @@ namespace nsK2EngineLow {
 				m_stopWatchTime = 0.0f;
 				return true;
 			}
-			
 			return false;
 		}
 	private:

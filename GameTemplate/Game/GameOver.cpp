@@ -5,11 +5,13 @@
 #include "Title.h"
 #include "Game.h"
 
+//デストラクタ
 GameOver::~GameOver()
 {
 	DeleteGO(m_fade);
 }
 
+//開始処理
 bool GameOver::Start()
 {
 	//スプライトの初期化
@@ -26,6 +28,7 @@ bool GameOver::Start()
 	return true;
 }
 
+//更新処理
 void GameOver::Update()
 {
 	//スプライトの動作
@@ -39,6 +42,7 @@ void GameOver::Update()
 	}
 }
 
+//描画処理
 void GameOver::Render(RenderContext& rc)
 {
 	//ゲームオーバーUI
@@ -50,7 +54,7 @@ void GameOver::Render(RenderContext& rc)
 	//ゲームオーバー時の選択UI(タイトルへ戻る)
 	m_gameOverSelectUI[enSelect_ReturnTitle].Draw(rc);
 
-	//ゲームオーバー演出が終わったら
+	//ゲームオーバー演出が終わったら描画する
 	if (m_gameOverDirectionFlag == true)
 	{
 		//十字キーUI
@@ -70,6 +74,7 @@ void GameOver::Render(RenderContext& rc)
 //スプライトの初期化
 void GameOver::InitSprite()
 {
+	//各スプライトの初期設定
 	//ゲームオーバーUI
 	m_gameOverUI.Init("Assets/gameover/text/gameover.dds", 1024, 128);
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
@@ -171,6 +176,7 @@ void GameOver::Action()
 		{
 		case enSelect_Continue:			//コンティニュー
 			m_fade->FadeTransition(enFadeState_FadeOut);
+			//3.0秒経過したらコンティニューする
 			if (g_gameTime->StopWatch(3.0f))
 			{
 				DeleteGO(this);
@@ -179,6 +185,7 @@ void GameOver::Action()
 			}
 			break;
 		case enSelect_ReturnTitle:		//タイトルへ戻る
+			//2.0秒経過したらタイトルへ戻る
 			if (g_gameTime->StopWatch(2.0f))
 			{
 				DeleteGO(this);
@@ -217,7 +224,7 @@ void GameOver::SpriteMove()
 		case enGameOverDirection_Select:		//選択
 			m_gameOverSelectUIAlphaColor += 0.75f * g_gameTime->GetFrameDeltaTime();
 
-			//ゲームオーバー時の選択UIが不透明になったら
+			//ゲームオーバー時の選択UIが不透明になったらゲームオーバー演出を終了する
 			if (m_gameOverSelectUIAlphaColor > 1.0f)
 			{
 				m_gameOverSelectUIAlphaColor = 1.0f;
@@ -225,7 +232,7 @@ void GameOver::SpriteMove()
 				return;
 			}
 
-			//ゲームオーバー時の選択UI
+			//ゲームオーバー時の選択UIの乗算カラーの更新
 			m_gameOverSelectUI[enGameOverDirection_GameOver].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
 			m_gameOverSelectUI[enGameOverDirection_Select].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_gameOverSelectUIAlphaColor));
 			break;
@@ -237,7 +244,7 @@ void GameOver::SpriteMove()
 	//遷移フラグが立っていないとき
 	else if (m_transitionFlag != true)
 	{
-		//Aボタンが押されたら
+		//Aボタンが押されたらボタンを押したときの演出に移る
 		if (m_pressButtonFlag == true)
 		{
 			//ボタンを押したときの動作をしていないか?
@@ -257,6 +264,7 @@ void GameOver::SpriteMove()
 				default:
 					break;
 				}
+				//0.1秒経過したら次の演出に移る
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_pressButtonActionFlag = true;
@@ -279,6 +287,7 @@ void GameOver::SpriteMove()
 				default:
 					break;
 				}
+				//0.1秒経過したらフェードアウトする
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_transitionFlag = true;
@@ -320,6 +329,7 @@ void GameOver::UpdateGameOverSpriteEasingPosition()
 {
 	m_easingTime += 2.0f * g_gameTime->GetFrameDeltaTime();
 
+	//割合が1.0f以上になったら次の演出に移る
 	if (m_easingTime > 1.0f)
 	{
 		m_easingTime = 1.0f;
@@ -328,6 +338,7 @@ void GameOver::UpdateGameOverSpriteEasingPosition()
 		SetCoefficientOfRestitution(90.0f, 50.0f);
 	}
 
+	//ゲームオーバーUIの更新
 	m_gameOverUIPosition.Lerp(m_easingTime, m_beforeEasingPosition, m_afterEasingPosition);
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
 	m_gameOverUI.Update();
@@ -350,11 +361,13 @@ void GameOver::UpdateGameOverSpriteEasingRotation()
 {
 	m_easingTime += 1.7f * g_gameTime->GetFrameDeltaTime();
 
+	//割合が1.0fになったら割合を固定する
 	if (m_easingTime > 1.0f)
 	{
 		m_easingTime = 1.0f;
 	}
 
+	//ゲームオーバーUIの更新
 	m_gameOverUIRotation.Slerp(m_easingTime, m_beforeEasingRotation, m_afterEasingRotation);
 	m_gameOverUI.SetRotation(m_gameOverUIRotation);
 	m_gameOverUI.Update();
@@ -372,13 +385,14 @@ void GameOver::UpdateGameOverSpriteElasticity()
 		m_gameOverUI.Update();
 	}
 
-	//ゲームオーバーUIが落下していないとき
+	//落下フラグが立っていないときはゲームオーバーUIを上に上昇する
 	if (m_gameOverUIFallFlag != true)
 	{
 		m_gameOverUIPosition.y += pow(m_coefficientOfRestitution, m_exponentiation) * 250.0f;
 		SetGameOverSpriteEasingRotation(m_angle);
 		m_gameOverUIFallFlag = true;
 	}
+	//落下フラグが立っているときはゲームオーバーUIを下に下降する
 	else
 	{
 		m_gameOverUIPosition.y -= pow(m_coefficientOfRestitution, m_exponentiation) * 9.8f;
@@ -386,9 +400,12 @@ void GameOver::UpdateGameOverSpriteElasticity()
 		//ゲームオーバーUIが最初の高さに戻ったか?
 		if (m_gameOverUIPosition.y <= m_gameOverUIFarstHeight.y)
 		{
+			//落下フラグが立っているとき
 			if (m_gameOverUIFallFlag == true)
 			{
+				//ゲームオーバーUIの高さをイージング(位置)が終わった時の高さに設定する
 				m_gameOverUIPosition.y = m_gameOverUIFarstHeight.y;
+				//累乗を3ずつ上昇する
 				m_exponentiation += 3;
 
 				//偶数は角度用の変数を反転して加算
@@ -404,11 +421,16 @@ void GameOver::UpdateGameOverSpriteElasticity()
 					m_angle -= 5.0f / m_gameOverUIHitCount;
 				}
 
+				//何回ゲームオーバーUIが跳ねたかカウントする
 				m_gameOverUIHitCount++;
+				
+				//ゲームオーバーUIを上昇する
 				m_gameOverUIFallFlag = false;
 			}
 		}
 	}
+
+	//ゲームオーバーUIの更新
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
 	m_gameOverUI.Update();
 }

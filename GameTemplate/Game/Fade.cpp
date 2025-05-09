@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Fade.h"
 
+//開始処理
 bool Fade::Start()
 {
+	//各スプライトの初期設定
 	//フェード
 	m_fade.Init("Assets/fade/fade.dds", 1600, 900);
 	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
@@ -36,10 +38,12 @@ void Fade::Update()
 		switch (m_fadeState)
 		{
 		case enFadeState_FadeIn:	//フェードイン
+			//ワイプサイズの設定
 			m_fade.SetWipeSize(-50.0f);
 			m_fadeTransitionFlag = true;
 			break;
 		case enFadeState_FadeOut:	//フェードアウト
+			//ワイプサイズの設定
 			m_fade.SetWipeSize(900.0f);
 			m_fadeTransitionFlag = true;
 			break;
@@ -48,13 +52,14 @@ void Fade::Update()
 		}
 	}
 
+	//フェードステートがローディングのとき
 	if (m_fadeState == enFadeState_Loading)
 	{
 		//ローディングの動作
 		LoadingMove();
 	}
 
-	//更新処理
+	//フェードの更新
 	m_fade.Update();
 }
 
@@ -97,11 +102,12 @@ void Fade::LoadingMove()
 		m_pointPosition[m_pointMove].y += 2.0f;
 	}
 
+	//点の更新
 	m_point[m_pointMove].SetPosition(m_pointPosition[m_pointMove]);
 	m_point[m_pointMove].Update();
 }
 
-//描画
+//描画処理
 void Fade::Render(RenderContext& rc)
 {
 	//フェード
@@ -111,7 +117,7 @@ void Fade::Render(RenderContext& rc)
 		m_fade.Draw(rc);
 	}
 
-	//フェードステートがローディングなら
+	//フェードステートがローディングなら描画する
 	if (m_fadeState == enFadeState_Loading)
 	{
 		//ローディング

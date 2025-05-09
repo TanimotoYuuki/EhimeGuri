@@ -1,6 +1,9 @@
 #pragma once
 #include "Game.h"
 
+/// <summary>
+/// タイトル
+/// </summary>
 class Player;
 class Game;
 class GameOver;
@@ -8,13 +11,10 @@ class Fade;
 class Title : public IGameObject
 {
 public:
-	~Title();
-
-	bool Start();
-
-	void Update();
-	void Render(RenderContext& rc);
-
+	~Title(); //デストラクタ
+	bool Start();  //開始処理
+	void Update();  //更新処理
+	void Render(RenderContext& rc);  //描画処理
 
 private:
 	//スカイキューブの初期化
@@ -100,33 +100,33 @@ private:
 		enBackGroundModel_Num			//ステージモデル数
 	};
 
-	AnimationClip		m_animationClip[enAnimationClip_num];										//アニメーションクリップ
-	ModelRender         m_backGroundModel[enBackGroundModel_Num];									//ステージモデル
-	ModelRender			m_playerModel;																//プレイヤーモデル
-	Vector3				m_playerModelPosition=Vector3::Zero;										//プレイヤーモデルの位置
-	Quaternion          m_playerModelRotation = Quaternion::Identity;								//プレイヤーモデルの回転
-	Vector3             m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );								//プレイヤーモデルの大きさ
-	int 				m_playerModelAnimationState = enPlayerModelAnimationState_walk;				//プレイヤーモデルアニメーションステート
-	int                 m_modeSelect = enModeSelect_Start;											//モード選択
-	int					m_titleTransition = enTitleTransition_Title;								//タイトル画面用遷移
-	Vector4             m_modeUIColor[enModeSelect_Num];											//モード選択UIのカラー
-	float				m_alpha = 0.0f;																//透明度
-	SpriteRender		m_titleBackGround;															//タイトル背景
-	SpriteRender        m_pressAButtonUI;															//Aボタンを押すUI
-	SpriteRender        m_modeUI[enModeSelect_Num];													//モードUI
-	SpriteRender        m_howToPlayUI;																//遊び方UI
-	SpriteRender        m_gamePadUI[enGamePad_Num];													//ゲームパッドUI
-	SpriteRender		m_decisionUI;																//決定UI
-	SpriteRender        m_selectUI;																	//選択UI
-	SpriteRender		m_returnUI;																	//戻るUI
-	bool                m_startFadeFinishFlag = false;												//スタート用フェードが終わったか?
-	bool                m_titleBackGroundFadeFinishFlag = false;									//タイトル背景のフェードが終わったか?
-	bool				m_gameStartFlag = false;													//ゲームスタートフラグ
-	bool				m_pressButtonFlag = false;													//ボタンを押したか?
-	bool                m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
-	bool                m_titleTransitionFlag = false;												//タイトル画面遷移フラグ
-	Fade*				m_fade = nullptr;															//フェード用インスタンス
-	SkyCube*			m_skyCube = nullptr;														//スカイキューブ用のインスタンス
-	int					m_skyCubeType = enSkyCubeType_Day;											//スカイキューブの背景
+	AnimationClip m_animationClip[enAnimationClip_num];								//アニメーションクリップ
+	ModelRender m_backGroundModel[enBackGroundModel_Num];							//ステージモデル
+	ModelRender m_playerModel;														//プレイヤーモデル
+	Vector3 m_playerModelPosition=Vector3::Zero;									//プレイヤーモデルの位置
+	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転
+	Vector3 m_playerModelScale = Vector3( 0.5f,0.5f,0.5f );							//プレイヤーモデルの大きさ
+	int m_playerModelAnimationState = enPlayerModelAnimationState_walk;				//プレイヤーモデルアニメーションステート
+	int m_modeSelect = enModeSelect_Start;											//モード選択
+	int m_titleTransition = enTitleTransition_Title;								//タイトル画面用遷移
+	Vector4 m_modeUIColor[enModeSelect_Num];										//モード選択UIのカラー
+	float m_alpha = 0.0f;															//透明度
+	SpriteRender m_titleBackGround;													//タイトル背景
+	SpriteRender m_pressAButtonUI;													//Aボタンを押すUI
+	SpriteRender m_modeUI[enModeSelect_Num];										//モードUI
+	SpriteRender m_howToPlayUI;														//遊び方UI
+	SpriteRender m_gamePadUI[enGamePad_Num];										//ゲームパッドUI
+	SpriteRender m_decisionUI;														//決定UI
+	SpriteRender m_selectUI;														//選択UI
+	SpriteRender m_returnUI;														//戻るUI
+	bool m_startFadeFinishFlag = false;												//スタート用フェードが終わったか?
+	bool m_titleBackGroundFadeFinishFlag = false;									//タイトル背景のフェードが終わったか?
+	bool m_gameStartFlag = false;													//ゲームスタートフラグ
+	bool m_pressButtonFlag = false;													//ボタンを押したか?
+	bool m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
+	bool m_titleTransitionFlag = false;												//タイトル画面遷移フラグ
+	Fade* m_fade = nullptr;															//フェード用インスタンス
+	SkyCube* m_skyCube = nullptr;													//スカイキューブ用のインスタンス
+	int m_skyCubeType = enSkyCubeType_Day;											//スカイキューブの背景
 };
 

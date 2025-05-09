@@ -1,15 +1,18 @@
+//スプライトの定数バッファ
 cbuffer cb : register(b0)
 {
     float4x4 mvp;       //MVP行列
     float4 mulColor;    //乗算カラー
 };
 
+//頂点シェーダーの入力
 struct VSInput
 {
     float4 pos : POSITION;
     float2 uv  : TEXCOORD;
 };
 
+//ピクセルシェーダーの入力
 struct PSInput
 {
     float4 pos : SV_POSITION;
@@ -23,6 +26,7 @@ Texture2D<float4> g_bokeTexture_2 : register(t3);
 Texture2D<float4> g_bokeTexture_3 : register(t4);
 sampler g_sampler : register(s0);
 
+//頂点シェーダー
 PSInput VSMain(VSInput In)
 {
     PSInput psIn;
@@ -31,6 +35,7 @@ PSInput VSMain(VSInput In)
     return psIn;
 }
 
+//ピクセルシェーダー
 float4 PSMain(PSInput In) : SV_Target0
 {
     float4 color = g_sceneTexture.Sample(g_sampler, In.uv);
@@ -43,6 +48,7 @@ float4 PSMain(PSInput In) : SV_Target0
     return color;
 }
 
+//輝度抽出
 float4 PSLuminance(PSInput In) : SV_Target0
 {
     float4 color = g_sceneTexture.Sample(g_sampler, In.uv);
@@ -53,6 +59,7 @@ float4 PSLuminance(PSInput In) : SV_Target0
     return color;
 }
 
+//ボケ画像の合成
 float4 PSBloomFinal(PSInput In) : SV_Target0
 {
     float4 combineColor = g_bokeTexture_0.Sample(g_sampler, In.uv);

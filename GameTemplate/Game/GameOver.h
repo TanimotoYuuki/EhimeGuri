@@ -1,16 +1,17 @@
 #pragma once
+/// <summary>
+/// ゲームオーバー
+/// </summary>
 class Player;
 class Fade;
 class Game;
 class GameOver : public IGameObject
 {
 public:
-	~GameOver();
-
-	bool Start();
-	void Update();
-
-	void Render(RenderContext& rc);
+	~GameOver();  //デストラクタ
+	bool Start();  //開始処理
+	void Update();  //更新処理
+	void Render(RenderContext& rc);  //描画処理
 
 private:
 	/// <summary>
@@ -80,37 +81,37 @@ private:
 		enGameOverDirection_Num			//ゲームオーバー演出数
 	};
 
-	int					NeedleCount = 0;											//針用のカウント
-	SpriteRender		m_gameOverUI;												//ゲームオーバーUI
-	SpriteRender		m_gameOverSelectUI[enSelect_Num];							//ゲームオーバー時の選択UI
-	SpriteRender		m_dPadUI;													//十字キーUI
-	SpriteRender		m_aButtonUI;												//AボタンUI
-	SpriteRender		m_selectUI;													//選択UI
-	SpriteRender		m_decisionUI;												//決定UI
-	Vector3				m_gameOverUIPosition = Vector3(15.0f, 500.0f, 0.0f);		//ゲームオーバーUI用の位置
-	Vector3				m_gameOverUIFarstHeight;									//ゲームオーバーUI用の最初の高さ
-	Quaternion			m_gameOverUIRotation;										//ゲームオーバーUI用の回転
-	Vector3				m_beforeEasingPosition;										//イージング前の位置
-	Vector3				m_afterEasingPosition;										//イージング後の位置
-	Quaternion			m_beforeEasingRotation;										//イージング前の回転
-	Quaternion			m_afterEasingRotation;										//イージング後の回転
-	Vector4				m_gameOverSelectUIColor[enSelect_Num];						//ゲームオーバー時の選択UI用のカラー
-	int					m_gameOverDirectionState = enGameOverDirection_GameOver;	//ゲームオーバー演出ステート
-	int					m_gameOverSelect = enSelect_Continue;						//ゲームオーバー時の選択
-	int					m_exponentiation = 2;										//累乗
-	int					m_gameOverUIHitCount = 1;									//ゲームオーバーUIが何回跳ねたか
-	float               m_easingTime = 0.0f;										//割合
-	float				m_coefficientOfRestitution = 0.0f;							//反発係数
-	float				m_angle = -10.0f;											//角度
-	float				m_gameOverSelectUIAlphaColor = 0.0f;						//ゲームオーバー時の選択UI透明度
-	bool				m_easingFinishFlag = false;									//イージングが終わったか?
-	bool				m_pressButtonFlag = false;									//ボタンを押したか?
-	bool				m_pressButtonActionFlag = false;							//ボタンを押したときの動作をしたか?
-	bool				m_gameOverUIFallFlag = false;								//ゲームオーバーUIが落下するか?
-	bool				m_gameOverDirectionFlag = false;							//ゲームオーバー演出フラグ
-	bool                m_transitionFlag = false;									//遷移フラグ
-	Player*				m_player;													//プレイヤー用のインスタンス
-	Fade*				m_fade;														//フェード用のインスタンス
-	Game*				m_game;														//ゲーム用のインスタンス
+	int	NeedleCount = 0;												//針用のカウント
+	SpriteRender m_gameOverUI;											//ゲームオーバーUI
+	SpriteRender m_gameOverSelectUI[enSelect_Num];						//ゲームオーバー時の選択UI
+	SpriteRender m_dPadUI;												//十字キーUI
+	SpriteRender m_aButtonUI;											//AボタンUI
+	SpriteRender m_selectUI;											//選択UI
+	SpriteRender m_decisionUI;											//決定UI
+	Vector3 m_gameOverUIPosition = Vector3(15.0f, 500.0f, 0.0f);		//ゲームオーバーUI用の位置
+	Vector3	m_gameOverUIFarstHeight = Vector3::Zero;					//ゲームオーバーUI用の最初の高さ
+	Quaternion m_gameOverUIRotation;									//ゲームオーバーUI用の回転
+	Vector3 m_beforeEasingPosition = Vector3::Zero;						//イージング前の位置
+	Vector3	m_afterEasingPosition = Vector3::Zero;						//イージング後の位置
+	Quaternion m_beforeEasingRotation = Quaternion::Identity;			//イージング前の回転
+	Quaternion m_afterEasingRotation = Quaternion::Identity;			//イージング後の回転
+	Vector4 m_gameOverSelectUIColor[enSelect_Num];						//ゲームオーバー時の選択UI用のカラー
+	int m_gameOverDirectionState = enGameOverDirection_GameOver;		//ゲームオーバー演出ステート
+	int m_gameOverSelect = enSelect_Continue;							//ゲームオーバー時の選択
+	int m_exponentiation = 2;											//累乗
+	int m_gameOverUIHitCount = 1;										//ゲームオーバーUIが何回跳ねたか
+	float m_easingTime = 0.0f;											//割合
+	float m_coefficientOfRestitution = 0.0f;							//反発係数
+	float m_angle = -10.0f;												//角度
+	float m_gameOverSelectUIAlphaColor = 0.0f;							//ゲームオーバー時の選択UI透明度
+	bool m_easingFinishFlag = false;									//イージングが終わったか?
+	bool m_pressButtonFlag = false;										//ボタンを押したか?
+	bool m_pressButtonActionFlag = false;								//ボタンを押したときの動作をしたか?
+	bool m_gameOverUIFallFlag = false;									//ゲームオーバーUIが落下するか?
+	bool m_gameOverDirectionFlag = false;								//ゲームオーバー演出フラグ
+	bool m_transitionFlag = false;										//遷移フラグ
+	Player* m_player;													//プレイヤー用のインスタンス
+	Fade* m_fade;														//フェード用のインスタンス
+	Game* m_game;														//ゲーム用のインスタンス
 };
 
