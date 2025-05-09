@@ -32,6 +32,8 @@
     <ClCompile Include="HS_FallingBlock.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="S_MovingFloor.cpp" />
+    <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="FilePathConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -59,5 +61,7 @@
     <ClInclude Include="HS_FallingBlock.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="S_MovingFloor.h" />
+    <ClInclude Include="Stage2.h" />
+    <ClInclude Include="FilePathConfig.h" />
   </ItemGroup>
 </Project>
