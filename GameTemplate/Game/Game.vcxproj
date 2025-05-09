@@ -237,12 +237,16 @@
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="HS_FallingBlock.cpp" />
+    <ClCompile Include="ItemEnemy.cpp" />
+    <ClCompile Include="Jako.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mikan.cpp" />
     <ClCompile Include="MovingFloor.cpp" />
     <ClCompile Include="Needle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scaffold.cpp" />
     <ClCompile Include="ScaffoldBlock.cpp" />
+    <ClCompile Include="sinju.cpp" />
     <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -251,7 +255,9 @@
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="S_MovingFloor.cpp" />
+    <ClCompile Include="Taruto.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Tobeyaki.cpp" />
     <ClCompile Include="Towel.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
   </ItemGroup>
@@ -267,16 +273,22 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="HS_FallingBlock.h" />
+    <ClInclude Include="ItemEnemy.h" />
+    <ClInclude Include="Jako.h" />
+    <ClInclude Include="Mikan.h" />
     <ClInclude Include="MovingFloor.h" />
     <ClInclude Include="Needle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scaffold.h" />
     <ClInclude Include="ScaffoldBlock.h" />
+    <ClInclude Include="sinju.h" />
     <ClInclude Include="StageClear.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="S_MovingFloor.h" />
+    <ClInclude Include="Taruto.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="Tobeyaki.h" />
     <ClInclude Include="Towel.h" />
     <ClInclude Include="TransparentBlock.h" />
   </ItemGroup>

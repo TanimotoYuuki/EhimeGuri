@@ -32,6 +32,12 @@
     <ClCompile Include="HS_FallingBlock.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="S_MovingFloor.cpp" />
+    <ClCompile Include="ItemEnemy.cpp" />
+    <ClCompile Include="Tobeyaki.cpp" />
+    <ClCompile Include="sinju.cpp" />
+    <ClCompile Include="Mikan.cpp" />
+    <ClCompile Include="Jako.cpp" />
+    <ClCompile Include="Taruto.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -59,5 +65,11 @@
     <ClInclude Include="HS_FallingBlock.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="S_MovingFloor.h" />
+    <ClInclude Include="ItemEnemy.h" />
+    <ClInclude Include="Tobeyaki.h" />
+    <ClInclude Include="sinju.h" />
+    <ClInclude Include="Mikan.h" />
+    <ClInclude Include="Jako.h" />
+    <ClInclude Include="Taruto.h" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,12 @@ class HS_FallingBlock;				//動く床(速)
 class TransparentBlock;				//透明ブロック
 class Towel;                        //タオル
 class Fade;							//フェード
+class ItemEnemy;
+class Tobeyaki;
+class sinju;
+class Mikan;
+class Jako;
+class Taruto;
 
 class Game : public IGameObject
 {
@@ -214,6 +220,12 @@ private:
 	FontRender          m_timerRender;
 	FontRender          m_fontRender;
 
+	ItemEnemy*          m_itemenemy;
+	Tobeyaki*           m_tobeyaki;
+	sinju*              m_sinju;
+	Mikan*              m_mikan;
+	Jako*               m_jako;
+	Taruto* m_taruto;
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
 	Vector3		        m_position;
