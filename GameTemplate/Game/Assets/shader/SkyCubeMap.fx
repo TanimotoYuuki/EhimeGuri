@@ -2,6 +2,7 @@
 // 定数バッファ
 ///////////////////////////////////////////
 
+//モデルの定数バッファ
 cbuffer ModelCb : register(b0)
 {
     float4x4 mWorld;
@@ -66,6 +67,7 @@ float3 GetNormalFromNormalMap(float3 normal, float3 tangent, float3 biNormal, fl
     return newNormal;
 }
 
+//頂点シェーダー
 SPSIn VSMain(SVSIn vsIn)
 {
     SPSIn psIn;
@@ -85,6 +87,7 @@ SPSIn VSMain(SVSIn vsIn)
     return psIn;
 }
 
+//ピクセルシェーダー
 float4 PSMain(SPSIn psIn) : SV_Target0
 {
     float4 albedColor;

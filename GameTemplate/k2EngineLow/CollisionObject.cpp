@@ -3,11 +3,13 @@
 
 namespace nsK2EngineLow
 {
+	//コンストラクタ
 	CollisionObject::CollisionObject()
 	{
 
 	}
 
+	//デストラクタ
 	CollisionObject::~CollisionObject()
 	{
 		if (g_collisionObjectManager) {
@@ -15,12 +17,14 @@ namespace nsK2EngineLow
 		}
 	}
 
+	//開始処理
 	bool CollisionObject::Start()
 	{
 		g_collisionObjectManager->AddCollisionObject(this);
 		return true;
 	}
 
+	//更新処理
 	void CollisionObject::Update()
 	{
 		if (m_isEnableAutoDelete == false)
@@ -36,12 +40,13 @@ namespace nsK2EngineLow
 		m_timer += g_gameTime->GetFrameDeltaTime();
 	}
 
-
+	//コンストラクタ
 	CollisionObjectManager::CollisionObjectManager()
 	{
 
 	}
 
+	//デストラクタ
 	CollisionObjectManager::~CollisionObjectManager()
 	{
 		m_collisionObjectVector.clear();

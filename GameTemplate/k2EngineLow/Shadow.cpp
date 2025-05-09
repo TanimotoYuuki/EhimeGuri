@@ -3,8 +3,10 @@
 
 namespace nsK2EngineLow
 {
+	//初期化
 	void Shadow::Init()
 	{
+		//シャドウマップ用のレンダリングターゲットの作成
 		float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
 		m_shadowMap.Create(
 			1024,
@@ -17,6 +19,7 @@ namespace nsK2EngineLow
 		);
 	}
 
+	//描画処理を実行
 	void Shadow::Execute(RenderContext& rc, std::vector<IRenderer*>& ro)
 	{
 		//レンダリングターゲットとして利用できるまで待つ
@@ -28,6 +31,7 @@ namespace nsK2EngineLow
 
 		for (auto& renderObj : ro)
 		{
+			//シャドウマップの描画
 			renderObj->OnRenderShadowMap(rc, g_renderingEngine->GetLightCamera());
 		}
 

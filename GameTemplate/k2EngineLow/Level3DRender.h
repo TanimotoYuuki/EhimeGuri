@@ -31,18 +31,21 @@ namespace nsK2EngineLow
 			return wcsncmp(n, name, len) == 0;
 		}
 
-		Vector3 position; //座標
-		Quaternion rotation; //回転
-		Vector3 scale; //拡大率
-		const wchar_t* name; //名前
+		Vector3 position = Vector3::Zero;				//座標
+		Quaternion rotation = Quaternion::Identity;		//回転
+		Vector3 scale = Vector3::One;					//拡大率
+		const wchar_t* name;							//名前
 		int number = 0;
 	};
 
+	/// <summary>
+	/// レベル3Dレンダー
+	/// </summary>
 	class Level3DRender : public Noncopyable
 	{
 	public:
-		Level3DRender();
-		~Level3DRender();
+		Level3DRender(); //コンストラクタ
+		~Level3DRender(); //デストラクタ
 
 		/// <summary>
 		/// レベルを初期化
@@ -52,7 +55,9 @@ namespace nsK2EngineLow
 		void Init(const char* filePath, std::function<bool(LevelObjectData& objData)> hookFunc);
 
 	private:
-		//tklファイルの行列を変換する
+		/// <summary>
+		/// tklファイルの行列を変換する
+		/// </summary>
 		void MatrixTklToLevel();
 
 	private:

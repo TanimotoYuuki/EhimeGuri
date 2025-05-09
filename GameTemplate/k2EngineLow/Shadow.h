@@ -2,6 +2,9 @@
 
 namespace nsK2EngineLow
 {
+	/// <summary>
+	/// シャドウ
+	/// </summary>
 	class Shadow
 	{
 	public:
@@ -13,8 +16,8 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 描画処理を実行
 		/// </summary>
-		/// <param name="rc"></param>
-		/// <param name="roj"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
+		/// <param name="roj">レンダリングオブジェクト</param>
 		void Execute(RenderContext& rc, std::vector<IRenderer*>& ro);
 
 		/// <summary>
@@ -27,8 +30,7 @@ namespace nsK2EngineLow
 		}
 
 	private:
-
-		RenderTarget m_shadowMap;
+		RenderTarget m_shadowMap; //シャドウマップ用のレンダリングターゲット
 	};
 }
 

@@ -2,15 +2,15 @@
 #include "FontRender.h"
 
 namespace nsK2EngineLow {
+	//描画処理
 	void FontRender::Draw(RenderContext& rc)
 	{
+		//テキストの内容が入力されていなかったら処理しない
 		if (m_text == nullptr)
 		{
 			return;
 		}
-		//m_font.Begin(rc);
-		//m_font.Draw(GetText(), Vector2(m_position.x, m_position.y), m_color, m_rotation, m_scale, m_pivot);
-		//m_font.End(rc);
+		//レンダリングオブジェクトの追加
 		g_renderingEngine->AddRenderObject(this);
 	}
 }

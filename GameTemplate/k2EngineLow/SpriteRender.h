@@ -4,25 +4,26 @@ namespace nsK2EngineLow
 	//リニアワイプ描画モード
 	enum LinearWipeDrawingMode
 	{
-		LinearWipeDrawingMode_Normal, //通常ワイプ
-		LinearWipeDrawingMode_Direction, //方向ワイプ
-		LinearWipeDrawingMode_Round, //円形ワイプ
-		LinearWipeDrawingMode_Vertical, //縦じまワイプ
-		LinearWipeDrawingMode_Horizontal, //横じまワイプ
+		LinearWipeDrawingMode_Normal,		//通常ワイプ
+		LinearWipeDrawingMode_Direction,	//方向ワイプ
+		LinearWipeDrawingMode_Round,		//円形ワイプ
+		LinearWipeDrawingMode_Vertical,		//縦じまワイプ
+		LinearWipeDrawingMode_Horizontal,	//横じまワイプ
 		LinearWipeDrawingMode_CheckerBoard, //チェッカーボードワイプ
-		LinearWipeDrawingMode_None //描画しない
+		LinearWipeDrawingMode_None			//描画しない
 	};
 
-	//画像加工
+	//画像加工描画モード
 	enum ScreenDrawingMode
 	{
-		ScreenDrawingMode_Monochrome, //モノクロ
-		ScreenDrawingMode_Sepia, //セピア
-		ScreenDrawingMode_Nega, //ネガ
-		ScreenDrawingMode_Noise, //ノイズ
-		ScreenDrawingMode_None, //描画しない
+		ScreenDrawingMode_Monochrome,	//モノクロ
+		ScreenDrawingMode_Sepia,		//セピア
+		ScreenDrawingMode_Nega,			//ネガポジ反転
+		ScreenDrawingMode_Noise,		//ノイズ
+		ScreenDrawingMode_None,			//描画しない
 	};
 
+	//フェードステート
 	enum EnFadeState
 	{
 		enFadeState_FadeIn,		//フェードイン
@@ -156,10 +157,10 @@ namespace nsK2EngineLow
 		//スプライトレンダー用の定数バッファ
 		struct SpriteRenderConstantBuffer
 		{
-			LinearWipe linearWipe; //リニアワイプ
-			int linearWipeDrawingMode = LinearWipeDrawingMode_None; //描画モード
-			float drawingRate = 0.0f; //イージング割合
-			int screenDrawingMode = ScreenDrawingMode_None; //画像加工
+			LinearWipe linearWipe;									//リニアワイプ
+			int linearWipeDrawingMode = LinearWipeDrawingMode_None; //リニアワイプの描画モード
+			float drawingRate = 0.0f;								//画像加工用イージング割合
+			int screenDrawingMode = ScreenDrawingMode_None;			//画像加工の描画モード
 		};
 
 		/// <summary>
@@ -244,10 +245,12 @@ namespace nsK2EngineLow
 		/// </summary>
 		void LinearWipeUpdate()
 		{
+			//フェードステートがフェードインならワイプサイズを大きくする
 			if (m_fadeState == enFadeState_FadeIn)
 			{
 				m_spriteRenderConstantBuffer.linearWipe.size += m_wipeScrollSpeed * g_gameTime->GetFrameDeltaTime();
 			}
+			//フェードステートがフェードアウトならワイプサイズを小さくする
 			else if (m_fadeState == enFadeState_FadeOut)
 			{
 				m_spriteRenderConstantBuffer.linearWipe.size -= m_wipeScrollSpeed * g_gameTime->GetFrameDeltaTime();
@@ -260,6 +263,7 @@ namespace nsK2EngineLow
 		void ScreenDrawingUpdate()
 		{
 			m_spriteRenderConstantBuffer.drawingRate += m_screenDrawingEasingSpeed * g_gameTime->GetFrameDeltaTime();
+			//割合が1.0f以上になったら割合を固定する
 			if (m_spriteRenderConstantBuffer.drawingRate > 1.0f)
 			{
 				m_spriteRenderConstantBuffer.drawingRate = 1.0f;
@@ -269,21 +273,21 @@ namespace nsK2EngineLow
 		/// <summary>
 		///	2Dの描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void OnRender2D(RenderContext& rc) override
 		{
 			m_sprite.Draw(rc);
 		}
 
-		Sprite m_sprite; //スプライト
-		Vector3 m_position = Vector3::Zero; //座標
-		Quaternion m_rotation = Quaternion::Identity; //回転
-		Vector3 m_scale = Vector3::One; //拡大率
-		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
-		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer; //リニアワイプ
-		float m_wipeScrollSpeed = 1.0f; //ワイプ速度
-		float m_screenDrawingEasingSpeed = 0.01f; //画像加工用のイージング速度
-		int m_fadeState = enFadeState_FadeIn;	//フェードステート
+		Sprite m_sprite;												//スプライト
+		Vector3 m_position = Vector3::Zero;								//座標
+		Quaternion m_rotation = Quaternion::Identity;					//回転
+		Vector3 m_scale = Vector3::One;									//拡大率
+		Vector2 m_pivot = Sprite::DEFAULT_PIVOT;						//ピボット
+		SpriteRenderConstantBuffer m_spriteRenderConstantBuffer;		//リニアワイプ
+		float m_wipeScrollSpeed = 1.0f;									//ワイプ速度
+		float m_screenDrawingEasingSpeed = 0.01f;						//画像加工用のイージング速度
+		int m_fadeState = enFadeState_FadeIn;							//フェードステート
 	};
 }
 

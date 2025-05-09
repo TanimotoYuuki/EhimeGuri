@@ -3,12 +3,14 @@
 #include "Title.h"
 #include "Fade.h"
 
+//デストラクタ
 Title::~Title()
 {
 	DeleteGO(m_skyCube);
 	DeleteGO(m_fade);
 }
 
+//開始処理
 bool Title::Start()
 {
 	//スカイキューブの初期化
@@ -35,9 +37,10 @@ bool Title::Start()
 //更新処理
 void Title::Update()
 {
-	//スタート用のフェードが終わったら
+	//スタート用のフェードが終わっていなかったら
 	if (m_startFadeFinishFlag != true)
 	{
+		//1.0秒経過したらスタート用のフェードを終了する
 		if (g_gameTime->StopWatch(1.0f) == true)
 		{
 			m_startFadeFinishFlag = true;
@@ -72,13 +75,13 @@ void Title::Update()
 	//アニメーション再生
 	PlayAnimation();
 
-	//更新処理
+	//モデルの更新
 	m_playerModel.Update();
 	m_backGroundModel[enBackGroundModel_Base].Update();
 	m_backGroundModel[enBackGroundModel_Grass].Update();
 }
 
-//描画
+//描画処理
 void Title::Render(RenderContext& rc)
 {
 	//ステージモデル
@@ -95,7 +98,7 @@ void Title::Render(RenderContext& rc)
 		m_titleBackGround.Draw(rc);
 	}
 
-	//スタート用フェードが終わったか？
+	//スタート用フェードが終わっていたら描画する
 	if (m_startFadeFinishFlag == true)
 	{
 		//タイトル画面遷移
@@ -161,7 +164,7 @@ void Title::Action()
 		return;
 	}
 
-	//ゲーム開始フラグが立っていないか？
+	//ゲーム開始フラグが立っていないとき
 	if (m_gameStartFlag != true)
 	{
 		//タイトル画面遷移
@@ -273,9 +276,9 @@ void Title::Action()
 		if (m_playerModelPosition.x > FRAME_BUFFER_W / 2)
 		{
 			m_fade->FadeTransition(enFadeState_FadeOut);
+			//2.5秒経過したらゲームを開始する
 			if (g_gameTime->StopWatch(2.5f))
 			{
-				//ゲーム開始
 				NewGO<Game>(0, "game");
 				DeleteGO(this);
 			}
@@ -293,9 +296,14 @@ void Title::SpriteMove()
 		//タイトル背景が表示していないとき
 		if (m_titleBackGroundFadeFinishFlag != true)
 		{
+			//時間が経過したら不透明にする
 			m_alpha += g_gameTime->GetFrameDeltaTime();
+
+			//タイトル背景の乗算カラーの更新
 			m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_alpha));
 			m_titleBackGround.Update();
+
+			//透明度が1.0fになったら処理しない
 			if (m_alpha > 1.0f)
 			{
 				m_alpha = 0.0f;
@@ -312,6 +320,7 @@ void Title::SpriteMove()
 			{
 				m_pressAButtonUI.SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 				m_pressAButtonUI.Update();
+				//0.1秒経過したら次の演出に移る
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_pressButtonActionFlag = true;
@@ -325,6 +334,7 @@ void Title::SpriteMove()
 				{
 					m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 					m_pressAButtonUI.Update();
+					//0.1秒経過したらモード選択に移る
 					if (g_gameTime->StopWatch(0.1f) == true)
 					{
 						m_titleTransitionFlag = true;
@@ -338,6 +348,7 @@ void Title::SpriteMove()
 
 		//Aボタンを押すUIを透明にしたり元に戻したりする
 		m_alpha += g_gameTime->GetFrameDeltaTime();
+		//Aボタンを押すUIの乗算カラーの更新
 		m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, fabsf(sinf(m_alpha))));
 		m_pressAButtonUI.Update();
 		break;
@@ -366,6 +377,7 @@ void Title::SpriteMove()
 				default:
 					break;
 				}
+				//0.1秒経過したら次の演出に移る
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_pressButtonActionFlag = true;
@@ -395,6 +407,7 @@ void Title::SpriteMove()
 					default:
 						break;
 					}
+					//0.1秒経過したら各モードを選択した演出に移る
 					if (g_gameTime->StopWatch(0.1f) == true)
 					{
 						m_titleTransitionFlag = true;
@@ -405,45 +418,45 @@ void Title::SpriteMove()
 			}
 		}
 
-		//現在の選択がスタートだったら
+		//現在の選択がスタートだったらモード選択UIをスタート以外黒にする
 		if (m_modeSelect == enModeSelect_Start)
 		{
-			//モード選択UI
+			//モード選択UIの乗算カラーの更新
 			m_modeUI[enModeSelect_Start].SetMulColor(m_modeUIColor[enModeSelect_Start]);
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		}
-		//現在の選択が遊び方だったら
+		//現在の選択が遊び方だったらモード選択UIを遊び方以外黒にする
 		else if (m_modeSelect == enModeSelect_HowToPlay)
 		{
-			//モード選択UI
+			//モード選択UIの乗算カラーの更新
 			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		}
-		//現在の選択がゲーム終了だったら
+		//現在の選択がゲーム終了だったらモード選択UIをゲーム終了以外黒にする
 		else if (m_modeSelect == enModeSelect_Shutdown)
 		{
-			//モード選択UI
+			//モード選択UIの乗算カラーの更新
 			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
 		}
 
-		//ゲームパッド(Aボタン)
+		//ゲームパッド(Aボタン)の更新
 		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
 		m_gamePadUI[enGamePad_AButton].Update();
 
-		//戻るUI
+		//戻るUIの更新
 		m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 		break;
 	case enTitleTransition_HowToPlay: //遊び方
-		//ゲームパッド(Aボタン)
+		//ゲームパッド(Aボタン)の更新
 		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(575.0f, -345.0f, 0.0f));
 		m_gamePadUI[enGamePad_AButton].Update();
 
-		//戻るUI
+		//戻るUIの更新
 		m_returnUI.SetPosition(Vector3(650.0f, -345.0f, 0.0f));
 		m_returnUI.Update();
 	default:
@@ -457,6 +470,7 @@ void Title::InitSky()
 	DeleteGO(m_skyCube);
 	m_skyCube = NewGO<SkyCube>(0, "skycube");
 
+	//スカイキューブの初期設定
 	m_skyCube->SetLuminance(1.0f);
 	m_skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 	m_skyCube->SetPosition(Vector3(0.0f, -1000.0f, 0.0f));
@@ -467,6 +481,7 @@ void Title::InitSky()
 //アニメーションの初期化
 void Title::InitAnimation()
 {
+	//各アニメーションの初期設定
 	//0.歩くアニメーション
 	m_animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
 	m_animationClip[enAnimationClip_walk].SetLoopFlag(true);
@@ -478,6 +493,7 @@ void Title::InitAnimation()
 //モデルの初期化
 void Title::InitModel()
 {
+	//各モデルの初期設定
 	//0 ステージの初期化
 	m_backGroundModel[enBackGroundModel_Base].Init("Assets/title/background_base.tkm");
 	m_backGroundModel[enBackGroundModel_Grass].Init("Assets/title/background_grass.tkm", 0,
@@ -513,6 +529,7 @@ void Title::InitModel()
 //スプライトの初期化
 void Title::InitSprite()
 {
+	//各スプライトの初期設定
 	//タイトル背景
 	m_titleBackGround.Init("Assets/title/title.dds", 1024, 1024);
 	m_titleBackGround.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
@@ -606,6 +623,7 @@ void Title::InitSprite()
 //カメラの初期化
 void Title::InitCamera()
 {
+	//カメラの近平面と遠平面の初期設定
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(15000.0f);
 }
@@ -631,6 +649,7 @@ void Title::BackGroundModelMove()
 //プレイヤーモデルの動作
 void Title::PlayerModelMove()
 {
+	//モード選択でスタートを選択していたらモデルを右に移動する
 	m_playerModelPosition.x += 7.5f;
 	m_playerModel.SetPosition(m_playerModelPosition);
 }
@@ -638,6 +657,7 @@ void Title::PlayerModelMove()
 //カメラの更新
 void Title::UpdateCamera()
 {
+	//ゲームスタートフラグが立っていないとき
 	if (m_gameStartFlag != true)
 	{
 		//カメラの位置
@@ -670,12 +690,13 @@ void Title::PlayAnimation()
 //プレイヤーモデルのアニメーション管理
 void Title::PlayerModelAnimationManage()
 {
-	//ゲーム開始フラグが立っているとき
+	//ゲーム開始フラグが立っているときは走るアニメーションを再生する
 	if (m_gameStartFlag == true)
 	{
 		//走るアニメーション
 		m_playerModelAnimationState = enPlayerModelAnimationState_run;
 	}
+	//ゲーム開始フラグが立っていないときは歩きアニメーションを再生する
 	else
 	{
 		//歩きアニメーション
@@ -686,6 +707,7 @@ void Title::PlayerModelAnimationManage()
 //プレイヤーモデルのアニメーション再生
 void Title::PlayerModelPlayAnimation()
 {
+	//プレイヤーモデルアニメーションステート
 	switch (m_playerModelAnimationState)
 	{
 	case enPlayerModelAnimationState_walk:	//歩くアニメーション

@@ -3,19 +3,26 @@
 
 namespace nsK2EngineLow
 {
+	//初期化
 	void Bloom::Init(RenderTarget& rt)
 	{
+		//輝度抽出用レンダリングターゲットの初期化
 		InitLuminnceRenderTarget(rt);
 
+		//輝度抽出用スプライトの設定
 		SetLuminanceSprite(rt);
 
+		//ガウシアンブラーを初期化
 		InitGaussianBlur();
-
+		
+		//最終合成用スプライトの設定
 		SetFinalSprite(rt);
 	}
 
+	//輝度抽出用レンダリングターゲットの初期化
 	void Bloom::InitLuminnceRenderTarget(RenderTarget& rt)
 	{
+		//輝度抽出用レンダリングターゲットの作成
 		m_luminnceRenderTarget.Create(
 			rt.GetWidth(),
 			rt.GetHeight(),
@@ -28,6 +35,7 @@ namespace nsK2EngineLow
 
 	void Bloom::SetLuminanceSprite(RenderTarget& rt)
 	{
+		//スプライトの初期化
 		SpriteInitData luminanceSpriteInitData;
 		//輝度抽出用のシェーダーを使用する
 		luminanceSpriteInitData.m_fxFilePath = "Assets/shader/postEffect.fx";
@@ -40,20 +48,24 @@ namespace nsK2EngineLow
 		luminanceSpriteInitData.m_textures[0] = &rt.GetRenderTargetTexture();
 		//レンダリングターゲットのフォーマット
 		luminanceSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
-
+		//初期化
 		m_luminanceSprite.Init(luminanceSpriteInitData);
 	}
 
+	//ガウシアンブラーを初期化
 	void Bloom::InitGaussianBlur()
 	{
+		//初期化
 		m_gaussianBlur[0].Init(&m_luminnceRenderTarget.GetRenderTargetTexture());
 		m_gaussianBlur[1].Init(&m_gaussianBlur[0].GetBokeTexture());
 		m_gaussianBlur[2].Init(&m_gaussianBlur[1].GetBokeTexture());
 		m_gaussianBlur[3].Init(&m_gaussianBlur[2].GetBokeTexture());
 	}
 
+	//最終合成用スプライトの設定
 	void Bloom::SetFinalSprite(RenderTarget& rt)
 	{
+		//スプライトの初期化
 		SpriteInitData finalSpriteInitData;
 		//テクスチャはガウシアンブラー
 		finalSpriteInitData.m_textures[0] = &m_gaussianBlur[0].GetBokeTexture();
@@ -70,10 +82,11 @@ namespace nsK2EngineLow
 		finalSpriteInitData.m_alphaBlendMode = AlphaBlendMode_Add;
 		//レンダリングターゲットのフォーマット
 		finalSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
-
+		//初期化
 		m_finalSprite.Init(finalSpriteInitData);
 	}
 
+	//描画処理を実行
 	void Bloom::Execute(RenderContext& rc, RenderTarget& rt)
 	{
 		//レンダリングターゲットとして利用できるまで待つ
@@ -89,6 +102,7 @@ namespace nsK2EngineLow
 		//レンダリングターゲットへの書き込み終了待ち
 		rc.WaitUntilFinishDrawingToRenderTarget(m_luminnceRenderTarget);
 
+		//ガウシアンブラーの実行
 		m_gaussianBlur[0].ExecuteOnGPU(rc, 20);
 		m_gaussianBlur[1].ExecuteOnGPU(rc, 20);
 		m_gaussianBlur[2].ExecuteOnGPU(rc, 20);
@@ -99,7 +113,7 @@ namespace nsK2EngineLow
 		//レンダリングターゲットを設定
 		rc.SetRenderTargetAndViewport(rt);
 
-		//輝度抽出を行う
+		//最終合成用スプライトの描画
 		m_finalSprite.Draw(rc);
 
 		//レンダリングターゲットへの書き込み終了待ち

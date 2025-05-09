@@ -7,7 +7,6 @@ namespace nsK2EngineLow
 	class ModelRender : public IRenderer
 	{
 	public:
-
 		/// <summary>
 		/// 通常描画用の初期化
 		/// </summary>
@@ -122,7 +121,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 大きさを設定
 		/// </summary>
-		/// <param name="scale"></param>
+		/// <param name="scale">大きさ</param>
 		void SetScale(const Vector3& scale)
 		{
 			m_scale = scale;
@@ -131,7 +130,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// アニメーションイベントの追加
 		/// </summary>
-		/// <param name="eventListener"></param>
+		/// <param name="eventListener">アニメーションイベント</param>
 		void AddAnimationEvent(AnimationEventListener eventListener)
 		{
 			m_animation.AddAnimationEventListener(eventListener);
@@ -140,7 +139,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// アニメーションの速度を設定
 		/// </summary>
-		/// <param name="animationSpeed"></param>
+		/// <param name="animationSpeed">アニメーションの速度</param>
 		void SetAnimationSpeed(const float animationSpeed)
 		{
 			m_animationSpeed = animationSpeed;
@@ -234,31 +233,31 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// シャドウマップの描画
 		/// </summary>
-		/// <param name="rc"></param>
-		/// <param name="ca"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
+		/// <param name="ca">カメラ</param>
 		void OnRenderShadowMap(RenderContext& rc, Camera& ca) override;
 
 		/// <summary>
 		/// モデルの描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void OnRenderModel(RenderContext& rc) override;
 
-		AnimationClip* m_animationClips = nullptr; //アニメーションクリップ
-		int m_numAnimationClips = 0; //アニメーションの数
-		Vector3 m_position = Vector3::Zero; //座標
-		Quaternion m_rotation = Quaternion::Identity; //回転
-		Vector3 m_scale = Vector3::One; //拡大率
-		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ; //モデルの上方向
-		Animation m_animation; //アニメーション	
-		Model m_model; //モデル
-		Model m_shadowModel; //影描画用モデル
-		bool m_isUpdateAnimation = true; //アニメーションを更新する？
-		Skeleton m_skeleton; //骨
-		float m_animationSpeed = 1.0f; //アニメーション再生速度
-		float m_alpha = 1.0f; //透明度
-		float m_scrollSpeed = 0.0f; //スクロール速度
-		float m_deltaTime = 0.0f; //時間
+		AnimationClip* m_animationClips = nullptr;		//アニメーションクリップ
+		int m_numAnimationClips = 0;					//アニメーションの数
+		Vector3 m_position = Vector3::Zero;				//座標
+		Quaternion m_rotation = Quaternion::Identity;	//回転
+		Vector3 m_scale = Vector3::One;					//拡大率
+		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ;	//モデルの上方向
+		Animation m_animation;							//アニメーション	
+		Model m_model;									//モデル
+		Model m_shadowModel;							//影描画用モデル
+		bool m_isUpdateAnimation = true;				//アニメーションを更新する？
+		Skeleton m_skeleton;							//骨
+		float m_animationSpeed = 1.0f;					//アニメーション再生速度
+		float m_alpha = 1.0f;							//透明度
+		float m_scrollSpeed = 0.0f;						//スクロール速度
+		float m_deltaTime = 0.0f;						//時間
 	};
 }
 

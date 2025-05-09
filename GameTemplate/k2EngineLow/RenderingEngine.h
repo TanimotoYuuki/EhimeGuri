@@ -7,6 +7,9 @@
 
 namespace nsK2EngineLow
 {
+	/// <summary>
+	/// レンダリングエンジン
+	/// </summary>
 	class RenderingEngine : public Noncopyable
 	{
 	public:
@@ -18,12 +21,72 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 描画処理を実行
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void Execute(RenderContext& rc);
 
+		/// <summary>
+		/// レンダリングオブジェクトの追加
+		/// </summary>
+		/// <param name="renderObject">レンダリングオブジェクト</param>
 		void AddRenderObject(IRenderer* renderObject)
 		{
 			m_renderObjects.push_back(renderObject);
+		}
+
+		/// <summary>
+		/// ディレクションライトを設定する
+		/// </summary>
+		/// <param name="direction">ライトの方向</param>
+		/// <param name="color">ライトの色</param>
+		void SetDirectionLight(Vector3 direction, Vector3 color)
+		{
+			m_sceneLight.SetDirectionLight(direction, color);
+		}
+
+		/// <summary>
+		/// 環境光を設定する
+		/// </summary>
+		/// <param name="ambient">環境光</param>
+		void SetAmbient(Vector3 ambient)
+		{
+			m_sceneLight.SetAmbient(ambient);
+		}
+
+		/// <summary>
+		/// ポイントライトを設定する
+		/// </summary>
+		/// <param name="num">ライト番号</param>
+		/// <param name="position">ライトの位置</param>
+		/// <param name="color">ライトのカラー</param>
+		/// <param name="range">ライトの影響範囲</param>
+		void SetPointLight(int num, Vector3 position, Vector3 color, float range)
+		{
+			m_sceneLight.SetPointLight(num, position, color, range);
+		}
+
+		/// <summary>
+		/// スポットライトを設定する
+		/// </summary>
+		/// <param name="num">ライト番号</param>
+		/// <param name="position">ライトの位置</param>
+		/// <param name="color">ライトのカラー</param>
+		/// <param name="range">ライトの影響範囲</param>
+		/// <param name="direction">ライトの放射方向</param>
+		/// <param name="angle">ライトの放射角度</param>
+		void SetSpotLight(int num, Vector3 position, Vector3 color, float range, Vector3 direction, float angle)
+		{
+			m_sceneLight.SetSpotLight(num, position, color, range, direction, angle);
+		}
+
+		/// <summary>
+		/// 半球ライトを設定する
+		/// </summary>
+		/// <param name="groundColor">地面色</param>
+		/// <param name="skyColor">天球色</param>
+		/// <param name="groundNormal">地面の法線</param>
+		void SetHemLight(Vector3 groundColor, Vector3 skyColor, Vector3 groundNormal)
+		{
+			m_sceneLight.SetHemLight(groundColor, skyColor, groundNormal);
 		}
 
 		/// <summary>
@@ -70,11 +133,6 @@ namespace nsK2EngineLow
 		void Init2DSprite();
 
 		/// <summary>
-		/// モノクロ用のレンダリングターゲットの初期化
-		/// </summary>
-		void InitMonochromeRenderTarget();
-
-		/// <summary>
 		/// メインレンダリングターゲットのカラーバッファの内容を
 		/// フレームバッファにコピーするためのスプライトを初期化する
 		/// </summary>
@@ -83,46 +141,38 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// 背景の描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void BackGroundDraw(RenderContext& rc);
 
 		/// <summary>
 		/// モデルの描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void ModelDraw(RenderContext& rc);
 
 		/// <summary>
 		/// 2D(フォントとスプライト)の描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void SpriteFontDraw(RenderContext& rc);
-
-		/// <summary>
-		/// モノクロの描画
-		/// </summary>
-		/// <param name="rc"></param>
-		void OnMonochromeRendering(RenderContext& rc);
 
 		/// <summary>
 		/// メインレンダリングターゲットの内容をフレームバッファにコピーする
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void CopyMainRenderTargetToFrameBuffer(RenderContext& rc);
 
-		SceneLight m_sceneLight; //シーンライト
-		RenderTarget m_mainRenderTarget; //メインレンダリングターゲット
-		RenderTarget m_backGroundRenderTarget; //背景用レンダリングターゲット
-		RenderTarget m_2DRenderTarget; //2Dレンダリングターゲット
-		RenderTarget m_monochromeRenderTarget; //モノクロ用レンダリングターゲット
-		Sprite m_backGroundSprite; //背景用スプライト
-		Sprite m_2DSprite; //2D(フォントとスプライト)用スクリプト
-		Sprite m_mainSprite; //メイン(モデル)用スプライト
-		Sprite m_monochromeSprite; //モノクロ用スプライト
-		Sprite m_copyToFrameBufferSprite; //メインレンダリングターゲットをフレームバッファにコピーするためのレンダリングターゲット
-		Bloom m_bloom; //ブルーム
-		Shadow m_shadow; //シャドウマップ
-		std::vector< IRenderer* > m_renderObjects; //レンダリングオブジェクトの格納
+		SceneLight m_sceneLight;						//シーンライト
+		RenderTarget m_mainRenderTarget;				//メインレンダリングターゲット
+		RenderTarget m_backGroundRenderTarget;			//背景用レンダリングターゲット
+		RenderTarget m_2DRenderTarget;					//2D用レンダリングターゲット
+		Sprite m_backGroundSprite;						//背景用スプライト
+		Sprite m_2DSprite;								//2D(フォントとスプライト)用スクリプト
+		Sprite m_mainSprite;							//メイン(モデル)用スプライト
+		Sprite m_copyToFrameBufferSprite;				//メインレンダリングターゲットをフレームバッファにコピーするためのスプライト
+		Bloom m_bloom;									//ブルーム
+		Shadow m_shadow;								//シャドウマップ
+		std::vector< IRenderer* > m_renderObjects;		//レンダリングオブジェクトの格納
 	};
 }
 

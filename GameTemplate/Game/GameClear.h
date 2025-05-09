@@ -1,14 +1,15 @@
 #pragma once
+/// <summary>
+/// ゲームクリア
+/// </summary>
 class Fade;
 class GameClear : public IGameObject
 {
 public:
-	~GameClear();
-
-	bool Start();
-	void Update();
-
-	void Render(RenderContext& rc);
+	~GameClear();  //デストラクタ
+	bool Start();	//開始処理
+	void Update();  //更新処理
+	void Render(RenderContext& rc);  //描画処理
 
 	/// <summary>
 	/// 収集したアイテムの数を設定する
@@ -60,49 +61,49 @@ private:
 		if (m_gatheringRate >= 100)
 		{
 			//Sランク
-			m_rankSpriteFilePath = "Assets/result/rank/s.dds";
-			m_rankSpriteColor = { 0.7f,0.0f,0.7f,0.0f };	//紫色
-			m_rankState = enRank_S;
+			m_rankUISpriteFilePath = "Assets/result/rank/s.dds";  //ランクSを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.7f,0.0f,0.7f,0.0f };	//紫色
+			m_rankState = enRank_S;	 //ランクステート(Sランク)
 		}
 		//収集率が80%以上なら
 		else if (m_gatheringRate >= 80)
 		{
 			//Aランク
-			m_rankSpriteFilePath = "Assets/result/rank/a.dds";
-			m_rankSpriteColor = { 1.0f,1.0f,0.0f,0.0f };	//黄色
-			m_rankState = enRank_A;
+			m_rankUISpriteFilePath = "Assets/result/rank/a.dds";  //ランクAを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 1.0f,1.0f,0.0f,0.0f };	//黄色
+			m_rankState = enRank_A;	 //ランクステート(Aランク)
 		}
 		//収集率が60%以上なら
 		else if (m_gatheringRate >= 60)
 		{
 			//Bランク
-			m_rankSpriteFilePath = "Assets/result/rank/b.dds";
-			m_rankSpriteColor = { 1.0f,0.0f,0.0f,0.0f };	//赤色
-			m_rankState = enRank_B;
+			m_rankUISpriteFilePath = "Assets/result/rank/b.dds";  //ランクBを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 1.0f,0.0f,0.0f,0.0f };	//赤色
+			m_rankState = enRank_B;	 //ランクステート(Bランク)
 		}
 		//収集率が40%以上なら
 		else if (m_gatheringRate >= 40)
 		{
 			//Cランク
-			m_rankSpriteFilePath = "Assets/result/rank/c.dds";
-			m_rankSpriteColor = { 0.0f,0.7f,0.0f,0.0f };	//緑色
-			m_rankState = enRank_C;
+			m_rankUISpriteFilePath = "Assets/result/rank/c.dds";  //ランクCを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.0f,0.7f,0.0f,0.0f };	//緑色
+			m_rankState = enRank_C;	 //ランクステート(Cランク)
 		}
 		//収集率が20%以上なら
 		else if (m_gatheringRate >= 20)
 		{
 			//Dランク
-			m_rankSpriteFilePath = "Assets/result/rank/d.dds";
-			m_rankSpriteColor = { 0.5f,0.9f,0.9f,0.0f };	//水色
-			m_rankState = enRank_D;
+			m_rankUISpriteFilePath = "Assets/result/rank/d.dds";  //ランクDを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.5f,0.9f,0.9f,0.0f };	//水色
+			m_rankState = enRank_D;	 //ランクステート(Dランク)
 		}
 		//収集率が20%未満なら
 		else
 		{
 			//Eランク
-			m_rankSpriteFilePath = "Assets/result/rank/e.dds";
-			m_rankSpriteColor = { 0.5f,0.5f,0.5f,0.0f };	//灰色
-			m_rankState = enRank_E;
+			m_rankUISpriteFilePath = "Assets/result/rank/e.dds";  //ランクEを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.5f,0.5f,0.5f,0.0f };	//灰色
+			m_rankState = enRank_E;	 //ランクステート(Eランク)
 		}
 	}
 
@@ -111,7 +112,7 @@ private:
 	/// </summary>
 	void SetRanking()
 	{
-		//順位
+		//順位を求める
 		int rank = m_totalItemNum - m_gatheringItemNum;
 
 		//順位を計算結果が0以下の場合
@@ -136,46 +137,46 @@ private:
 	}
 
 	/// <summary>
-	/// 数字スプライトのファイルパスの取得
+	/// 数字UIスプライトのファイルパスの取得
 	/// </summary>
 	/// <param name="num">数字</param>
-	void GetNumberSpriteFilePaht(int num)
+	void GetNumberUISpriteFilePath(int num)
 	{
 		//数字
 		switch (num)
 		{
 		case enNumver_Zero:				//0
-			m_numberSpriteFilePath = "Assets/result/number/0.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/0.dds";	//数字の0を描画するスプライトのファイルパス
 			break;
 		case enNumver_One:				//1
-			m_numberSpriteFilePath = "Assets/result/number/1.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/1.dds";	//数字の1を描画するスプライトのファイルパス
 			break;
 		case enNumver_Two:				//2
-			m_numberSpriteFilePath = "Assets/result/number/2.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/2.dds";	//数字の2を描画するスプライトのファイルパス
 			break;
 		case enNumver_Three:			//3
-			m_numberSpriteFilePath = "Assets/result/number/3.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/3.dds";	//数字の3を描画するスプライトのファイルパス
 			break;
 		case enNumver_Four:				//4
-			m_numberSpriteFilePath = "Assets/result/number/4.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/4.dds";	//数字の4を描画するスプライトのファイルパス
 			break;
 		case enNumver_Five:				//5
-			m_numberSpriteFilePath = "Assets/result/number/5.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/5.dds";	//数字の5を描画するスプライトのファイルパス
 			break;
 		case enNumver_Six:				//6
-			m_numberSpriteFilePath = "Assets/result/number/6.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/6.dds";	//数字の6を描画するスプライトのファイルパス
 			break;
 		case enNumver_Seven:			//7
-			m_numberSpriteFilePath = "Assets/result/number/7.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/7.dds";	//数字の7を描画するスプライトのファイルパス
 			break;
 		case enNumver_Eight:			//8
-			m_numberSpriteFilePath = "Assets/result/number/8.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/8.dds";	//数字の8を描画するスプライトのファイルパス
 			break;
 		case enNumver_Nine:				//9
-			m_numberSpriteFilePath = "Assets/result/number/9.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/9.dds";	//数字の9を描画するスプライトのファイルパス
 			break;
 		default:						//10～
-			m_numberSpriteFilePath = "Assets/result/number/0.dds";
+			m_numberUISpriteFilePath = "Assets/result/number/0.dds";	//数字の0を描画するスプライトのファイルパス
 			break;
 		}
 	}
@@ -274,41 +275,41 @@ private:
 		enGameClearDirection_Num				//ゲームクリア演出数
 	};
 
-	SpriteRender		m_result;															//リザルト画面
-	SpriteRender		m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)
-	SpriteRender		m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)
-	SpriteRender		m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)	
-	SpriteRender		m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)
-	SpriteRender		m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)
-	SpriteRender		m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)
-	SpriteRender        m_rankUI[enRank_Num];												//ランクUI
-	SpriteRender        m_percentUI;														//パーセントUI
-	SpriteRender        m_placeUI;															//位UI
-	SpriteRender		m_aButtonUI;														//AボタンUI
-	SpriteRender        m_returnTitleUI;													//タイトルへ戻るUI
-	BackGroundRender    m_gameBackground;													//ゲーム背景
-	AnimationClip		m_animationClip[enAnimationClip_Num];								//アニメーションクリップ
-	ModelRender			m_playerModel;														//プレイヤーモデル
-	Vector3				m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);				//プレイヤーモデルの位置
-	Quaternion          m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転
-	Vector3				m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);					//プレイヤーモデルの大きさ
-	Vector4				m_rankSpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクスプライト用カラー
-	int                 m_hundredPlace[enNumberDraw_Num] = { 0,0 };							//百の位
-	int                 m_tenPlace[enNumberDraw_Num] = { 0,0 };								//十の位
-	int                 m_onePlace[enNumberDraw_Num] = { 0,0 };								//一の位
-	int                 m_gatheringItemNum = 0;												//収集したアイテムの数
-	int                 m_totalItemNum = 1;													//アイテムの総数
-	int					m_gatheringRate = 0;												//収集率
-	int					m_animationState = enAnimationState_Idle;							//アニメーションステート
-	int                 m_rankState = enRank_Num;											//ランクステート
-	int                 m_gameClearDirectionState = enGameClearDirection_GatheringRate;		//ゲームクリア演出ステート
-	float               m_gatheringRateUIAlphaColor = -0.5f;								//収集率UI用透明度
-	float				m_rankingUIAlphaColor = -0.5f;										//順位UI用透明度
-	float				m_rankUIAlphaColor = -0.5f;											//ランクUI用透明度
-	bool				m_gameClearDirectionFlag = false;									//ゲームクリア演出フラグ
-	bool				m_titleScreenTransitionFlag = false;								//タイトル画面遷移フラグ
-	const char*			m_numberSpriteFilePath = nullptr;									//数字スプライト用ファイルパス
-	const char*			m_rankSpriteFilePath = nullptr;										//ランクスプライト用ファイルパス
-	Fade*				m_fade = nullptr;													//フェード用インスタンス
+	SpriteRender m_result;															//リザルト画面
+	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)
+	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)
+	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)	
+	SpriteRender m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)
+	SpriteRender m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)
+	SpriteRender m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)
+	SpriteRender m_rankUI[enRank_Num];												//ランクUI
+	SpriteRender m_percentUI;														//パーセントUI
+	SpriteRender m_placeUI;															//位UI
+	SpriteRender m_aButtonUI;														//AボタンUI
+	SpriteRender m_returnTitleUI;													//タイトルへ戻るUI
+	BackGroundRender m_gameBackground;												//ゲーム背景
+	AnimationClip m_animationClip[enAnimationClip_Num];								//アニメーションクリップ
+	ModelRender m_playerModel;														//プレイヤーモデル
+	Vector3 m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);					//プレイヤーモデルの位置
+	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転
+	Vector3 m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);						//プレイヤーモデルの大きさ
+	Vector4 m_rankUISpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクUI用カラー
+	int m_hundredPlace[enNumberDraw_Num] = { 0,0 };									//百の位
+	int m_tenPlace[enNumberDraw_Num] = { 0,0 };										//十の位
+	int m_onePlace[enNumberDraw_Num] = { 0,0 };										//一の位
+	int m_gatheringItemNum = 0;														//収集したアイテムの数
+	int m_totalItemNum = 1;															//アイテムの総数
+	int m_gatheringRate = 0;														//収集率
+	int m_animationState = enAnimationState_Idle;									//アニメーションステート
+	int m_rankState = enRank_Num;													//ランクステート
+	int m_gameClearDirectionState = enGameClearDirection_GatheringRate;				//ゲームクリア演出ステート
+	float m_gatheringRateUIAlphaColor = -0.5f;										//収集率UI用透明度
+	float m_rankingUIAlphaColor = -0.5f;											//順位UI用透明度
+	float m_rankUIAlphaColor = -0.5f;												//ランクUI用透明度
+	bool m_gameClearDirectionFlag = false;											//ゲームクリア演出フラグ
+	bool m_titleScreenTransitionFlag = false;										//タイトル画面遷移フラグ
+	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス
+	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス
+	Fade* m_fade = nullptr;															//フェード用インスタンス
 };
 

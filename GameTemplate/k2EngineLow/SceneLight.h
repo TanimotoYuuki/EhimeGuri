@@ -4,57 +4,60 @@ namespace nsK2EngineLow
 	//ディレクションライト
 	struct DirectionLight
 	{
-		Vector3 direction; //ライトの方向
-		float pad0;
-		Vector3 color; //ライトのカラー
-		float pad1;
+		Vector3 direction;	//ライトの方向
+		float pad0;			//パディング
+		Vector3 color;		//ライトのカラー
+		float pad1;			//パディング
 	};
 
 	//ポイントライト
 	struct PointLight
 	{
-		Vector3 position; //ライトの位置
-		float pad0;
-		Vector3 color; //ライトのカラー
-		float range; //ライトの影響範囲
+		Vector3 position;	//ライトの位置
+		float pad0;			//パディング
+		Vector3 color;		//ライトのカラー
+		float range;		//ライトの影響範囲
 	};
 
 	//スポットライト
 	struct SpotLight
 	{
-		Vector3 position; //ライトの位置
-		float pad0;
-		Vector3 color; //ライトのカラー
-		float range; //ライトの影響範囲
-		Vector3 direction; //ライトの放射方向
-		float angle; //ライトの放射角度
+		Vector3 position;	//ライトの位置
+		float pad0;			//パディング
+		Vector3 color;		//ライトのカラー
+		float range;		//ライトの影響範囲
+		Vector3 direction;	//ライトの放射方向
+		float angle;		//ライトの放射角度
 	};
 
 	//半球ライト
 	struct HemLight
 	{
-		Vector3 groundColor; //地面色
-		float pad0;
-		Vector3 skyColor; //天球色
-		float pad1;
-		Vector3 groundNormal; //地面の法線
+		Vector3 groundColor;	//地面色
+		float pad0;				//パディング
+		Vector3 skyColor;		//天球色
+		float pad1;				//パディング
+		Vector3 groundNormal;	//地面の法線
 	};
 
 	//ライト
 	struct Light
 	{
-		DirectionLight directionLight; //ディレクションライト
-		Vector3 eyePos; //カメラの位置
-		float pad0;
-		Vector3 ambientLight; //環境光
-		float pad1;
-		PointLight pointLight[10]; //ポイントライト
-		SpotLight spotLight[10]; //スポットライト
-		HemLight hemLight; //半球ライト
-		float pad2;
-		Matrix mLVP; //ライトビュープロジェクション行列
+		DirectionLight directionLight;	 //ディレクションライト
+		Vector3 eyePos;					 //カメラの位置
+		float pad0;						 //パディング
+		Vector3 ambientLight;			 //環境光
+		float pad1;						 //パディング
+		PointLight pointLight[10];		 //ポイントライト
+		SpotLight spotLight[10];		 //スポットライト
+		HemLight hemLight;				 //半球ライト
+		float pad2;						 //パディング
+		Matrix mLVP;					 //ライトビュープロジェクション行列
 	};
 
+	/// <summary>
+	/// シーンライト
+	/// </summary>
 	class SceneLight : public Noncopyable
 	{
 	public:
@@ -153,8 +156,8 @@ namespace nsK2EngineLow
 		}
 
 	private:
-		Light m_light;
-		Camera m_lightCamera;
+		Light m_light;		  //ライト
+		Camera m_lightCamera; //ライトカメラ
 	};
 }
 

@@ -9,15 +9,18 @@ namespace Level3DConst
 
 namespace nsK2EngineLow
 {
+	//コンストラクタ
 	Level3DRender::Level3DRender()
 	{
 
 	}
 
+	//デストラクタ
 	Level3DRender::~Level3DRender()
 	{
 	}
 
+	//初期化
 	void Level3DRender::Init(
 		const char* filePath,
 		std::function<bool(LevelObjectData& objData)> hookFunc
@@ -72,6 +75,7 @@ namespace nsK2EngineLow
 		}
 	}
 
+	//tklファイルの行列を変換する
 	void Level3DRender::MatrixTklToLevel()
 	{
 		m_tklFile.QuaryObject([&](TklFile::SObject& tklObj) {

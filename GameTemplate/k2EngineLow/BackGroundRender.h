@@ -2,6 +2,9 @@
 
 namespace nsK2EngineLow
 {
+	/// <summary>
+	/// バックグラウンドレンダー
+	/// </summary>
 	class BackGroundRender : public IRenderer
 	{
 	public:
@@ -11,12 +14,13 @@ namespace nsK2EngineLow
 		/// <param name="filePath">ファイルパス</param>
 		/// <param name="w">画像の横幅</param>
 		/// <param name="h">画像の縦幅</param>
+		/// <param name="isScroll">trueならスクロールする</param>
 		void Init(const char* filePath, const float w, const float h, bool isScroll = false);
 
 		/// <summary>
-/// 座標を設定
-/// </summary>
-/// <param name="pos">座標</param>
+		/// 座標を設定
+		/// </summary>
+		/// <param name="pos">座標</param>
 		void SetPosition(const Vector3& pos)
 		{
 			m_position = pos;
@@ -160,13 +164,13 @@ namespace nsK2EngineLow
 			m_sprite.Draw(rc);
 		}
 
-		Sprite								   			 m_sprite;			//スプライト
-		Vector3						   m_position = Vector3::Zero;			//座標
-		Quaternion				m_rotation = Quaternion::Identity;			//回転
-		Vector3							   m_scale = Vector3::One;			//拡大率
-		Vector2					  m_pivot = Sprite::DEFAULT_PIVOT;			//ピボット
-		Vector3									m_currentPosition;			//現在位置
-		Vector3									   m_goalPosition;			//ゴール位置
+		Sprite  m_sprite;													//スプライト
+		Vector3 m_position = Vector3::Zero;									//座標
+		Quaternion m_rotation = Quaternion::Identity;						//回転
+		Vector3 m_scale = Vector3::One;										//拡大率
+		Vector2 m_pivot = Sprite::DEFAULT_PIVOT;							//ピボット
+		Vector3 m_currentPosition = Vector3::Zero;							//現在位置
+		Vector3 m_goalPosition = Vector3::Zero;								//ゴール位置
 		BackGroundRenderConstantBuffer m_backGroundConstantBuffer;			//バックグラウンドレンダー用の定数バッファ
 	};
 }

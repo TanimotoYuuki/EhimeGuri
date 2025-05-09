@@ -134,7 +134,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		///	2Dの描画
 		/// </summary>
-		/// <param name="rc"></param>
+		/// <param name="rc">レンダーコンテキスト</param>
 		void OnRender2D(RenderContext& rc) override
 		{
 			m_font.Begin(rc);
@@ -142,13 +142,13 @@ namespace nsK2EngineLow
 			m_font.End(rc);
 		}
 
-		Vector3 m_position = Vector3::Zero; //座標
-		float m_scale = 1.0f; //文字の大きさ
-		Vector4 m_color = g_vec4White; //文字の色
-		float m_rotation = 0.0f; //回転
-		Vector2 m_pivot = Sprite::DEFAULT_PIVOT; //ピボット
-		wchar_t m_text[256]; //文字
-		Font m_font; //フォント
+		Vector3 m_position = Vector3::Zero;			//座標
+		float m_scale = 1.0f;						//文字の大きさ
+		Vector4 m_color = g_vec4White;				//文字の色
+		float m_rotation = 0.0f;					//回転
+		Vector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット
+		wchar_t m_text[256];						//文字
+		Font m_font;								//フォント
 	};
 }
 

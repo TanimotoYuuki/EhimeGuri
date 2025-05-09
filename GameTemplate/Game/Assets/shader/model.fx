@@ -1,104 +1,103 @@
-/*!
- * @brief	繧ｷ繝ｳ繝励Ν縺ｪ繝｢繝・Ν繧ｷ繧ｧ繝ｼ繝繝ｼ縲・
- */
-////////////////////////////////////////////////
-// 讒矩菴・
-////////////////////////////////////////////////
-//繧ｹ繧ｭ繝九Φ繧ｰ逕ｨ縺ｮ鬆らせ繝・・繧ｿ繧偵・縺ｨ縺ｾ縺ｨ繧√・
+////////////////////////////////
+/// モデルシェーダー
+////////////////////////////////
+
+//スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn{
 	int4  Indices  	: BLENDINDICES0;
     float4 Weights  : BLENDWEIGHT0;
 };
-//鬆らせ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｸ縺ｮ蜈･蜉帙・
+//頂点シェーダーの入力
 struct SVSIn{
-	float4 pos 		: POSITION;		//繝｢繝・Ν縺ｮ鬆らせ蠎ｧ讓吶・
-    float3 normal	: NORMAL;		//豕慕ｷ・
-	float2 uv 		: TEXCOORD0;	//UV蠎ｧ讓吶・
-    float3 tangent  : TANGENT;      //謗･繝吶け繝医Ν
-    float3 biNormal : BINORMAL;     //蠕薙・繧ｯ繝医Ν
-	SSkinVSIn skinVert;				//繧ｹ繧ｭ繝ｳ逕ｨ縺ｮ繝・・繧ｿ縲・
+	float4 pos : POSITION;		//位置
+    float3 normal : NORMAL;		//法線
+	float2 uv 	: TEXCOORD0;	//UV
+    float3 tangent : TANGENT;   //接ベクトル
+    float3 biNormal : BINORMAL; //従ベクトル
+	SSkinVSIn skinVert;			//スキン用のデータ
 };
-//繝斐け繧ｻ繝ｫ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｸ縺ｮ蜈･蜉帙・
+//ピクセルシェーダーの入力
 struct SPSIn{
-	float4 pos 			: SV_POSITION;	//繧ｹ繧ｯ繝ｪ繝ｼ繝ｳ遨ｺ髢薙〒縺ｮ繝斐け繧ｻ繝ｫ縺ｮ蠎ｧ讓吶・
-    float3 normal		: NORMAL;		//豕慕ｷ・
-	float2 uv 			: TEXCOORD0;	//uv蠎ｧ讓吶・
-    float3 tangent      : TANGENT;      //謗･繝吶け繝医Ν
-    float3 biNormal     : BINORMAL;     //蠕薙・繧ｯ繝医Ν
-    float3 worldPos		: TEXCOORD1;    //繝ｯ繝ｼ繝ｫ繝牙ｺｧ讓・
-    float3 normalInView : TEXCOORD2;    //繧ｫ繝｡繝ｩ遨ｺ髢薙・豕慕ｷ・
-    float4 posInLVP     : TEXCOORD3;    //繝ｩ繧､繝医ン繝･繝ｼ繧ｹ繧ｯ繝ｪ繝ｼ繝ｳ遨ｺ髢薙〒縺ｮ繝斐け繧ｻ繝ｫ縺ｮ蠎ｧ讓・
+	float4 pos : SV_POSITION;	        //位置
+    float3 normal : NORMAL;		        //法線
+	float2 uv : TEXCOORD0;	            //UV
+    float3 tangent : TANGENT;           //接ベクトル
+    float3 biNormal : BINORMAL;         //従ベクトル
+    float3 worldPos : TEXCOORD1;        //ワールド空間座標
+    float3 normalInView : TEXCOORD2;    //カメラ空間の法線
+    float4 posInLVP : TEXCOORD3;        //ライトビュースクリーン空間でのピクセルの座標
 };
 
 struct SPSOut{
     float4 color : SV_Target0;
 };
 
+//ディレクションライト
 struct DirectionLight
 {
-    float3 direction; //繝ｩ繧､繝医・譁ｹ蜷・
-    float3 color;     //繝ｩ繧､繝医・繧ｫ繝ｩ繝ｼ
+    float3 direction; //ライトの方向
+    float3 color;     //ライトのカラー
 };
 
+//ポイントライト
 struct PointLight
 {
-    float3 position; //繝ｩ繧､繝医・菴咲ｽｮ
-    float3 color;    //繝ｩ繧､繝医・繧ｫ繝ｩ繝ｼ
-    float range;     //繝ｩ繧､繝医・蠖ｱ髻ｿ遽・峇
+    float3 position; //ライトの地
+    float3 color;    //ライトのカラー
+    float range;     //ライトの影響範囲
 };
 
+//スポットライト
 struct SpotLight
 {
-    float3 position;    //繝ｩ繧､繝医・菴咲ｽｮ
-    float3 color;       //繝ｩ繧､繝医・繧ｫ繝ｩ繝ｼ
-    float range;        //繝ｩ繧､繝医・蠖ｱ髻ｿ遽・峇
-    float3 direction;   //繝ｩ繧､繝医・謾ｾ蟆・婿蜷・
-    float angle;        //繝ｩ繧､繝医・謾ｾ蟆・ｧ貞ｺｦ
+    float3 position;    //ライトの位置
+    float3 color;       //ライトのカラー
+    float range;        //ライトの影響範囲
+    float3 direction;   //ライトの放射方向
+    float angle;        //ライトの放射角度
 };
 
+//半球ライト
 struct HemLight
 {
-    float3 groundColor;     //蝨ｰ髱｢濶ｲ
-    float3 skyColor;        //螟ｩ逅・牡
-    float3 groundNormal;    //蝨ｰ髱｢縺ｮ豕慕ｷ・
+    float3 groundColor;     //地面色
+    float3 skyColor;        //天球色
+    float3 groundNormal;    //地面の法線
 };
 
-////////////////////////////////////////////////
-// 螳壽焚繝舌ャ繝輔ぃ縲・
-////////////////////////////////////////////////
-//繝｢繝・Ν逕ｨ縺ｮ螳壽焚繝舌ャ繝輔ぃ
+//モデル用の定数バッファ
 cbuffer ModelCb : register(b0)
 {
-    float4x4 mWorld;
-    float4x4 mView;
-    float4x4 mProj;
-    float alphaColor;
-    float scrollSpeed;
-    float deltaTime;
+    float4x4 mWorld;        //ワールド行列
+    float4x4 mView;         //ビュー行列
+    float4x4 mProj;         //プロジェクション行列
+    float alphaColor;       //透明度
+    float scrollSpeed;      //スクロール速度
+    float deltaTime;        //時間
 };
 
-//繝ｩ繧､繝育畑縺ｮ螳壽焚繝舌ャ繝輔ぃ
+//ライトの定数バッファ
 cbuffer LightCb : register(b1)
 {
-    DirectionLight directionLight;  //繝・ぅ繝ｬ繧ｯ繧ｷ繝ｧ繝ｳ繝ｩ繧､繝・
-    float3 eyePos;                  //繧ｫ繝｡繝ｩ縺ｮ菴咲ｽｮ
-    float3 ambientLig;              //迺ｰ蠅・・
-    PointLight pointLight[10];      //繝昴う繝ｳ繝医Λ繧､繝・
-    SpotLight spotLight[10];        //繧ｹ繝昴ャ繝医Λ繧､繝・
-    HemLight hemLight;              //蜊顔帥繝ｩ繧､繝・
-    float4x4 mLVP;                  //繝ｩ繧､繝医ン繝･繝ｼ繝励Ο繧ｸ繧ｧ繧ｯ繧ｷ繝ｧ繝ｳ陦悟・
+    DirectionLight directionLight;  //ディレクションライト
+    float3 eyePos;                  //視点の位置
+    float3 ambientLig;              //環境光
+    PointLight pointLight[10];      //ポイントライト
+    SpotLight spotLight[10];        //スポットライト
+    HemLight hemLight;              //半球ライト
+    float4x4 mLVP;                  //ライトビュースクリーン
 };
 
 ////////////////////////////////////////////////
 // 繧ｰ繝ｭ繝ｼ繝舌Ν螟画焚縲・
 ////////////////////////////////////////////////
-Texture2D<float4> g_albedo : register(t0);				//繧｢繝ｫ繝吶ラ繝槭ャ繝・
-Texture2D<float4> g_normalMap :register(t1);            //豕慕ｷ壹・繝・・
-Texture2D<float4> g_specularMap : register(t2);         //繧ｹ繝壹く繝･繝ｩ繝槭ャ繝・
-//Texture2D<float4> g_aoMap : register(t10);            //AO繝槭ャ繝・
-Texture2D<float4> g_shadowMap : register(t10);          //繧ｷ繝｣繝峨え繝槭ャ繝・
-StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//繝懊・繝ｳ陦悟・
-sampler g_sampler : register(s0);	//繧ｵ繝ｳ繝励Λ繧ｹ繝・・繝医・
+Texture2D<float4> g_albedo : register(t0);				//アルベドマップ
+Texture2D<float4> g_normalMap :register(t1);            //法線マップ
+Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
+//Texture2D<float4> g_aoMap : register(t10);            //AOマップ
+Texture2D<float4> g_shadowMap : register(t10);          //シャドウマップ
+StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列
+sampler g_sampler : register(s0);	                    //サンプラー
 
 ////////////////////////////////////////////////
 // 髢｢謨ｰ螳夂ｾｩ縲・
@@ -116,7 +115,7 @@ float CalcSpecularMap(SPSIn psIn);
 float CalcShadowMap(SPSIn psIn);
 
 /// <summary>
-//繧ｹ繧ｭ繝ｳ陦悟・繧定ｨ育ｮ励☆繧九・
+//スキン行列を計算する。
 /// </summary>
 float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 {
@@ -135,7 +134,7 @@ float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 }
 
 /// <summary>
-/// 鬆らせ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｮ繧ｳ繧｢髢｢謨ｰ縲・
+/// 頂点シェーダーのコア関数。
 /// </summary>
 SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 {
@@ -170,57 +169,59 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 }
 
 /// <summary>
-/// 繧ｹ繧ｭ繝ｳ縺ｪ縺励Γ繝・す繝･逕ｨ縺ｮ鬆らせ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｮ繧ｨ繝ｳ繝医Μ繝ｼ髢｢謨ｰ縲・
+/// スキンなしメッシュ用の頂点シェーダーのエントリー関数。
 /// </summary>
 SPSIn VSMain(SVSIn vsIn)
 {
 	return VSMainCore(vsIn, false);
 }
 /// <summary>
-/// 繧ｹ繧ｭ繝ｳ縺ゅｊ繝｡繝・す繝･縺ｮ鬆らせ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｮ繧ｨ繝ｳ繝医Μ繝ｼ髢｢謨ｰ縲・
+/// スキンありメッシュの頂点シェーダーのエントリー関数。
 /// </summary>
 SPSIn VSSkinMain( SVSIn vsIn ) 
 {
 	return VSMainCore(vsIn, true);
 }
+
 /// <summary>
-/// 繝斐け繧ｻ繝ｫ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｮ繧ｨ繝ｳ繝医Μ繝ｼ髢｢謨ｰ縲・
+/// ピクセルシェーダーのエントリー関数。
 /// </summary>
 SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
 {
     SPSOut psOut;
     
-    //豕慕ｷ壹・繝・・ 
+    //法線マップの計算
     float3 normalMap = CalcNormalMap(psIn);
     
-     //繧ｹ繝壹く繝･繝ｩ繝槭ャ繝・
+    //スペキュラマップの計算
     float specularMap = CalcSpecularMap(psIn);
    
-    //繝・ぅ繝ｬ繧ｯ繧ｷ繝ｧ繝ｳ繝ｩ繧､繝・
+    //ディレクションライトの計算
     float3 directionLig = CalcLigFromDirectionLight(psIn, normalMap, specularMap);
     
-    //隍・焚蛟九・繝ｩ繧､繝・ぅ繝ｳ繧ｰ險育ｮ・
+    //複数個のライティング計算
     float3 pointLig[10];
     float3 spotLig[10];
     for (int i = 0; i < 10; i++)
     {
-        //繝昴う繝ｳ繝医Λ繧､繝・
+        //ポイントライトの計算
         pointLig[i] = CalcLigFromPointLight(psIn, i, normalMap, specularMap);
-        //繧ｹ繝昴ャ繝医Λ繧､繝・
+        //スポットライトの計算
         spotLig[i] = CalcLigFromSpotLight(psIn, i, normalMap, specularMap);
     }
     
-    //繝ｪ繝繝ｩ繧､繝・
+    //リムライトの計算
     float3 limLig = CalcLimPower(psIn);
     
-    //蜊顔帥繝ｩ繧､繝・
+    //半球ライトの計算
     float3 hemLig = CalcLigFromHemLight(psIn);
      
-    ////AO繝槭ャ繝・
+    ////AOマップの計算
     //float3 aoMap = CalcAoMap(psIn);
     
-	//譛邨ら噪縺ｪ蜈峨ｒ豎ゅａ繧・
-    float3 lig = directionLig + ambientLig + hemLig /*+ normalMap + specularMap*/;
+	//最終的な光を求める
+    //ディレクションライト + 環境光 + 半球ライト
+    float3 lig = directionLig + ambientLig + hemLig;
     
     for (int j = 0; j < 10; j++)
     {
@@ -232,14 +233,18 @@ SPSOut PSMain(SPSIn psIn, int isShadowReceiver) : SV_Target0
     
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
+    ///最終出力カラーに光を乗算する
     albedoColor.xyz *= lig;
     
     float shadow = 1.0f;
+    //影を受けるなら
     if(isShadowReceiver==1)
     {
+        //シャドウマップ
         shadow = CalcShadowMap(psIn);
     }
     
+    //最終出力カラーに影を乗算する
     albedoColor.xyz *= shadow;
     
     albedoColor.a *= alphaColor;
@@ -258,208 +263,240 @@ SPSOut PSNormalMain(SPSIn psIn) : SV_Target0
     return PSMain(psIn, 0);
 }
 
-////諡｡謨｣蜿榊ｰ・・
+//拡散反射光
 float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal)
 {    
+    //拡散反射光
     return max(0.0f, dot(normal, -lightDirection)) * lightColor;
 }
 
-//髀｡髱｢蜿榊ｰ・・
+//鏡面反射光
 float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal,float specular)
 {
+    //反射ベクトルを求める
     float3 refVec = reflect(lightDirection, normal);
 	
+    //光が当たったサーフェイスから視点に伸びるベクトルを求める
     float3 toEye = eyePos - worldPos;
     toEye = normalize(toEye);
 	
+    //鏡面反射の強さを求める
     float t = saturate(dot(refVec, toEye));
+    //鏡面反射の強さを0以上の数値にする
     if (t < 0.0f)
     {
         t = 0.0f;
     }
 	
+    //鏡面反射の強さを絞る
     t = pow(t, 5.0f);
     
     float3 specLig = lightColor * t;
     specLig *= specular * 10.0f;
 	
+    //鏡面反射光
     return specLig;
 }
 
-//繝・ぅ繝ｬ繧ｯ繧ｷ繝ｧ繝ｳ繝ｩ繧､繝・
+//ディレクションライト
 float3 CalcLigFromDirectionLight(SPSIn psIn, float3 normal, float specular)
 {
-    //諡｡謨｣蜿榊ｰ・・繧呈ｱゅａ繧・
+    //拡散反射光を求める
     float3 diffuseLig = CalcLambertDiffuse(directionLight.direction, directionLight.color, normal);
     
-    //髀｡髱｢蜿榊ｰ・・繧呈ｱゅａ繧・
+    //スポットライトを求める
     float3 specularLig = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, normal, specular);
  
-    //諡｡謨｣蜿榊ｰ・・ + 髀｡髱｢蜿榊ｰ・・
+    //最終的な光
     return diffuseLig + specularLig;
 }
 
-//繝昴う繝ｳ繝医Λ繧､繝・
+//ポイントライト
 float3 CalcLigFromPointLight(SPSIn psIn, int num, float3 normal, float specular)
 {
-    //繝昴う繝ｳ繝医Λ繧､繝医・蜷代″繧呈ｱゅａ繧・
+    //このサーフェイスに入射しているポイントライトの光の向きを計算する
     float3 ligDir = psIn.worldPos - pointLight[num].position;
+    //正規化
     ligDir = normalize(ligDir);
     
-    //諡｡謨｣蜿榊ｰ・・繧呈ｱゅａ繧・
+    //減衰なしの拡散反射光を計算する
     float3 diffusePoint = CalcLambertDiffuse(ligDir, pointLight[num].color, normal);
     
-    //髀｡髱｢蜿榊ｰ・・繧呈ｱゅａ繧・
+    //減衰なしの鏡面反射光を計算する
     float3 specularPoint = CalcPhongSpecular(ligDir, pointLight[num].color, psIn.worldPos, normal, specular);
     
-    //繝昴う繝ｳ繝医Λ繧､繝医→縺ｮ霍晞屬繧呈ｱゅａ繧・
+    //ポイントライトとの距離を計算する
     float distance = length(psIn.worldPos - pointLight[num].position);
     
-    //霍晞屬縺ｫ繧医ｋ蠖ｱ髻ｿ邇・ｒ豎ゅａ繧・
+    //影響率は距離に比例して小さくなっていく
     float affect = 1.0f - 1.0f / pointLight[num].range * distance;
     
+    //影響力がマイナスにならないように補正をかける
     if(affect<0.0f)
     {
         affect = 0.0f;
     }
     
+    //影響を指数関数的にする
     affect = pow(affect, 3.0f);
     
-    //蠖ｱ髻ｿ邇・ｒ荵礼ｮ励＠縺ｦ蜿榊ｰ・・繧貞ｼｱ繧√ｋ
+    //拡散反射光と鏡面反射光に減衰率を乗算して影響を弱める
     diffusePoint *= affect;
     specularPoint *= affect;
     
+    //最終的な光
     return diffusePoint + specularPoint;
 }
 
-//繧ｹ繝昴ャ繝医Λ繧､繝・
+//スポットライト
 float3 CalcLigFromSpotLight(SPSIn psIn, int num, float3 normal, float specular)
 {
-    //繧ｹ繝昴ャ繝医Λ繧､繝医・蜷代″繧呈ｱゅａ繧・
+    //サーフェイスに入射するスポットライトの光の向きを計算する
     float3 ligDir = psIn.worldPos - spotLight[num].position;
+    //正規化
     ligDir = normalize(ligDir);
     
-    //諡｡謨｣蜿榊ｰ・・繧呈ｱゅａ繧・
+    //減衰なしの拡散反射光を計算する
     float3 diffuseSpot = CalcLambertDiffuse(ligDir, spotLight[num].color, normal);
     
-    //髀｡髱｢蜿榊ｰ・・繧呈ｱゅａ繧・
+    //減衰なしの鏡面反射光を計算する
     float3 specularSpot = CalcPhongSpecular(ligDir, spotLight[num].color, psIn.worldPos, normal, specular);
     
-    //繧ｹ繝昴ャ繝医Λ繧､繝医→縺ｮ霍晞屬繧呈ｱゅａ繧・
+    //スポットライトとの距離を計算する
     float distance = length(psIn.worldPos - spotLight[num].position);
     
-    //霍晞屬縺ｫ繧医ｋ蠖ｱ髻ｿ邇・ｒ豎ゅａ繧・
+    //影響率は距離に比例して小さくなっていく
     float affect = 1.0f - 1.0f / spotLight[num].range * distance;
     
+    //影響力がマイナスにならないように補正をかける
     if(affect<0.0f)
     {
         affect = 0.0f;
     }
     
+    //影響を指数関数的にする
     affect = pow(affect, 3.0f);
     
-    //霍晞屬縺ｫ繧医ｋ蠖ｱ髻ｿ邇・ｒ荵礼ｮ励＠縺ｦ蜿榊ｰ・・繧貞ｼｱ繧√ｋ
+    //拡散反射光と鏡面反射光に減衰率を乗算して影響を弱める
     diffuseSpot *= affect;
     specularSpot *= affect;
     
-    ///蜈･蟆・・縺ｨ蟆・・譁ｹ蜷代・隗貞ｺｦ繧呈ｱゅａ繧・
+    //入射光と射出方向の角度を求める
     float angle = dot(ligDir, spotLight[num].direction);
+    //dot()で求めた値をacos()に渡して角度を求める
     angle = abs(acos(angle));
     
-    //隗貞ｺｦ縺ｫ繧医ｋ蠖ｱ髻ｿ邇・ｒ豎ゅａ繧・
+    //角度に比例して小さくなっていく影響率を計算する
     affect = 1.0f - 1.0f / spotLight[num].angle * angle;
     
+    //影響力がマイナスにならないように補正をかける
     if(affect<0.0f)
     {
         affect = 0.0f;
     }
     
+    //影響を指数関数的にする
     affect = pow(affect, 0.5f);
     
-    //隗貞ｺｦ縺ｫ繧医ｋ蠖ｱ髻ｿ邇・ｒ荵礼ｮ励＠縺ｦ蜿榊ｰ・・繧貞ｼｱ繧√ｋ
+    //角度による影響率を反射光に乗算して、影響を弱める
     diffuseSpot *= affect;
     specularSpot *= affect;
     
+    //最終的な光
     return diffuseSpot + specularSpot;
 }
 
-//繝ｪ繝繝ｩ繧､繝・
+//リムライト
 float3 CalcLimPower(SPSIn psIn)
 {
-    //繧ｵ繝ｼ繝輔ぉ繧､繧ｹ縺ｮ豕慕ｷ壹→蜈峨・蜈･蟆・婿蜷代↓萓晏ｭ倥☆繧九Μ繝縺ｮ蠑ｷ縺輔ｒ豎ゅａ繧・
+    //サーフェイスの法線と光の入射方向に依存するリムの強さを求める
     float power1 = 1.0f - max(0.0f, dot(directionLight.direction, psIn.normal));
     
-    //繧ｵ繝ｼ繝輔ぉ繧､繧ｹ縺ｮ豕慕ｷ壹→隕也ｷ壹・譁ｹ蜷代↓萓晏ｭ倥☆繧九Μ繝縺ｮ蠑ｷ縺輔ｒ豎ゅａ繧・
+    //サーフェイスの法線と視線の方向に依存するリムの強さを求める
     float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
     
-    //譛邨ら噪縺ｪ繝ｪ繝縺ｮ蠑ｷ縺輔ｒ豎ゅａ繧・
+    //最終的なリムの強さを求める
     float limPower = power1 * power2;
     
+    //pow()を使用し強さの変化を指数関数的にする
     limPower = pow(limPower, 1.3f);
     
+    //最終的な光
     return limPower * directionLight.color;
 }
 
-//蜊顔帥繝ｩ繧､繝・
+//半球ライト
 float3 CalcLigFromHemLight(SPSIn psIn)
 {
-    //繧ｵ繝ｼ繝輔ぉ繧､繧ｹ縺ｮ豕慕ｷ壹→蝨ｰ髱｢縺ｮ豕慕ｷ壹→縺ｮ蜀・ｩ阪ｒ豎ゅａ繧・
+    //サーフェイスの法線と地面の法線との内積を計算する
     float t = dot(psIn.normal, hemLight.groundNormal);
     
-    //蜀・ｩ阪・邨先棡繧・・・縺ｮ遽・峇縺ｫ螟画鋤縺吶ｋ
+    //内積の結果を0～1の範囲に変換
     t = (t + 1.0f) / 2.0f;
     
+    //最終的な光
     return lerp(hemLight.groundColor, hemLight.skyColor, t);
 }
 
-//豕慕ｷ壹・繝・・
+//法線マップ
 float3 CalcNormalMap(SPSIn psIn)
 {
     float3 normal = psIn.normal;   
-    //豕慕ｷ壹・繝・・縺九ｉ繧ｿ繝ｳ繧ｸ繧ｧ繝ｳ繝医せ繝壹・繧ｹ縺ｮ豕慕ｷ壹ｒ繧ｵ繝ｳ繝励Μ繝ｳ繧ｰ縺吶ｋ
+    //法線マップからタンジェントスペースの法線をサンプリングする
     float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
+    //タンジェントスペースの法線を0～1の範囲から-1～1の範囲に復元する
     localNormal = (localNormal - 0.5f) * 2.0f;
     
-    //繧ｿ繝ｳ繧ｸ繧ｧ繝ｳ繝医せ繝壹・繧ｹ縺ｮ豕慕ｷ壹ｒ繝ｯ繝ｼ繝ｫ繝峨せ繝壹・繧ｹ縺ｫ螟画鋤縺吶ｋ
+    //タンジェントスペースの法線をワールドスペースに変換する
     normal = psIn.tangent * localNormal.x
            + psIn.biNormal * localNormal.y
            + normal * localNormal.z;
     
+    //法線マップ
     return normal;
 }
 
-//繧ｹ繝壹く繝･繝ｩ繝槭ャ繝・
+//スペキュラマップ
 float CalcSpecularMap(SPSIn psIn)
 {    
+    //スペキュラマップからスペキュラ反射の強さをサンプリング
     float specPower = g_specularMap.Sample(g_sampler, psIn.uv).r;
+    
+    //スペキュラマップ
     return specPower;
 }
 
-////AO繝槭ャ繝・
+////AOマップの計算
 //float3 CalcAoMap(SPSIn psIn)
 //{
-//    //迺ｰ蠅・・繧呈ｱゅａ繧・
+//    //環境光を計算
 //    float3 ambient = ambientLig;
     
+//    //AOマップから環境光の強さをサンプリング
 //    float ambientPower = g_aoMap.Sample(g_sampler, psIn.uv);
     
+//    //環境光の強さを環境光に乗算する
 //    ambient *= ambientPower;
     
+//    //AOマップ
 //    return ambient;
 //}
 
+//シャドウマップ
 float CalcShadowMap(SPSIn psIn)
 {
+    // ライトビュースクリーン空間からUV空間に座標変換
     float2 shadowMapUV = psIn.posInLVP.xy / psIn.posInLVP.w;
     shadowMapUV *= float2(0.5f, -0.5f);
     shadowMapUV += 0.5f;
     
     float shadowMap = 1.0f;
+    //ライトビュースクリーン空間でのZ値を計算する
     float zInLVP = psIn.posInLVP.z / psIn.posInLVP.w;
     if(shadowMapUV.x>0.0f&&shadowMapUV.x<1.0f
         && shadowMapUV.y>0.0f&&shadowMapUV.y<1.0f)
     {
-        //shadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV);
+        //シャドウマップに描き込まれているZ値と比較する
         float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
         if(zInLVP>zInShadowMap)
         {
@@ -467,5 +504,6 @@ float CalcShadowMap(SPSIn psIn)
         }
     }
     
+    //シャドウマップ
     return shadowMap;
 }

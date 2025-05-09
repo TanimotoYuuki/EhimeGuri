@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Title.h"
 
+//開始処理
 bool StageClear::Start()
 {
 	//ステージクリアUI
@@ -18,12 +19,14 @@ bool StageClear::Start()
 	return true;
 }
 
+//更新処理
 void StageClear::Update()
 {
 	//ステージクリアスプライト用のイージングの更新処理
 	UpdateStageClearSpriteEasing();
 }
 
+//描画処理
 void StageClear::Render(RenderContext& rc)
 {
 	//ステージクリアUI
@@ -42,22 +45,25 @@ void StageClear::SetStageClearSpriteEasing()
 void StageClear::UpdateStageClearSpriteEasing()
 {
 	//特定の位置に行ったらステージクリア演出をする
-	if (m_position.x > 0.0f && m_gameClearRenditionFinishFlag != true)
+	if (m_position.x > 0.0f && m_stageClearDirectionFinishFlag != true)
 	{
+		//1.0秒経過したらステージ演出を終了する
 		if (g_gameTime->StopWatch(1.0f))
 		{
-			m_gameClearRenditionFinishFlag = true;
+			m_stageClearDirectionFinishFlag = true;
 		}
 		return;
 	}
 
 	m_easingTime += 0.5f * g_gameTime->GetFrameDeltaTime();
 
+	//割合が1.0f以上になったら割合を固定する
 	if (m_easingTime > 1.0f)
 	{
 		m_easingTime = 1.0f;
 	}
 
+	//ステージクリアUIの更新
 	m_position.Lerp(m_easingTime, m_beforeEasingPosition, m_afterEasingPosition);
 	m_stageClearUI.SetPosition(m_position);
 	m_stageClearUI.Update();

@@ -1,10 +1,13 @@
 #pragma once
+/// <summary>
+/// フェード
+/// </summary>
 class Fade : public IGameObject
 {
 public:
-	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	bool Start();	//開始処理
+	void Update();	//更新処理
+	void Render(RenderContext& rc);  //描画処理
 
 	/// <summary>
 	/// ローディングの動作
@@ -16,7 +19,7 @@ public:
 	/// </summary>
 	void FadeTransition(EnFadeState enFadeState)
 	{
-		//フェードステートが異なっているとき
+		//フェードステートが異なっているときはフェードステートを切りえる
 		if (m_fadeState != enFadeState)
 		{
 			m_fadeState = enFadeState;
@@ -24,10 +27,13 @@ public:
 			m_fadeTransitionFlag = false;
 		}
 
+		//フェードステートがフェードアウトのとき
 		if (m_fadeState == enFadeState_FadeOut)
 		{
+			//ローディングフラグが立っていないとき
 			if (m_loadingFlag != true)
 			{
+				//2.0秒経過したらローディング画面に遷移する
 				if (g_gameTime->StopWatch(2.0f))
 				{
 					m_loadingFlag = true;
@@ -35,6 +41,7 @@ public:
 			}
 			else
 			{
+				//フェードステートをローディングに切り替える
 				m_fadeState = enFadeState_Loading;
 				m_fade.SetFadeTransition(enFadeState_Loading);
 			}
