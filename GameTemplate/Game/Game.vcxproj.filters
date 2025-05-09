@@ -32,6 +32,8 @@
     <ClCompile Include="HS_FallingBlock.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="S_MovingFloor.cpp" />
+    <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="FilePathConfig.cpp" />
     <ClCompile Include="ItemEnemy.cpp" />
     <ClCompile Include="Tobeyaki.cpp" />
     <ClCompile Include="sinju.cpp" />
@@ -65,6 +67,8 @@
     <ClInclude Include="HS_FallingBlock.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="S_MovingFloor.h" />
+    <ClInclude Include="Stage2.h" />
+    <ClInclude Include="FilePathConfig.h" />
     <ClInclude Include="ItemEnemy.h" />
     <ClInclude Include="Tobeyaki.h" />
     <ClInclude Include="sinju.h" />
