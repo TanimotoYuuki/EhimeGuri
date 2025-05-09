@@ -2,7 +2,8 @@
 class Player;
 class Game;
 class GameOver;
-class Enemy :public IGameObject
+class Mikan;
+class ItemEnemy:public IGameObject
 {
 public:
 	bool Start();
@@ -31,8 +32,8 @@ public:
 	Player* m_player;
 	Game* m_game;
 	GameOver* m_gameover;
+	Mikan* m_mikan;
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定
 };
-
 

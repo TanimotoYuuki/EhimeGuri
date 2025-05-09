@@ -19,6 +19,12 @@
 #include "Title.h"
 #include "Towel.h"
 #include "Fade.h"
+#include"ItemEnemy.h"
+#include"Tobeyaki.h"
+#include"sinju.h"
+#include"Mikan.h"
+#include"Jako.h"
+#include"Taruto.h"
 
 namespace
 {
@@ -82,6 +88,12 @@ Game::~Game()
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
 	DeleteGO(m_HS_FallingBlock);
+	DeleteGO(m_itemenemy);
+	DeleteGO(m_tobeyaki);
+	DeleteGO(m_sinju);
+	DeleteGO(m_mikan);
+	DeleteGO(m_jako);
+	DeleteGO(m_taruto);
 }
 
 bool Game::Start()
@@ -110,6 +122,14 @@ bool Game::Start()
 		m_enemyList[i]->m_position = enemyPosList[i];
 		m_enemyList[i]->firstposition = enemyPosList[i];
 	}
+
+	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
+	m_itemenemy->m_position = { 9050.0f,600.0f,0.0f };
+	m_itemenemy->firstposition = m_itemenemy->m_position;
+
+	/*m_tobeyaki = NewGO<Tobeyaki>(1, "tobeyaki");
+	m_tobeyaki->m_position = { 800.0f,200.0f,0.0f };*/
+
 
 	m_mappuRender.Init("Assets/modelData/mappu.DDS", 350.0f, 40.0f);
 	m_mappuRender.SetPosition(Vector3(400.0f, 400.0f, 0.0f));
@@ -290,9 +310,26 @@ void Game::Scaffold_NewGO()
 
 void Game::Item_NewGO()
 {
-   m_towel = NewGO<Towel>(0,"towel");
-   m_towel->m_position = { 10500.0f, 250.0f, 0.0f };
+  /* m_towel = NewGO<Towel>(0,"towel");
+   m_towel->m_position = { 10500.0f, 250.0f, 0.0f };     //第二ステージ用
+   m_modelRender.SetPosition(m_position);*/
+
+   m_sinju = NewGO<sinju>(0, "sinju");
+   m_sinju->m_position = { 14470.0f,600.0f,0.0f };
    m_modelRender.SetPosition(m_position);
+
+   /*m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
+   m_tobeyaki->m_position = { 700.0f,200.0f,0.0f };　　　//第二ステージ用
+   m_modelRender.SetPosition(m_position);*/
+
+   m_jako = NewGO<Jako>(0, "jako");
+   m_jako->m_position = { 6000.0f,500.0f,0.0f };
+   m_modelRender.SetPosition(m_position);
+
+   /*m_taruto = NewGO<Taruto>(0 , "taruto");
+   m_taruto->m_position = { 500.0f,200.0f,0.0f };     //第二ステージ用
+   m_modelRender.SetPosition(m_position);*/
+
 }
 
 void Game::ClearPoint_NewGO()
@@ -443,12 +480,12 @@ void Game::Render(RenderContext& rc)
 		m_timerRender.Draw(rc);
 		m_mappuRender.Draw(rc);
 		m_gennzaitiRender.Draw(rc);
-		if (m_player->taoruCount == 0) {
+		/*if (m_player->taoruCount == 0) {
 			m_taorukuroRender.Draw(rc);
 		}
 		else if (m_player->taoruCount == 1) {
 			m_taorutoriRender.Draw(rc);
-		}
+		}*/
 	}
 }
 

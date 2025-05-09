@@ -34,6 +34,12 @@
     <ClCompile Include="S_MovingFloor.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="FilePathConfig.cpp" />
+    <ClCompile Include="ItemEnemy.cpp" />
+    <ClCompile Include="Tobeyaki.cpp" />
+    <ClCompile Include="sinju.cpp" />
+    <ClCompile Include="Mikan.cpp" />
+    <ClCompile Include="Jako.cpp" />
+    <ClCompile Include="Taruto.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -63,5 +69,11 @@
     <ClInclude Include="S_MovingFloor.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="FilePathConfig.h" />
+    <ClInclude Include="ItemEnemy.h" />
+    <ClInclude Include="Tobeyaki.h" />
+    <ClInclude Include="sinju.h" />
+    <ClInclude Include="Mikan.h" />
+    <ClInclude Include="Jako.h" />
+    <ClInclude Include="Taruto.h" />
   </ItemGroup>
 </Project>
