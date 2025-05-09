@@ -1,9 +1,10 @@
 #include "stdafx.h"
-#include "Enemy.h"
+#include "ItemEnemy.h"
 #include "Player.h"
 #include "Game.h"
 #include "GameOver.h"
-bool Enemy::Start() {
+#include"Mikan.h"
+bool ItemEnemy::Start() {
 	animationclip[enAnimationclip_idle].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonIdle.tka");
 	animationclip[enAnimationclip_idle].SetLoopFlag(true);
 	animationclip[enAnimationclip_walk].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonWalk.tka");
@@ -20,18 +21,18 @@ bool Enemy::Start() {
 	m_game = FindGO<Game>("game");
 	return true;
 }
-void Enemy::Move() {
+void ItemEnemy::Move() {
 	if (Enemystate == 0) {
 		movespeed.x = -2.0f;
 	}
 	else if (Enemystate == 1) {
 		movespeed.x = 2.0f;
 	}
-	if (m_position.x >= firstposition.x + 200.0f)
+	if (m_position.x >= firstposition.x + 100.0f)
 	{
 		Enemystate = 0;
 	}
-	else if (m_position.x <= firstposition.x - 200.0f)
+	else if (m_position.x <= firstposition.x - 100.0f)
 	{
 		Enemystate = 1;
 	}
@@ -51,7 +52,7 @@ void Enemy::Move() {
 	movespeed.y -= glavity;
 }
 
-void Enemy::Rotation() {
+void ItemEnemy::Rotation() {
 	if (Enemystate == 0) {
 		rotation.SetRotationDegY(270.0f);
 		//Enemystate = 1;
@@ -65,12 +66,12 @@ void Enemy::Rotation() {
 	//絵描きさんに回転を教える。
 	m_modelrender.SetRotation(rotation);
 }
-void Enemy::EnemyAnimation() {
+void ItemEnemy::EnemyAnimation() {
 	switch (Enemyanimationstate) {
 	case 0:
-		m_modelrender.PlayAnimation(enAnimationclip_walk,0.1f);
+		m_modelrender.PlayAnimation(enAnimationclip_walk, 0.1f);
 		break;
-	
+
 	case 1:
 		m_modelrender.PlayAnimation(enAnimationclip_death, 0.1f);
 		break;
@@ -80,11 +81,11 @@ void Enemy::EnemyAnimation() {
 
 
 
-void Enemy::Update() {
+void ItemEnemy::Update() {
 	Move();
 	Rotation();
 	EnemyAnimation();
-	
+
 	m_modelrender.SetPosition(m_position);
 	m_modelrender.Update();
 	Vector3 diff = m_player->m_position - m_position;
@@ -93,6 +94,10 @@ void Enemy::Update() {
 			Enemyanimationstate = 1;
 			m_player->m_moveSpeed.y = 500.0f;
 			charactercontroller.RemoveRigidBoby();
+			NewGO<Mikan>(0, "mikan");
+			m_mikan = FindGO<Mikan>("mikan");
+			m_mikan->m_position = m_position;
+			m_mikan->m_position.y = m_position.y + 45.0f;
 		}
 		else {
 			m_player->m_position = m_player->m_initPosition;
@@ -104,6 +109,6 @@ void Enemy::Update() {
 	}
 
 }
-void Enemy::Render(RenderContext& rc) {
+void ItemEnemy::Render(RenderContext& rc) {
 	m_modelrender.Draw(rc);
 }
