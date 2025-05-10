@@ -4,6 +4,7 @@
 using namespace std;
 
 class FilePathConfig;
+
 class Stage2 : public IGameObject
 {
 public:

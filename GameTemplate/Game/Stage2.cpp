@@ -6,12 +6,6 @@ using namespace std;
 
 namespace
 {
-	//const char* const MODELDATA_PATH = "Assets/modelData/Stage/Assets/";// ファイルパスの定数化。
-	//const char* const STAGE2_MODEL_FILENAME = "Stage2";// ファイル名。
-	//const char* const FILE_PATH = ".tkm";// ファイルの拡張子。
-	//string modelPath = MODELDATA_PATH + string(STAGE2_MODEL_FILENAME) + FILE_PATH;
-
-
 	Vector3 SCALE = Vector3{ 10.0f, 10.0f, 10.0f };// モデルの大きさ。
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
 	Vector3 COLLISION_SIZE = Vector3(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
@@ -19,8 +13,8 @@ namespace
 
 bool Stage2::Start()
 { 
-	string modelPath = m_filePathConfig->GetFullPath("Stage2");
-	m_modelRender.Init(modelPath.c_str());
+	string modelPath = m_filePathConfig->GetFullPath("Stage2");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 
 	m_modelRender.SetScale(SCALE);// スケールのセット。
