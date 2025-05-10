@@ -276,7 +276,6 @@ private:
 	/// </summary>
 	FontRender m_timerRender;
 	FontRender m_fontRender;
-	FontRender m_fontRender;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
