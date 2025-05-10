@@ -2,14 +2,13 @@
 class BackGround : public IGameObject
 {
 public:
-	BackGround();
-	~BackGround();
+	BackGround() {};
+	~BackGround() {};
 
 	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	void Render(RenderContext& rc);// 描画処理。
 
-	ModelRender m_backGroundRender;
-	PhysicsStaticObject m_physicsSraricObject;
+	ModelRender m_backGroundRender;// モデル描画。
+	PhysicsStaticObject m_physicsSraricObject;// 静的物理オブジェクト。
 };
 

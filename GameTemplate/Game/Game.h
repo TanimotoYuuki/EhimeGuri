@@ -1,29 +1,29 @@
 #pragma once
 
-class Player;						//プレイヤー
-class Block;						//ブロック
-class BackGround;					//ステージ		
-class Enemy;						//エネミー
-class ClearPoint;                   //クリアポイント
-class FallingBlock;					//落ちる床
-class Needle;						//針
-class MovingFloor;					//移動する床
-class Scaffold;						//足場
-class ScaffoldBlock;				//T型の足場
-class StageClear;					//ステージクリア
-class S_MovingFloor;				//動く床(遅)
-class GameOver;						//ゲームオーバー
-class GameCamera;					//カメラ
-class HS_FallingBlock;				//動く床(速)
-class TransparentBlock;				//透明ブロック
-class Towel;                        //タオル
-class Fade;							//フェード
-class ItemEnemy;
-class Tobeyaki;
-class sinju;
-class Mikan;
-class Jako;
-class Taruto;
+class Player;// プレイヤー。
+class Block;// ブロック。
+class BackGround;// ステージ。		
+class Enemy;// エネミー。
+class ClearPoint;// クリアポイント。
+class FallingBlock;// 落ちる床。
+class Needle;// 針。
+class MovingFloor;// 移動する床。
+class Scaffold;// 足場。
+class ScaffoldBlock;// T型の足場。
+class StageClear;// ステージクリア。
+class S_MovingFloor;// 動く床(遅)。
+class GameOver;// ゲームオーバー。
+class GameCamera;// カメラ。
+class HS_FallingBlock;	//動く床(速)。
+class TransparentBlock;// 透明ブロック。
+class Towel;// タオル。
+class Fade;// フェード。
+class ItemEnemy;// 敵のアイテム。
+class Tobeyaki;// 砥部焼。
+class sinju;// 真珠。
+class Mikan;// みかん。
+class Jako;// じゃこ天。
+class Taruto;// タルト。
 
 class Game : public IGameObject
 {
@@ -31,24 +31,22 @@ public:
 	Game() {}
 	~Game();
 	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	void Update();// 更新処理。
+	void Render(RenderContext& rc);// 描画処理。
 		
-	void Block_NewGO();
-	void ClearPoint_NewGO();
-	void TransparentBlock_NewGO();	
-	void FallingBlock_NewGO();
-	void MovingFloor_NewGO();
-	void Needle_NewGO();
-	void Item_NewGO();
-	void ScaffoldBlock_NewGO();
-	void Scaffold_NewGO();
-	void S_MovingFloor_NewGO();
-	void HS_fallingBlock_NewGO();
-	void Fade_NewGO();
+	void Block_NewGO();// ブロックのNewGO。
+	void ClearPoint_NewGO();// クリアポイントのNewGO。
+	void TransparentBlock_NewGO();// 透明ブロックのNewGO。
+	void FallingBlock_NewGO();// 落ちるブロックのNewGO。
+	void MovingFloor_NewGO();// 動く床のNewGO 。
+	void Needle_NewGO();// 針のNewGO。
+	void Item_NewGO();// アイテムのNewGO。
+	void ScaffoldBlock_NewGO();// T字ブロックのNewGO。
+	void Scaffold_NewGO();// 足場ブロックのNewGO。
+	void S_MovingFloor_NewGO();// 落下速度の遅い床のNewGO。
+	void HS_fallingBlock_NewGO();// 落下速度の速い床のNewGO。
+	void Fade_NewGO();// FadeのNewGO。
 
-//	void InitSky();
-	
 private:
 	/// <summary>
 	/// 現在の愛媛県の場所を設定する
@@ -164,72 +162,123 @@ private:
 		}
 	}
 
-	Block             * m_block;
-	Block             * m_block1;
-	Block             * m_block2;
-	Block             * m_block3;
-	Block             * m_block4;
-	BackGround		  * m_backGround;
-	ClearPoint        * m_clearPoint;
-	Enemy			  * m_enemyList[5];
-	FallingBlock	  * m_fallingBlock;
-	FallingBlock      * m_fallingBlock1;
-	FallingBlock      * m_fallingBlock2;
-	FallingBlock      * m_fallingBlock3;
-
+	/// <summary>
+	/// ブロック。
+	/// </summary>
+	Block* m_block;
+	Block* m_block1;
+	Block* m_block2;
+	Block* m_block3;
+	Block* m_block4;
+	/// <summary>
+	/// 第1ステージ。
+	/// </summary>
+	BackGround* m_backGround;
+	/// <summary>
+	/// クリアポイント。
+	/// </summary>
+	ClearPoint* m_clearPoint;
+	/// <summary>
+	/// エネミー。
+	/// </summary>
+	Enemy* m_enemyList[5];
+	/// <summary>
+	/// 落ちる床。
+	/// </summary>
+	FallingBlock* m_fallingBlock;
+	FallingBlock* m_fallingBlock1;
+	FallingBlock* m_fallingBlock2;
+	FallingBlock* m_fallingBlock3;
+	/// <summary>
+	/// プレイヤー。
+	/// </summary>
 	Player			  * m_player;
-	Game		      * m_game;
-	GameOver          * m_gameOver;
-	GameCamera        * m_gameCamera;
-	HS_FallingBlock   * m_HS_FallingBlock;
-	Needle		      * m_needle;
-	Needle			  * m_needle1;
-	Needle			  * m_needle2;
-	Needle            * m_needle3;
-
-	ScaffoldBlock     * m_scaffoldBlock;
-	Scaffold		  * m_scaffold;
-	Scaffold		  * m_scaffold1;
-	StageClear        * m_stageClear;
-	S_MovingFloor	  * m_s_MovingFloor;
-	S_MovingFloor     * m_s_MovingFloor1;
-	S_MovingFloor	  * m_s_MovingFloor2;
-	S_MovingFloor	  * m_s_MovingFloor3;
-
-
-	MovingFloor       * m_movingFloor;
-	MovingFloor       * m_movingFloor1;
-	MovingFloor       * m_movingFloor2;
-
-
-	TransparentBlock  * m_transparentBlock;
-	TransparentBlock  * m_transparentBlock1;
-	TransparentBlock  * m_transparentBlock2;
-	TransparentBlock  * m_transparentBlock3;
-	TransparentBlock  * m_transparentBlock4;
-	TransparentBlock  * m_transparentBlock5;
-	TransparentBlock  * m_transparentBlock6;
-	TransparentBlock  * m_transparentBlock7;
-	TransparentBlock  * m_transparentBlock8;
-	TransparentBlock  * m_transparentBlock9;
-	TransparentBlock  * m_transparentBlock10;
-	TransparentBlock  * m_transparentBlock11;
+	/// <summary>
+	/// ゲーム。
+	/// </summary>
+	Game* m_game;
+	/// <summary>
+	/// ゲームーバー。
+	/// </summary>
+	GameOver* m_gameOver;
+	/// <summary>
+	/// ステージクリア。
+	/// </summary>
+	StageClear* m_stageClear;
+	/// <summary>
+	/// ゲームカメラ。
+	/// </summary>
+	GameCamera* m_gameCamera;
+	/// <summary>
+	/// 落下速度の速い床。
+	/// </summary>
+	HS_FallingBlock* m_HS_FallingBlock;
+	/// <summary>
+	/// 針。
+	/// </summary>
+	Needle* m_needle;
+	Needle* m_needle1;
+	Needle* m_needle2;
+	Needle* m_needle3;
+	/// <summary>
+	/// 足場ブロック。
+	/// </summary>
+	ScaffoldBlock* m_scaffoldBlock;
+	Scaffold* m_scaffold;
+	Scaffold* m_scaffold1;
+	/// <summary>
+	/// 落下速度の遅い床。
+	/// </summary>
+	S_MovingFloor* m_s_MovingFloor;
+	S_MovingFloor* m_s_MovingFloor1;
+	S_MovingFloor* m_s_MovingFloor2;
+	S_MovingFloor* m_s_MovingFloor3;
+	/// <summary>
+	/// 動く床。
+	/// </summary>
+	MovingFloor* m_movingFloor;
+	MovingFloor* m_movingFloor1;
+	MovingFloor* m_movingFloor2;
+	/// <summary>
+	/// 透明ブロック。
+	/// </summary>
+	TransparentBlock* m_transparentBlock;
+	TransparentBlock* m_transparentBlock1;
+	TransparentBlock* m_transparentBlock2;
+	TransparentBlock* m_transparentBlock3;
+	TransparentBlock* m_transparentBlock4;
+	TransparentBlock* m_transparentBlock5;
+	TransparentBlock* m_transparentBlock6;
+	TransparentBlock* m_transparentBlock7;
+	TransparentBlock* m_transparentBlock8;
+	TransparentBlock* m_transparentBlock9;
+	TransparentBlock* m_transparentBlock10;
+	TransparentBlock* m_transparentBlock11;
+	/// <summary>
+	/// タオル。
+	/// </summary>
 	Towel             * m_towel;
+	/// <summary>
+	/// フェード。
+	/// </summary>
 	Fade			  * m_fade;
+	/// <summary>
+	/// アイテム。
+	/// </summary>
+	ItemEnemy* m_itemenemy;
+	Tobeyaki* m_tobeyaki;// 砥部焼き。
+	sinju* m_sinju;// 真珠。
+	Mikan* m_mikan;// みかん。
+	Jako* m_jako;// じゃこ天。
+	Taruto* m_taruto;// タルト。
+	/// <summary>
+	/// フォントレンダー。
+	/// </summary>
+	FontRender m_timerRender;
+	FontRender m_fontRender;
 
-	FontRender          m_timerRender;
-	FontRender          m_fontRender;
-
-	ItemEnemy*          m_itemenemy;
-	Tobeyaki*           m_tobeyaki;
-	sinju*              m_sinju;
-	Mikan*              m_mikan;
-	Jako*               m_jako;
-	Taruto* m_taruto;
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
-	Vector3		        m_position;
-	Vector3             m_scale = Vector3::One;
 
 	PhysicsStaticObject m_physicsStaticObject;
 	
@@ -254,8 +303,13 @@ private:
 		enEhimePlace_Matuyama,			//松山市
 		enEhimePlace_Num				//場所数
 	};
-
+	/// <summary>
+	/// スタミナ。
+	/// </summary>
 	Sutaminastate       m_PlayerSutaminaSutate = SutaminaMax;
+	/// <summary>
+	/// スプライトレンダー。
+	/// </summary>
 	SpriteRender        m_sutaminaMaxrender;
 	SpriteRender        m_sutamina0render;
 	SpriteRender        m_mappuRender;
@@ -264,13 +318,22 @@ private:
 	SpriteRender        m_taorukuroRender;
 	SpriteRender        m_ehimePlace[enEhimePlace_Num];
 	SpriteRender		m_ehimeFamousPlace[enEhimePlace_Num];
+	/// <summary>
+	/// ステージレンダー。
+	/// </summary>
 	BackGroundRender	m_stageBackGround;
-	Vector3				m_ehimePlacePosition;
-	Vector3				m_ehimeFamousPlacePosition;
-	float               m_timer = 180.0f;
-	bool                drawFlag = true;
-	int					m_nowEhimePlace = enEhimePlace_Iyo;
-	bool                m_gameOverFlag = false;
+	/// <summary>
+	/// 座標。
+	/// </summary>
+	Vector3	m_ehimePlacePosition;
+	Vector3	m_ehimeFamousPlacePosition;
+	Vector3 m_position;
+	Vector3 m_scale = Vector3::One;
+
+	float m_timer = 180.0f;// タイマー。
+	bool drawFlag = true;// 描画フラグ。
+	int	m_nowEhimePlace = enEhimePlace_Iyo;// 
+	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
 	const char* m_ehimePlaceFilePath = nullptr;
 	const char* m_ehimeFamousPlaceFilePath = nullptr;
 };

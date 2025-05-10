@@ -34,18 +34,6 @@ namespace
 	const int ENEMY_NUM = 4;
 }
 
-//void Game::InitSky()
-//{
-//	DeleteGO(m_SkyCube);
-//	SkyCube* m_SkyCube = NewGO<SkyCube>(0, "skycube");
-//	m_SkyCube->SetType(enSkyCubeType_NightToon);
-//	m_SkyCube->SetLuminance(1.0f);
-//	m_SkyCube->SetScale(100000.0f);
-// 
-//	g_renderingEngine->SetAmbientByIBLTexture(m_SkyCube->GetTextureFilePath(), 1.0f);
-//	g_renderingEngine->SetDirectionLight(0, g_vec3Zero, g_vec3Zero);
-//}
-
 Game::~Game()
 {
 	DeleteGO(m_backGround);
@@ -186,7 +174,61 @@ bool Game::Start()
 	return true;
 }
 
+// 更新作業。
+void Game::Update()
+{
+	//ステージクリアとゲームオーバーの時は処理しない
+	if (m_player->m_stageClearFlag == true ||
+		m_player->m_gameOverFlag == true
+		)
+	{
+		return;
+	}
 
+	if (m_timer <= 0.0f) {
+		if (m_gameOverFlag != true)
+		{
+			NewGO<GameOver>(0, "gameover");
+			DeleteGO(m_fade);
+			m_gameOverFlag = true;
+		}
+		return;
+	}
+
+	SetNowEhimePlace(m_player->m_position);
+	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	m_stageBackGround.Update();
+
+	int MaxSuta = m_player->m_playermaxsutamina;
+	int nowSuta = m_player->m_playernowsutamina;
+	float nokori = (float)nowSuta / (float)MaxSuta;
+	Vector3 heri = { 1.0f,1.0,1.0f };
+	heri.x *= nokori;
+	m_sutaminaMaxrender.SetScale(heri);
+
+	wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"残り%.1f秒", float(m_timer));
+	m_timerRender.SetText(wcsbuf);
+	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
+	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
+	m_timerRender.SetScale(1.0f);
+
+	m_timer -= g_gameTime->GetFrameDeltaTime();
+
+
+	m_sutaminaMaxrender.Update();
+	m_sutamina0render.Update();
+
+	m_mappuRender.Update();
+	m_gennzaitiRender.Update();
+	m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
+
+	m_taorukuroRender.Update();
+	m_taorutoriRender.Update();
+
+}
+
+// 透明ブロックのNewGO。
 void Game::TransparentBlock_NewGO()
 {
 	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
@@ -224,6 +266,7 @@ void Game::TransparentBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 落ちるブロックのNewGO。
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
@@ -241,6 +284,7 @@ void Game::FallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 足場ブロックのNewGO。
 void Game::ScaffoldBlock_NewGO()
 {
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
@@ -249,6 +293,7 @@ void Game::ScaffoldBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 針のNewGO。
 void Game::Needle_NewGO()
 {
 	m_needle1 = NewGO<Needle>(0, "needle");
@@ -258,6 +303,7 @@ void Game::Needle_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 動く床のNewGO。
 void Game::MovingFloor_NewGO()
 {
 	
@@ -270,6 +316,7 @@ void Game::MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// ブロックのNewGO。
 void Game::Block_NewGO()
 {
 	/*m_block = NewGO<Block>(0, "block");
@@ -300,6 +347,7 @@ void Game::Block_NewGO()
 
 }
 
+// 足場ブロック。
 void Game::Scaffold_NewGO()
 {
 	m_scaffold1 = NewGO<Scaffold>(0, "scaffold");
@@ -308,6 +356,7 @@ void Game::Scaffold_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// アイテムのNewGO。
 void Game::Item_NewGO()
 {
   /* m_towel = NewGO<Towel>(0,"towel");
@@ -332,6 +381,7 @@ void Game::Item_NewGO()
 
 }
 
+// クリアポイントのNewGO。
 void Game::ClearPoint_NewGO()
 {
 	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
@@ -339,6 +389,7 @@ void Game::ClearPoint_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 落下速度の遅い床。
 void Game::S_MovingFloor_NewGO()
 {
 	m_s_MovingFloor = NewGO<S_MovingFloor>(0, "s_movingfloor");
@@ -357,6 +408,7 @@ void Game::S_MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// 落下速度の速い床。
 void Game::HS_fallingBlock_NewGO()
 {
 	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
@@ -365,6 +417,7 @@ void Game::HS_fallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
+// フェード。
 void Game::Fade_NewGO()
 {
 	NewGO<Fade>(0, "fade");
@@ -372,97 +425,10 @@ void Game::Fade_NewGO()
 	m_fade->FadeTransition(enFadeState_FadeIn);
 }
 
-void Game::Update()
-{
-	//ステージクリアとゲームオーバーの時は処理しない
-	if (m_player->m_stageClearFlag == true || 
-		m_player->m_gameOverFlag == true
-		)
-	{
-		return;
-	}
-
-	if (m_timer <= 0.0f) {
-		if (m_gameOverFlag != true)
-		{
-			NewGO<GameOver>(0, "gameover");
-			DeleteGO(m_fade);
-			m_gameOverFlag = true;
-		}
-		return;
-		//DeleteGO(this);
-		//DeleteGO(m_player);
-		//DeleteGO(m_backGround);;
-		//DeleteGO(m_transparentBlock);
-		//DeleteGO(m_transparentBlock1);
-		//DeleteGO(m_transparentBlock2);
-		//DeleteGO(m_transparentBlock3);
-		//DeleteGO(m_transparentBlock4);
-		//DeleteGO(m_transparentBlock5);
-		//DeleteGO(m_transparentBlock6);
-		//DeleteGO(m_transparentBlock7);
-		//DeleteGO(m_transparentBlock8);
-		//DeleteGO(m_transparentBlock9);
-		//DeleteGO(m_transparentBlock10);
-		//DeleteGO(m_transparentBlock11);
-		//DeleteGO(m_fallingBlock);
-		//DeleteGO(m_fallingBlock1);
-		//DeleteGO(m_fallingBlock2);
-		//DeleteGO(m_scaffoldBlock);
-		//DeleteGO(m_needle);
-		//DeleteGO(m_needle1);
-		//DeleteGO(m_movingFloor1);
-		//DeleteGO(m_movingFloor2);
-		//DeleteGO(m_block);
-		//DeleteGO(m_signboard);
-		//DeleteGO(m_scaffold);
-		//DeleteGO(m_scaffold1);
-		//DeleteGO(m_towel);
-		//for (int i = 0; i < ENEMY_NUM; i++) {
-		//	DeleteGO(m_enemyList[i]);
-		//}
-		//m_player = nullptr;
-		//m_movingFloor = nullptr;
-		//m_fallingBlock = nullptr;
-		//m_gameCamera->SetTarget(nullptr);
-	}
-
-	SetNowEhimePlace(m_player->m_position);
-	m_stageBackGround.SetCurrentPosition(m_player->m_position);
-	m_stageBackGround.Update();
-	
-	int MaxSuta = m_player->m_playermaxsutamina;
-	int nowSuta = m_player->m_playernowsutamina;
-	float nokori = (float)nowSuta / (float)MaxSuta;
-	Vector3 heri = { 1.0f,1.0,1.0f };
-	heri.x *= nokori;
-	m_sutaminaMaxrender.SetScale(heri);
-
-	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"残り%.1f秒", float(m_timer));
-	m_timerRender.SetText(wcsbuf);
-	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
-	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
-	m_timerRender.SetScale(1.0f);
-
-	m_timer -= g_gameTime->GetFrameDeltaTime();
-
-	m_sutaminaMaxrender.Update();
-	m_sutamina0render.Update();
-
-	m_mappuRender.Update();
-	m_gennzaitiRender.Update();
-	m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
-
-	m_taorukuroRender.Update();
-	m_taorutoriRender.Update();
-	
-}
-
+// 描画処理。
 void Game::Render(RenderContext& rc)
 {
 	m_stageBackGround.Draw(rc);
-	//m_backGroundRender.Draw(rc);
 	m_modelRender.Draw(rc);
 
 	//ステージクリアとゲームオーバーではないときは描画する
@@ -480,12 +446,6 @@ void Game::Render(RenderContext& rc)
 		m_timerRender.Draw(rc);
 		m_mappuRender.Draw(rc);
 		m_gennzaitiRender.Draw(rc);
-		/*if (m_player->taoruCount == 0) {
-			m_taorukuroRender.Draw(rc);
-		}
-		else if (m_player->taoruCount == 1) {
-			m_taorutoriRender.Draw(rc);
-		}*/
 	}
 }
 

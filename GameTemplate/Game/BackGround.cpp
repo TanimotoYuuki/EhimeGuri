@@ -6,16 +6,6 @@ namespace
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
 }
 
-BackGround::BackGround()
-{
-
-}
-
-BackGround::~BackGround()
-{
-
-}
-
 bool BackGround::Start()
 {
 	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
@@ -26,11 +16,7 @@ bool BackGround::Start()
 	return true;
 }
 
-void BackGround::Update()
-{
-
-}
-
+// 描画処理。
 void BackGround::Render(RenderContext& rc)
 {
 	m_backGroundRender.Draw(rc);
