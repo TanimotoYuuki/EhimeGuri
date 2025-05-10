@@ -130,6 +130,7 @@ void Player::Move() {
 	
 
 	m_position.z = 0.0f;
+	m_characterController.SetPosition(m_position);
 
 	m_modelRender.SetPosition(m_position);
 
