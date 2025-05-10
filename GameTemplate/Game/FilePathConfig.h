@@ -22,7 +22,7 @@ public:
     static constexpr const char* MODEL_DATA_PATH = "Assets/modelData/Stage/Assets/"; // ファイルパス。
     static constexpr const char* FILE_EXTENSION = ".tkm"; // 拡張子。
 
-    static string GetFullPath(const std::string& modelName); // ファイルパスを読み込む関数。
+    static string GetFullPath(const std::string& modelName);
 
 private:
     Lever* m_levelRender; // レベルレンダー。

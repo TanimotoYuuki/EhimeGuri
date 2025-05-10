@@ -32,6 +32,7 @@ void GameCamera::Update() {
 	target.y = m_player->m_position.y;
 	target.z = m_player->m_position.z;
 
+	//一定の高さまで落ちたら注視点を動かさない
 	if (target.y <= m_player->m_initPosition.y)
 	{
 		target.y = m_player->m_initPosition.y;
