@@ -257,25 +257,23 @@ private:
 	/// <summary>
 	/// タオル。
 	/// </summary>
-	Towel             * m_towel;
+	Towel* m_towel;
 	/// <summary>
 	/// フェード。
 	/// </summary>
-	Fade			  * m_fade;
+	Fade* m_fade;
 	/// <summary>
-	/// アイテム。
+	/// アイテム類。
 	/// </summary>
-	ItemEnemy* m_itemenemy;
-	Tobeyaki* m_tobeyaki;// 砥部焼き。
+	ItemEnemy* m_itemenemy;// 敵のアイテム。
+	Tobeyaki* m_tobeyaki;// 砥部焼。
 	sinju* m_sinju;// 真珠。
 	Mikan* m_mikan;// みかん。
 	Jako* m_jako;// じゃこ天。
 	Taruto* m_taruto;// タルト。
-	/// <summary>
-	/// フォントレンダー。
-	/// </summary>
-	FontRender m_timerRender;
-	FontRender m_fontRender;
+
+	FontRender          m_timerRender;
+	FontRender          m_fontRender;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
