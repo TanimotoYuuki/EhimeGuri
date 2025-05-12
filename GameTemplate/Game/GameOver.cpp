@@ -22,6 +22,7 @@ bool GameOver::Start()
 
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
+	//フェードを描画しないようにする
 	m_fade->FadeTransition(enFadeState_None);
 
 	m_game = FindGO<Game>("game");
@@ -175,6 +176,7 @@ void GameOver::Action()
 		switch (m_gameOverSelect)
 		{
 		case enSelect_Continue:			//コンティニュー
+			//フェードをフェードアウトに切り替える
 			m_fade->FadeTransition(enFadeState_FadeOut);
 			//3.0秒経過したらコンティニューする
 			if (g_gameTime->StopWatch(3.0f))
@@ -291,6 +293,7 @@ void GameOver::SpriteMove()
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
 					m_transitionFlag = true;
+					//フェードをフェードアウトに切り替える
 					m_fade->FadeTransition(enFadeState_FadeOut);
 				}
 				return;

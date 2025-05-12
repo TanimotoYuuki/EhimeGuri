@@ -35,6 +35,7 @@ void Fade::Update()
 	//フェードの切り替えをしたか?
 	if (m_fadeTransitionFlag != true)
 	{
+		//フェードステート
 		switch (m_fadeState)
 		{
 		case enFadeState_FadeIn:	//フェードイン
@@ -69,6 +70,7 @@ void Fade::LoadingMove()
 	//特定の高さまで行ったら
 	if (m_pointPosition[m_pointMove].y > m_pointInitPosition[m_pointMove].y + 25.0f)
 	{
+		//点落下する
 		m_pointFallFlag = true;
 	}
 

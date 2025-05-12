@@ -275,6 +275,7 @@ void Title::Action()
 		//画面端に行ったら
 		if (m_playerModelPosition.x > FRAME_BUFFER_W / 2)
 		{
+			//フェードをフェードアウトに切り替える
 			m_fade->FadeTransition(enFadeState_FadeOut);
 			//2.5秒経過したらゲームを開始する
 			if (g_gameTime->StopWatch(2.5f))
