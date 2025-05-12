@@ -49,7 +49,7 @@ public:
 
 private:
 	/// <summary>
-	/// 現在の愛媛県の場所を設定する
+	/// 現在の愛媛県の場所の設定
 	/// </summary>
 	/// <param name="nowPos">現在位置</param>
 	void SetNowEhimePlace(const Vector3& pos);
@@ -314,12 +314,12 @@ private:
 	SpriteRender        m_gennzaitiRender;
 	SpriteRender        m_taorutoriRender;
 	SpriteRender        m_taorukuroRender;
-	SpriteRender        m_ehimePlace[enEhimePlace_Num];
-	SpriteRender		m_ehimeFamousPlace[enEhimePlace_Num];
+	SpriteRender        m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
+	SpriteRender		m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
 	/// <summary>
-	/// ステージレンダー。
+	/// バックグラウンドレンダー。
 	/// </summary>
-	BackGroundRender	m_stageBackGround;
+	BackGroundRender	m_stageBackGround;//ステージ背景
 	/// <summary>
 	/// 座標。
 	/// </summary>
@@ -330,9 +330,9 @@ private:
 
 	float m_timer = 180.0f;// タイマー。
 	bool drawFlag = true;// 描画フラグ。
-	int	m_nowEhimePlace = enEhimePlace_Iyo;// 
+	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置 
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
-	const char* m_ehimePlaceFilePath = nullptr;
-	const char* m_ehimeFamousPlaceFilePath = nullptr;
+	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス
+	const char* m_ehimeFamousPlaceFilePath = nullptr;//愛媛県の名所用ファイルパス
 };
 

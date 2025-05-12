@@ -135,17 +135,20 @@ bool Game::Start()
 	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
 	m_taorutoriRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 
+	//ステージ背景の初期化
 	m_stageBackGround.Init("Assets/Sprite/background/1stage.dds", 12800, 900, true);
 	m_stageBackGround.Update();
 
 	for (int i = 0; i < enEhimePlace_Num; i++)
 	{
+		//愛媛県の場所のスプライトの情報を取得してから初期化する
 		GetEhimePlaceSpriteData(i);
 		m_ehimePlace[i].Init(m_ehimePlaceFilePath, 1024, 128);
 		m_ehimePlace[i].SetPosition(m_ehimePlacePosition);
 		m_ehimePlace[i].SetScale(Vector3(0.35f, 0.35f, 0.35f));
 		m_ehimePlace[i].Update();
 
+		//愛媛県の名所のスプライトの情報を取得してから初期化する
 		GetEhimeFamousPlaceSpriteData(i);
 		m_ehimeFamousPlace[i].Init(m_ehimeFamousPlaceFilePath, 1024, 128);
 		m_ehimeFamousPlace[i].SetPosition(m_ehimeFamousPlacePosition);
@@ -167,7 +170,9 @@ bool Game::Start()
 	S_MovingFloor_NewGO();
 	Fade_NewGO();
 
+	//現在位置の設定
 	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	//ゴール位置の設定
 	m_stageBackGround.SetGoalPosition(m_clearPoint->position);
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -195,8 +200,13 @@ void Game::Update()
 		return;
 	}
 
+	//現在の愛媛県の場所の設定
 	SetNowEhimePlace(m_player->m_position);
+
+	//現在位置の更新
 	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+
+	//ステージ背景の更新
 	m_stageBackGround.Update();
 
 	int MaxSuta = m_player->m_playermaxsutamina;
@@ -232,31 +242,31 @@ void Game::Update()
 void Game::TransparentBlock_NewGO()
 {
 	m_transparentBlock3 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock3->m_position = { 4700.0f, 270.0f, 0.0f };
+	m_transparentBlock3->m_position = { 4700.0f, 325.0f, 0.0f };
 	m_transparentBlock3->m_firstposition = m_transparentBlock3->m_position;
 
 	m_transparentBlock4 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock4->m_position = { 4800.0f, 270.0f, 0.0f };
+	m_transparentBlock4->m_position = { 4800.0f, 325.0f, 0.0f };
 	m_transparentBlock4->m_firstposition = m_transparentBlock4->m_position;
 
 	m_transparentBlock5 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock5->m_position = { 4900.0f, 270.0f, 0.0f };
+	m_transparentBlock5->m_position = { 4900.0f, 325.0f, 0.0f };
 	m_transparentBlock5->m_firstposition = m_transparentBlock5->m_position;
 
 	m_transparentBlock6 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock6->m_position = { 5000.0f, 270.0f, 0.0f };
+	m_transparentBlock6->m_position = { 5000.0f, 325.0f, 0.0f };
 	m_transparentBlock6->m_firstposition = m_transparentBlock6->m_position;
 
 	m_transparentBlock7 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock7->m_position = { 5100.0f, 270.0f, 0.0f };
+	m_transparentBlock7->m_position = { 5100.0f, 325.0f, 0.0f };
 	m_transparentBlock7->m_firstposition = m_transparentBlock7->m_position;
 
 	m_transparentBlock8 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock8->m_position = { 5200.0f, 270.0f, 0.0f };
+	m_transparentBlock8->m_position = { 5200.0f, 325.0f, 0.0f };
 	m_transparentBlock8->m_firstposition = m_transparentBlock8->m_position;
 
 	m_transparentBlock9 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock9->m_position = { 5300.0f, 270.0f, 0.0f };
+	m_transparentBlock9->m_position = { 5300.0f, 325.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 
 	/*m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
@@ -325,7 +335,7 @@ void Game::Block_NewGO()
 
 
 	m_block = NewGO<Block>(0, "block");
-	m_block->m_position = { 500.0f, 300.0f, 0.0f };
+	m_block->m_position = { 500.0f, 325.0f, 0.0f };
 	m_block->m_firstposition = m_block->m_position;
 
 	m_block1 = NewGO<Block>(0, "block");
@@ -341,7 +351,7 @@ void Game::Block_NewGO()
 	m_block3->m_firstposition = m_block->m_position;
 
 	m_block4 = NewGO<Block>(0, "block");
-	m_block4->m_position = { 2800.0f, 300.0f, 0.0f };
+	m_block4->m_position = { 2800.0f, 325.0f, 0.0f };
 	m_block4->m_firstposition = m_block->m_position;
 	m_modelRender.SetPosition(m_position);
 
@@ -422,6 +432,7 @@ void Game::Fade_NewGO()
 {
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
+	//フェードをフェードインに切り替える
 	m_fade->FadeTransition(enFadeState_FadeIn);
 }
 
@@ -436,7 +447,9 @@ void Game::Render(RenderContext& rc)
 		m_player->m_gameOverFlag != true
 		)
 	{
+		//愛媛県の場所
 		m_ehimePlace[m_nowEhimePlace].Draw(rc);
+		//愛媛県の名所
 		m_ehimeFamousPlace[m_nowEhimePlace].Draw(rc);
 		if (m_player->m_playernowsutamina < 300) {
 			m_sutamina0render.Draw(rc);
@@ -449,26 +462,33 @@ void Game::Render(RenderContext& rc)
 	}
 }
 
+//現在の愛媛県の場所の設定
 void Game::SetNowEhimePlace(const Vector3& pos)
 {
+	//ステージごとの特定の位置まで行ったら現在の場所を切り替える
 	if (pos.x >= 15060.0f)
 	{
+		//鬼北町
 		m_nowEhimePlace = enEhimePlace_Onihoku;
 	}
 	else if (pos.x >= 10945.0f)
 	{
+		//宇和島市
 		m_nowEhimePlace = enEhimePlace_Uwajima;
 	}
 	else if (pos.x >= 6940.0f)
 	{
+		//八幡浜市
 		m_nowEhimePlace = enEhimePlace_Yawatahama;
 	}
 	else if (pos.x >= 2730.0f)
 	{
+		//大洲市
 		m_nowEhimePlace = enEhimePlace_Ooze;
 	}
 	else
 	{
+		//伊予市
 		m_nowEhimePlace = enEhimePlace_Iyo;
 	}
 }

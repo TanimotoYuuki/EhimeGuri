@@ -23,6 +23,7 @@ bool GameClear::Start()
 
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
+	//フェードを描画しないようにする
 	m_fade->FadeTransition(enFadeState_None);
 
 	return true;
@@ -405,6 +406,7 @@ void GameClear::Action()
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			m_titleScreenTransitionFlag = true;
+			//フェードをフェードアウトに切り替える
 			m_fade->FadeTransition(enFadeState_FadeOut);
 		}
 	}
