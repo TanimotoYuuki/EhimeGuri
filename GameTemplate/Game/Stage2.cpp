@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Stage2.h"
-#include "FilePathConfig.h"
+#include "Config.h"
 #include <string>
 using namespace std;
 

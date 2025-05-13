@@ -232,7 +232,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
-    <ClCompile Include="FilePathConfig.cpp">
+    <ClCompile Include="FallingRocks.cpp" />
+    <ClCompile Include="Config.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
@@ -272,7 +273,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="FallingBlock.h" />
-    <ClInclude Include="FilePathConfig.h" />
+    <ClInclude Include="FallingRocks.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameClear.h" />
