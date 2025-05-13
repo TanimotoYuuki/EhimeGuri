@@ -25,6 +25,7 @@
 #include"Mikan.h"
 #include"Jako.h"
 #include"Taruto.h"
+#include"Checpoint.h"
 
 namespace
 {
@@ -82,6 +83,7 @@ Game::~Game()
 	DeleteGO(m_mikan);
 	DeleteGO(m_jako);
 	DeleteGO(m_taruto);
+	DeleteGO(m_checpoint);
 }
 
 bool Game::Start()
@@ -117,6 +119,10 @@ bool Game::Start()
 
 	/*m_tobeyaki = NewGO<Tobeyaki>(1, "tobeyaki");
 	m_tobeyaki->m_position = { 800.0f,200.0f,0.0f };*/
+
+	m_checpoint = NewGO<Checpoint>(1, "checpoint");
+	m_checpoint->position = { 10300.0f,100.0f,0.0f };
+	m_modelRender.SetPosition(m_position);
 
 
 	m_mappuRender.Init("Assets/modelData/mappu.DDS", 350.0f, 40.0f);
