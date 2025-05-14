@@ -31,7 +31,6 @@ Player::Player() {
 
 //	m_position = { 17300.0f, 700.0f, 0.0f };
 
-	m_initPosition = { 0.0f,94.0f,0.0f };
 	m_characterController.Init(25.0f, 100.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
 	m_initRotation.SetRotationDegY(90.0f);
@@ -46,6 +45,12 @@ Player::~Player() {
 
 void Player::Update() {
 
+	if (checcount == 0) {
+		m_initPosition = { 0.0f,94.0f,0.0f };
+	}
+	else if (checcount == 1) {
+		m_initPosition = { 10300.0f,120.0f,0.0f };
+	}
 
 	if (m_playernowsutamina == 0) {
 		m_sutaminaZeroFlag=true;

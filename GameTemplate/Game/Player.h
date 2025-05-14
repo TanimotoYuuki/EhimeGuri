@@ -95,5 +95,6 @@ public:
 	bool G = true;
 	bool m_stageClearFlag = false;
 	bool m_gameOverFlag = false;
+	int checcount = 0;
 };
 

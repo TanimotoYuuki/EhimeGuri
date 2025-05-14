@@ -104,6 +104,11 @@ namespace nsK2EngineLow
 		{
 			m_position = pos;
 		}
+
+		/// <summary>
+		/// 座標を取得
+		/// </summary>
+		/// <returns>座標</returns>
 		const Vector3& GetPosition() const 
 		{ 
 			return m_position; 
@@ -119,12 +124,30 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// 回転を取得
+		/// </summary>
+		/// <returns>回転</returns>
+		const Quaternion GetRotation() const
+		{
+			return m_rotation;
+		}
+
+		/// <summary>
 		/// 大きさを設定
 		/// </summary>
 		/// <param name="scale">大きさ</param>
 		void SetScale(const Vector3& scale)
 		{
 			m_scale = scale;
+		}
+
+		/// <summary>
+		/// 大きさを取得
+		/// </summary>
+		/// <returns>大きさ</returns>
+		const Vector3 GetScale() const
+		{
+			return m_scale;
 		}
 
 		/// <summary>

@@ -228,6 +228,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Checpoint.cpp" />
     <ClCompile Include="ClearPoint.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fade.cpp" />
@@ -269,6 +270,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Checpoint.h" />
     <ClInclude Include="ClearPoint.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fade.h" />
