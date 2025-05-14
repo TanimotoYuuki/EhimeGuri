@@ -41,6 +41,7 @@
     <ClCompile Include="Jako.cpp" />
     <ClCompile Include="Taruto.cpp" />
     <ClCompile Include="FallingRocks.cpp" />
+    <ClCompile Include="Checpoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -77,5 +78,6 @@
     <ClInclude Include="Jako.h" />
     <ClInclude Include="Taruto.h" />
     <ClInclude Include="FallingRocks.h" />
+    <ClInclude Include="Checpoint.h" />
   </ItemGroup>
 </Project>
