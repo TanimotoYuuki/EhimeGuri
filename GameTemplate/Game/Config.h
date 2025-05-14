@@ -22,11 +22,6 @@ public:
     static constexpr const char* MODEL_DATA_PATH = "Assets/modelData/Stage/Assets/"; // ファイルパス。
     static constexpr const char* FILE_EXTENSION = ".tkm"; // 拡張子。
 
-    /// <summary>
-    /// 使い方。
-    /// string modelPath = m_filePathConfig->GetFullPath("ファイル名");
-    /// m_modelRender.Init(modelPath.c_str());
-    /// </summary>
     static string GetFullPath(const std::string& modelName);
 
 private:

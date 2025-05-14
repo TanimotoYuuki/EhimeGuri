@@ -272,11 +272,11 @@ private:
 	Mikan* m_mikan;// みかん。
 	Jako* m_jako;// じゃこ天。
 	Taruto* m_taruto;// タルト。
-
-	Checpoint* m_checpoint;
-
-	FontRender          m_timerRender;
-	FontRender          m_fontRender;
+	/// <summary>
+	/// フォントレンダー。
+	/// </summary>
+	FontRender m_timerRender;
+	FontRender m_fontRender;
 
 	ModelRender         m_backGroundRender;
 	ModelRender	        m_modelRender;
