@@ -24,7 +24,7 @@ class sinju;// 真珠。
 class Mikan;// みかん。
 class Jako;// じゃこ天。
 class Taruto;// タルト。
-class Checpoint;
+class Checpoint;// 中間地点。
 
 class Game : public IGameObject
 {
@@ -272,6 +272,11 @@ private:
 	Mikan* m_mikan;// みかん。
 	Jako* m_jako;// じゃこ天。
 	Taruto* m_taruto;// タルト。
+	/// <summary>
+	/// チェックポイント。
+	/// </summary>
+	Checpoint* m_checpoint;
+	
 	/// <summary>
 	/// フォントレンダー。
 	/// </summary>
