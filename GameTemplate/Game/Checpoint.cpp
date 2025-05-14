@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Checpoint.h"
 #include"Player.h"
-#include"FilePathConfig.h"
+#include"Config.h"
 namespace
 {
 	Vector3 SCALE = Vector3(2.0f, 2.0f, 2.0f);

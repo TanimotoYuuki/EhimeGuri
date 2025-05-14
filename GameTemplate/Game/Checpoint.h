@@ -1,6 +1,6 @@
 #pragma once
 class Player;
-class FilePathConfig;
+class Config;
 class Checpoint:public IGameObject
 {
 public:
@@ -11,7 +11,7 @@ public:
 	Player* m_player;
 	ModelRender m_modelRender;
 	Vector3	position;
-	FilePathConfig* m_filePathConfig;
+	Config* m_filePathConfig;
 
 	
 };
