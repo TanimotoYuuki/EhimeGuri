@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include "FilePathConfig.h"
+#include "Config.h"
 using namespace std;
 
-class FilePathConfig;
+class Config;
 
 class Stage2 : public IGameObject
 {
@@ -18,7 +18,7 @@ public:
 	void Update();// 更新処理。
 	void Render(RenderContext& rc);// 描画処理。
 
-	FilePathConfig* m_filePathConfig;
+	Config* m_filePathConfig;
 	ModelRender m_modelRender;// モデルの描画。
 	PhysicsStaticObject m_physicsStaticObject;// 静的物理オブジェクト。
 	CollisionObject* m_collisionObject = nullptr;// コリジョンオブジェクト。
