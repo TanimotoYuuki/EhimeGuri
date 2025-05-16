@@ -1,5 +1,8 @@
 #pragma once
+using namespace std;
+
 class Player;
+class Config;
 class Block : public IGameObject
 {
 public:
@@ -20,14 +23,15 @@ public:
 		return m_position;
 	}
 
-	CollisionObject   * m_collisionObject;
-	ModelRender         m_modelRender;
+	Config* m_config;
+	CollisionObject* m_collisionObject;
+	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 
-	Vector3             m_firstposition;
-	Vector3             m_position;
-	Vector3			    m_scale = Vector3::One;
-	Vector3						  m_blockTouchDistanceX = Vector3::Zero;	 //ブロック叩く用距離(X軸)
+	Vector3 m_firstposition;
+	Vector3 m_position;
+	Vector3 m_scale = Vector3::One;
+	Vector3 m_blockTouchDistanceX = Vector3::Zero;	 //ブロック叩く用距離(X軸)
 	Player* m_player;
 };
 

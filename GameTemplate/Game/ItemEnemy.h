@@ -1,4 +1,6 @@
 #pragma once
+using namespace std;
+
 class Player;
 class Game;
 class GameOver;

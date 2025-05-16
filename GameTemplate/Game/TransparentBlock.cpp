@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Config.h"
 #include "TransparentBlock.h"
 #include "Player.h"
 namespace
@@ -14,8 +15,9 @@ namespace
 //開始処理
 bool TransparentBlock::Start()
 {
-	//モデルの初期化
-	m_transparentBlockModel.IniTranslucent("Assets/modelData/Stage/Assets/tatakareta_ato_no_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+	string modelPath = m_config-> GetFullPath_3DModel("TRANSPARENTBLOCLK");// ファイルパスを読み込む。
+	m_transparentBlockModel.Init(modelPath.c_str());// モデルをセットする。
+
 	m_transparentBlockModel.SetPosition(m_position);
 	m_transparentBlockModel.Update();
 

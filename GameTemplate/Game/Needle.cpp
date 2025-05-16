@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Config.h"
 #include "Needle.h"
 #include "Player.h"
 #include "GameOver.h"
@@ -22,8 +23,9 @@ Needle::~Needle()
 }
 bool Needle::Start()
 {
-	//モデルのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/Needle.tkm");
+	string modelPath = m_config-> GetFullPath_3DModel("Needle");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();
 	m_player = FindGO<Player>("player");

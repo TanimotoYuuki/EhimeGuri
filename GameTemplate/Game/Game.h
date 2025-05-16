@@ -1,10 +1,14 @@
 #pragma once
+#include "level3D/TklFile.h"
+
+using namespace std;
 
 class Player;// プレイヤー。
 class Block;// ブロック。
 class BackGround;// ステージ。		
 class Enemy;// エネミー。
 class ClearPoint;// クリアポイント。
+class Config;// ファイルパス統合クラス。
 class FallingBlock;// 落ちる床。
 class Needle;// 針。
 class MovingFloor;// 移動する床。
@@ -179,6 +183,8 @@ private:
 	/// クリアポイント。
 	/// </summary>
 	ClearPoint* m_clearPoint;
+	Checpoint* m_checpoint;
+	Config* m_config;
 	/// <summary>
 	/// エネミー。
 	/// </summary>
@@ -288,7 +294,6 @@ private:
 
 	PhysicsStaticObject m_physicsStaticObject;
 	
-
 	enum Sutaminastate {
 		SutaminaMax,
 		Sutamina0

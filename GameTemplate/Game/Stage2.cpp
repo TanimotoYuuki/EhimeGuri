@@ -13,7 +13,7 @@ namespace
 
 bool Stage2::Start()
 { 
-	string modelPath = m_filePathConfig->GetFullPath("Stage2");// ファイルパスを読み込む。
+	string modelPath = m_filePathConfig->GetFullPath_3DModel("Stage2");// ファイルパスを読み込む。
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 

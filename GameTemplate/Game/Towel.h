@@ -1,5 +1,8 @@
 #pragma once
+using namespace std;
+
 class Player;
+class Config;
 class Towel : public IGameObject
 {
 public:
@@ -23,6 +26,7 @@ public:
 		m_position = position;
 	}
 		
+	Config* m_config;
 	ModelRender m_modelRender;
 	Vector3 m_position;
 	Vector3 m_firstposition;
