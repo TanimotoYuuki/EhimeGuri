@@ -5,6 +5,7 @@
 #include "GameOver.h"
 #include "Enemy.h"
 #include"Towel.h"
+#include"ItemEnemy.h"
 using namespace std;
 
 namespace {
@@ -34,9 +35,14 @@ Player::Player() {
 
 	m_position = { 0.0f,94.0f,0.0f };
 
+//	m_position = { 17300.0f, 700.0f, 0.0f };
+
+	//初期位置の設定
+	m_initPosition = m_position;
+
 	m_characterController.Init(25.0f, 100.0f, m_position);
 	m_rotation.SetRotationDegY(90.0f);
-	m_initRotation.SetRotationDegY(90.0f);
+	m_respawnRotation.SetRotationDegY(90.0f);
 
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
@@ -47,12 +53,20 @@ Player::~Player() {
 }
 
 void Player::Update() {
+	//ItemEnemyクラスの検索が終わっていないときに処理する
+	if (m_itemEnemyFindGoCompleteFlag != true)
+	{
+		//ItemEnemyクラスの検索
+		ItemEnemyFindGO();
+	}
 
 	if (checcount == 0) {
-		m_initPosition = { 0.0f,94.0f,0.0f };
+		//リスポーン地点の設定
+		SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
 	}
 	else if (checcount == 1) {
-		m_initPosition = { 10300.0f,120.0f,0.0f };
+		//リスポーン地点の設定
+		SetRespawnPositon(Vector3{ 10300.0f,120.0f,0.0f });
 	}
 
 	if (m_playernowsutamina == 0) {
@@ -73,6 +87,13 @@ void Player::Update() {
 	m_modelRender.Update();
 	
 }
+//ItemEnemyクラスの検索
+void Player::ItemEnemyFindGO()
+{
+	m_itemEnemy = FindGO<ItemEnemy>("itemenemy");
+	m_itemEnemyFindGoCompleteFlag = true;
+}
+
 void Player::Move() {
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
@@ -123,14 +144,40 @@ void Player::Move() {
 	
 	m_moveSpeed.y -= glavity;
 
+	//ゲームクリアまたはゲームオーバーではないとき処理する
 	if (m_stageClearFlag != true && m_gameOverFlag != true)
 	{
+		//一定の高さまで落ちたらリスポーンする
 		if (m_position.y <= -500.0f) {
-			m_position = m_initPosition;
-			m_rotation = m_initRotation;
-			m_modelRender.SetPosition(m_position);
-			m_modelRender.SetRotation(m_rotation);
-			m_characterController.SetPosition(m_position);
+			PlayerRespawn();
+			return;
+		}
+		
+		//複数のEnemyクラスの検索
+		const auto& enemys = FindGOs<Enemy>("enemy");
+		for (auto enemy : enemys)
+		{
+			//敵がプレイヤーに触れたらリスポーンする
+			if (enemy->m_touchPlayerFlag == true)
+			{
+				PlayerRespawn();
+				enemy->m_touchPlayerFlag = false;
+				return;
+			}
+		}
+
+		//アイテムをドロップする敵がプレイヤーに触れたらリスポーンする
+		if (m_itemEnemy->m_touchPlayerFlag == true)
+		{
+			PlayerRespawn();
+			m_itemEnemy->m_touchPlayerFlag = false;
+			return;
+		}
+
+		//プレイヤーのリスポーンが終わったらリスポーン用フラグをfalseにする
+		if (IsPlayerRespawn())
+		{
+			m_respawnFlag = false;
 		}
 	}
 

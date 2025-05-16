@@ -18,6 +18,15 @@ bool GameCamera::Start() {
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(10000.0f);
 
+	//注視点の初期化
+	m_cameraTarget.x = m_player->m_position.x;
+	m_cameraTarget.y = m_player->m_position.y;
+	m_cameraTarget.z = m_player->m_position.z;
+	g_camera3D->SetTarget(m_cameraTarget);
+
+	//ライトカメラの更新
+	g_renderingEngine->SetLightCameraTarget(Vector3(m_player->m_position.x, m_cameraTarget.y, m_cameraTarget.z));
+
 	return true;
 }
 void GameCamera::Update() {
@@ -27,54 +36,67 @@ void GameCamera::Update() {
 
 	//カメラを更新。
 	//注視点を計算する。
-	Vector3 target;
-	target.x = m_player->m_position.x;
-	target.y = m_player->m_position.y;
-	target.z = m_player->m_position.z;
+	//左スティックを右に倒しているとき注視点(X軸)を動かす
+	if (g_pad[0]->GetLStickXF() >= 0.0f)
+	{
+		//プレイヤーが注視点の現在位置より移動していたら注視点を動かす
+		if (m_player->m_position.x >= m_cameraTarget.x)
+		{
+			//注視点(X軸)
+			m_cameraTarget.x = m_player->m_position.x;
+		}
+	}
+
+	//プレイヤーがリスポーンしたら注視点(X軸)を動かす
+	if (m_player->IsPlayerRespawn())
+	{
+		//注視点(X軸)
+		m_cameraTarget.x = m_player->m_position.x;
+	}
+
+	//注視点(Y軸)
+	m_cameraTarget.y = m_player->m_position.y;
 
 	//一定の高さまで落ちたら注視点を動かさない
-	if (target.y <= m_player->m_initPosition.y)
+	if (m_cameraTarget.y <= m_player->m_initPosition.y)
 	{
-		target.y = m_player->m_initPosition.y;
+		//注視点(Y軸)
+		m_cameraTarget.y = m_player->m_initPosition.y;
+	}
+
+	//注視点(Z軸)
+	m_cameraTarget.z = m_player->m_position.z;
+
+	//左画面端の計算
+	m_leftScreenEdge = m_cameraTarget;
+	m_leftScreenEdge.x = m_cameraTarget.x - ((FRAME_BUFFER_H / 2) + 50.0f);
+
+	//左スティックを左に倒しているときに左画面端まで行ったらプレイヤーを移動できないようにする
+	if (g_pad[0]->GetLStickXF() < 0.0f)
+	{
+		//左画面端に行ったら
+		if (m_player->m_position.x <= m_leftScreenEdge.x)
+		{
+			//プレイヤーの現在位置を固定する
+			m_player->m_characterController.SetPosition(Vector3(m_leftScreenEdge.x, m_player->m_position.y, m_player->m_position.z));
+			m_player->m_modelRender.SetPosition(Vector3(m_leftScreenEdge.x, m_player->m_position.y, m_player->m_position.z));
+			m_player->m_modelRender.Update();
+		}
 	}
 	//プレイヤの足元からちょっと上を注視点とする。
-	target.y += 80.0f;
-
-	Vector3 toCameraPosOld = m_toCameraPos;
-	//パッドの入力を使ってカメラを回す。
-	/*float x = g_pad[0]->GetRStickXF();
-	float y = g_pad[0]->GetRStickYF();*/
-	//Y軸周りの回転
-	/*Quaternion qRot;
-	qRot.SetRotationDeg(Vector3::AxisY, 1.3f * x);
-	qRot.Apply(m_toCameraPos);*/
-	//X軸周りの回転。
-	/*Vector3 axisX;
-	axisX.Cross(Vector3::AxisY, m_toCameraPos);
-	axisX.Normalize();
-	qRot.SetRotationDeg(axisX, 1.3f * y);
-	qRot.Apply(m_toCameraPos);*/
-	//カメラの回転の上限をチェックする。
-	//注視点から視点までのベクトルを正規化する。
-	//正規化すると、ベクトルの大きさが１になる。
-	//大きさが１になるということは、ベクトルから強さがなくなり、方向のみの情報となるということ。
-	Vector3 toPosDir = m_toCameraPos;
-	toPosDir.Normalize();
-	if (toPosDir.y < -0.2f) {
-		//カメラが上向きすぎ。
-		m_toCameraPos = toCameraPosOld;
-	}
-	else if (toPosDir.y > 0.9f) {
-		//カメラが下向きすぎ。
-		m_toCameraPos = toCameraPosOld;
-	}
+	m_cameraTarget.y += 80.0f;
 
 	//視点を計算する。
-	Vector3 pos = target + m_toCameraPos;
+	Vector3 pos = m_cameraTarget + m_toCameraPos;
+	m_cameraTarget.Lerp(0.05f, m_cameraTarget, pos);
+
 	//メインカメラに注視点と視点を設定する。
-	g_camera3D->SetTarget(target);
+	g_camera3D->SetTarget(m_cameraTarget);
 	g_camera3D->SetPosition(pos);
 
 	//カメラの更新。
 	g_camera3D->Update();
+
+	//ライトカメラの更新
+	g_renderingEngine->SetLightCameraTarget(Vector3(m_player->m_position.x, m_cameraTarget.y, m_cameraTarget.z));
 }

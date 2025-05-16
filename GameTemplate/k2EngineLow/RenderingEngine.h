@@ -90,6 +90,15 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// ライトカメラの注視点を設定する
+		/// </summary>
+		/// <param name="target">注視点</param>
+		void SetLightCameraTarget(Vector3 target)
+		{
+			m_sceneLight.SetLightCameraTarget(target);
+		}
+
+		/// <summary>
 		/// シャドウマップを取得
 		/// </summary>
 		/// <returns></returns>

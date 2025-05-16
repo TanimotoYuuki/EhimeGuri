@@ -21,6 +21,9 @@ bool GameClear::Start()
 	//モデルの初期化
 	InitModel();
 
+	//ライトカメラの注視点の設定
+	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
+
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	//フェードを描画しないようにする
@@ -50,6 +53,9 @@ void GameClear::Update()
 
 	//モデルの更新
 	m_playerModel.Update();
+
+	//ライトカメラの更新
+	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
 }
 
 //描画処理

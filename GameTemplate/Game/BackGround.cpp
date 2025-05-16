@@ -9,7 +9,7 @@ namespace
 bool BackGround::Start()
 {
 	string modelPath = m_config->GetFullPath_3DModel("Stage1");// ファイルパスを読み込む。
-    m_backGroundRender.Init(modelPath.c_str());// モデルをセットする。
+    m_backGroundRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();

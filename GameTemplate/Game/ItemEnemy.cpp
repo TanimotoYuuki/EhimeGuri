@@ -100,11 +100,8 @@ void ItemEnemy::Update() {
 			m_mikan->m_position.y = m_position.y + 45.0f;
 		}
 		else {
-			m_player->m_position = m_player->m_initPosition;
-			m_player->m_rotation = m_player->m_initRotation;
-			m_player->m_modelRender.SetPosition(m_player->m_position);
-			m_player->m_modelRender.SetRotation(m_player->m_rotation);
-			m_player->m_characterController.SetPosition(m_player->m_position);
+			//プレイヤーに触れた
+			m_touchPlayerFlag = true;
 		}
 	}
 

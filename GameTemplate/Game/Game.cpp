@@ -84,6 +84,10 @@ Game::~Game()
 	DeleteGO(m_mikan);
 	DeleteGO(m_jako);
 	DeleteGO(m_taruto);
+	//ドロップアイテムをDeleteGOする場合
+	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
+	m_mikan = FindGO<Mikan>("mikan");
+	DeleteGO(m_mikan);
 	DeleteGO(m_checpoint);
 }
 
@@ -101,7 +105,7 @@ bool Game::Start()
 		{2800.0f,94.0f,0.0f},
 		{400.0f,94.0f,0.0f},
 		{4800.0f,94.0f,0.0f},
-		{12300.0f,200.0f,0.0f}
+		{12900.0f,225.0f,0.0f}
 	};
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -212,8 +216,12 @@ void Game::Update()
 	//現在の愛媛県の場所の設定
 	SetNowEhimePlace(m_player->m_position);
 
-	//現在位置の更新
-	m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	//プレイヤーが注視点の現在位置より移動していたら
+	if (m_player->m_position.x >= m_gameCamera->m_cameraTarget.x)
+	{
+		//現在位置の更新
+		m_stageBackGround.SetCurrentPosition(m_player->m_position);
+	}
 
 	//ステージ背景の更新
 	m_stageBackGround.Update();

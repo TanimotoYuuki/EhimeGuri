@@ -12,7 +12,7 @@ namespace
 bool ScaffoldBlock::Start()
 {
 	string modelPath = m_config-> GetFullPath_3DModel("kinoko_ashiba_block");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	// 大きさ。
 	m_modelRender.SetScale(SCALE);
