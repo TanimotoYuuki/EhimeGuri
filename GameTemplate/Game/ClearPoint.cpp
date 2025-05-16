@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "StageClear.h"
 #include "ClearPoint.h"
+#include "Config.h"
 #include "Player.h" 
 
 namespace
@@ -11,7 +12,9 @@ namespace
 
 ClearPoint::ClearPoint()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/GoalPole.tkm");
+	string modelPath = m_config-> GetFullPath_3DModel("GoalPole");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_player = FindGO<Player>("player");
 }
 

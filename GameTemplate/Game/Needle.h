@@ -1,9 +1,11 @@
 #pragma once
 #include "GameOver.h"
+using namespace std;
 
 class Player;
 class MovingFloor;
 class GameOver;
+class Config;
 class Fade;
 class Needle : public IGameObject
 {
@@ -19,6 +21,7 @@ public:
 	void DisplayModel();
 	void Render(RenderContext& rc);
 
+	Config* m_config;
 	Vector3	firstposition;
 	Vector3	m_needlePosition;
 	ModelRender m_modelRender;

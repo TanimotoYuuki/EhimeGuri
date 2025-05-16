@@ -2,7 +2,10 @@
 /// <summary>
 /// 透明ブロック
 /// </summary>
+using namespace std;
+
 class Player;
+class Config;
 class TransparentBlock : public IGameObject
 {
 public:
@@ -14,6 +17,7 @@ public:
 	Vector3 m_firstposition; //初期位置
 
 public:
+	Config* m_config;
 	ModelRender m_transparentBlockModel;						 //モデル
 	Quaternion m_rotation = Quaternion::Identity;				 //回転
 	Vector3 m_scale = Vector3::One;								 //大きさ

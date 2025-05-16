@@ -1,6 +1,7 @@
 /*!
  *@brief	レベル。
  */
+#include"stdafx.h"
 
 #include "k2EngineLowPreCompile.h"
 #include "Level.h"

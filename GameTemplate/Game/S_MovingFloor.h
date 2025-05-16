@@ -1,7 +1,9 @@
 #pragma once 
+using namespace std;
 
 class Player;
 class BackGround;
+class Config;
 class S_MovingFloor : public IGameObject
 {
 public:
@@ -42,7 +44,7 @@ public:
 	Vector3	moveSpeed = Vector3::Zero;
 
 private:
-
+	Config* m_config;
 	Player* m_player = nullptr;
 	CollisionObject* m_collisionObject = nullptr;		
 	ModelRender m_modelRender;

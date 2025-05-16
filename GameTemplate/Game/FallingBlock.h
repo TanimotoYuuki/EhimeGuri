@@ -1,9 +1,11 @@
 #pragma once
 #include "MovingFloor.h"
+using namespace std;
 
 class Player;
 class MovingFloor;
 class GameOver;
+class Config;
 class FallingBlock : public IGameObject
 {
 	/// <summary>
@@ -35,6 +37,7 @@ public:
 		return m_position;
 	}
 
+	Config* m_config;
 	Vector3 m_position;
 	Vector3	m_firstposition;
 	Vector3	fallingSpeed;

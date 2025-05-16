@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Config.h"
 #include "Towel.h"
 #include"Player.h"
 namespace
@@ -8,7 +9,10 @@ namespace
 
 bool Towel::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/Towel.tkm", 0, 0, enModelUpAxisZ, false, true);
+	
+	string modelPath = m_config-> GetFullPath_3DModel("Towel");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();
 	return true;

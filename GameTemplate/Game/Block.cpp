@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Block.h"
 #include"Player.h"
+#include "Config.h"
+
 namespace
 {
 	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
@@ -19,7 +21,9 @@ Block::~Block()
 
 bool Block::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/tatakareta_ato_no_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+	string modelPath = m_config->GetFullPath_3DModel("TRANSPARENTBLOCLK");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_modelRender.Update();
 	//当たり判定
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());

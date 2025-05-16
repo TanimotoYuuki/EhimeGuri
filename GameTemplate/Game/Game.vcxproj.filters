@@ -41,6 +41,8 @@
     <ClCompile Include="Jako.cpp" />
     <ClCompile Include="Taruto.cpp" />
     <ClCompile Include="Checpoint.cpp" />
+    <ClCompile Include="FallingRocks.cpp" />
+    <ClCompile Include="..\k2EngineLow\level3D\Level.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -77,5 +79,7 @@
     <ClInclude Include="Jako.h" />
     <ClInclude Include="Taruto.h" />
     <ClInclude Include="Checpoint.h" />
+    <ClInclude Include="FallingRocks.h" />
+    <ClInclude Include="..\k2EngineLow\level3D\Level.h" />
   </ItemGroup>
 </Project>

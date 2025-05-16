@@ -10,7 +10,7 @@ FallingRocks::FallingRocks() : position(0.0f, 0.0f, 0.0f), velocity(0.0f, 0.0f, 
 
 bool FallingRocks::Start()
 {
-	string modelPath = m_filePathConfig->GetFullPath("FallingRocks");// ファイルパスを読み込む。
+	string modelPath = m_config->GetFullPath_3DModel("FallingRocks");// ファイルパスを読み込む。
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	m_modelRender.Update(); // モデルを更新する。

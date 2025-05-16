@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Scaffold.h"
+#include "Config.h"
 
 namespace
 {
@@ -11,8 +12,8 @@ namespace
 
 bool Scaffold::Start()
 {
-	// ファイルパス。
-	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+	string modelPath = m_config-> GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	// スケール。
 	m_modelRender.SetScale(SCALE);

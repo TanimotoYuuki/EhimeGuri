@@ -1,4 +1,6 @@
 #pragma once
+using namespace std;
+
 class Config;
 class FallingRocks : public IGameObject
 {
@@ -17,7 +19,7 @@ public:
 	/// <summary>
 	/// ファイルパス。
 	/// </summary>
-	Config* m_filePathConfig;
+	Config* m_config;
 
 	/// <summary>
 	/// モデル。
