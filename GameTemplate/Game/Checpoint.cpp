@@ -7,7 +7,7 @@ namespace
 	Vector3 SCALE = Vector3(2.0f, 2.0f, 2.0f);
 }
 bool Checpoint::Start() {
-	string modelPath = m_filePathConfig->GetFullPath("GoalPole");// ファイルパスを読み込む。
+	string modelPath = m_config->GetFullPath_3DModel("GoalPole");// ファイルパスを読み込む。
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();

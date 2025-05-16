@@ -90,13 +90,9 @@ Game::~Game()
 bool Game::Start()
 {
 	m_backGround =  NewGO<BackGround>(1, "background");
-	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
+
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
-
-	m_physicsStaticObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
-	m_physicsStaticObject.GetbtCollisionObject()->setUserIndex(enCollisionAttr_Stage1);
-
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
@@ -163,6 +159,9 @@ bool Game::Start()
 		m_ehimeFamousPlace[i].Update();
 	}
 
+	/// <summary>
+	/// 3DオブジェクトのNewGO関数。
+	/// </summary>
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
@@ -174,12 +173,16 @@ bool Game::Start()
 	ClearPoint_NewGO();
 	HS_fallingBlock_NewGO();
 	S_MovingFloor_NewGO();
+	/// <summary>
+	/// フェード関数。
+	/// </summary>
 	Fade_NewGO();
 
 	//現在位置の設定
 	m_stageBackGround.SetCurrentPosition(m_player->m_position);
 	//ゴール位置の設定
 	m_stageBackGround.SetGoalPosition(m_clearPoint->position);
+	// 更新作業。
 	m_modelRender.Update();
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;

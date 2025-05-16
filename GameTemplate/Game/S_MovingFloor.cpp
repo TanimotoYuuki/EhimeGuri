@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Config.h"
 #include "S_MovingFloor.h"
 #include "MovingFloor.h"
 #include "Player.h"
@@ -15,8 +16,10 @@ namespace
 
 bool S_MovingFloor::Start()
 {
-	//動かしたいオブジェクトのファイルパス
-	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+
+	string modelPath = m_config-> GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	//当たり判定

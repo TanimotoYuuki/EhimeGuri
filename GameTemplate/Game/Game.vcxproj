@@ -226,6 +226,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\k2EngineLow\level3D\Level.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Checpoint.cpp" />
@@ -268,6 +269,7 @@
     <ClCompile Include="TransparentBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\k2EngineLow\level3D\Level.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Checpoint.h" />
