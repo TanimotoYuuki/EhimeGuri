@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Game.h"
+#include "Config.h"
 #include "GameOver.h"
 #include "Enemy.h"
 #include"Towel.h"
@@ -23,6 +24,10 @@ Player::Player() {
 	m_animationClip[enAnimationClip_stageclear].SetLoopFlag(true);
 	m_animationClip[enAnimationClip_gameover].Load("Assets/animData/gameover.tka");
 	m_animationClip[enAnimationClip_gameover].SetLoopFlag(false);
+
+	//string modelPath = Config::GetFullPath_3DModel("player");// ファイルパスを読み込む。
+	//m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 

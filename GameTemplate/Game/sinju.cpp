@@ -1,12 +1,17 @@
 #include "stdafx.h"
 #include "sinju.h"
+#include "Config.h"
 #include"Player.h"
 namespace
 {
 	Vector3 SCALE = Vector3{ 0.5f,0.5f,0.5f };
 }
+
 bool sinju::Start() {
-	m_modelRender.Init("Assets/modelData/tokusannhinn/sinju.tkm", 0, 0, enModelUpAxisZ, false, true);
+
+	string modelPath = m_config-> GetFullPath_Item("sinju");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
+
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();
 	m_rotation.SetRotationDegX(-30.0f);

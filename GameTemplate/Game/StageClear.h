@@ -3,6 +3,7 @@
 /// ステージクリア
 /// </summary>
 class Player;
+class Config;
 class StageClear : public IGameObject
 {
 public:
@@ -19,6 +20,7 @@ private:
 	/// </summary>
 	void UpdateStageClearSpriteEasing();
 
+	Config* m_config;
 	SpriteRender m_stageClearUI;										//ステージクリアUI
 	Vector3 m_position = Vector3(-1100.0f, 275.0f, 0.0f);				//位置
 	Vector3 m_beforeEasingPosition = Vector3::Zero;						//イージング前の位置

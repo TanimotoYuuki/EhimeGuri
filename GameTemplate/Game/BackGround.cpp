@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BackGround.h"
-
+#include "Config.h"
 namespace
 {
 	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
@@ -8,12 +8,22 @@ namespace
 
 bool BackGround::Start()
 {
-	m_backGroundRender.Init("Assets/modelData/Stage/Assets/Stage1.tkm", 0, 0, enModelUpAxisZ, false, true);
+	string modelPath = m_config->GetFullPath_3DModel("Stage1");// ファイルパスを読み込む。
+    m_backGroundRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
+
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
 	//当たり判定を作成
 	m_physicsSraricObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
+//	m_physicsStaticObject.GetbtCollisionObject()->setUserIndex(enCollisionAttr_Stage1);
+
 	return true;
+}
+
+// 更新処理。
+void BackGround::Update()
+{
+	m_backGroundRender.Update();
 }
 
 // 描画処理。

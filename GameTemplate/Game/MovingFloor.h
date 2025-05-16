@@ -1,7 +1,9 @@
 #pragma once 
+using namespace std;
 
 class Player;
 class BackGround;
+class Config;
 class MovingFloor : public IGameObject
 {
 public:
@@ -37,6 +39,7 @@ public:
     /// </summary>
 	void Move();
 private:
+	Config* m_config;
 	Player* m_player = nullptr;
 	CollisionObject* m_collisionObject = nullptr;		
 	Vector3 m_firstPosition;

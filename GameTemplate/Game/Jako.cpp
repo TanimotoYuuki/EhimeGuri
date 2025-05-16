@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "Jako.h"
+#include "Config.h"
 #include"Player.h"
 namespace
 {
 	Vector3 SCALE = Vector3{ 0.5f,0.5f,0.5f };
 }
 bool Jako::Start() {
-	m_modelRender.Init("Assets/modelData/tokusannhinn/jako.tkm", 0, 0, enModelUpAxisZ, false, true);
+
+	string modelPath = m_config-> GetFullPath_Item("jako");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
+
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();
 	m_rotation.SetRotationDegX(-30.0f);

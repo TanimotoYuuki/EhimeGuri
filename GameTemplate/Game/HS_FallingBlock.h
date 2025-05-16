@@ -1,6 +1,9 @@
 #pragma once
+using namespace std;
+
 class GameOver;
 class Player;
+class Config;
 class MovingFloor;
 class HS_FallingBlock : public IGameObject
 {
@@ -17,6 +20,7 @@ public:
 	void Move();//動作処理
 	void Render(RenderContext& rc);//描画処理。 
 	
+	Config* m_config;
 	ModelRender	m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 	Vector3	m_firstposition;

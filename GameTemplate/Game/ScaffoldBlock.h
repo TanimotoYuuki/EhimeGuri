@@ -1,6 +1,8 @@
 #pragma once
+using namespace std;
 
 class Player;
+class Config;
 class ScaffoldBlock : public IGameObject
 {
 public:
@@ -29,7 +31,7 @@ public:
 	{
 		return m_position;
 	}
-
+	Config* m_config;
 	Player* m_player = nullptr;
 	Vector3 m_position;
 	Vector3 m_firstposition;

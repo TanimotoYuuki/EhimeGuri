@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Config.h"
 #include "HS_FallingBlock.h"
 #include "MovingFloor.h"
 #include "GameOver.h"
@@ -13,7 +14,9 @@ namespace
 
 bool HS_FallingBlock::Start()
 {
-	m_modelRender.Init("Assets/modelData/Stage/Assets/ashiba_block.tkm", 0, 0, enModelUpAxisZ, false, true);
+	string modelPath = m_config-> GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
+
 	m_modelRender.SetScale(HIGHSPEED_FBLOCK_SCALE);
 	m_modelRender.Update();
 

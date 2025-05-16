@@ -1,4 +1,6 @@
 #pragma once
+using namespace std;
+
 class Player;
 class Config;
 class Checpoint:public IGameObject
@@ -11,7 +13,7 @@ public:
 	Player* m_player;
 	ModelRender m_modelRender;
 	Vector3	position;
-	Config* m_filePathConfig;
+	Config* m_config;
 
 	
 };
