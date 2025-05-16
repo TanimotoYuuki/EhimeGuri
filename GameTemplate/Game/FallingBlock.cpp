@@ -28,7 +28,7 @@ bool FallingBlock::Start()
 {
 	//ファイルパス
 	string modelPath = m_config->GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 	
 	
 	m_modelRender.SetScale(FALLINGBLOCK_SCALE);
@@ -98,14 +98,18 @@ void FallingBlock::Update()
 	distanceY.y = m_player->m_position.y - m_position.y;
 
 
-	//床が感知する範囲
-	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが落下する床の上に乗ったら)。
+	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		Move();
+		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+		{
+			Move();
+		}
 	}
 
-	//Playerが一定座標に到達すると座標をm_initPositionに
-	if (m_player->m_position.y <= -500.0f) {
+	//Playerがリスポーンすると座標をm_initPositionに
+	if (m_player->IsPlayerRespawn()) {
 		m_position = m_initPosition;
 		m_modelRender.SetPosition(m_position);
 	}

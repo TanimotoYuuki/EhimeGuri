@@ -4,6 +4,7 @@ class GameOver;
 class S_MovibgFloor;
 class Enemy;
 class Towel;
+class ItemEnemy;
 class Player:public IGameObject
 {
 public:
@@ -38,7 +39,42 @@ public:
 		return m_characterController;
 	}
 
-	
+	/// <summary>
+	/// ItemEnemyクラスの検索
+	/// </summary>
+	void ItemEnemyFindGO();
+
+	/// <summary>
+	/// リスポーン地点の設定
+	/// </summary>
+	/// <param name="pos">位置</param>
+	void SetRespawnPositon(const Vector3& pos)
+	{
+		m_respawnPosition = pos;
+	}
+
+	/// <summary>
+	/// プレイヤーをリスポーンする
+	/// </summary>
+	void PlayerRespawn()
+	{
+		m_position = m_respawnPosition;
+		m_rotation = m_respawnRotation;
+		m_modelRender.SetPosition(m_position);
+		m_modelRender.SetRotation(m_rotation);
+		m_characterController.SetPosition(m_position);
+		m_respawnFlag = true;
+	}
+
+	/// <summary>
+	/// プレイヤーがリスポーンしたか？
+	/// </summary>
+	/// <returns>trueならリスポーンしている</returns>
+	bool IsPlayerRespawn()
+	{
+		return m_respawnFlag;
+	}
+
 	Vector3 m_platformVelocity = Vector3::Zero;
 
 	
@@ -72,9 +108,10 @@ public:
 	AnimationClip		m_animationClip[enAnimationClip_num];
 	Vector3				m_moveSpeed = Vector3::Zero;
 	Quaternion			m_rotation;
-	Vector3             m_initPosition;
+	Vector3				m_initPosition;//初期位置
+	Vector3             m_respawnPosition;//リスポーン用位置
 
-	Quaternion          m_initRotation;
+	Quaternion          m_respawnRotation;//リスポーン用回転
 	CharacterController m_characterController;
 
 
@@ -87,6 +124,7 @@ public:
 	Enemy			  * m_enemy;
 	GameOver		  * m_gameover;
 	Towel			  * m_towel;
+	ItemEnemy	      * m_itemEnemy;//アイテムエネミー用インスタンス
 	int					m_playermaxsutamina = 300;
 	int					m_playernowsutamina = 300;
 	bool				m_sutaminaZeroFlag = false;
@@ -96,5 +134,7 @@ public:
 	bool m_stageClearFlag = false;
 	bool m_gameOverFlag = false;
 	int checcount = 0;
+	bool m_respawnFlag = false;//リスポーンしたか？
+	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
 };
 

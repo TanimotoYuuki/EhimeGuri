@@ -11,7 +11,7 @@ bool Towel::Start()
 {
 	
 	string modelPath = m_config-> GetFullPath_3DModel("Towel");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();

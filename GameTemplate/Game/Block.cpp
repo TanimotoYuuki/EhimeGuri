@@ -22,7 +22,7 @@ Block::~Block()
 bool Block::Start()
 {
 	string modelPath = m_config->GetFullPath_3DModel("TRANSPARENTBLOCLK");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_modelRender.Update();
 	//当たり判定
@@ -59,6 +59,12 @@ void Block::Update()
 		{
 			//ブロックに当たった時のプレイヤーの動き
 			m_player->m_moveSpeed.y = m_position.y - 500.0f;
+
+			//求めた落下速度の値がプラスなら反転する
+			if (m_player->m_moveSpeed.y > 0.0f)
+			{
+				m_player->m_moveSpeed.y *= -1.0f;
+			}
 		}
 	}
 	

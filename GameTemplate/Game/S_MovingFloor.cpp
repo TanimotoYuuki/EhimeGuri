@@ -18,7 +18,7 @@ bool S_MovingFloor::Start()
 {
 
 	string modelPath = m_config-> GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();

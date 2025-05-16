@@ -9,7 +9,7 @@ namespace
 bool Taruto::Start() {
 
 	string modelPath = m_config-> GetFullPath_Item("taruto");
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
 	m_modelRender.Update();

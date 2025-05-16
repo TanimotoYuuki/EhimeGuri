@@ -183,7 +183,6 @@ private:
 	/// クリアポイント。
 	/// </summary>
 	ClearPoint* m_clearPoint;
-	Checpoint* m_checpoint;
 	Config* m_config;
 	/// <summary>
 	/// エネミー。
