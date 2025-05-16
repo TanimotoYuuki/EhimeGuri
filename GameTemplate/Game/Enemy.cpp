@@ -95,11 +95,8 @@ void Enemy::Update() {
 			charactercontroller.RemoveRigidBoby();
 		}
 		else {
-			m_player->m_position = m_player->m_initPosition;
-			m_player->m_rotation = m_player->m_initRotation;
-			m_player->m_modelRender.SetPosition(m_player->m_position);
-			m_player->m_modelRender.SetRotation(m_player->m_rotation);
-			m_player->m_characterController.SetPosition(m_player->m_position);
+			//プレイヤーに触れた
+			m_touchPlayerFlag = true;
 		}
 	}
 

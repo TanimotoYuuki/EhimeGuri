@@ -35,5 +35,6 @@ public:
 	Mikan* m_mikan;
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定
+	bool m_touchPlayerFlag = false;//プレイヤーに触れたか？
 };
 

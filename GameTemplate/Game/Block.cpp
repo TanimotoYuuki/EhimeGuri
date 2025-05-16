@@ -55,6 +55,12 @@ void Block::Update()
 		{
 			//ブロックに当たった時のプレイヤーの動き
 			m_player->m_moveSpeed.y = m_position.y - 500.0f;
+
+			//求めた落下速度の値がプラスなら反転する
+			if (m_player->m_moveSpeed.y > 0.0f)
+			{
+				m_player->m_moveSpeed.y *= -1.0f;
+			}
 		}
 	}
 	

@@ -28,6 +28,9 @@ bool Title::Start()
 	//カメラの初期化
 	InitCamera();
 
+	//ライトカメラの注視点の設定
+	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
+
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 
@@ -79,6 +82,9 @@ void Title::Update()
 	m_playerModel.Update();
 	m_backGroundModel[enBackGroundModel_Base].Update();
 	m_backGroundModel[enBackGroundModel_Grass].Update();
+
+	//ライトカメラの更新
+	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
 }
 
 //描画処理

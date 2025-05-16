@@ -96,14 +96,18 @@ void FallingBlock::Update()
 	distanceY.y = m_player->m_position.y - m_position.y;
 
 
-	//床が感知する範囲
-	if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+	//コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
+	//衝突したら。(キャラクターが落下する床の上に乗ったら)。
+	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		Move();
+		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+		{
+			Move();
+		}
 	}
 
-	//Playerが一定座標に到達すると座標をm_initPositionに
-	if (m_player->m_position.y <= -500.0f) {
+	//Playerがリスポーンすると座標をm_initPositionに
+	if (m_player->IsPlayerRespawn()) {
 		m_position = m_initPosition;
 		m_modelRender.SetPosition(m_position);
 	}
