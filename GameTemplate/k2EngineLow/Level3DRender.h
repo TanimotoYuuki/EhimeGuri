@@ -1,8 +1,16 @@
+/*!
+ *@brief	レベル。
+ */
+
 #pragma once
 #include "level3D/TklFile.h"
 
 namespace nsK2EngineLow
 {
+	class MapChip;
+	/// <summary>
+	/// レベルオブジェクト
+	/// </summary>
 	struct LevelObjectData : public Noncopyable
 	{
 		/// <summary>
@@ -43,6 +51,8 @@ namespace nsK2EngineLow
 	/// </summary>
 	class Level3DRender : public Noncopyable
 	{
+	private:
+		using MapChipPtr = std::shared_ptr<MapChip>;
 	public:
 		Level3DRender(); //コンストラクタ
 		~Level3DRender(); //デストラクタ
@@ -54,15 +64,30 @@ namespace nsK2EngineLow
 		/// <param name="hookFunc"></param>
 		void Init(const char* filePath, std::function<bool(LevelObjectData& objData)> hookFunc);
 
+		/// <summary>
+		/// モデルを描画
+		/// </summary>
+		/// <param name="rc">レンダーコンテキスト</param>
+		void Draw(RenderContext& rc);
+
 	private:
+		/// <summary>
+		/// マップチップを作成
+		/// </summary>
+		/// <param name="objData">レベルオブジェクトデータ</param>
+		/// <param name="filePath">ファイルパス</param>
+		void CreateMapChip(const LevelObjectData& objData, const char* filePath);
+
 		/// <summary>
 		/// tklファイルの行列を変換する
 		/// </summary>
 		void MatrixTklToLevel();
 
 	private:
-		using BonePtr = std::unique_ptr<Bone>;
-		std::vector<BonePtr> m_bonelist;
-		TklFile m_tklFile;
+		using BonePtr = std::unique_ptr<Bone>;				//ボーンPtr。
+		std::vector<BonePtr> m_bonelist;					//ボーンのリスト。
+		std::unique_ptr<Matrix[]> m_matrixlist;				//行列のリスト。
+		std::vector<MapChipPtr> m_mapChipPtrs;				//マップチップの可変長配列。
+		TklFile m_tklFile;									//Tklファイル。
 	};
 }
