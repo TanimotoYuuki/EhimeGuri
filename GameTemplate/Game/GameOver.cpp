@@ -16,15 +16,19 @@ bool GameOver::Start()
 {
 	//スプライトの初期化
 	InitSprite();
-
+	
+	//インスタンス
+	//0 プレイヤー
 	m_player = FindGO<Player>("player");
 	m_player->m_gameOverFlag = true;
 
+	//1 フェード
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	//フェードを描画しないようにする
 	m_fade->FadeTransition(enFadeState_None);
 
+	//2 ゲーム
 	m_game = FindGO<Game>("game");
 	return true;
 }
@@ -77,53 +81,88 @@ void GameOver::InitSprite()
 {
 	//各スプライトの初期設定
 	//ゲームオーバーUI
+	//0 ゲームオーバーUIの初期化
 	m_gameOverUI.Init("Assets/gameover/text/gameover.dds", 1024, 128);
+	//0.1 ゲームオーバーUIの座標の設定
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
+	//0.2 ゲームオーバーUIの回転の設定
 	m_gameOverUIRotation.SetRotationDegZ(20.0f);
 	m_gameOverUI.SetRotation(m_gameOverUIRotation);
+	//0.3 ゲームオーバーUIのピボットの設定
 	m_gameOverUI.SetPivot(Vector2(0.5f, 0.0f));
+	//0.4 ゲームオーバーUIの更新処理
 	m_gameOverUI.Update();
 
 	//ゲームオーバー時の選択UI(コンティニュー)
+	//1 ゲームオーバー時の選択UI(コンティニュー)の初期化
 	m_gameOverSelectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", 1024, 128);
+	//1.1 ゲームオーバー時の選択UI(コンティニュー)の座標の設定
 	m_gameOverSelectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
+	//1.2 ゲームオーバー時の選択UI(コンティニュー)の大きさの設定
 	m_gameOverSelectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	//1.3 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定
 	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得
 	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
+	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定
 	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//1.6 ゲームオーバー時の選択UI(コンティニュー)の更新処理
 	m_gameOverSelectUI[enSelect_Continue].Update();
 
 	//ゲームオーバー時の選択UI(タイトルへ戻る)
+	//2 ゲームオーバー時の選択UI(タイトルへ戻る)の初期化
 	m_gameOverSelectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", 1024, 128);
+	//2.1 ゲームオーバー時の選択UI(タイトルへ戻る)の座標の設定
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
+	//2.2 ゲームオーバー時の選択UI(タイトルへ戻る)の大きさの設定
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	//2.3 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得
 	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
+	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理
 	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 
 	//十字キーUI
+	//3 十字キーUIの初期化
 	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", 512, 512);
+	//3.1 十字キーUIの座標の設定
 	m_dPadUI.SetPosition(Vector3(325.0f, -345.0f, 0.0f));
+	//3.2 十字キーUIの大きさの設定
 	m_dPadUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	//3.3 十字キーUIの更新処理
 	m_dPadUI.Update();
 
 	//AボタンUI
+	//4 AボタンUIの初期化
 	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", 512, 512);
+	//4.1 AボタンUIの座標の設定
 	m_aButtonUI.SetPosition(Vector3(Vector3(525.0f, -345.0f, 0.0f)));
+	//4.2 AボタンUIの大きさの設定
 	m_aButtonUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	//4.3 AボタンUIの更新処理
 	m_aButtonUI.Update();
 
 	//選択UI
+	//5 選択UIの初期化
 	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
+	//5.1 選択UIの座標の設定
 	m_selectUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
+	//5.2 選択UIの大きさの設定
 	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	//5.3 選択UIの更新処理
 	m_selectUI.Update();
 
 	//決定UI
+	//6 決定UIの初期化
 	m_decisionUI.Init("Assets/gameover/text/decision.dds", 1024, 128);
+	//6.1 決定UIの座標の設定
 	m_decisionUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
+	//6.2 決定UIの大きさの設定
 	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	//6.3 決定UIの更新処理
 	m_decisionUI.Update();
 
 	//ゲームオーバースプライト用のイージング(位置)を設定
@@ -142,11 +181,11 @@ void GameOver::Action()
 			//現在の選択がスタートだったら
 			if (m_gameOverSelect == enSelect_Continue)
 			{
-				//ゲーム終了に移動
+				//タイトルへ戻る
 				m_gameOverSelect = enSelect_ReturnTitle;
 				return;
 			}
-			//左にいく
+			//選択が左にいく
 			m_gameOverSelect -= 1;
 		}
 		//十字キーを右に倒したら
@@ -155,17 +194,18 @@ void GameOver::Action()
 			//現在の選択がゲーム終了だったら
 			if (m_gameOverSelect == enSelect_ReturnTitle)
 			{
-				//スタートに移動
+				//ゲームをコンティニューする
 				m_gameOverSelect = enSelect_Continue;
 				return;
 			}
-			//右にいく
+			//選択が右にいく
 			m_gameOverSelect += 1;
 		}
 
 		//Aボタンを押したらボタンを押したときの演出が流れる
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
+			//ボタンが押された
 			m_pressButtonFlag = true;
 		}
 	}
@@ -230,6 +270,7 @@ void GameOver::SpriteMove()
 			if (m_gameOverSelectUIAlphaColor > 1.0f)
 			{
 				m_gameOverSelectUIAlphaColor = 1.0f;
+				//ゲームオーバー演出を終了
 				m_gameOverDirectionFlag = true;
 				return;
 			}
@@ -256,10 +297,12 @@ void GameOver::SpriteMove()
 				switch (m_gameOverSelect)
 				{
 				case enSelect_Continue:			//コンティニュー
+					//ゲームオーバー時の選択UIのコンティニューのカラーを黒にする
 					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る
+					//ゲームオーバー時の選択UIのタイトルへ戻るのカラーを黒にする
 					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
@@ -269,20 +312,24 @@ void GameOver::SpriteMove()
 				//0.1秒経過したら次の演出に移る
 				if (g_gameTime->StopWatch(0.1f) == true)
 				{
+					//ボタンを押したときの動作をする
 					m_pressButtonActionFlag = true;
 				}
 				return;
 			}
+			//Aボタンを押したらボタンを押したときの動作をする
 			else
 			{
 				//ゲームオーバー時の選択
 				switch (m_gameOverSelect)
 				{
 				case enSelect_Continue:			//コンティニュー
+					//ゲームオーバー時の選択UIのコンティニューのカラーを白にする
 					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る
+					//ゲームオーバー時の選択UIのコンティニューのカラーを白にする
 					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
@@ -379,7 +426,7 @@ void GameOver::UpdateGameOverSpriteEasingRotation()
 //ゲームオーバースプライト用の弾力性の更新処理
 void GameOver::UpdateGameOverSpriteElasticity()
 {
-	//ゲームオーバーUI用の演出が終わったら次の演出に移る
+	//5回ゲームオーバーUIが跳ねたら次の演出に移る
 	if (m_gameOverUIHitCount == 5)
 	{
 		m_gameOverDirectionState = enGameOverDirection_Select;

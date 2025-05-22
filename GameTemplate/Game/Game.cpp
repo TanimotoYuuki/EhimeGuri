@@ -41,8 +41,10 @@ Game::~Game()
 	DeleteGO(m_backGround);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
-	for (int i = 0; i < ENEMY_NUM; i++) {
-		DeleteGO(m_enemyList[i]);
+	const auto& enemys = FindGOs<Enemy>("enemy");
+	for (auto enemy : enemys)
+	{
+		DeleteGO(enemy);
 	}
 	DeleteGO(m_transparentBlock);
 	DeleteGO(m_transparentBlock1);
@@ -144,22 +146,33 @@ bool Game::Start()
 
 	//ステージ背景の初期化
 	m_stageBackGround.Init("Assets/Sprite/background/1stage.dds", 12800, 900, true);
+	//ステージ背景の更新
 	m_stageBackGround.Update();
 
 	for (int i = 0; i < enEhimePlace_Num; i++)
 	{
-		//愛媛県の場所のスプライトの情報を取得してから初期化する
+		//愛媛県の場所のスプライト
+		//0 愛媛県の場所のスプライトの情報を取得
 		GetEhimePlaceSpriteData(i);
+		//0.1 愛媛県の場所のスプライトの初期化
 		m_ehimePlace[i].Init(m_ehimePlaceFilePath, 1024, 128);
+		//0.2 愛媛県の場所のスプライトの位置を設定
 		m_ehimePlace[i].SetPosition(m_ehimePlacePosition);
+		//0.3 愛媛県の場所のスプライトの大きさを設定
 		m_ehimePlace[i].SetScale(Vector3(0.35f, 0.35f, 0.35f));
+		//0.4 愛媛県の場所のスプライトの更新
 		m_ehimePlace[i].Update();
 
-		//愛媛県の名所のスプライトの情報を取得してから初期化する
+		//愛媛県の名所のスプライト
+		//1 愛媛県の名所のスプライトの情報を取得
 		GetEhimeFamousPlaceSpriteData(i);
+		//1.1 愛媛県の名所のスプライトの初期化
 		m_ehimeFamousPlace[i].Init(m_ehimeFamousPlaceFilePath, 1024, 128);
+		//1.2 愛媛県の名所のスプライトの位置を設定
 		m_ehimeFamousPlace[i].SetPosition(m_ehimeFamousPlacePosition);
+		//1.3 愛媛県の名所のスプライトの大きさを設定
 		m_ehimeFamousPlace[i].SetScale(Vector3(0.35f, 0.35f, 0.35f));
+		//1.4 愛媛県の名所のスプライトの更新
 		m_ehimeFamousPlace[i].Update();
 	}
 
@@ -203,11 +216,14 @@ void Game::Update()
 		return;
 	}
 
+	//残り時間が0.0秒になったらゲームオーバー演出を流す
 	if (m_timer <= 0.0f) {
+		//ゲームオーバーの演出が流れていないとき
 		if (m_gameOverFlag != true)
 		{
 			NewGO<GameOver>(0, "gameover");
 			DeleteGO(m_fade);
+			//ゲームオーバー演出を流す
 			m_gameOverFlag = true;
 		}
 		return;
