@@ -24,6 +24,8 @@ bool GameClear::Start()
 	//ライトカメラの注視点の設定
 	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
 
+	//インスタンス
+	//0 フェード
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	//フェードを描画しないようにする
@@ -143,89 +145,140 @@ void GameClear::InitSprite()
 {
 	//各スプライトの初期設定
 	//リザルト画面
+	//0 リザルト画面の初期化
 	m_result.Init("Assets/result/screen/result.dds", 1600, 900);
 
 	//パーセントUI
+	//1 パーセントUIの初期化
 	m_percentUI.Init("Assets/result/text/percent.dds", 1024, 128);
+	//1.1 パーセントUIの座標の設定
 	m_percentUI.SetPosition(Vector3(675.0f, 275.0f, 0.0f));
+	//1.2 パーセントUIの更新
 	m_percentUI.Update();
 
 	//位UI
+	//2 位UIの初期化
 	m_placeUI.Init("Assets/result/text/place.dds", 1024, 128);
+	//2.1 位UIの座標の設定
 	m_placeUI.SetPosition(Vector3(672.5f, 10.0f, 0.0f));
+	//2.2 位UIの更新
 	m_placeUI.Update();
 
 	//AボタンUI
+	//3 AボタンUIの初期化
 	m_aButtonUI.Init("Assets/result/gamepad/abutton.dds", 512, 512);
+	//3.1 AボタンUIの座標の設定
 	m_aButtonUI.SetPosition(Vector3(Vector3(475.0f, -400.0f, 0.0f)));
+	//3.2 AボタンUIの大きさの設定
 	m_aButtonUI.SetScale(Vector3(Vector3(0.1f, 0.1f, 0.1f)));
+	//3.3 Aボタンの更新
 	m_aButtonUI.Update();
 
 	//タイトルへ戻るUI
+	//4 タイトルへ戻るUIの初期化
 	m_returnTitleUI.Init("Assets/result/text/returntitle.dds", 1024, 128);
+	//4.1 タイトルへ戻るUIの座標の設定
 	m_returnTitleUI.SetPosition(Vector3(615.0f, -400.0f, 0.0f));
+	//4.2 タイトルへ戻るUIの大きさの設定
 	m_returnTitleUI.SetScale(Vector3(0.3f,0.3f,0.3f));
+	//4.3 タイトルへ戻るUIの更新
 	m_returnTitleUI.Update();
 
 	//収集率の計算
 	GatheringRate(m_gatheringItemNum, m_totalItemNum);
 
 	//収集率用数字UI(百の位)
-	GetNumberUISpriteFilePath(m_hundredPlace[enNumberDraw_GatheringRate]);  //数字UI用のファイルパスを取得する
+	//5 収集率用数字UI(百の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_hundredPlace[enNumberDraw_GatheringRate]);
+	//5.1 収集率用数字UI(百の位)の初期化
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//5.2 収集率用数字UI(百の位)の座標の設定
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(400.0f, 283.5f, 0.0f));
+	//5.3 収集率用数字UI(百の位)の乗算カラーの設定
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//5.4 収集率用数字UI(百の位)の更新
 	m_gatheringRateNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_GatheringRate]].Update();
 
 	//収集率用数字UI(十の位)
-	GetNumberUISpriteFilePath(m_tenPlace[enNumberDraw_GatheringRate]);  //数字UI用のファイルパスを取得する
+	//6 収集率用数字UI(十の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_tenPlace[enNumberDraw_GatheringRate]);
+	//6.1 収集率用数字UI(十の位)の初期化
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//6.2 収集率用数字UI(十の位)の座標の設定
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(480.0f, 283.5f, 0.0f));
+	//6.3 収集率用数字UI(十の位)の乗算カラーの設定
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//6.4 収集率用数字UI(十の位)の更新
 	m_gatheringRateNumberTenPlaceUI[m_tenPlace[enNumberDraw_GatheringRate]].Update();
 
 	//収集率用数字UI(一の位)
-	GetNumberUISpriteFilePath(m_onePlace[enNumberDraw_GatheringRate]);  //数字UI用のファイルパスを取得する
+	//7 収集率用数字UI(一の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_onePlace[enNumberDraw_GatheringRate]);
+	//7.1 収集率用数字UI(一の位)の初期化
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//7.2 収集率用数字UI(一の位)の座標の設定
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetPosition(Vector3(560.0f, 283.5f, 0.0f));
+	//7.3 収集率用数字UI(一の位)の乗算カラーの設定
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//7.4 収集率用数字UI(一の位)の更新
 	m_gatheringRateNumberOnePlaceUI[m_onePlace[enNumberDraw_GatheringRate]].Update();
 
 	//順位を設定する
 	SetRanking();
 
-	//順位用数字UI(十の位)
-	GetNumberUISpriteFilePath(m_hundredPlace[enNumberDraw_Ranking]);  //数字UI用のファイルパスを取得する
+	//順位用数字UI(百の位)
+	//8 順位用数字UI(百の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_hundredPlace[enNumberDraw_Ranking]);
+	//8.1 順位用数字UI(百の位)の初期化
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//8.2 順位用数字UI(百の位)の座標の設定
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetPosition(Vector3(400.0f, 7.5f, 0.0f));
+	//8.3 順位用数字UI(百の位)の乗算カラーの設定
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f,1.0f,1.0f,0.0f));
+	//8.4 順位用数字UI(百の位)の更新
 	m_rankingNumberHundredPlaceUI[m_hundredPlace[enNumberDraw_Ranking]].Update();
 
 	//順位用数字UI(十の位)
-	GetNumberUISpriteFilePath(m_tenPlace[enNumberDraw_Ranking]);  //数字UI用のファイルパスを取得する
+	//9 順位用数字UI(十の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_tenPlace[enNumberDraw_Ranking]);
+	//9.1 順位用数字UI(十の位)の初期化
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//9.2 順位用数字UI(十の位)の座標の設定
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetPosition(Vector3(480.0f, 7.5f, 0.0f));
+	//9.3 順位用数字UI(十の位)の乗算カラーの設定
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//9.4 順位用数字UI(十の位)の更新
 	m_rankingNumberTenPlaceUI[m_tenPlace[enNumberDraw_Ranking]].Update();
 
 	//順位用数字UI(一の位)
-	GetNumberUISpriteFilePath(m_onePlace[enNumberDraw_Ranking]);  //数字UI用のファイルパスを取得する
+	//10 順位用数字UI(一の位)用のファイルパスを取得
+	GetNumberUISpriteFilePath(m_onePlace[enNumberDraw_Ranking]);
+	//10.1 順位用数字UI(一の位)の初期化
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].Init(m_numberUISpriteFilePath, 1024, 128);
+	//10.2 順位用数字UI(一の位)の座標の設定
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetPosition(Vector3(560.0f, 7.5f, 0.0f));
+	//10.3 順位用数字UI(一の位)の乗算カラーの設定
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+	//10.4 順位用数字UI(一の位)の更新
 	m_rankingNumberOnePlaceUI[m_onePlace[enNumberDraw_Ranking]].Update();
 
 	//ランクを設定する
 	SetRank();
 
 	//ランクUI
+	//11 ランクUIの初期化
 	m_rankUI[m_rankState].Init(m_rankUISpriteFilePath, 1024, 128);
+	//11.1 ランクUIの座標の設定
 	m_rankUI[m_rankState].SetPosition(Vector3(480.0f, -275.5f, 0.0f));
+	//11.2 ランクUIの乗算カラーの設定
 	m_rankUI[m_rankState].SetMulColor(m_rankUISpriteColor);
+	//11.3 ランクUIの更新
 	m_rankUI[m_rankState].Update();
 
 	//ゲーム背景
+	//12 ゲーム背景の初期化
 	m_gameBackground.Init("Assets/Sprite/yellow.dds", 1600, 900);
+	//12.1 ゲーム背景の更新
 	m_gameBackground.Update();
 }
 
@@ -247,20 +300,20 @@ void GameClear::InitModel()
 	m_animationClip[enAnimationClip_Victory].SetLoopFlag(true);
 
 	//モデルの初期化
-	//プレイヤーモデル
+	//0 プレイヤーモデルの初期化
 	m_playerModel.Init("Assets/modelData/player/player.tkm", m_animationClip, enAnimationClip_Num, enModelUpAxisZ);
 
-	//位置の設定
+	//0.1 位置の設定
 	m_playerModel.SetPosition(m_playerModelPosition);
 
-	//回転の設定
+	//0.2 回転の設定
 	m_playerModelRotation.SetRotationDegY(180.0f);
 	m_playerModel.SetRotation(m_playerModelRotation);
 
-	//大きさの設定
+	//0.3 大きさの設定
 	m_playerModel.SetScale(m_playerModelScale);
 
-	//モデルの更新
+	//0.4 モデルの更新処理
 	m_playerModel.Update();
 }
 
@@ -331,6 +384,7 @@ void GameClear::SpriteMove()
 		if (m_gatheringRateUIAlphaColor > 1.0f)
 		{
 			m_gatheringRateUIAlphaColor = 1.0f;
+			//順位用の演出に移る
 			m_gameClearDirectionState = enGameClearDirection_Ranking;
 		}
 
@@ -347,6 +401,7 @@ void GameClear::SpriteMove()
 		if (m_rankingUIAlphaColor > 1.0f)
 		{
 			m_rankingUIAlphaColor = 1.0f;
+			//ランク用の演出に移る
 			m_gameClearDirectionState = enGameClearDirection_Rank;
 			return;
 		}
@@ -364,6 +419,7 @@ void GameClear::SpriteMove()
 		if (m_rankUIAlphaColor > 1.0f)
 		{
 			m_rankUIAlphaColor = 1.0f;
+			//ゲームクリア演出を終了
 			m_gameClearDirectionFlag = true;
 			return;
 		}
@@ -418,7 +474,7 @@ void GameClear::Action()
 	}
 	else
 	{
-		//2秒経過したらタイトルに戻る
+		//2.0秒経過したらタイトルへ戻る
 		if (g_gameTime->StopWatch(2.0f))
 		{
 			NewGO<Title>(0,"title");
