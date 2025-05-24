@@ -4,9 +4,9 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);// 大きさ。
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
-	Vector3	COLLISION_SIZE = Vector3(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
+	const Vector3 SCALE(5.0f, 5.0f, 5.0f);// 大きさ。
+    const Vector3 COLLISION_HEIGHT(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
+    const Vector3 COLLISION_SIZE(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 }
 
 

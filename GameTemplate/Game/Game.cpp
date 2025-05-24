@@ -1,6 +1,6 @@
 #include"stdafx.h"
 #include"Block.h"
-#include"BackGround.h"
+#include"Stage1.h"
 #include"ClearPoint.h"
 #include"Config.h"
 #include"Enemy.h"
@@ -9,7 +9,7 @@
 #include"GameOver.h"
 #include"GameCamera.h"
 #include"HS_FallingBlock.h"
-#include"Needle.h"
+#include"movingNeedle.h"
 #include"MovingFloor.h"
 #include"Player.h"
 #include"Scaffold.h"
@@ -30,15 +30,15 @@
 
 namespace
 {
-	Vector3 TRANSPARENTBLOCK_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	Vector3 BACKGROUND_SCALE = Vector3(10.0f, 10.0f, 10.0f);
-	Vector3	NEEDLE_SCALE = Vector3(10.0f, 10.0f, 10.0f);
+	const Vector3 TRANSPARENTBLOCK_SCALE(10.0f, 10.0f, 10.0f);
+	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
+	const Vector3 NEEDLE_SCALE(10.0f, 10.0f, 10.0f);
 	const int ENEMY_NUM = 4;
 }
 
 Game::~Game()
 {
-	DeleteGO(m_backGround);
+	DeleteGO(m_stage1);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -60,8 +60,6 @@ Game::~Game()
 	DeleteGO(m_fallingBlock1);
 	DeleteGO(m_fallingBlock2);
 	DeleteGO(m_scaffoldBlock);
-	DeleteGO(m_needle);
-	DeleteGO(m_needle1);
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
 	DeleteGO(m_block);
@@ -93,7 +91,6 @@ Game::~Game()
 
 bool Game::Start()
 {
-	m_backGround =  NewGO<BackGround>(1, "background");
 
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
@@ -169,7 +166,6 @@ bool Game::Start()
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
 	ScaffoldBlock_NewGO();
-	Needle_NewGO();
 	MovingFloor_NewGO();
 	Block_NewGO();
 	Scaffold_NewGO();
@@ -317,16 +313,6 @@ void Game::ScaffoldBlock_NewGO()
 	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
 	m_scaffoldBlock->m_position = { 6650.0f, 125.0f, 0.0f };
 	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
-	m_modelRender.SetPosition(m_position);
-}
-
-// 針のNewGO。
-void Game::Needle_NewGO()
-{
-	m_needle1 = NewGO<Needle>(0, "needle");
-	m_needle1->m_needlePosition = { 15800.0f, 400.0f, 0.0f };
-	m_needle1->firstposition = m_needle1->m_needlePosition;
-
 	m_modelRender.SetPosition(m_position);
 }
 

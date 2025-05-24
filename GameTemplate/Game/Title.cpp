@@ -363,7 +363,7 @@ void Title::SpriteMove()
 		//Aボタンが押されたらボタンを押したときの演出が流れる
 		if (m_pressButtonFlag == true)
 		{
-			//ボタンを押したときの動作をしたか？
+			//ボタンを押したときの動作をしたか
 			if (m_pressButtonActionFlag != true)
 			{
 				//モード選択

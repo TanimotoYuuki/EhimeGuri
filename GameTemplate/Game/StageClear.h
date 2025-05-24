@@ -10,6 +10,13 @@ public:
 	bool Start();	//開始処理
 	void Update();	//更新処理
 	void Render(RenderContext& rc);	 //描画処理
+
+	void GetClearFlag(const bool clearFlag)
+	{
+		m_GetClearFlag = clearFlag;
+	}
+
+	bool m_GetClearFlag = false;
 private:
 	/// <summary>
 	/// ステージクリアスプライト用のイージングを設定

@@ -5,8 +5,8 @@
 
 namespace
 {
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
-	Vector3	COLLISION_SIZE = Vector3(100.0f, 100.0f, 25.0f);
+  const	Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);
+  const	Vector3 COLLISION_SIZE(100.0f, 100.0f, 25.0f);
 }
 
 Block::Block()

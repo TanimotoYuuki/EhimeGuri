@@ -5,11 +5,11 @@
 namespace
 {
 	//ブロックの表面
-	Vector3 BLOCKSURFACE_COLLISION_HEIGHT = Vector3(0.0f, 51.0f, 0.0f);		//高さ
-	Vector3	BLOCKSURFACE_COLLISION_SIZE = Vector3(100.0f, 100.0f, 25.0f);	//大きさ
+	const Vector3 BLOCKSURFACE_COLLISION_HEIGHT(0.0f, 51.0f, 0.0f);		//高さ
+	const Vector3	BLOCKSURFACE_COLLISION_SIZE(100.0f, 100.0f, 25.0f);	//大きさ
 	//ブロックの底面
-	Vector3 BLOCKBOTTOM_COLLISION_HEIGHT = Vector3(0.0f, 0.0f, 0.0f);		//高さ
-	Vector3 BLOCKBOTTOM_COLLISION_SIZE = Vector3(100.0f, 0.0f, 25.0f);		//大きさ
+	const Vector3 BLOCKBOTTOM_COLLISION_HEIGHT(0.0f, 0.0f, 0.0f);		//高さ
+	const Vector3 BLOCKBOTTOM_COLLISION_SIZE(100.0f, 0.0f, 25.0f);		//大きさ
 }
 
 //開始処理

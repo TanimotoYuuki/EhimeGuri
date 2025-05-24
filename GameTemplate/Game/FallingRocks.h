@@ -7,6 +7,7 @@ class FallingRocks : public IGameObject
 public:
 	/// <summary>
 	/// 落石。
+	/// 第2ステージ専用モデル 兼 LevelObject。 
 	/// </summary>
 	FallingRocks();
 	~FallingRocks() {};

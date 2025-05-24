@@ -6,6 +6,10 @@ class Config;
 class Tobeyaki:public IGameObject
 {
 public:
+	/// <summary>
+	/// 砥部焼。
+	/// 第2ステージ専用モデル 兼 LevelObject。
+	/// </summary>
 	bool Start();
 	void Update();
 	void Rotation();

@@ -25,17 +25,12 @@ Player::Player() {
 	m_animationClip[enAnimationClip_gameover].Load("Assets/animData/gameover.tka");
 	m_animationClip[enAnimationClip_gameover].SetLoopFlag(false);
 
-	//string modelPath = Config::GetFullPath_3DModel("player");// ファイルパスを読み込む。
-	//m_modelRender.Init(modelPath.c_str());// モデルをセットする。
-
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 
 	m_position = { 0.0f,94.0f,0.0f };
-
-//	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	//初期位置の設定
 	m_initPosition = m_position;

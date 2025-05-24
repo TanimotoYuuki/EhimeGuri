@@ -7,7 +7,7 @@
 
 namespace
 {
-	Vector3 HIGHSPEED_FBLOCK_SCALE = Vector3(1.5f, 1.5f, 5.0f);
+	const Vector3 HIGHSPEED_FBLOCK_SCALE(1.5f, 1.5f, 5.0f);
 	const float HIGHT_SPEED = 1500.0f;
 	const float LIMITED = 2000.0f;
 }
