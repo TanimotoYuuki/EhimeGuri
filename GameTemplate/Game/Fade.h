@@ -22,8 +22,10 @@ public:
 		//フェードステートが異なっているときはフェードステートを切りえる
 		if (m_fadeState != enFadeState)
 		{
+			//フェードステートの切り替え
 			m_fadeState = enFadeState;
 			m_fade.SetFadeTransition(enFadeState);
+			//ローディングをしない
 			m_fadeTransitionFlag = false;
 		}
 
@@ -36,6 +38,7 @@ public:
 				//2.0秒経過したらローディング画面に遷移する
 				if (g_gameTime->StopWatch(2.0f))
 				{
+					//ローディングをする
 					m_loadingFlag = true;
 				}
 			}

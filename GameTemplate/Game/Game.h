@@ -55,6 +55,22 @@ public:
 
 private:
 	/// <summary>
+	/// ステージ背景用の初期位置の更新
+	/// </summary>
+	void UpdateStageBackGroundCurrentPosition();
+
+	/// <summary>
+	/// ステージ背景用のゴール位置の更新
+	/// </summary>
+	void UpdateStageBackGroundGolePosition();
+
+	/// <summary>
+	///	ステージ背景の情報を取得
+	/// </summary>
+	/// <param name="place">愛媛県の場所</param>
+	void GetStageBackGroundData(int place);
+
+	/// <summary>
 	/// 現在の愛媛県の場所の設定
 	/// </summary>
 	/// <param name="nowPos">現在位置</param>
@@ -63,17 +79,17 @@ private:
 	/// <summary>
 	/// 愛媛県の場所のスプライトの情報を取得
 	/// </summary>
-	/// <param name="place">場所</param>
+	/// <param name="place">愛媛県の場所</param>
 	void GetEhimePlaceSpriteData(int place)
 	{
-		//場所
+		//愛媛県の場所
 		switch (place)
 		{
 		case enEhimePlace_Iyo:				//伊予市
 			m_ehimePlaceFilePath = "Assets/Sprite/background/text/1stage/place/iyo.dds";
 			m_ehimePlacePosition = Vector3(280.0f, 360.0f, 0.0f);
 			break;
-		case enEhimePlace_Ooze:				//大洲市
+		case enEhimePlace_Oozu:				//大洲市
 			m_ehimePlaceFilePath = "Assets/Sprite/background/text/1stage/place/oozu.dds";
 			m_ehimePlacePosition = Vector3(280.0f, 360.0f, 0.0f);
 			break;
@@ -117,17 +133,17 @@ private:
 	/// <summary>
 	/// 愛媛県の名所のスプライトの情報を取得
 	/// </summary>
-	/// <param name="place">名所</param>
+	/// <param name="place">愛媛県の名所</param>
 	void GetEhimeFamousPlaceSpriteData(int famousplace)
 	{
-		//名所
+		//愛媛県の名所
 		switch (famousplace)
 		{
 		case enEhimePlace_Iyo:				//伊予市
 			m_ehimeFamousPlaceFilePath = "Assets/Sprite/background/text/1stage/famousplace/simonagi.dds";
 			m_ehimeFamousPlacePosition = Vector3(400.0f, 360.0f, 0.0f);
 			break;
-		case enEhimePlace_Ooze:				//大洲市
+		case enEhimePlace_Oozu:				//大洲市
 			m_ehimeFamousPlaceFilePath = "Assets/Sprite/background/text/1stage/famousplace/oozujyou.dds";
 			m_ehimeFamousPlacePosition = Vector3(400.0f, 360.0f, 0.0f);
 			break;
@@ -300,7 +316,7 @@ private:
 	enum EnEhimePlace
 	{
 		enEhimePlace_Iyo,				//伊予市
-		enEhimePlace_Ooze,				//大洲市
+		enEhimePlace_Oozu,				//大洲市
 		enEhimePlace_Yawatahama,		//八幡浜市
 		enEhimePlace_Uwajima,			//宇和島市
 		enEhimePlace_Onihoku,			//鬼北町
@@ -311,6 +327,11 @@ private:
 		enEhimePlace_Matuyama,			//松山市
 		enEhimePlace_Num				//場所数
 	};
+	/// <summary>
+	/// 愛媛県での現在位置を切り替える
+	/// </summary>
+	/// <param name="enEhimePlace">愛媛県の場所</param>
+	void NowEhimePlaceTransition(EnEhimePlace enEhimePlace);
 	/// <summary>
 	/// スタミナ。
 	/// </summary>
@@ -329,12 +350,16 @@ private:
 	/// <summary>
 	/// バックグラウンドレンダー。
 	/// </summary>
-	BackGroundRender	m_stageBackGround;//ステージ背景
+	BackGroundRender	m_stageBackGround[enEhimePlace_Num];//ステージ背景
 	/// <summary>
 	/// 座標。
 	/// </summary>
-	Vector3	m_ehimePlacePosition;
-	Vector3	m_ehimeFamousPlacePosition;
+	Vector3 m_stageBackGroundTransitionPosition[enEhimePlace_Num];//ステージ背景用の遷移位置
+	Vector3 m_stageBackGroundInitPosition;//ステージ背景用の初期位置
+	Vector3 m_stageBackGroundCurrentPosition;//ステージ背景用の現在位置
+	Vector3 m_stageBackGroundGolePosition;//ステージ背景用のゴール位置
+	Vector3	m_ehimePlacePosition;//愛媛県の場所の座標
+	Vector3	m_ehimeFamousPlacePosition;//愛媛県の名所の座標
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
@@ -342,6 +367,7 @@ private:
 	bool drawFlag = true;// 描画フラグ。
 	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置 
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
+	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス
 	const char* m_ehimeFamousPlaceFilePath = nullptr;//愛媛県の名所用ファイルパス
 };

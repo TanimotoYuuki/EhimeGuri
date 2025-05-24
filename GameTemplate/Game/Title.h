@@ -119,8 +119,8 @@ private:
 	SpriteRender m_decisionUI;														//決定UI
 	SpriteRender m_selectUI;														//選択UI
 	SpriteRender m_returnUI;														//戻るUI
-	bool m_startFadeFinishFlag = false;												//スタート用フェードが終わったか?
-	bool m_titleBackGroundFadeFinishFlag = false;									//タイトル背景のフェードが終わったか?
+	bool m_fadeInFinishFlag = false;												//フェードインが終わったか?
+	bool m_titleBackGroundFadeInFinishFlag = false;									//タイトル背景のフェードインが終わったか?
 	bool m_gameStartFlag = false;													//ゲームスタートフラグ
 	bool m_pressButtonFlag = false;													//ボタンを押したか?
 	bool m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
