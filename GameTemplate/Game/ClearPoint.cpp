@@ -3,11 +3,11 @@
 #include "ClearPoint.h"
 #include "Config.h"
 #include "Player.h" 
-
+#include "Scene.h"
 namespace
 {
-	//モデルの大きさ。
-	Vector3 SCALE = Vector3(5.0f, 5.0f, 5.0f);
+   //モデルの大きさ。
+   const Vector3 SCALE(5.0f, 5.0f, 5.0f);
 }
 
 ClearPoint::ClearPoint()
@@ -33,6 +33,7 @@ void ClearPoint::Update()
 		NewGO<StageClear>(0);
 		DeleteGO(this);
 	}
+
 	
 }
 

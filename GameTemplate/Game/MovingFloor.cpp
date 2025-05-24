@@ -6,11 +6,11 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(3.0f, 1.0f, 3.0f);//オブジェクトの大きさ
+	const Vector3 SCALE(3.0f, 1.0f, 3.0f);//オブジェクトの大きさ
 	const float SPEED = 500.0f;
 	const float LIMITED = 300.0f;
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);
-	Vector3	COLLISION_SIZE   = Vector3(365.0f, 5.0f, 225.0f);
+	const Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);
+	const Vector3 COLLISION_SIZE(365.0f, 5.0f, 225.0f);
 }
 
 

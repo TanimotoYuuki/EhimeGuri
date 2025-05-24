@@ -7,11 +7,11 @@
 
 namespace
 {
-	Vector3 SCALE = Vector3(3.0f, 3.0f, 3.0f);// オブジェクトの大きさ。
+    const Vector3 SCALE(3.0f, 3.0f, 3.0f);// オブジェクトの大きさ。
 	const float S_SPEED = 200.0f;// 落下速度。
 	const float LIMITED = 100.0f;// 落下範囲。
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);// コリジョンの高さ。
-	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);// コリジョンの大きさ。
+	const Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);// コリジョンの高さ。
+	const Vector3 COLLISION_SIZE(365.0f, 5.0f, 225.0f);// コリジョンの大きさ。
 }
 
 bool S_MovingFloor::Start()

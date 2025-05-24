@@ -1,16 +1,18 @@
 #pragma once
+#include "Stage1.h"
+
 #include "level3D/TklFile.h"
 
 using namespace std;
 
 class Player;// プレイヤー。
 class Block;// ブロック。
-class BackGround;// ステージ。		
+class Stage1;// ステージ1。		
 class Enemy;// エネミー。
 class ClearPoint;// クリアポイント。
 class Config;// ファイルパス統合クラス。
 class FallingBlock;// 落ちる床。
-class Needle;// 針。
+class movingNeedle;// 針。
 class MovingFloor;// 移動する床。
 class Scaffold;// 足場。
 class ScaffoldBlock;// T型の足場。
@@ -44,7 +46,6 @@ public:
 	void TransparentBlock_NewGO();// 透明ブロックのNewGO。
 	void FallingBlock_NewGO();// 落ちるブロックのNewGO。
 	void MovingFloor_NewGO();// 動く床のNewGO 。
-	void Needle_NewGO();// 針のNewGO。
 	void Item_NewGO();// アイテムのNewGO。
 	void ScaffoldBlock_NewGO();// T字ブロックのNewGO。
 	void Scaffold_NewGO();// 足場ブロックのNewGO。
@@ -194,7 +195,7 @@ private:
 	/// <summary>
 	/// 第1ステージ。
 	/// </summary>
-	BackGround* m_backGround;
+	Stage1* m_stage1;
 	/// <summary>
 	/// クリアポイント。
 	/// </summary>
@@ -238,10 +239,7 @@ private:
 	/// <summary>
 	/// 針。
 	/// </summary>
-	Needle* m_needle;
-	Needle* m_needle1;
-	Needle* m_needle2;
-	Needle* m_needle3;
+	movingNeedle* m_needle;
 	/// <summary>
 	/// 足場ブロック。
 	/// </summary>

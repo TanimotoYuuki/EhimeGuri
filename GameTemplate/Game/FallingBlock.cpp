@@ -6,12 +6,11 @@
 
 namespace
 {
-	Vector3 FALLINGBLOCK_SCALE = Vector3(3.0f, 3.0f, 5.0f);	//モデルの大きさ
-
+	const Vector3 FALLINGBLOCK_SCALE(3.0f, 3.0f, 5.0f);	//モデルの大きさ
 	const float SPEED = 340.0f;//モデルの落下速度
 	const float LIMITED = 300.0f;//モデルが動ける上限数
-	Vector3 COLLISION_HEIGHT = Vector3(0.0f, 50.0f, 0.0f);//コリジョンの高さ
-	Vector3	COLLISION_SIZE = Vector3(365.0f, 5.0f, 225.0f);//コリジョンの大きさ
+	const Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);//コリジョンの高さ
+	const Vector3 COLLISION_SIZE (365.0f, 5.0f, 225.0f);//コリジョンの大きさ
 }
 
 FallingBlock::FallingBlock()

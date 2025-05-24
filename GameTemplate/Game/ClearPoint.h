@@ -1,9 +1,12 @@
 #pragma once
+#include "Scene.h"
 using namespace std;
+
 
 class Player;
 class StageClear;
 class Config;
+class Stage1Scene;
 class ClearPoint : public IGameObject
 { 
 public:
@@ -22,8 +25,8 @@ public:
 	Player* m_player;
 	ModelRender m_modelRender;
 	Vector3	position;
+	Stage1Scene* m_stage1Scene;
 
 	int clearCount = 0;
-	bool m_stageClearFlag = false;
 };
 

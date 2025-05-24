@@ -9,6 +9,7 @@ public:
 	
 	/// <summary>
 	/// タオル … アイテムのひとつ。
+	/// 第2ステージ専用モデル 兼 LevelObject。 
 	/// </summary>
 	Towel() {};
 	~Towel() {};

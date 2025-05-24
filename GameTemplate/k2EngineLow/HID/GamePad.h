@@ -24,6 +24,7 @@ namespace nsK2EngineLow {
 		enButtonLB2,		//!<LB2ボタン。
 		enButtonLB3,		//!<LB3ボタン。
 		enButtonNum,	//!<ボタンの数。
+
 	};
 
 	/// <summary>
