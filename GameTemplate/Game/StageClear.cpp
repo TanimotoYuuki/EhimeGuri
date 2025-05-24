@@ -2,18 +2,28 @@
 #include "StageClear.h"
 #include "Player.h"
 #include "Title.h"
+namespace
+{
+	//ステージクリア演出をする位置
+	const Vector3 STAGE_CLEAR_POSITION = Vector3(0.0f, 0.0f, 0.0f);
+}
 
 //開始処理
 bool StageClear::Start()
 {
 	//ステージクリアUI
+	//0 ステージクリアUIの初期化
 	m_stageClearUI.Init("Assets/Sprite/stageclear.dds", 1024, 128);
+	//0.1 ステージクリアUIの座標の設定
 	m_stageClearUI.SetPosition(m_position);
+	//0.2 ステージクリアUIの更新
 	m_stageClearUI.Update();
 
 	//ステージクリアスプライト用のイージングを設定
 	SetStageClearSpriteEasing();
 
+	//インスタンス
+	//0 プレイヤー
 	m_player = FindGO<Player>("player");
 	m_player->m_stageClearFlag = true;
 	return true;
@@ -45,11 +55,12 @@ void StageClear::SetStageClearSpriteEasing()
 void StageClear::UpdateStageClearSpriteEasing()
 {
 	//特定の位置に行ったらステージクリア演出をする
-	if (m_position.x > 0.0f && m_stageClearDirectionFinishFlag != true)
+	if (m_position.x > STAGE_CLEAR_POSITION.x && m_stageClearDirectionFinishFlag != true)
 	{
-		//1.0秒経過したらステージ演出を終了する
+		//1.0秒経過したらステージクリア演出を終了する
 		if (g_gameTime->StopWatch(1.0f))
 		{
+			//ステージクリア演出を終了
 			m_stageClearDirectionFinishFlag = true;
 		}
 		return;

@@ -100,6 +100,24 @@ namespace nsK2EngineLow
 		/// <param name="rc">レンダーコンテキスト</param>
 		void Draw(RenderContext& rc);
 
+		/// <summary>
+		/// 乗算カラーを設定
+		/// </summary>
+		/// <param name="mulColor">乗算カラー</param>
+		void SetMulColor(const Vector4& mulColor)
+		{
+			m_sprite.SetMulColor(mulColor);
+		}
+
+		/// <summary>
+		/// 乗算カラーを取得
+		/// </summary>
+		/// <returns>乗算カラー</returns>
+		const Vector4& GetMulColor() const
+		{
+			return m_sprite.GetMulColor();
+		}
+
 		//バックグラウンドレンダー用の定数バッファ
 		struct BackGroundRenderConstantBuffer
 		{
@@ -124,6 +142,15 @@ namespace nsK2EngineLow
 		void SetGoalPosition(const Vector3& pos)
 		{
 			m_goalPosition = pos;
+		}
+
+		/// <summary>
+		/// 背景スクロールの進行割合を取得
+		/// </summary>
+		/// <returns>背景スクロールの進行割合</returns>
+		float GetBackGroundScrollRate() const
+		{
+			return m_backGroundConstantBuffer.rate * 100.0f;
 		}
 
 		/// <summary>

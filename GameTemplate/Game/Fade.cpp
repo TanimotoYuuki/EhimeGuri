@@ -6,24 +6,37 @@ bool Fade::Start()
 {
 	//各スプライトの初期設定
 	//フェード
+	//0 フェードの初期化
 	m_fade.Init("Assets/fade/fade.dds", 1600, 900);
+	//0.1 リニアワイプの描画モードを円形ワイプにする
 	m_fade.SetLinearWipeDrawingMode(LinearWipeDrawingMode_Round);
+	//0.2 リニアワイプの速度を設定
 	m_fade.SetWipeScrollSpeed(1000.0f);
 
 	//ローディング
+	//1 ローディングの初期化
 	m_loading.Init("Assets/fade/loading.dds", 1024,128);
+	//1.1 ローディングの座標の設定
 	m_loading.SetPosition(Vector3(475.0f, -345.0f, 0.0f));
+	//1.2 ローディングの大きさの設定
 	m_loading.SetScale(Vector3(0.75f, 0.75f, 0.75f));
+	//1.3 ローディングの更新処理
 	m_loading.Update();
 
 	//点
 	for (int i = 0; i < 3; i++)
 	{
+		//2 点の初期化
 		m_point[i].Init("Assets/fade/point.dds", 1024, 128);
+		//2.1 点の座標の設定
 		m_point[i].SetPosition(Vector3(665.0f + 25.0f * (i + 1), -345.0f, 0.0f));
+		//2.2 点の初期位置の取得
 		m_pointInitPosition[i] = m_point[i].GetPosition();
+		//2.3 点の現在位置の取得
 		m_pointPosition[i] = m_point[i].GetPosition();
+		//2.4 点の大きさの設定
 		m_point[i].SetScale(Vector3(0.65f, 0.65f, 0.65f));
+		//2.5 点の更新処理
 		m_point[i].Update();
 	}
 	return true;
@@ -78,7 +91,7 @@ void Fade::LoadingMove()
 	if (m_pointFallFlag == true)
 	{
 		m_pointPosition[m_pointMove].y -= 2.0f;
-		//特定の位置まで行ったら
+		//特定の高さまで戻ったら
 		if (m_pointPosition[m_pointMove].y < m_pointInitPosition[m_pointMove].y)
 		{
 			//位置を固定
@@ -95,6 +108,7 @@ void Fade::LoadingMove()
 				//点動作の位置の切り替え
 				m_pointMove++;
 			}
+			//点落下しない
 			m_pointFallFlag = false;
 		}
 	}
