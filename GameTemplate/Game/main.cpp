@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "system/system.h"
+#include "Scene.h"
 #include "Game.h"
 #include "Title.h"
 #include "Fade.h"
@@ -22,11 +23,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
 
 	// TitleのNewGO
-	NewGO<Title>(0, "title");
+//	NewGO<Title>(0, "title");
+
+	// シーンのNewGO
+	NewGO<Scene>(0, "scene");
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage() && g_gameLoop.m_isLoop ==true)
 	{
+		// SceneManagerの更新処理を呼び出す。
+
+
 		// フレームの開始時に呼び出す必要がある処理を実行
 		g_k2EngineLow->BeginFrame();
 

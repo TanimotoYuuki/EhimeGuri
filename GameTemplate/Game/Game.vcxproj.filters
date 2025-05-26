@@ -15,13 +15,13 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="MovingFloor.cpp" />
-    <ClCompile Include="Needle.cpp" />
+    <ClCompile Include="MovingNeedle.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="ScaffoldBlock.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Scaffold.cpp" />
@@ -43,6 +43,9 @@
     <ClCompile Include="Checpoint.cpp" />
     <ClCompile Include="FallingRocks.cpp" />
     <ClCompile Include="..\k2EngineLow\level3D\Level.cpp" />
+    <ClCompile Include="FallingFloor.cpp" />
+    <ClCompile Include="RotationFloor.cpp" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -53,13 +56,13 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="MovingFloor.h" />
-    <ClInclude Include="Needle.h" />
+    <ClInclude Include="MovingNeedle.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="ScaffoldBlock.h" />
     <ClInclude Include="FallingBlock.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Stage1.h" />
     <ClInclude Include="TransparentBlock.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Scaffold.h" />
@@ -81,5 +84,8 @@
     <ClInclude Include="Checpoint.h" />
     <ClInclude Include="FallingRocks.h" />
     <ClInclude Include="..\k2EngineLow\level3D\Level.h" />
+    <ClInclude Include="FallingFloor.h" />
+    <ClInclude Include="RotationFloor.h" />
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,8 @@ public:
 	void Update();  //更新処理
 	void Render(RenderContext& rc);  //描画処理
 
+	bool m_sceneTransitionFlag = false;		//シーン遷移フラグ
+	bool m_gameLoadFlag = false;			//ゲームロードフラグ
 private:
 	//スカイキューブの初期化
 	void InitSky();

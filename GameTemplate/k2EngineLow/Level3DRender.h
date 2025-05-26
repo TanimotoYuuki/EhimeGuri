@@ -42,6 +42,8 @@ namespace nsK2EngineLow
 		Vector3 position = Vector3::Zero;				//座標
 		Quaternion rotation = Quaternion::Identity;		//回転
 		Vector3 scale = Vector3::One;					//拡大率
+
+		//変更前//
 		const wchar_t* name;							//名前
 		int number = 0;
 	};

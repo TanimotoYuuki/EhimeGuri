@@ -305,8 +305,19 @@ void Title::Action()
 		{
 			//フェードをフェードアウトに切り替える
 			m_fade->FadeTransition(enFadeState_FadeOut);
-			//2.5秒経過したらゲームを開始する
-			if (g_gameTime->StopWatch(2.5f))
+			//2.5秒経過したらシーンを遷移する
+			if (m_sceneTransitionFlag != true)
+			{
+				if (g_gameTime->StopWatch(2.5f))
+				{
+					//シーン遷移
+					m_sceneTransitionFlag = true;
+					return;
+				}
+			}
+
+			//ゲームロードフラグが立ったらゲームクラスを生成する
+			if (m_gameLoadFlag == true)
 			{
 				NewGO<Game>(0, "game");
 				DeleteGO(this);

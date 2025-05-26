@@ -4,7 +4,7 @@
 #include"Config.h"
 namespace
 {
-	Vector3 SCALE = Vector3(2.0f, 2.0f, 2.0f);
+	const Vector3 SCALE(2.0f, 2.0f, 2.0f);
 }
 bool Checpoint::Start() {
 	string modelPath = m_config->GetFullPath_3DModel("GoalPole");// ファイルパスを読み込む。

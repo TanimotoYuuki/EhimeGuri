@@ -4,7 +4,7 @@
 #include"Player.h"
 namespace
 {
-	Vector3 SCALE = Vector3{ 0.5f,0.5f,0.5f };
+	const Vector3 SCALE{ 0.5f,0.5f,0.5f };
 }
 bool Taruto::Start() {
 

@@ -1,16 +1,17 @@
 #pragma once
-///////////////////////////////////
-///レベルレンダーの試作中//////////
-///ファイルが読み込めないため保留//
-///////#include "Level.h"//////////
-///////////////////////////////////
+#include "FallingFloor.h"
 
 #include <string>
 #include "Config.h"
+#include "Level3DRender.h"
+
 using namespace std;
 
 class Config;
-
+class FallingFloor;
+class MovingNeedle;
+class RotationFloor;
+class Lever;
 class Stage2 : public IGameObject
 {
 public:
@@ -22,14 +23,26 @@ public:
 
 	bool Start();
 	void Update();// 更新処理。
+//	bool LevelRender();// レベルの処理。
 	void Render(RenderContext& rc);// 描画処理。
+	
 
-	Config* m_filePathConfig;
+	/// <summary>
+	/// LevelObject。
+	/// </summary>
+	Stage2* m_stage2;// ステージ2
+	Config* m_filePathConfig;// ファイルパス。
+	FallingFloor* m_fallingFloor;// 落下する床。
+	MovingNeedle* m_movingNeedle;// 動く針。
+	RotationFloor* m_rotationFloor;// 回転する床
+
+private:
 	ModelRender m_modelRender;// モデルの描画。
 	PhysicsStaticObject m_physicsStaticObject;// 静的物理オブジェクト。
 	CollisionObject* m_collisionObject = nullptr;// コリジョンオブジェクト。
 	Vector3 m_position;// 座標。
 	Vector3 m_firstposition;
      
+	Level3DRender m_level3DRender;// レベル3Dレンダー。
 };
 

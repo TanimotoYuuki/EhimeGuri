@@ -227,13 +227,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\k2EngineLow\level3D\Level.cpp" />
-    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Checpoint.cpp" />
     <ClCompile Include="ClearPoint.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="FallingBlock.cpp" />
+    <ClCompile Include="FallingFloor.cpp" />
     <ClCompile Include="FallingRocks.cpp" />
     <ClCompile Include="Config.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)</AdditionalIncludeDirectories>
@@ -248,10 +249,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mikan.cpp" />
     <ClCompile Include="MovingFloor.cpp" />
-    <ClCompile Include="Needle.cpp" />
+    <ClCompile Include="MovingNeedle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RotationFloor.cpp" />
     <ClCompile Include="Scaffold.cpp" />
     <ClCompile Include="ScaffoldBlock.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="sinju.cpp" />
     <ClCompile Include="StageClear.cpp" />
@@ -270,13 +273,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\k2EngineLow\level3D\Level.h" />
-    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Stage1.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Checpoint.h" />
     <ClInclude Include="ClearPoint.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="FallingBlock.h" />
+    <ClInclude Include="FallingFloor.h" />
     <ClInclude Include="FallingRocks.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Game.h" />
@@ -288,10 +292,12 @@
     <ClInclude Include="Jako.h" />
     <ClInclude Include="Mikan.h" />
     <ClInclude Include="MovingFloor.h" />
-    <ClInclude Include="Needle.h" />
+    <ClInclude Include="MovingNeedle.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RotationFloor.h" />
     <ClInclude Include="Scaffold.h" />
     <ClInclude Include="ScaffoldBlock.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="sinju.h" />
     <ClInclude Include="StageClear.h" />

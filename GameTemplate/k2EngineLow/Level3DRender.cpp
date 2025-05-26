@@ -64,7 +64,11 @@ namespace nsK2EngineLow
 
 				levelObjData.number = m_bonelist[i]->GetNo();
 
+				//変更後//
 				levelObjData.name = m_bonelist[i]->GetName();
+
+				//変更前//
+//				levelObjData.name = m_bonelist[i]->GetName();
 
 				//パスの作成
 				wchar_t filePath[256];
