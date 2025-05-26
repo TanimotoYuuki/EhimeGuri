@@ -257,7 +257,7 @@ namespace nsK2EngineLow {
 			}
 			else {
 				//地面上にいない場合は1m下を見る。
-				endPos.y -= 100.0f;
+				endPos.y -= 15.0f;
 			}
 			end.setOrigin(btVector3(endPos.x, endPos.y, endPos.z));
 			SweepResultGround callback;
