@@ -45,6 +45,11 @@ public:
 
     bool Start() override;
 	void Update() override;
+    bool isFlagSet(bool flag)
+    {
+        // ゲームクリアフラグの取得
+		return m_isGameClearFlag;
+	} 
 
 	bool m_isGameClearFlag = false; // ゲームクリアフラグ
 
