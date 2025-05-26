@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Stage1.h"
 #include "Stage2.h"
+#include "ClearPoint.h"
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
 
 bool Scene::Start()
@@ -9,11 +10,28 @@ bool Scene::Start()
 	return true;
 }
 
+void Scene::Update()
+{
+	// シーンマネージャーのUpdateを呼び出す。
+	Scene_Manager::GetInstance()->Update();
+}
+
 bool TitleScene::Start()
 {
 	// タイトルシーンの初期化処理を行う。
 	 m_title =NewGO<Title>(0, "Title"); // タイトルシーンの初期化処理を行う。
 	return true;
+}
+
+// タイトルシーン::更新処理。
+void TitleScene::Update()
+{
+	//Titleクラスのシーン遷移フラグでステージ遷移を判定する。
+	if (m_title->m_sceneTransitionFlag == true)
+	{
+		// ステージ1へ遷移する。
+		Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
+	}
 }
 
 bool Stage1Scene::Start()
@@ -29,6 +47,17 @@ bool Stage1Scene::Start()
 	return true;
 }
 
+void Stage1Scene::Update()
+{
+	//if(isFlagSet())
+	// ステージをクリアしたかの判定を行う  
+	//if () 
+	//{
+	//	// ステージクリアフラグが立っている場合、ステージ2へ遷移する。
+	//	Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
+	//}  
+}
+
 bool Stage2Scene::Start()
 {
 	// ステージ2の初期化処理を行う。
@@ -36,44 +65,17 @@ bool Stage2Scene::Start()
 	return true;
 }
 
-bool Scene_Manager::Start()
-{
-
-	return true;
-}
-
-void Scene::Update()
-{
-	// シーンマネージャーのUpdateを呼び出す。
-	Scene_Manager::GetInstance()->Update();
-}
-
-// タイトルシーン::更新処理。
-void TitleScene::Update()  
-{  
-	//Titleクラスのシーン遷移フラグでステージ遷移を判定する。
-	if (m_title->m_sceneTransitionFlag == true)
-	{
-		// ステージ1へ遷移する。
-		Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
-	}
-}
-
-void Stage1Scene::Update()  
-{  
-	// ステージをクリアしたかの判定を行う  
-	//if (g_pad[0]->IsPress(enButtonA)) // ステージクリアの条件を判定する。
-	//{
-	//	// ステージクリアフラグが立っている場合、ステージ2へ遷移する。
-	//	Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
-	//}  
-}
-
 // ステージ2シーン::更新処理。
 void Stage2Scene::Update()
 {
 	// ステージをクリアしたかの判定を行う。
 
+}
+
+bool Scene_Manager::Start()
+{
+
+	return true;
 }
 
 // マネージャー::更新処理。
