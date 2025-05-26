@@ -21,6 +21,11 @@ bool Stage1Scene::Start()
 	// ステージ1の初期化処理を行う。
     m_stage1 = NewGO<Stage1>(0, "Stage1"); // ステージ1の初期化処理を行う。
 
+	//インスタンス
+	//タイトルシーンのタイトルクラスを取得する。
+	m_title = FindGO<Title>("Title"); 
+	//ゲームをロードする。
+	m_title->m_gameLoadFlag = true;
 	return true;
 }
 
@@ -46,8 +51,8 @@ void Scene::Update()
 // タイトルシーン::更新処理。
 void TitleScene::Update()  
 {  
-	//Titleメニューのスタートが押されているかでステージ遷移を判定する。
-	if (g_pad[0]->IsPress(enButtonA))
+	//Titleクラスのシーン遷移フラグでステージ遷移を判定する。
+	if (m_title->m_sceneTransitionFlag == true)
 	{
 		// ステージ1へ遷移する。
 		Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
