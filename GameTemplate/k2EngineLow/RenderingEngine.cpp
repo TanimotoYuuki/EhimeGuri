@@ -63,10 +63,10 @@ namespace nsK2EngineLow
 		//最終合成用のスプライトを初期化する
 		SpriteInitData spriteInitData;
 		//テクスチャは背景用レンダリングターゲット
-		spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
+		spriteInitData.m_textures[0] = &m_backGroundRenderTarget.GetRenderTargetTexture();
 		//解像度はメインレンダリングターゲットの幅と高さ
-		spriteInitData.m_width = m_backGroundRenderTarget.GetWidth();
-		spriteInitData.m_height = m_backGroundRenderTarget.GetHeight();
+		spriteInitData.m_width = m_mainRenderTarget.GetWidth();
+		spriteInitData.m_height = m_mainRenderTarget.GetHeight();
 		//背景用のシェーダーを使用する
 		spriteInitData.m_fxFilePath = "Assets/shader/backGround.fx";
 		spriteInitData.m_vsEntryPointFunc = "VSMain";
@@ -74,7 +74,7 @@ namespace nsK2EngineLow
 		//上書き
 		spriteInitData.m_alphaBlendMode = AlphaBlendMode_None;
 		//レンダリングターゲットのフォーマット
-		spriteInitData.m_colorBufferFormat[0] = m_backGroundRenderTarget.GetColorBufferFormat();
+		spriteInitData.m_colorBufferFormat[0] = m_mainRenderTarget.GetColorBufferFormat();
 		//初期化
 		m_backGroundSprite.Init(spriteInitData);
 	}
@@ -176,6 +176,22 @@ namespace nsK2EngineLow
 	void RenderingEngine::BackGroundDraw(RenderContext& rc)
 	{
 		//レンダリングターゲットとして利用できるまで待つ
+		rc.WaitUntilToPossibleSetRenderTarget(m_backGroundRenderTarget);
+		//レンダリングターゲットを設定
+		rc.SetRenderTargetAndViewport(m_backGroundRenderTarget);
+		//レンダリングターゲットをクリア
+		rc.ClearRenderTargetView(m_backGroundRenderTarget);
+
+		for (auto renderObj : m_renderObjects)
+		{
+			//背景の描画
+			renderObj->OnRenderBackGround(rc);
+		}
+
+		//レンダリングターゲットへの書き込み終了待ち
+		rc.WaitUntilFinishDrawingToRenderTarget(m_backGroundRenderTarget);
+
+		//ターゲットをメインに戻す
 		rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		//レンダリングターゲットを設定
 		rc.SetRenderTargetAndViewport(m_mainRenderTarget);
@@ -185,13 +201,7 @@ namespace nsK2EngineLow
 		//背景用スプライトの描画
 		m_backGroundSprite.Draw(rc);
 
-		for (auto renderObj : m_renderObjects)
-		{
-			//背景の描画
-			renderObj->OnRenderBackGround(rc);
-		}
-
-		//レンダリングターゲットへの書き込み終了待ち
+		//メインレンダリングターゲットへの書き込み終了待ち
 		rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 

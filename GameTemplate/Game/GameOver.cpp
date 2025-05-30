@@ -270,7 +270,7 @@ void GameOver::SpriteMove()
 			if (m_gameOverSelectUIAlphaColor > 1.0f)
 			{
 				m_gameOverSelectUIAlphaColor = 1.0f;
-				//ゲームオーバー演出を終了
+				//ゲームオーバー演出を終了する
 				m_gameOverDirectionFlag = true;
 				return;
 			}
