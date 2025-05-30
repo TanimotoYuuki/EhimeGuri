@@ -7,7 +7,7 @@ class ScaffoldBlock : public IGameObject
 {
 public:
 	/// <summary>
-	/// 足場ブロック
+	/// 足場ブロック。
 	/// </summary>
 	ScaffoldBlock() {};
 	~ScaffoldBlock() {};
@@ -31,7 +31,7 @@ public:
 	{
 		return m_position;
 	}
-	Config* m_config;
+	Config* m_config = nullptr;
 	Player* m_player = nullptr;
 	Vector3 m_position;
 	Vector3 m_firstposition;
@@ -41,7 +41,7 @@ public:
 
 private:
 
-	// 移動方向を決めるステート
+	// 移動方向を決めるステート。
 	enum enMovingFloorState
 	{
 		enMovingFloorState_MovingRight,// 左。

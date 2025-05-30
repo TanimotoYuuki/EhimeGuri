@@ -44,7 +44,7 @@ public:
 	Vector3	moveSpeed = Vector3::Zero;
 
 private:
-	Config* m_config;
+	Config* m_config = nullptr;
 	Player* m_player = nullptr;
 	CollisionObject* m_collisionObject = nullptr;		
 	ModelRender m_modelRender;

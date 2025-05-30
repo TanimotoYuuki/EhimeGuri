@@ -39,7 +39,7 @@ public:
     /// </summary>
 	void Move();
 private:
-	Config* m_config;
+	Config* m_config = nullptr;
 	Player* m_player = nullptr;
 	CollisionObject* m_collisionObject = nullptr;		
 	Vector3 m_firstPosition;

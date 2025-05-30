@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// ファイルパス。
 	/// </summary>
-	Config* m_config;
+	Config* m_config = nullptr;
 
 	/// <summary>
 	/// モデル。

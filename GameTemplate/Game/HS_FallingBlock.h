@@ -9,7 +9,7 @@ class HS_FallingBlock : public IGameObject
 {
 public:
 	/// <summary>
-    /// 落下速度の速い床
+    /// 落下速度の速い床。
     /// </summary>
 
 	HS_FallingBlock() {};
@@ -17,18 +17,18 @@ public:
 
 	bool Start();
 	void Update();// 更新作業。
-	void Move();//動作処理
+	void Move();//動作処理。
 	void Render(RenderContext& rc);//描画処理。 
 	
-	Config* m_config;
+	Config* m_config = nullptr;
 	ModelRender	m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 	Vector3	m_firstposition;
 	Vector3 m_position;
 
-	MovingFloor* m_movingFloor;
-	GameOver* m_gameOver;
-	Player* m_player;
+	MovingFloor* m_movingFloor = nullptr;
+	GameOver* m_gameOver = nullptr;
+	Player* m_player = nullptr;
 
 private:
 	// 移動方向を切り替えるステート。

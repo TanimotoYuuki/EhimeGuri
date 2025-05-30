@@ -2,20 +2,27 @@
 #include "Scene.h"
 #include "Stage1.h"
 #include "Stage2.h"
-#include "ClearPoint.h"
+#include "Config.h"
+#include "StageClear.h"
+#define SMGetIns Scene_Manager::GetInstance // シングルトンインスタンスを取得するマクロ定義
+
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
 
+// シーン::初期化処理。
 bool Scene::Start()
 {
 	return true;
 }
 
+// シーン::更新処理。
 void Scene::Update()
 {
 	// シーンマネージャーのUpdateを呼び出す。
 	Scene_Manager::GetInstance()->Update();
+
 }
 
+// タイトルシーン::初期化処理。
 bool TitleScene::Start()
 {
 	// タイトルシーンの初期化処理を行う。
@@ -30,14 +37,18 @@ void TitleScene::Update()
 	if (m_title->m_sceneTransitionFlag == true)
 	{
 		// ステージ1へ遷移する。
-		Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
+		SMGetIns()->SetRequest(SceneID::S_Stage1);
 	}
 }
 
+// ステージ1シーン::初期化処理。
 bool Stage1Scene::Start()
 {
 	// ステージ1の初期化処理を行う。
     m_stage1 = NewGO<Stage1>(0, "Stage1"); // ステージ1の初期化処理を行う。
+
+	// 
+	m_stageClear = FindGO<StageClear>("StageClear");
 
 	//インスタンス
 	//タイトルシーンのタイトルクラスを取得する。
@@ -46,20 +57,25 @@ bool Stage1Scene::Start()
 	m_title->m_gameLoadFlag = true;
 	return true;
 }
-
-void Stage1Scene::Update()
-{
-	//if(isFlagSet())
-	// ステージをクリアしたかの判定を行う  
-	//if () 
-	//{
-	//	// ステージクリアフラグが立っている場合、ステージ2へ遷移する。
-	//	Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
-	//}  
+   
+// ステージ1シーン::更新処理。
+void Stage1Scene::Update()  
+{  
+//	if (m_stageClear != nullptr)
+//	{
+//		if (m_stageClear->GetIsClear() == true) // フラグを確認
+//		{
+//			// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
+//			SMGetIns()->SetRequest(SceneID::S_Stage2);
+//		}
+////	}
 }
 
+// ステージ2シーン::初期化処理。
 bool Stage2Scene::Start()
 {
+	SMGetIns()->SetRequest(SceneID::S_Stage2);
+
 	// ステージ2の初期化処理を行う。
 	m_stage2 = NewGO<Stage2>(0, "Stage2"); // ステージ2の初期化処理を行う。
 	return true;
@@ -72,6 +88,7 @@ void Stage2Scene::Update()
 
 }
 
+// シーンマネージャー::初期化処理。
 bool Scene_Manager::Start()
 {
 
@@ -90,7 +107,7 @@ void Scene_Manager::Update()
 	if (scene) scene->Update(); // シーンの更新処理を呼び出す。
 }
 
-// シーンの初期化処理。
+// シーンマネージャー::初期化処理。
 void Scene_Manager::ChangeScene()
 {
 	// 既存のシーンの解放。

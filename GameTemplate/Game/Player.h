@@ -40,12 +40,12 @@ public:
 	}
 
 	/// <summary>
-	/// ItemEnemyクラスの検索
+	/// ItemEnemyクラスの検索。
 	/// </summary>
 	void ItemEnemyFindGO();
 
 	/// <summary>
-	/// リスポーン地点の設定
+	/// リスポーン地点の設定。
 	/// </summary>
 	/// <param name="pos">位置</param>
 	void SetRespawnPositon(const Vector3& pos)
@@ -54,7 +54,7 @@ public:
 	}
 
 	/// <summary>
-	/// プレイヤーをリスポーンする
+	/// プレイヤーをリスポーンする。
 	/// </summary>
 	void PlayerRespawn()
 	{
@@ -103,34 +103,33 @@ public:
 		enPlayer_gameover,
 		enPlayer_num
 	};
-	ModelRender			m_modelRender;			
-	Vector3				m_position;			
-	AnimationClip		m_animationClip[enAnimationClip_num];
-	Vector3				m_moveSpeed = Vector3::Zero;
-	Quaternion			m_rotation;
-	Vector3				m_initPosition;//初期位置
-	Vector3             m_respawnPosition;//リスポーン用位置
+	ModelRender	m_modelRender;
+	Vector3	m_position;			
+	AnimationClip m_animationClip[enAnimationClip_num];
+	Vector3	m_moveSpeed = Vector3::Zero;
+	Quaternion m_rotation;
+	Vector3	m_initPosition;//初期位置
+	Vector3 m_respawnPosition;//リスポーン用位置
 
-	Quaternion          m_respawnRotation;//リスポーン用回転
+	Quaternion m_respawnRotation;//リスポーン用回転
 	CharacterController m_characterController;
 
 
-	int					NeedleCount = 0;
-	int					clearCount = 0;
-	int					m_playerState = enPlayer_idle;
-	int					m_needleCount = 0;
-	int					taoruCount = 0;
-	Game			  * m_game;
-	Enemy			  * m_enemy;
-	GameOver		  * m_gameover;
-	Towel			  * m_towel;
-	ItemEnemy	      * m_itemEnemy;//アイテムエネミー用インスタンス
-	int					m_playermaxsutamina = 300;
-	int					m_playernowsutamina = 300;
-	bool				m_sutaminaZeroFlag = false;
-	bool				m_jumpFlag = true;
-	bool				m_isOnGround = true;
-	bool G = true;
+	int	NeedleCount = 0;
+	int	clearCount = 0;
+	int	m_playerState = enPlayer_idle;
+	int	m_needleCount = 0;
+	int	taoruCount = 0;
+	Game* m_game = nullptr;
+	Enemy* m_enemy = nullptr;
+	GameOver* m_gameover = nullptr;
+	Towel* m_towel = nullptr;
+	ItemEnemy* m_itemEnemy;//アイテムエネミー用インスタンス
+	int m_playermaxsutamina = 300;
+	int	m_playernowsutamina = 300;
+	bool m_sutaminaZeroFlag = false;
+	bool m_jumpFlag = true;
+	bool m_isOnGround = true;
 	bool m_stageClearFlag = false;
 	bool m_gameOverFlag = false;
 	int checcount = 0;

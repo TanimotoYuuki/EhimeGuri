@@ -10,10 +10,10 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 
-	Player* m_player;
+	Player* m_player = nullptr;
 	ModelRender m_modelRender;
 	Vector3	position;
-	Config* m_config;
+	Config* m_config = nullptr;
 
 	
 };
