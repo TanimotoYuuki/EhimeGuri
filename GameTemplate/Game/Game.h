@@ -333,6 +333,11 @@ private:
 	/// <param name="enEhimePlace">愛媛県の場所</param>
 	void NowEhimePlaceTransition(EnEhimePlace enEhimePlace);
 	/// <summary>
+	/// ステージ背景の遷移
+	/// </summary>
+	/// <param name="enEhimePlace">愛媛県の場所</param>
+	void StageBackGoundTransition(EnEhimePlace enEhimePlace);
+	/// <summary>
 	/// スタミナ。
 	/// </summary>
 	Sutaminastate       m_PlayerSutaminaSutate = SutaminaMax;
@@ -351,21 +356,29 @@ private:
 	/// バックグラウンドレンダー。
 	/// </summary>
 	BackGroundRender	m_stageBackGround[enEhimePlace_Num];//ステージ背景
+	BackGroundRender    m_stageBackGroundTransition[enEhimePlace_Num];//遷移用のステージ背景
 	/// <summary>
 	/// 座標。
 	/// </summary>
 	Vector3 m_stageBackGroundTransitionPosition[enEhimePlace_Num];//ステージ背景用の遷移位置
 	Vector3 m_stageBackGroundInitPosition;//ステージ背景用の初期位置
 	Vector3 m_stageBackGroundCurrentPosition;//ステージ背景用の現在位置
+	Vector3 m_stageBackGroundCurrentPositionMemory[enEhimePlace_Num];//各ステージ背景用の現在位置の値を保存する配列
 	Vector3 m_stageBackGroundGolePosition;//ステージ背景用のゴール位置
+	Vector3 m_stageBackGroundGolePositionMemory[enEhimePlace_Num];//各ステージ背景用のゴール位置の値を保存する配列
 	Vector3	m_ehimePlacePosition;//愛媛県の場所の座標
 	Vector3	m_ehimeFamousPlacePosition;//愛媛県の名所の座標
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
 	float m_timer = 180.0f;// タイマー。
+	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
+	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
 	bool drawFlag = true;// 描画フラグ。
-	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置 
+	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
+	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
+	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
+	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
 	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス

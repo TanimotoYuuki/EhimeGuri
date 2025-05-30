@@ -167,8 +167,20 @@ bool Game::Start()
 		GetStageBackGroundData(i);
 		//0.1 ステージ背景の初期化
 		m_stageBackGround[i].Init(m_stageBackGroundFilePath, 2200, 900, true);
-		//0.2 ステージ背景の更新
+		//0.2 ステージ背景をぼかす用のテクセルサイズの設定
+		m_stageBackGround[i].SetTexelSize(1.5f);
+		//0.3 ステージ背景の更新
 		m_stageBackGround[i].Update();
+
+		//遷移用のステージ背景
+		//1 遷移用のステージ背景の初期化
+		m_stageBackGroundTransition[i].Init(m_stageBackGroundFilePath, 2200, 900, true);
+		//1.1 遷移用のステージ背景の乗算カラーの設定
+		m_stageBackGroundTransition[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
+		//1.2 遷移用のステージ背景をぼかす用のテクセルサイズの設定
+		m_stageBackGroundTransition[i].SetTexelSize(1.5f);
+		//1.3 遷移用のステージ背景の更新
+		m_stageBackGroundTransition[i].Update();
 		
 		//愛媛県の場所のスプライト
 		//0 愛媛県の場所のスプライトの情報を取得
@@ -200,12 +212,14 @@ bool Game::Start()
 
 	//現在位置の設定
 	m_stageBackGround[m_nowEhimePlace].SetCurrentPosition(m_stageBackGroundCurrentPosition);
+	m_stageBackGroundTransition[m_previousEhimePlace].SetCurrentPosition(m_stageBackGroundCurrentPositionMemory[m_previousEhimePlace]);
 
 	//ステージ背景用のゴール位置の更新
 	UpdateStageBackGroundGolePosition();
 
 	//ゴール位置の設定
 	m_stageBackGround[m_nowEhimePlace].SetGoalPosition(m_stageBackGroundGolePosition);
+	m_stageBackGroundTransition[m_previousEhimePlace].SetGoalPosition(m_stageBackGroundGolePositionMemory[m_previousEhimePlace]);
 
 	// 更新作業。
 	m_modelRender.Update();
@@ -243,15 +257,34 @@ void Game::Update()
 	//プレイヤーが注視点の現在位置より移動していたら
 	if (m_player->m_position.x >= m_gameCamera->m_cameraTarget.x)
 	{
-		//ステージ背景用の現在位置の更新
+		//ステージ背景の現在位置の更新
 		UpdateStageBackGroundCurrentPosition();
 
-		//現在位置の更新
+		//ステージ背景の現在位置の更新
 		m_stageBackGround[m_nowEhimePlace].SetCurrentPosition(m_stageBackGroundCurrentPosition);
+
+		//ステージ背景のゴール位置の更新
+		UpdateStageBackGroundGolePosition();
+
+		//ステージ背景のゴール位置の設定
+		m_stageBackGround[m_nowEhimePlace].SetGoalPosition(m_stageBackGroundGolePosition);
 	}
 
 	//ステージ背景の更新
 	m_stageBackGround[m_nowEhimePlace].Update();
+
+	//ステージ背景を遷移するフラグが立っていないとき処理する
+	if (m_stageBackGroundTransitionFlag != true)
+	{
+		//遷移用のステージ背景の現在位置の更新
+		m_stageBackGroundTransition[m_previousEhimePlace].SetCurrentPosition(m_stageBackGroundCurrentPositionMemory[m_previousEhimePlace]);
+
+		//遷移用のステージ背景のゴール位置の設定
+		m_stageBackGroundTransition[m_previousEhimePlace].SetGoalPosition(m_stageBackGroundGolePositionMemory[m_previousEhimePlace]);
+	}
+
+	//遷移用のステージ背景の更新
+	m_stageBackGroundTransition[m_previousEhimePlace].Update();
 
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
@@ -476,6 +509,13 @@ void Game::Render(RenderContext& rc)
 	//ステージ背景
 	m_stageBackGround[m_nowEhimePlace].Draw(rc);
 
+	//ステージ背景を遷移するとき描画する
+	if (m_stageBackGroundTransitionFlag == true)
+	{
+		//遷移用のステージ背景
+		m_stageBackGroundTransition[m_previousEhimePlace].Draw(rc);
+	}
+
 	m_modelRender.Draw(rc);
 
 	//ステージクリアとゲームオーバーではないときは描画する
@@ -484,9 +524,9 @@ void Game::Render(RenderContext& rc)
 		)
 	{
 		//愛媛県の場所
-		m_ehimePlace[m_nowEhimePlace].Draw(rc);
+		m_ehimePlace[m_ehimeFamousPlaceDrawingUI].Draw(rc);
 		//愛媛県の名所
-		m_ehimeFamousPlace[m_nowEhimePlace].Draw(rc);
+		m_ehimeFamousPlace[m_ehimeFamousPlaceDrawingUI].Draw(rc);
 		if (m_player->m_playernowsutamina < 300) {
 			m_sutamina0render.Draw(rc);
 			m_sutaminaMaxrender.Draw(rc);
@@ -522,7 +562,7 @@ void Game::GetStageBackGroundData(int place)
 		break;
 	case enEhimePlace_Onihoku:			//鬼北町
 		m_stageBackGroundFilePath = "Assets/Sprite/background/1stage/kihokutyou.dds";
-		m_stageBackGroundTransitionPosition[enEhimePlace_Onihoku] = Vector3(m_clearPoint->position.x + 2500.0f, 0.0f, 0.0f);
+		m_stageBackGroundTransitionPosition[enEhimePlace_Onihoku] = Vector3(m_clearPoint->position.x, 0.0f, 0.0f);
 		break;
 	case enEhimePlace_Kumakougen:		//久万高原町
 		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/kumakougen.dds";
@@ -542,14 +582,14 @@ void Game::GetStageBackGroundData(int place)
 		break;
 	case enEhimePlace_Matuyama:			//松山市
 		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/matuyama.dds";
-		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(m_clearPoint->position.x + 2500.0f, 0.0f, 0.0f);
+		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(m_clearPoint->position.x, 0.0f, 0.0f);
 		break;
 	default:
 		break;
 	}
 }
 
-//ステージ背景用の初期位置の更新
+//ステージ背景の初期位置の更新
 void Game::UpdateStageBackGroundCurrentPosition()
 {
 	//愛媛県での現在位置が伊予市と久万高原町以外の時
@@ -567,13 +607,19 @@ void Game::UpdateStageBackGroundCurrentPosition()
 
 	//ステージ背景用の現在位置の更新
 	m_stageBackGroundCurrentPosition = m_player->m_position - m_stageBackGroundInitPosition;
+
+	//各ステージ背景用の現在位置の値を保存する配列にステージ背景用の現在位置の変数を格納する
+	m_stageBackGroundCurrentPositionMemory[m_nowEhimePlace] = m_stageBackGroundCurrentPosition;
 }
 
-//ステージ背景用のゴール位置の更新
+//ステージ背景のゴール位置の更新
 void Game::UpdateStageBackGroundGolePosition()
 {
 	//ステージ背景用のゴール位置の更新
-	m_stageBackGroundGolePosition = m_stageBackGroundTransitionPosition[m_nowEhimePlace] - m_stageBackGroundCurrentPosition;
+	m_stageBackGroundGolePosition = m_stageBackGroundTransitionPosition[m_nowEhimePlace];
+
+	//各ステージ背景用のゴール位置の値を保存する配列にステージ背景用のゴール位置の変数を格納する
+	m_stageBackGroundGolePositionMemory[m_nowEhimePlace] = m_stageBackGroundGolePosition;
 }
 
 //現在の愛媛県の場所の設定
@@ -583,54 +629,106 @@ void Game::SetNowEhimePlace(const Vector3& pos)
 	if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Uwajima].x)
 	{
 		//鬼北町
-		//m_nowEhimePlace = enEhimePlace_Onihoku;
 		NowEhimePlaceTransition(enEhimePlace_Onihoku);
 	}
 	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Yawatahama].x)
 	{
 		//宇和島市
-		//m_nowEhimePlace = enEhimePlace_Uwajima;
 		NowEhimePlaceTransition(enEhimePlace_Uwajima);
 	}
 	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Oozu].x)
 	{
 		//八幡浜市
-		//m_nowEhimePlace = enEhimePlace_Yawatahama;
 		NowEhimePlaceTransition(enEhimePlace_Yawatahama);
 	}
 	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Iyo].x)
 	{
 		//大洲市
-		//m_nowEhimePlace = enEhimePlace_Ooze;
 		NowEhimePlaceTransition(enEhimePlace_Oozu);
 	}
 	else
 	{
 		//伊予市
-		//m_nowEhimePlace = enEhimePlace_Iyo;
 		NowEhimePlaceTransition(enEhimePlace_Iyo);
 	}
 }
 
-// 愛媛県での現在位置を切り替える
+//愛媛県での現在位置を切り替える
 void Game::NowEhimePlaceTransition(EnEhimePlace enEhimePlace)
 {
-	//愛媛県での現在位置が引数と異なっていたら処理する
-	if (m_nowEhimePlace != enEhimePlace)
+	//愛媛県での前の位置が引数と異なっていたら処理する
+	if (m_previousEhimePlace != enEhimePlace)
 	{
 		//現在位置の切り替え
 		m_nowEhimePlace = enEhimePlace;
 
-		//ステージ背景用の現在位置の更新
-		UpdateStageBackGroundCurrentPosition();
-
-		//現在位置の設定
-		m_stageBackGround[m_nowEhimePlace].SetCurrentPosition(m_stageBackGroundCurrentPosition);
-
-		//ステージ背景用のゴール位置の更新
-		UpdateStageBackGroundGolePosition();
-
-		//ゴール位置の設定
-		m_stageBackGround[m_nowEhimePlace].SetGoalPosition(m_stageBackGroundGolePosition);
+		//プレイヤーがリスポーンしていないとき
+		if (!m_player->IsPlayerRespawn())
+		{
+			//ステージ背景を遷移する
+			m_stageBackGroundTransitionFlag = true;
+		}
+		//プレイヤーがリスポーンしているとき
+		else
+		{
+			//前の位置の切り替え
+			m_previousEhimePlace = m_nowEhimePlace;
+		}
 	}
+
+	//ステージ背景を遷移するフラグが立っているとき
+	if (m_stageBackGroundTransitionFlag == true)
+	{
+		//ステージ背景の遷移
+		StageBackGoundTransition(enEhimePlace);
+	}
+
+	//愛媛県の場所を描画するUIの更新
+	m_ehimePlaceDrawingUI = enEhimePlace;
+
+	//愛媛県の名所を描画するUIの更新
+	m_ehimeFamousPlaceDrawingUI = enEhimePlace;
+}
+
+//ステージ背景の遷移
+void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
+{
+	//愛媛県での前の位置が引数と異なっていたら
+	if (m_previousEhimePlace != enEhimePlace)
+	{
+		//遷移用のステージ背景を透明にする
+		m_stageBackGroundTransitionAlpha -= g_gameTime->GetFrameDeltaTime() * 2.0f;
+	}
+	//愛媛県での前の位置が引数と同じなら
+	else
+	{
+		//遷移用のステージ背景を不透明にする
+		m_stageBackGroundTransitionAlpha += g_gameTime->GetFrameDeltaTime() * 2.0f;
+	}
+
+	//遷移用のステージ背景が透明または不透明になったら
+	if (m_stageBackGroundTransitionAlpha < 0.0f || m_stageBackGroundTransitionAlpha > 1.0f)
+	{
+		//遷移用のステージ背景の透明度を元の値に戻す
+		m_stageBackGroundTransitionAlpha = 1.0f;
+
+		//遷移用のステージ背景(前の背景)の乗算カラーの設定
+		m_stageBackGroundTransition[m_previousEhimePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
+
+		//愛媛県での前の位置が引数と同じなら
+		if (m_previousEhimePlace == enEhimePlace)
+		{
+			//現在位置の切り替え
+			m_nowEhimePlace = enEhimePlace;
+		}
+
+		//前の位置の切り替え
+		m_previousEhimePlace = m_nowEhimePlace;
+
+		//ステージ背景の遷移を終了
+		m_stageBackGroundTransitionFlag = false;
+	}
+
+	//遷移用のステージ背景の乗算カラーの設定
+	m_stageBackGroundTransition[m_previousEhimePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
 }
