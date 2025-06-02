@@ -60,7 +60,7 @@ void StageClear::UpdateStageClearSpriteEasing()
 		//1.0秒経過したらステージクリア演出を終了する。
 		if (g_gameTime->StopWatch(1.0f))
 		{
-			//ステージクリア演出を終了。
+			//ステージクリア演出を終了する。
 			m_stageClearDirectionFinishFlag = true;
 		}
 		return;

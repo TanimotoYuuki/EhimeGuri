@@ -420,7 +420,7 @@ void GameClear::SpriteMove()
 		if (m_rankUIAlphaColor > 1.0f)
 		{
 			m_rankUIAlphaColor = 1.0f;
-			//ゲームクリア演出を終了。
+			//ゲームクリア演出を終了する。
 			m_gameClearDirectionFlag = true;
 			return;
 		}

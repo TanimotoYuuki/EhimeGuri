@@ -20,6 +20,13 @@ void Checpoint::Update()
 	m_modelRender.SetPosition(position);
 	m_modelRender.Update();
 
+	Vector3 diff;
+	diff.x = position.x - m_player->m_position.x;
+	if (diff.Length() < 20.0f)
+	{
+		m_player->checcount = 1;
+		DeleteGO(this);
+	}
 }
 void Checpoint::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);

@@ -124,6 +124,7 @@ namespace nsK2EngineLow
 			bool  scrollFlag = false;			//背景をスクロールするか?
 			float screenEdgeCorrection = 0.0f;	//画像の画面端補正
 			float rate = 0.0f;					//割合
+			float texelSize = 0.0f;				//テクセルサイズ
 		};
 
 		/// <summary>
@@ -169,6 +170,15 @@ namespace nsK2EngineLow
 			{
 				m_backGroundConstantBuffer.rate = 0.0f;
 			}
+		}
+
+		/// <summary>
+		/// テクセルサイズの設定
+		/// </summary>
+		/// <param name="texelSize">テクセルサイズ</param>
+		void SetTexelSize(float texelSize)
+		{
+			m_backGroundConstantBuffer.texelSize = texelSize;
 		}
 
 		/// <summary>
