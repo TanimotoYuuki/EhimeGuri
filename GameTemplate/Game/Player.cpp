@@ -32,7 +32,10 @@ Player::Player() {
 
 	m_position = { 0.0f,94.0f,0.0f };
 
-	//初期位置の設定
+	// ゴールポールの位置。
+//	m_position = { 17300.0f, 700.0f, 0.0f };
+
+	//初期位置の設定。
 	m_initPosition = m_position;
 
 	m_characterController.Init(25.0f, 100.0f, m_position);
@@ -48,19 +51,19 @@ Player::~Player() {
 }
 
 void Player::Update() {
-	//ItemEnemyクラスの検索が終わっていないときに処理する
+	//ItemEnemyクラスの検索が終わっていないときに処理する。
 	if (m_itemEnemyFindGoCompleteFlag != true)
 	{
-		//ItemEnemyクラスの検索
+		//ItemEnemyクラスの検索。
 		ItemEnemyFindGO();
 	}
 
 	if (checcount == 0) {
-		//リスポーン地点の設定
+		//リスポーン地点の設定。
 		SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
 	}
 	else if (checcount == 1) {
-		//リスポーン地点の設定
+		//リスポーン地点の設定。
 		SetRespawnPositon(Vector3{ 10300.0f,120.0f,0.0f });
 	}
 
@@ -82,7 +85,7 @@ void Player::Update() {
 	m_modelRender.Update();
 	
 }
-//ItemEnemyクラスの検索
+//ItemEnemyクラスの検索。
 void Player::ItemEnemyFindGO()
 {
 	m_itemEnemy = FindGO<ItemEnemy>("itemenemy");
@@ -139,16 +142,16 @@ void Player::Move() {
 	
 	m_moveSpeed.y -= glavity;
 
-	//ゲームクリアまたはゲームオーバーではないとき処理する
+	//ゲームクリアまたはゲームオーバーではないとき処理する。
 	if (m_stageClearFlag != true && m_gameOverFlag != true)
 	{
-		//一定の高さまで落ちたらリスポーンする
+		//一定の高さまで落ちたらリスポーンする。
 		if (m_position.y <= -500.0f) {
 			PlayerRespawn();
 			return;
 		}
 		
-		//複数のEnemyクラスの検索
+		//複数のEnemyクラスの検索。
 		const auto& enemys = FindGOs<Enemy>("enemy");
 		for (auto enemy : enemys)
 		{
@@ -161,7 +164,7 @@ void Player::Move() {
 			}
 		}
 
-		//アイテムをドロップする敵がプレイヤーに触れたらリスポーンする
+		//アイテムをドロップする敵がプレイヤーに触れたらリスポーンする。
 		if (m_itemEnemy->m_touchPlayerFlag == true)
 		{
 			PlayerRespawn();
@@ -169,7 +172,7 @@ void Player::Move() {
 			return;
 		}
 
-		//プレイヤーのリスポーンが終わったらリスポーン用フラグをfalseにする
+		//プレイヤーのリスポーンが終わったらリスポーン用フラグをfalseにする。
 		if (IsPlayerRespawn())
 		{
 			m_respawnFlag = false;

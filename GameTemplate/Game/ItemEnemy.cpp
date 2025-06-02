@@ -100,7 +100,7 @@ void ItemEnemy::Update() {
 			m_mikan->m_position.y = m_position.y + 45.0f;
 		}
 		else {
-			//プレイヤーに触れた
+			//プレイヤーに触れた。
 			m_touchPlayerFlag = true;
 		}
 	}

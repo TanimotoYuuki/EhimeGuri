@@ -4,56 +4,56 @@
 #include "Player.h"
 namespace
 {
-	//ブロックの表面
-	const Vector3 BLOCKSURFACE_COLLISION_HEIGHT(0.0f, 51.0f, 0.0f);		//高さ
-	const Vector3	BLOCKSURFACE_COLLISION_SIZE(100.0f, 100.0f, 25.0f);	//大きさ
-	//ブロックの底面
-	const Vector3 BLOCKBOTTOM_COLLISION_HEIGHT(0.0f, 0.0f, 0.0f);		//高さ
-	const Vector3 BLOCKBOTTOM_COLLISION_SIZE(100.0f, 0.0f, 25.0f);		//大きさ
-	//ブロックを叩ける距離
-	float BLOCK_TOUCH_DISTANCE = 50.0f;							//距離
-	//透明ブロックをーが叩いたときの動き
-	Vector3 BLOCK_TOUCH_MOVE = Vector3(0.0f, 500.0f, 0.0f);		//動き
+	//ブロックの表面。
+	const Vector3 BLOCKSURFACE_COLLISION_HEIGHT(0.0f, 51.0f, 0.0f);		//高さ。
+	const Vector3 BLOCKSURFACE_COLLISION_SIZE(100.0f, 100.0f, 25.0f);	//大きさ。
+	//ブロックの底面。
+	const Vector3 BLOCKBOTTOM_COLLISION_HEIGHT(0.0f, 0.0f, 0.0f);		//高さ。
+	const Vector3 BLOCKBOTTOM_COLLISION_SIZE(100.0f, 0.0f, 25.0f);		//大きさ。
+	//ブロックを叩ける距離。
+	float BLOCK_TOUCH_DISTANCE = 50.0f;							//距離。
+	//透明ブロックをーが叩いたときの動き。
+	Vector3 BLOCK_TOUCH_MOVE = Vector3(0.0f, 500.0f, 0.0f);		//動き。
 }
 
-//開始処理
+//開始処理。
 bool TransparentBlock::Start()
 {
-	//透明ブロック
-	//0 透明ブロックの初期化
+	//透明ブロック。
+	//0 透明ブロックの初期化。
 	string modelPath = m_config-> GetFullPath_3DModel("TRANSPARENTBLOCLK");// ファイルパスを読み込む。
 	m_transparentBlockModel.IniTranslucent(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
-	//0.1 透明ブロックの座標の設定
+	//0.1 透明ブロックの座標の設定。
 	m_transparentBlockModel.SetPosition(m_position);
-	//0.2 透明ブロックの更新
+	//0.2 透明ブロックの更新。
 	m_transparentBlockModel.Update();
-	//0.3 モデルを透明に設定
+	//0.3 モデルを透明に設定。
 	m_transparentBlockModel.SetAlpha(0.0f);
 
-	//ブロックの表面のコリジョン
+	//ブロックの表面のコリジョン。
 	m_blockSurfaceCollision = NewGO<CollisionObject>(0, "collisionobject");
-	//ボックス形状のコリジョン作成
+	//ボックス形状のコリジョン作成。
 	m_blockSurfaceCollision->CreateBox
 	(
-		m_position + BLOCKSURFACE_COLLISION_HEIGHT,	//位置
-		Quaternion::Identity,						//回転
-		BLOCKSURFACE_COLLISION_SIZE					//大きさ
+		m_position + BLOCKSURFACE_COLLISION_HEIGHT,	//位置。
+		Quaternion::Identity,						//回転。
+		BLOCKSURFACE_COLLISION_SIZE					//大きさ。
 	);
 	m_blockSurfaceCollision->SetIsEnableAutoDelete(false);
 
-	//ブロックの底面のコリジョン
+	//ブロックの底面のコリジョン。
 	m_blockBottomCollision = NewGO<CollisionObject>(0, "collisionobject");
-	//ボックス形状のコリジョン作成
+	//ボックス形状のコリジョン作成。
 	m_blockBottomCollision->CreateBox
 	(
-		m_position,						//位置
-		Quaternion::Identity,			//回転
-		BLOCKBOTTOM_COLLISION_SIZE		//大きさ
+		m_position,						//位置。
+		Quaternion::Identity,			//回転。
+		BLOCKBOTTOM_COLLISION_SIZE		//大きさ。
 	);
 	m_blockBottomCollision->SetIsEnableAutoDelete(false);
 
-	//インスタンス
-	//0 プレイヤー
+	//インスタンス。
+	//0 プレイヤー。
 	m_player = FindGO<Player>("player");
 	return true;
 }
@@ -61,59 +61,59 @@ bool TransparentBlock::Start()
 //更新処理
 void TransparentBlock::Update()
 {
-	//透明ブロックを叩く用距離(X軸)の計算
+	//透明ブロックを叩く用距離(X軸)の計算。
 	m_blockTouchDistanceX.x = m_player->m_position.x - m_position.x;
 
-	//透明ブロックを叩いていないとき
+	//透明ブロックを叩いていないとき。
 	if (m_blockTouchFlag != true)
 	{
-		//X軸で一定の距離まで行っていたら
+		//X軸で一定の距離まで行っていたら。
 		if (m_blockTouchDistanceX.Length() < BLOCK_TOUCH_DISTANCE)
 		{
 			//ブロックの表面のコリジョンが衝突していない状態で
-			//プレイヤーとブロックの底面のコリジョンが衝突したらプレイヤーが落下するかつモデルを不透明にする
+			//プレイヤーとブロックの底面のコリジョンが衝突したらプレイヤーが落下するかつモデルを不透明にする。
 			if (m_blockSurfaceCollision->IsHit(m_player->GetCharacterController()) == false &&
 				m_blockBottomCollision->IsHit(m_player->GetCharacterController()) == true
 				)
 			{
-				//ブロックに当たった時のプレイヤーの動き
+				//ブロックに当たった時のプレイヤーの動き。
 				m_player->m_moveSpeed.y = m_position.y - BLOCK_TOUCH_MOVE.y;
 
-				//求めた落下速度の値がプラスなら反転する
+				//求めた落下速度の値がプラスなら反転する。
 				if (m_player->m_moveSpeed.y > 0.0f)
 				{
 					m_player->m_moveSpeed.y *= -1.0f;
 				}
 
-				//モデルを不透明にする
+				//モデルを不透明にする。
 				m_transparentBlockModel.SetAlpha(1.0f);
 
-				//ブロックを叩いた
+				//ブロックを叩いた。
 				m_blockTouchFlag = true;
 
 				//当たり判定が作られていないか？
 				if (m_collisionCreatFlag != true)
 				{
-					//当たり判定の作成
+					//当たり判定の作成。
 					m_physicsStaticObject.CreateFromModel(m_transparentBlockModel.GetModel(), m_transparentBlockModel.GetModel().GetWorldMatrix());
 					m_collisionCreatFlag = true;
 				}
 			}
 		}
 	}
-	//透明ブロックを叩いているとき
+	//透明ブロックを叩いているとき。
 	else
 	{
-		//X軸で一定の距離まで行っていたら
+		//X軸で一定の距離まで行っていたら。
 		if (m_blockTouchDistanceX.Length() < BLOCK_TOUCH_DISTANCE)
 		{
-			//プレイヤーとブロックの底面のコリジョンが衝突したらプレイヤーが落下する
+			//プレイヤーとブロックの底面のコリジョンが衝突したらプレイヤーが落下する。
 			if (m_blockBottomCollision->IsHit(m_player->GetCharacterController()) == true)
 			{
-				//ブロックに当たった時のプレイヤーの動き
+				//ブロックに当たった時のプレイヤーの動き。
 				m_player->m_moveSpeed.y = m_position.y - BLOCK_TOUCH_MOVE.y;
 
-				//求めた落下速度の値がプラスなら反転する
+				//求めた落下速度の値がプラスなら反転する。
 				if (m_player->m_moveSpeed.y > 0.0f)
 				{
 					m_player->m_moveSpeed.y *= -1.0f;
@@ -123,9 +123,9 @@ void TransparentBlock::Update()
 	}
 }
 
-//描画処理
+//描画処理。
 void TransparentBlock::Render(RenderContext& rc)
 {
-	//透明ブロック
+	//透明ブロック。
 	m_transparentBlockModel.Draw(rc);
 }

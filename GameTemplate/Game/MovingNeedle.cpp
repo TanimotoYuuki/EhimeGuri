@@ -33,7 +33,7 @@ bool MovingNeedle::Start()
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
-	//コリジョンを動く床に設置
+	//コリジョンを動く床に設置。
 	m_collisionObject->CreateBox
 	(
 		m_needlePosition + COLLISION_HEIGHT,

@@ -30,11 +30,11 @@ public:
 	/// <summary>
 	/// LevelObject。
 	/// </summary>
-	Stage2* m_stage2;// ステージ2
-	Config* m_filePathConfig;// ファイルパス。
-	FallingFloor* m_fallingFloor;// 落下する床。
-	MovingNeedle* m_movingNeedle;// 動く針。
-	RotationFloor* m_rotationFloor;// 回転する床
+	Stage2* m_stage2 = nullptr;// ステージ2
+	Config* m_filePathConfig = nullptr;// ファイルパス。
+	FallingFloor* m_fallingFloor = nullptr;// 落下する床。
+	MovingNeedle* m_movingNeedle = nullptr;// 動く針。
+	RotationFloor* m_rotationFloor = nullptr;// 回転する床
 
 private:
 	ModelRender m_modelRender;// モデルの描画。

@@ -13,7 +13,7 @@ bool Stage1::Start()
 
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
-	//当たり判定を作成
+	//当たり判定を作成。
 	m_physicsSraricObject.CreateFromModel(m_backGroundRender.GetModel(), m_backGroundRender.GetModel().GetWorldMatrix());
 
 	return true;

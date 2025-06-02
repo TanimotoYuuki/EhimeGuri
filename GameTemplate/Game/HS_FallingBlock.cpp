@@ -12,6 +12,7 @@ namespace
 	const float LIMITED = 2000.0f;
 }
 
+// 初期化処理。
 bool HS_FallingBlock::Start()
 {
 	string modelPath = m_config-> GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。

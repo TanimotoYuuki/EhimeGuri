@@ -22,8 +22,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
 
-	// TitleのNewGO
-//	NewGO<Title>(0, "title");
 
 	// シーンのNewGO
 	NewGO<Scene>(0, "scene");
@@ -31,7 +29,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここからゲームループ。
 	while (DispatchWindowMessage() && g_gameLoop.m_isLoop ==true)
 	{
-		// SceneManagerの更新処理を呼び出す。
 
 
 		// フレームの開始時に呼び出す必要がある処理を実行
