@@ -12,153 +12,153 @@ namespace
 	int SELECT_DOWN = 1;
 }
 
-//デストラクタ
+//デストラクタ。
 Title::~Title()
 {
 	DeleteGO(m_skyCube);
 	DeleteGO(m_fade);
 }
 
-//開始処理
+//開始処理。
 bool Title::Start()
 {
-	//スカイキューブの初期化
+	//スカイキューブの初期化。
 	InitSky();
 
-	//アニメーションの初期化
+	//アニメーションの初期化。
 	InitAnimation();
 
-	//モデルの初期化
+	//モデルの初期化。
 	InitModel();
 
-	//スプライトの初期化
+	//スプライトの初期化。
 	InitSprite();
 
-	//カメラの初期化
+	//カメラの初期化。
 	InitCamera();
 
-	//ライトカメラの注視点の設定
+	//ライトカメラの注視点の設定。
 	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
 
-	//インスタンス
-	//0 フェード
+	//インスタンス。
+	//0 フェード。
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
-	//フェードをフェードインに切り替える
+	//フェードをフェードインに切り替える。
 	m_fade->FadeTransition(enFadeState_FadeIn);
 
 	return true;
 }
 
-//更新処理
+//更新処理。
 void Title::Update()
 {
-	//フェードインが終わっていなかったら
+	//フェードインが終わっていなかったら。
 	if (m_fadeInFinishFlag != true)
 	{
-		//1.0秒経過したらフェードインを終了する
+		//1.0秒経過したらフェードインを終了する。
 		if (g_gameTime->StopWatch(1.0f) == true)
 		{
 			m_fadeInFinishFlag = true;
 		}
 	}
-	//フェードインが終わったら
+	//フェードインが終わったら。
 	else if (m_fadeInFinishFlag == true)
 	{
-		//プレイヤー側の操作
+		//プレイヤー側の操作。
 		Action();
 
-		//スプライトの動作
+		//スプライトの動作。
 		SpriteMove();
 	}
 
-	//ステージモデルの動作
+	//ステージモデルの動作。
 	BackGroundModelMove();
 
-	//ゲームスタートフラグが立っているとき
+	//ゲームスタートフラグが立っているとき。
 	if (m_gameStartFlag == true)
 	{
-		//プレイヤーモデルの動作
+		//プレイヤーモデルの動作。
 		PlayerModelMove();
 	}
 
-	//カメラの更新
+	//カメラの更新。
 	UpdateCamera();
 
-	//アニメーション管理
+	//アニメーション管理。
 	AnimationManage();
 
-	//アニメーション再生
+	//アニメーション再生。
 	PlayAnimation();
 
-	//モデルの更新
+	//モデルの更新。
 	m_playerModel.Update();
 	m_backGroundModel[enBackGroundModel_Base].Update();
 	m_backGroundModel[enBackGroundModel_Grass].Update();
 
-	//ライトカメラの更新
+	//ライトカメラの更新。
 	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
 }
 
-//描画処理
+//描画処理。
 void Title::Render(RenderContext& rc)
 {
-	//ステージモデル
+	//ステージモデル。
 	m_backGroundModel[enBackGroundModel_Base].Draw(rc);
 	m_backGroundModel[enBackGroundModel_Grass].Draw(rc);
 
-	//プレイヤーモデル
+	//プレイヤーモデル。
 	m_playerModel.Draw(rc);
 
 	//ゲーム開始フラグが立っていないかつ遊び方用の画面に遷移していないか?
 	if (m_gameStartFlag != true && m_titleTransition != enTitleTransition_HowToPlay)
 	{
-		//タイトル背景
+		//タイトル背景。
 		m_titleBackGround.Draw(rc);
 	}
 
-	//フェードインが終わっていたら描画する
+	//フェードインが終わっていたら描画する。
 	if (m_fadeInFinishFlag == true)
 	{
-		//タイトル画面遷移
+		//タイトル画面遷移。
 		switch (m_titleTransition)
 		{
-		case enTitleTransition_Title: //タイトル
-			//Aボタンを押すUI
+		case enTitleTransition_Title: //タイトル。
+			//Aボタンを押すUI。
 			m_pressAButtonUI.Draw(rc);
 			break;
-		case enTitleTransition_ModeSelect: //モード選択
+		case enTitleTransition_ModeSelect: //モード選択。
 			//ゲーム開始フラグが立っていないか？
 			if (m_gameStartFlag != true)
 			{
-				//モード選択UI
+				//モード選択UI。
 				m_modeUI[enModeSelect_Start].Draw(rc);
 				m_modeUI[enModeSelect_HowToPlay].Draw(rc);
 				m_modeUI[enModeSelect_Shutdown].Draw(rc);
 				
-				//ゲームパッドUI
+				//ゲームパッドUI。
 				m_gamePadUI[enGamePad_DPad].Draw(rc);
 				m_gamePadUI[enGamePad_AButton].Draw(rc);
 				m_gamePadUI[enGamePad_BButton].Draw(rc);
 
-				//選択UI
+				//選択UI。
 				m_selectUI.Draw(rc);
 
-				//決定UI
+				//決定UI。
 				m_decisionUI.Draw(rc);
 
-				//戻るUI
+				//戻るUI。
 				m_returnUI.Draw(rc);
 			}
 			break;
-		case enTitleTransition_HowToPlay: //遊び方
-			//遊び方UI
+		case enTitleTransition_HowToPlay: //遊び方。
+			//遊び方UI。
 			m_howToPlayUI.Draw(rc);
 
-			//ゲームパッドUI
+			//ゲームパッドUI。
 			m_gamePadUI[enGamePad_AButton].Draw(rc);
 
-			//戻るUI
+			//戻るUI。
 			m_returnUI.Draw(rc);
 			break;
 		default:

@@ -30,7 +30,7 @@ public:
 		return m_position;
 	}
 private:
-	Config* m_filePathConfig;
+	Config* m_filePathConfig = nullptr;
 	ModelRender m_modelRender;// モデル。
 	Vector3 m_position;
 

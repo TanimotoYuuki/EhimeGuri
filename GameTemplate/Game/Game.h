@@ -187,20 +187,20 @@ private:
 	/// <summary>
 	/// ブロック。
 	/// </summary>
-	Block* m_block;
-	Block* m_block1;
-	Block* m_block2;
-	Block* m_block3;
-	Block* m_block4;
+	Block* m_block = nullptr;
+	Block* m_block1 = nullptr;
+	Block* m_block2 = nullptr;
+	Block* m_block3 = nullptr;
+	Block* m_block4 = nullptr;
 	/// <summary>
 	/// 第1ステージ。
 	/// </summary>
-	Stage1* m_stage1;
+	Stage1* m_stage1 = nullptr;
 	/// <summary>
 	/// クリアポイント。
 	/// </summary>
-	ClearPoint* m_clearPoint;
-	Config* m_config;
+	ClearPoint* m_clearPoint = nullptr;
+	Config* m_config = nullptr;
 	/// <summary>
 	/// エネミー。
 	/// </summary>
@@ -208,93 +208,93 @@ private:
 	/// <summary>
 	/// 落ちる床。
 	/// </summary>
-	FallingBlock* m_fallingBlock;
-	FallingBlock* m_fallingBlock1;
-	FallingBlock* m_fallingBlock2;
-	FallingBlock* m_fallingBlock3;
+	FallingBlock* m_fallingBlock = nullptr;
+	FallingBlock* m_fallingBlock1 = nullptr;
+	FallingBlock* m_fallingBlock2 = nullptr;
+	FallingBlock* m_fallingBlock3 = nullptr;
 	/// <summary>
 	/// プレイヤー。
 	/// </summary>
-	Player			  * m_player;
+	Player* m_player = nullptr;
 	/// <summary>
 	/// ゲーム。
 	/// </summary>
-	Game* m_game;
+	Game* m_game = nullptr;
 	/// <summary>
 	/// ゲームーバー。
 	/// </summary>
-	GameOver* m_gameOver;
+	GameOver* m_gameOver = nullptr;
 	/// <summary>
 	/// ステージクリア。
 	/// </summary>
-	StageClear* m_stageClear;
+	StageClear* m_stageClear = nullptr;
 	/// <summary>
 	/// ゲームカメラ。
 	/// </summary>
-	GameCamera* m_gameCamera;
+	GameCamera* m_gameCamera = nullptr;
 	/// <summary>
 	/// 落下速度の速い床。
 	/// </summary>
-	HS_FallingBlock* m_HS_FallingBlock;
+	HS_FallingBlock* m_HS_FallingBlock = nullptr;
 	/// <summary>
 	/// 針。
 	/// </summary>
-	movingNeedle* m_needle;
+	movingNeedle* m_needle = nullptr;
 	/// <summary>
 	/// 足場ブロック。
 	/// </summary>
-	ScaffoldBlock* m_scaffoldBlock;
-	Scaffold* m_scaffold;
-	Scaffold* m_scaffold1;
+	ScaffoldBlock* m_scaffoldBlock = nullptr;
+	Scaffold* m_scaffold = nullptr;
+	Scaffold* m_scaffold1 = nullptr;
 	/// <summary>
 	/// 落下速度の遅い床。
 	/// </summary>
-	S_MovingFloor* m_s_MovingFloor;
-	S_MovingFloor* m_s_MovingFloor1;
-	S_MovingFloor* m_s_MovingFloor2;
-	S_MovingFloor* m_s_MovingFloor3;
+	S_MovingFloor* m_s_MovingFloor = nullptr;
+	S_MovingFloor* m_s_MovingFloor1 = nullptr;
+	S_MovingFloor* m_s_MovingFloor2 = nullptr;
+	S_MovingFloor* m_s_MovingFloor3 = nullptr;
 	/// <summary>
 	/// 動く床。
 	/// </summary>
-	MovingFloor* m_movingFloor;
-	MovingFloor* m_movingFloor1;
-	MovingFloor* m_movingFloor2;
+	MovingFloor* m_movingFloor = nullptr;
+	MovingFloor* m_movingFloor1 = nullptr;
+	MovingFloor* m_movingFloor2 = nullptr;
 	/// <summary>
 	/// 透明ブロック。
 	/// </summary>
-	TransparentBlock* m_transparentBlock;
-	TransparentBlock* m_transparentBlock1;
-	TransparentBlock* m_transparentBlock2;
-	TransparentBlock* m_transparentBlock3;
-	TransparentBlock* m_transparentBlock4;
-	TransparentBlock* m_transparentBlock5;
-	TransparentBlock* m_transparentBlock6;
-	TransparentBlock* m_transparentBlock7;
-	TransparentBlock* m_transparentBlock8;
-	TransparentBlock* m_transparentBlock9;
-	TransparentBlock* m_transparentBlock10;
-	TransparentBlock* m_transparentBlock11;
+	TransparentBlock* m_transparentBlock = nullptr;
+	TransparentBlock* m_transparentBlock1 = nullptr;
+	TransparentBlock* m_transparentBlock2 = nullptr;
+	TransparentBlock* m_transparentBlock3 = nullptr;
+	TransparentBlock* m_transparentBlock4 = nullptr;
+	TransparentBlock* m_transparentBlock5 = nullptr;
+	TransparentBlock* m_transparentBlock6 = nullptr;
+	TransparentBlock* m_transparentBlock7 = nullptr;
+	TransparentBlock* m_transparentBlock8 = nullptr;
+	TransparentBlock* m_transparentBlock9 = nullptr;
+	TransparentBlock* m_transparentBlock10 = nullptr;
+	TransparentBlock* m_transparentBlock11 = nullptr;
 	/// <summary>
 	/// タオル。
 	/// </summary>
-	Towel* m_towel;
+	Towel* m_towel = nullptr;
 	/// <summary>
 	/// フェード。
 	/// </summary>
-	Fade* m_fade;
+	Fade* m_fade= nullptr;
 	/// <summary>
 	/// アイテム類。
 	/// </summary>
-	ItemEnemy* m_itemenemy;// 敵のアイテム。
-	Tobeyaki* m_tobeyaki;// 砥部焼。
-	sinju* m_sinju;// 真珠。
-	Mikan* m_mikan;// みかん。
-	Jako* m_jako;// じゃこ天。
-	Taruto* m_taruto;// タルト。
+	ItemEnemy* m_itemenemy = nullptr;// 敵のアイテム。
+	Tobeyaki* m_tobeyaki = nullptr;// 砥部焼。
+	sinju* m_sinju = nullptr;// 真珠。
+	Mikan* m_mikan = nullptr;// みかん。
+	Jako* m_jako = nullptr;// じゃこ天。
+	Taruto* m_taruto = nullptr;// タルト。
 	/// <summary>
 	/// チェックポイント。
 	/// </summary>
-	Checpoint* m_checpoint;
+	Checpoint* m_checpoint = nullptr;
 	
 	/// <summary>
 	/// フォントレンダー。
@@ -302,8 +302,8 @@ private:
 	FontRender m_timerRender;
 	FontRender m_fontRender;
 
-	ModelRender         m_backGroundRender;
-	ModelRender	        m_modelRender;
+	ModelRender m_backGroundRender;
+	ModelRender	m_modelRender;
 
 	PhysicsStaticObject m_physicsStaticObject;
 	
@@ -333,39 +333,52 @@ private:
 	/// <param name="enEhimePlace">愛媛県の場所</param>
 	void NowEhimePlaceTransition(EnEhimePlace enEhimePlace);
 	/// <summary>
+	/// ステージ背景の遷移
+	/// </summary>
+	/// <param name="enEhimePlace">愛媛県の場所</param>
+	void StageBackGoundTransition(EnEhimePlace enEhimePlace);
+	/// <summary>
 	/// スタミナ。
 	/// </summary>
-	Sutaminastate       m_PlayerSutaminaSutate = SutaminaMax;
+	Sutaminastate m_PlayerSutaminaSutate = SutaminaMax;
 	/// <summary>
 	/// スプライトレンダー。
 	/// </summary>
-	SpriteRender        m_sutaminaMaxrender;
-	SpriteRender        m_sutamina0render;
-	SpriteRender        m_mappuRender;
-	SpriteRender        m_gennzaitiRender;
-	SpriteRender        m_taorutoriRender;
-	SpriteRender        m_taorukuroRender;
-	SpriteRender        m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
-	SpriteRender		m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
+	SpriteRender m_sutaminaMaxrender;
+	SpriteRender m_sutamina0render;
+	SpriteRender m_mappuRender;
+	SpriteRender m_gennzaitiRender;
+	SpriteRender m_taorutoriRender;
+	SpriteRender m_taorukuroRender;
+	SpriteRender m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
+	SpriteRender m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
 	/// <summary>
 	/// バックグラウンドレンダー。
 	/// </summary>
 	BackGroundRender	m_stageBackGround[enEhimePlace_Num];//ステージ背景
+	BackGroundRender    m_stageBackGroundTransition[enEhimePlace_Num];//遷移用のステージ背景
 	/// <summary>
 	/// 座標。
 	/// </summary>
 	Vector3 m_stageBackGroundTransitionPosition[enEhimePlace_Num];//ステージ背景用の遷移位置
 	Vector3 m_stageBackGroundInitPosition;//ステージ背景用の初期位置
 	Vector3 m_stageBackGroundCurrentPosition;//ステージ背景用の現在位置
+	Vector3 m_stageBackGroundCurrentPositionMemory[enEhimePlace_Num];//各ステージ背景用の現在位置の値を保存する配列
 	Vector3 m_stageBackGroundGolePosition;//ステージ背景用のゴール位置
+	Vector3 m_stageBackGroundGolePositionMemory[enEhimePlace_Num];//各ステージ背景用のゴール位置の値を保存する配列
 	Vector3	m_ehimePlacePosition;//愛媛県の場所の座標
 	Vector3	m_ehimeFamousPlacePosition;//愛媛県の名所の座標
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
 	float m_timer = 180.0f;// タイマー。
+	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
+	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
 	bool drawFlag = true;// 描画フラグ。
-	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置 
+	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
+	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
+	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
+	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
 	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス

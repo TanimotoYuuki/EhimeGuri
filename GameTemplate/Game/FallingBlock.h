@@ -37,7 +37,7 @@ public:
 		return m_position;
 	}
 
-	Config* m_config;
+	Config* m_config = nullptr;
 	Vector3 m_position;
 	Vector3	m_firstposition;
 	Vector3	fallingSpeed;
@@ -47,9 +47,9 @@ public:
 	ModelRender m_modelRender;
 	ModelRender	m_HightSpeedFallingBlock_Render;
 	PhysicsStaticObject	m_physicsStaticObject;
-	Player* m_player;
-	MovingFloor* m_movingFloor;
-	GameOver* m_gameOver;
+	Player* m_player = nullptr;
+	MovingFloor* m_movingFloor = nullptr;
+	GameOver* m_gameOver = nullptr;
 
 
 private:

@@ -15,7 +15,7 @@ public:
 	void Update();// 更新作業。
 	void Render(RenderContext& rc);// 描画処理。
 
-	Config* m_config;
+	Config* m_config = nullptr;
 	CollisionObject* m_collisionObject;
 	ModelRender m_modelRender;
 	Vector3 m_position;

@@ -27,11 +27,11 @@ public:
 		m_position = position;
 	}
 		
-	Config* m_config;
+	Config* m_config = nullptr;
 	ModelRender m_modelRender;
 	Vector3 m_position;
 	Vector3 m_firstposition;
 	Quaternion m_Rot;
-	Player* m_player;
+	Player* m_player = nullptr;
 };
 

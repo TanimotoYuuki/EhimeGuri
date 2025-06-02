@@ -28,23 +28,23 @@ public:
 		m_needlePosition = position;
 	}
 	/// <summary>
-    /// 座標を取得
+    /// 座標を取得。
     /// </summary>
 	const Vector3& GetPosition()const
 	{
 		return m_needlePosition;
 	}
 
-	Config* m_config;
+	Config* m_config = nullptr;
 	Vector3	firstposition;
 	Vector3	m_needlePosition;
 	ModelRender m_modelRender;
 	Quaternion m_rotation;
 	SpriteRender m_spriteRender;
-	MovingFloor* m_movingFloor;
-	GameOver* m_gameOver;
-	Fade* m_fade;
-	Player* m_player;
+	MovingFloor* m_movingFloor = nullptr;
+	GameOver* m_gameOver = nullptr;
+	Fade* m_fade = nullptr;
+	Player* m_player = nullptr;
 	PhysicsStaticObject physicsStaticObject;
 	int m_needleCount = 0;
 	bool flag = true;
@@ -52,7 +52,7 @@ public:
 private:
 	CollisionObject* m_collisionObject = nullptr;
 
-	// 移動方向を決めるステート
+	// 移動方向を決めるステート。
 	enum enMovingFloorState
 	{
 		enMovingFloorState_MovingRight,// 左。

@@ -2,6 +2,8 @@
 #include "Title.h"
 #include "Stage1.h" 
 #include "Stage2.h"
+#include "Config.h"
+#include "StageClear.h"
 
 using namespace std;
 
@@ -46,7 +48,12 @@ public:
     bool Start() override;
 	void Update() override;
 
-	bool m_isGameClearFlag = false; // ゲームクリアフラグ
+
+
+private:
+    bool m_isGameClearFlag = false; // ゲームクリアフラグ
+    StageClear* m_stageClear = nullptr;
+    ClearPoint* m_clearPointInstance = nullptr; // クリアポイントのインスタンス
 
 };  
 
@@ -74,7 +81,6 @@ public:
 
 };   
 
-  
 class Scene_Manager : public IScene
 {
 private:
@@ -106,6 +112,15 @@ public:
     };
     SceneID requestSceneID = S_Title;
 
+    void SetIsClear(bool clear)
+    {
+        IsClear = clear;
+    }
 
+    const bool& GetIsClear()const
+    {
+        return IsClear;
+    }
+    bool IsClear = false;
 };
 

@@ -25,7 +25,7 @@ bool Scaffold::Start()
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
-	//コリジョンを動く床に設置
+	//コリジョンを動く床に設置。
 	m_collisionObject->CreateBox
 	(
 		m_position + COLLISION_HEIGHT,

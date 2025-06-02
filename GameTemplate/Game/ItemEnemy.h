@@ -31,12 +31,12 @@ public:
 	Vector3 movespeed;
 	int Enemystate = 0;
 	int Enemyanimationstate = 0;
-	Player* m_player;
-	Game* m_game;
-	GameOver* m_gameover;
-	Mikan* m_mikan;
-	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定
-	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定
+	Player* m_player = nullptr;
+	Game* m_game  =nullptr;
+	GameOver* m_gameover = nullptr;
+	Mikan* m_mikan = nullptr;
+	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定。
+	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定。
 	bool m_touchPlayerFlag = false;//プレイヤーに触れたか？
 };
 

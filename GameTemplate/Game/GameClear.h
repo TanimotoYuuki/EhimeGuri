@@ -1,18 +1,24 @@
 #pragma once
-/// <summary>
-/// ゲームクリア
-/// </summary>
+#include "GameClear.h"
+#include "GameOver.h"
+#include "ClearPoint.h"
+
+
 class Fade;
 class GameClear : public IGameObject
 {
+	/// <summary>
+    /// ゲームクリア。
+    /// </summary>
+
 public:
-	~GameClear();  //デストラクタ
-	bool Start();	//開始処理
-	void Update();  //更新処理
-	void Render(RenderContext& rc);  //描画処理
+	~GameClear();  //デストラクタ。
+	bool Start();	//開始処理。
+	void Update();  //更新処理。
+	void Render(RenderContext& rc);  //描画処理。
 
 	/// <summary>
-	/// 収集したアイテムの数を設定する
+	/// 収集したアイテムの数を設定する。
 	/// </summary>
 	/// <param name="gatheringItemNum">収集したアイテムの数</param>
 	void SetGatheringItemNum(int gatheringItemNum)
@@ -21,7 +27,7 @@ public:
 	}
 
 	/// <summary>
-	/// アイテムの総数を設定する
+	/// アイテムの総数を設定する。
 	/// </summary>
 	/// <param name="totalItemNum">アイテムの総数</param>
 	void SetTotalItemNum(int totalItemNum)
@@ -30,25 +36,39 @@ public:
 	}
 
 	/// <summary>
-	/// 収集率の計算
+	/// 収集率の計算。
 	/// </summary>
 	/// <param name="num">収集したアイテムの数</param>
 	/// <param name="totalNum">アイテムの総数</param>
 	void GatheringRate(int gatheringItemNum, int totalItemNum);
+	bool isClear = false;  //ゲームクリアフラグ
+	// ゲームクリアを設定する。
+	void SetIsClrar(bool clear)
+	{
+		isClear = clear;
+	}
+
+	// ゲームクリアを返す。
+	bool GetIsClear() const
+	{
+		return isClear;
+	}
+
+	
 
 private:
 	/// <summary>
-	/// カメラの初期化
+	/// カメラの初期化。
 	/// </summary>
 	void InitCamera();
 
 	/// <summary>
-	/// スプライトの初期化
+	/// スプライトの初期化。
 	/// </summary>
 	void InitSprite();
 
 	/// <summary>
-	/// モデルの初期化
+	/// モデルの初期化。
 	/// </summary>
 	void InitModel();
 
@@ -108,41 +128,41 @@ private:
 	}
 
 	/// <summary>
-	/// 順位を設定する
+	/// 順位を設定する。
 	/// </summary>
 	void SetRanking()
 	{
-		//順位を求める
+		//順位を求める。
 		int rank = m_totalItemNum - m_gatheringItemNum;
 
-		//順位を計算結果が0以下の場合
+		//順位を計算結果が0以下の場合。
 		if (rank <= 0)
 		{
-			//1位を描画する
+			//1位を描画する。
 			m_hundredPlace[enNumberDraw_Ranking] = enNumver_Zero;
 			m_tenPlace[enNumberDraw_Ranking] = enNumver_Zero;
 			m_onePlace[enNumberDraw_Ranking] = enNumver_One;
 			return;
 		}
 
-		//UIを表示するための計算
-		//百の位
+		//UIを表示するための計算。
+		//百の位。
 		m_hundredPlace[enNumberDraw_Ranking] = rank / 100;
 
-		//十の位
+		//十の位。
 		m_tenPlace[enNumberDraw_Ranking] = rank / 10;
 
-		//一の位
+		//一の位。
 		m_onePlace[enNumberDraw_Ranking] = rank % 10;
 	}
 
 	/// <summary>
-	/// 数字UIスプライトのファイルパスの取得
+	/// 数字UIスプライトのファイルパスの取得。
 	/// </summary>
 	/// <param name="num">数字</param>
 	void GetNumberUISpriteFilePath(int num)
 	{
-		//数字
+		//数字。
 		switch (num)
 		{
 		case enNumver_Zero:				//0
@@ -182,134 +202,134 @@ private:
 	}
 
 	/// <summary>
-	/// スプライトの動作
+	/// スプライトの動作。
 	/// </summary>
 	void SpriteMove();
 
 	/// <summary>
-	/// プレイヤー側の操作
+	/// プレイヤー側の操作。
 	/// </summary>
 	void Action();
 	
 	/// <summary>
-	/// プレイヤーモデルのアニメーション管理
+	/// プレイヤーモデルのアニメーション管理。
 	/// </summary>
 	void PlayerModelAnimationManage();
 
 	/// <summary>
-	/// プレイヤーモデルのアニメーション再生
+	/// プレイヤーモデルのアニメーション再生。
 	/// </summary>
 	void PlayerModelPlayAnimation();
 
-	//数字UI描画
+	//数字UI描画。
 	enum enNumberDraw
 	{
-		enNumberDraw_GatheringRate,		//収集率
-		enNumberDraw_Ranking,			//順位
-		enNumberDraw_Num				//数字UI描画数
+		enNumberDraw_GatheringRate,		//収集率。
+		enNumberDraw_Ranking,			//順位。
+		enNumberDraw_Num				//数字UI描画数。
 	};
 
-	//数字
+	//数字。
 	enum enNumber
 	{
-		enNumver_Zero,		//0
-		enNumver_One,		//1
-		enNumver_Two,		//2
-		enNumver_Three,		//3
-		enNumver_Four,		//4
-		enNumver_Five,		//5
-		enNumver_Six,		//6
-		enNumver_Seven,		//7
-		enNumver_Eight,		//8
-		enNumver_Nine,		//9
-		enNumver_TenOver,   //10～
-		enNumver_Num		//数字数
+		enNumver_Zero,		//0。
+		enNumver_One,		//1。
+		enNumver_Two,		//2。
+		enNumver_Three,		//3。
+		enNumver_Four,		//4。
+		enNumver_Five,		//5。
+		enNumver_Six,		//6。
+		enNumver_Seven,		//7。
+		enNumver_Eight,		//8。
+		enNumver_Nine,		//9。
+		enNumver_TenOver,   //10～。
+		enNumver_Num		//数字数。
 	};
 
-	//〇の位
+	//〇の位。
 	enum enNumberPlace
 	{
-		enNumberPlace_Hundred,		//百の位
-		enNumberPlace_Ten,			//十の位
-		enNumberPlace_One,			//一の位
-		enNumberPlace_Num			//〇の位数
+		enNumberPlace_Hundred,		//百の位。
+		enNumberPlace_Ten,			//十の位。
+		enNumberPlace_One,			//一の位。
+		enNumberPlace_Num			//〇の位数。
 	};
 
-	//ランク
+	//ランク。
 	enum enRank
 	{
-		enRank_S,			//Sランク
-		enRank_A,			//Aランク
-		enRank_B,			//Bランク
-		enRank_C,			//Cランク
-		enRank_D,			//Dランク
-		enRank_E,			//Eランク
-		enRank_Num			//ランク数
+		enRank_S,			//Sランク。
+		enRank_A,			//Aランク。
+		enRank_B,			//Bランク。
+		enRank_C,			//Cランク。
+		enRank_D,			//Dランク。
+		enRank_E,			//Eランク。
+		enRank_Num			//ランク数。
 	};
 
-	//アニメーションクリップ
+	//アニメーションクリップ。
 	enum EnAnimationClip {
-		enAnimationClip_Idle,		//待機
-		enAnimationClip_Defeat,		//悔しい
-		enAnimationClip_FistPump,	//ガッツ
-		enAnimationClip_Victory,	//嬉しい
-		enAnimationClip_Num			//アニメーション数
+		enAnimationClip_Idle,		//待機。
+		enAnimationClip_Defeat,		//悔しい。
+		enAnimationClip_FistPump,	//ガッツ。
+		enAnimationClip_Victory,	//嬉しい。
+		enAnimationClip_Num			//アニメーション数。
 	};
 
-	//アニメーションステート
+	//アニメーションステート。
 	enum EnAnimationState
 	{
-		enAnimationState_Idle,		//待機
-		enAnimationState_Defeat,	//悔しい
-		enAnimationState_FistPump,	//ガッツ
-		enAnimationState_Victory,	//嬉しい
-		enAnimationState_Num		//アニメーションステート数
+		enAnimationState_Idle,		//待機。
+		enAnimationState_Defeat,	//悔しい。
+		enAnimationState_FistPump,	//ガッツ。
+		enAnimationState_Victory,	//嬉しい。
+		enAnimationState_Num		//アニメーションステート数。
 	};
 
-	//ゲームクリア演出
+	//ゲームクリア演出。
 	enum EnGameClearDirection
 	{
-		enGameClearDirection_GatheringRate,		//収集率
-		enGameClearDirection_Ranking,			//順位
-		enGameClearDirection_Rank,				//ランク
-		enGameClearDirection_Num				//ゲームクリア演出数
+		enGameClearDirection_GatheringRate,		//収集率。
+		enGameClearDirection_Ranking,			//順位。
+		enGameClearDirection_Rank,				//ランク。
+		enGameClearDirection_Num				//ゲームクリア演出数。
 	};
 
-	SpriteRender m_result;															//リザルト画面
-	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)
-	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)
-	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)	
-	SpriteRender m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)
-	SpriteRender m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)
-	SpriteRender m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)
-	SpriteRender m_rankUI[enRank_Num];												//ランクUI
-	SpriteRender m_percentUI;														//パーセントUI
-	SpriteRender m_placeUI;															//位UI
-	SpriteRender m_aButtonUI;														//AボタンUI
-	SpriteRender m_returnTitleUI;													//タイトルへ戻るUI
-	BackGroundRender m_gameBackground;												//ゲーム背景
-	AnimationClip m_animationClip[enAnimationClip_Num];								//アニメーションクリップ
-	ModelRender m_playerModel;														//プレイヤーモデル
-	Vector3 m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);					//プレイヤーモデルの位置
-	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転
-	Vector3 m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);						//プレイヤーモデルの大きさ
-	Vector4 m_rankUISpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクUI用カラー
-	int m_hundredPlace[enNumberDraw_Num] = { 0,0 };									//百の位
-	int m_tenPlace[enNumberDraw_Num] = { 0,0 };										//十の位
-	int m_onePlace[enNumberDraw_Num] = { 0,0 };										//一の位
-	int m_gatheringItemNum = 0;														//収集したアイテムの数
-	int m_totalItemNum = 1;															//アイテムの総数
-	int m_gatheringRate = 0;														//収集率
-	int m_animationState = enAnimationState_Idle;									//アニメーションステート
-	int m_rankState = enRank_Num;													//ランクステート
-	int m_gameClearDirectionState = enGameClearDirection_GatheringRate;				//ゲームクリア演出ステート
-	float m_gatheringRateUIAlphaColor = -0.5f;										//収集率UI用透明度
-	float m_rankingUIAlphaColor = -0.5f;											//順位UI用透明度
-	float m_rankUIAlphaColor = -0.5f;												//ランクUI用透明度
-	bool m_gameClearDirectionFlag = false;											//ゲームクリア演出フラグ
-	bool m_titleScreenTransitionFlag = false;										//タイトル画面遷移フラグ
-	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス
-	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス
-	Fade* m_fade = nullptr;															//フェード用インスタンス
+	SpriteRender m_result;															//リザルト画面。
+	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)。
+	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)。
+	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)。	
+	SpriteRender m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)。
+	SpriteRender m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)。
+	SpriteRender m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)。
+	SpriteRender m_rankUI[enRank_Num];												//ランクUI。
+	SpriteRender m_percentUI;														//パーセントUI。
+	SpriteRender m_placeUI;															//位UI。
+	SpriteRender m_aButtonUI;														//AボタンUI。
+	SpriteRender m_returnTitleUI;													//タイトルへ戻るUI。
+	BackGroundRender m_gameBackground;												//ゲーム背景。
+	AnimationClip m_animationClip[enAnimationClip_Num];								//アニメーションクリップ。
+	ModelRender m_playerModel;														//プレイヤーモデル。
+	Vector3 m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);					//プレイヤーモデルの位置。
+	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転。
+	Vector3 m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);						//プレイヤーモデルの大きさ。
+	Vector4 m_rankUISpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクUI用カラー。
+	int m_hundredPlace[enNumberDraw_Num] = { 0,0 };									//百の位。
+	int m_tenPlace[enNumberDraw_Num] = { 0,0 };										//十の位。
+	int m_onePlace[enNumberDraw_Num] = { 0,0 };										//一の位。
+	int m_gatheringItemNum = 0;														//収集したアイテムの数。
+	int m_totalItemNum = 1;															//アイテムの総数。
+	int m_gatheringRate = 0;														//収集率。
+	int m_animationState = enAnimationState_Idle;									//アニメーションステート。
+	int m_rankState = enRank_Num;													//ランクステート。
+	int m_gameClearDirectionState = enGameClearDirection_GatheringRate;				//ゲームクリア演出ステート。
+	float m_gatheringRateUIAlphaColor = -0.5f;										//収集率UI用透明度。
+	float m_rankingUIAlphaColor = -0.5f;											//順位UI用透明度。
+	float m_rankUIAlphaColor = -0.5f;												//ランクUI用透明度。
+	bool m_gameClearDirectionFlag = false;											//ゲームクリア演出フラグ。
+	bool m_titleScreenTransitionFlag = false;										//タイトル画面遷移フラグ。
+	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス。
+	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス。
+	Fade* m_fade = nullptr;															//フェード用インスタンス。
 };
 
