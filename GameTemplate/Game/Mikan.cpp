@@ -25,7 +25,7 @@ void Mikan::Update() {
 	if (m_player->m_characterController.IsOnGround())
 	{
 		if (deff.Length() <= 70.0f) {
-			//m_player->taoruCount += 1;
+			m_player->mikanCount += 1;
 			DeleteGO(this);
 		}
 	}

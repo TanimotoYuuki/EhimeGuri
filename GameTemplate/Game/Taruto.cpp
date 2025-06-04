@@ -23,7 +23,7 @@ void Taruto::Update() {
 	m_modelRender.Update();
 	Vector3 deff = m_player->m_position - m_position;
 	if (deff.Length() <= 125.0f) {
-		//m_player->taoruCount += 1;
+		m_player->tarutoCount += 1;
 		DeleteGO(this);
 	}
 }

@@ -35,7 +35,6 @@ public:
 
 
 private:
-
 	enum enMovingFloorState
 	{
 		enMovingFloorState_MovingRight,

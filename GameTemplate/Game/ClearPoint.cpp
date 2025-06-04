@@ -18,7 +18,6 @@ ClearPoint::ClearPoint()
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
-
 }
 
 // 更新作業。
@@ -38,8 +37,6 @@ void ClearPoint::Update()
 		// ステージクリアをnew
 		StageClear_NewGO();
 	}
-
-
 }
 
 // 描画処理。

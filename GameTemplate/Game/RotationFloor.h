@@ -30,6 +30,5 @@ public:
 	Vector3 m_position;
 	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
-
 };
 

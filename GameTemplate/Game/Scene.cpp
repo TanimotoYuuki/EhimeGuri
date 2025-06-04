@@ -76,6 +76,8 @@ void Stage1Scene::Update()
 // ステージ2シーン::初期化処理。
 bool Stage2Scene::Start()
 {
+	SMGetIns()->SetRequest(SceneID::S_Stage2);
+
 	// ステージ2の初期化処理を行う。
 	m_stage2 = NewGO<Stage2>(0, "Stage2"); // ステージ2の初期化処理を行う。
 

@@ -34,7 +34,7 @@ public:
 	/// </summary>
 	Stage2* m_stage2 = nullptr;// ステージ2
 	Config* m_filePathConfig = nullptr;// ファイルパス。
-	FallingRocks* m_fallingRocks;
+	FallingRocks* m_fallingRocks = nullptr;
 	FallingFloor* m_fallingFloor = nullptr;// 落下する床。
 	MovingNeedle* m_movingNeedle = nullptr;// 動く針。
 	RotationFloor* m_rotationFloor = nullptr;// 回転する床

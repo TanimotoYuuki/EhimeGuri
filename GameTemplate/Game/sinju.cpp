@@ -24,7 +24,7 @@ void sinju::Update() {
 	m_modelRender.Update();
 	Vector3 deff = m_player->m_position - m_position;
 	if (deff.Length() <= 125.0f) {
-		//m_player->taoruCount += 1;
+		m_player->sinjuCount += 1;
 		DeleteGO(this);
 	}
 }
