@@ -4,6 +4,7 @@
 /// </summary>
 class Player;
 class Config;
+class Fade;
 class StageClear : public IGameObject
 {
 public:
@@ -33,6 +34,10 @@ private:
 	/// ステージクリアスプライト用のイージングの更新処理。
 	/// </summary>
 	void UpdateStageClearSpriteEasing();
+	/// <summary>
+	/// ローディング処理
+	/// </summary>
+	void LoadingProcess();
 
 	Config* m_config = nullptr;
 	SpriteRender m_stageClearUI;										//ステージクリアUI。
@@ -42,5 +47,9 @@ private:
 	float m_easingTime = 0.0f;										    //割合。
 	bool m_stageClearDirectionFinishFlag = false;						//ステージクリア演出終了フラグ。
 	Player* m_player = nullptr;											//プレイヤー用のインスタンス。
+	Fade* m_fade = nullptr;												//フェード用のインスタンス。
+	bool m_loadingStartFlag = false;									//ローディング開始フラグ
+	bool m_loadingFinishFlag = false;									//ローディング終了フラグ
+	bool m_stage2TransitionFlag = false;								//ステージ2遷移フラグ
 };
 
