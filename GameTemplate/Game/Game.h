@@ -350,6 +350,12 @@ private:
 	SpriteRender m_gennzaitiRender;
 	SpriteRender m_taorutoriRender;
 	SpriteRender m_taorukuroRender;
+	SpriteRender m_jakorender;
+	SpriteRender m_jakogetrender;
+	SpriteRender m_mikanRender;
+	SpriteRender m_mikangetRender;
+	SpriteRender m_sinjuRender;
+	SpriteRender m_sinjugetRender;
 	SpriteRender m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
 	SpriteRender m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
 	/// <summary>

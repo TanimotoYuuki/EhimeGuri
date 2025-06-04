@@ -120,6 +120,11 @@ public:
 	int	m_playerState = enPlayer_idle;
 	int	m_needleCount = 0;
 	int	taoruCount = 0;
+	int jakoCount = 0;
+	int sinjuCount = 0;
+	int mikanCount = 0;
+	int tobeyakiCount = 0;
+	int tarutoCount = 0;
 	Game* m_game = nullptr;
 	Enemy* m_enemy = nullptr;
 	GameOver* m_gameover = nullptr;

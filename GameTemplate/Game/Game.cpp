@@ -142,6 +142,20 @@ bool Game::Start()
 	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
 	m_taorutoriRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 
+	m_jakorender.Init("Assets/modelData/jako.DDS", 100.0f, 100.0f);
+	m_jakorender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
+	m_jakogetrender.Init("Assets/modelData/jakoget.DDS", 100.0f, 100.0f);
+	m_jakogetrender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
+
+	m_mikanRender.Init("Assets/modelData/mikan.DDS", 100.0f, 100.0f);
+	m_mikanRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+	m_mikangetRender.Init("Assets/modelData/mikanget.DDS", 100.0f, 100.0f);
+	m_mikangetRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+
+	m_sinjuRender.Init("Assets/modelData/sinju.DDS", 100.0f, 100.0f);
+	m_sinjuRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+	m_sinjugetRender.Init("Assets/modelData/sinjuget.DDS", 100.0f, 100.0f);
+	m_sinjugetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
 	/// <summary>
 	/// 3DオブジェクトのNewGO関数。
 	/// </summary>
@@ -313,6 +327,15 @@ void Game::Update()
 
 	m_taorukuroRender.Update();
 	m_taorutoriRender.Update();
+
+	m_jakorender.Update();
+	m_jakogetrender.Update();
+
+	m_mikanRender.Update();
+	m_mikangetRender.Update();
+
+	m_sinjuRender.Update();
+	m_sinjugetRender.Update();
 	
 }
 
@@ -437,23 +460,23 @@ void Game::Scaffold_NewGO()
 // アイテムのNewGO。
 void Game::Item_NewGO()
 {
-  /* m_towel = NewGO<Towel>(0,"towel");
-   m_towel->m_position = { 10500.0f, 250.0f, 0.0f };     //第二ステージ用
-   m_modelRender.SetPosition(m_position);*/
+   //m_towel = NewGO<Towel>(0,"towel");
+   //m_towel->m_position = { 10500.0f, 250.0f, 0.0f };     //第二ステージ用
+   //m_modelRender.SetPosition(m_position);
 
    m_sinju = NewGO<sinju>(0, "sinju");
    m_sinju->m_position = { 14470.0f,600.0f,0.0f };
    m_modelRender.SetPosition(m_position);
 
    /*m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
-   m_tobeyaki->m_position = { 700.0f,200.0f,0.0f };　　　//第二ステージ用
+   m_tobeyaki->m_position = { 700.0f,200.0f,0.0f };      //第二ステージ用
    m_modelRender.SetPosition(m_position);*/
 
    m_jako = NewGO<Jako>(0, "jako");
    m_jako->m_position = { 6000.0f,500.0f,0.0f };
    m_modelRender.SetPosition(m_position);
 
-   /*m_taruto = NewGO<Taruto>(0 , "taruto");
+   /*m_taruto = NewGO<Taruto>(0, "taruto");
    m_taruto->m_position = { 500.0f,200.0f,0.0f };     //第二ステージ用
    m_modelRender.SetPosition(m_position);*/
 
@@ -536,6 +559,24 @@ void Game::Render(RenderContext& rc)
 		m_timerRender.Draw(rc);
 		m_mappuRender.Draw(rc);
 		m_gennzaitiRender.Draw(rc);
+		if (m_player->jakoCount == 0) {
+			m_jakorender.Draw(rc);
+		}
+		else if (m_player->jakoCount == 1) {
+			m_jakogetrender.Draw(rc);
+		}
+		if (m_player->mikanCount == 0) {
+			m_mikanRender.Draw(rc);
+		}
+		else if (m_player->mikanCount == 1) {
+			m_mikangetRender.Draw(rc);
+		}
+		if (m_player->sinjuCount == 0) {
+			m_sinjuRender.Draw(rc);
+		}
+		else if (m_player->sinjuCount == 1) {
+			m_sinjugetRender.Draw(rc);
+		}
 	}
 }
 
