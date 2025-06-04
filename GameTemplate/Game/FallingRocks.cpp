@@ -3,10 +3,10 @@
 #include "Config.h"
 using namespace std;
 
-FallingRocks::FallingRocks() : position(0.0f, 0.0f, 0.0f), velocity(0.0f, 0.0f, 0.0f), gravity(0.0f, -9.8f, 0.0f)
-{
-
-}
+//FallingRocks::FallingRocks() : position(0.0f, 0.0f, 0.0f), velocity(0.0f, 0.0f, 0.0f), gravity(0.0f, -9.8f, 0.0f)
+//{
+//
+//}
 
 bool FallingRocks::Start()
 {

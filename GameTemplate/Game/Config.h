@@ -41,6 +41,5 @@ public:
     static string GetFullPath_Enemy(const std::string& modelName);// 敵キャラ用のファイルパス。
     static string GetFullPath_Item(const std::string& modelName);// アイテムのファイルパス。
 private:
-    Lever* m_levelRender; // レベルレンダー。
 };
 

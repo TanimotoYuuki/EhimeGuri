@@ -84,6 +84,7 @@ void FallingBlock::Move()
 
 void FallingBlock::Update()
 {
+
 	if (m_player == nullptr)
 	{
 		m_player = FindGO<Player>("player");
@@ -116,6 +117,7 @@ void FallingBlock::Update()
 	m_modelRender.Update();
 	m_physicsStaticObject.SetPosition(m_position);
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
+
 }
 
 

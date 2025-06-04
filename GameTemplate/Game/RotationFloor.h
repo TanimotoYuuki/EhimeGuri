@@ -1,4 +1,5 @@
 #pragma once
+class Config;
 class RotationFloor : public IGameObject
 {
 public:
@@ -23,6 +24,12 @@ public:
 	{
 		return m_position;
 	}
+
+	Config* m_filePathConfig;
+	CollisionObject* m_collisionObject;
 	Vector3 m_position;
+	ModelRender m_modelRender;
+	PhysicsStaticObject m_physicsStaticObject;
+
 };
 

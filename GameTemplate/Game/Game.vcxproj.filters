@@ -46,6 +46,8 @@
     <ClCompile Include="FallingFloor.cpp" />
     <ClCompile Include="RotationFloor.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="StairsInTheForest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -87,5 +89,7 @@
     <ClInclude Include="FallingFloor.h" />
     <ClInclude Include="RotationFloor.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Tower.h" />
+    <ClInclude Include="StairsInTheForest.h" />
   </ItemGroup>
 </Project>

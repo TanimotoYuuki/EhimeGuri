@@ -23,8 +23,8 @@ MovingNeedle::~MovingNeedle()
 }
 bool MovingNeedle::Start()
 {
-	string modelPath = m_config-> GetFullPath_3DModel("Needle");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init("Assets/modelData/MovingNeedele/MovingNeedle.tkm");
+
 
 	m_modelRender.SetScale(NEEDLE_SCALE);
 	m_modelRender.Update();

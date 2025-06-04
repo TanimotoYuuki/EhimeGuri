@@ -1,9 +1,11 @@
 #include "stdafx.h"
+#include "Fade.h"
 #include "Scene.h"
 #include "Stage1.h"
 #include "Stage2.h"
 #include "Config.h"
 #include "StageClear.h"
+#include "Player.h"
 #define SMGetIns Scene_Manager::GetInstance // シングルトンインスタンスを取得するマクロ定義
 
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
@@ -61,31 +63,58 @@ bool Stage1Scene::Start()
 // ステージ1シーン::更新処理。
 void Stage1Scene::Update()  
 {  
-//	if (m_stageClear != nullptr)
-//	{
-//		if (m_stageClear->GetIsClear() == true) // フラグを確認
-//		{
-//			// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
-//			SMGetIns()->SetRequest(SceneID::S_Stage2);
-//		}
-////	}
+	if (m_stageClear != nullptr)
+	{
+		if (m_stageClear->GetIsClear() == true) // フラグを確認
+		{
+			// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
+			SMGetIns()->SetRequest(SceneID::S_Stage2);
+		}
+	}
 }
 
 // ステージ2シーン::初期化処理。
 bool Stage2Scene::Start()
 {
-	SMGetIns()->SetRequest(SceneID::S_Stage2);
-
 	// ステージ2の初期化処理を行う。
 	m_stage2 = NewGO<Stage2>(0, "Stage2"); // ステージ2の初期化処理を行う。
+
+	//プレイヤーを取得
+	m_player = FindGO<Player>("player");
+	if (m_player != nullptr)
+	{
+		//プレイヤーをステージ2の開始位置に移動
+		m_player->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+		//プレイヤーのステージクリアフラグをリセット
+		m_player->m_stageClearFlag = false;
+	}
+
+	//カメラをステージ2の開始位置に移動
+	g_camera3D->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+	//カメラの注視点を設定
+	g_camera3D->SetTarget(Vector3(0.0f, 0.0f, 0.0f));
+
+	//フェードをフェードインに切り替える
+	Fade* fade = FindGO<Fade>("fade");
+	if (fade != nullptr)
+	{
+		fade->FadeTransition(enFadeState_FadeIn);
+	}
+
 	return true;
 }
 
 // ステージ2シーン::更新処理。
 void Stage2Scene::Update()
 {
-	// ステージをクリアしたかの判定を行う。
-
+	////ステージクリアフラグを確認
+	//if (m_stage2 != nullptr)
+	//{
+	//	if (m_stage2->GetIsClear() == true)
+	//	{
+	//		// リザルト画面へ移行するように処理を記載してください。
+	//	}
+	//}
 }
 
 // シーンマネージャー::初期化処理。

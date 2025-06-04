@@ -30,9 +30,7 @@
 
 namespace
 {
-//	const Vector3 TRANSPARENTBLOCK_SCALE(10.0f, 10.0f, 10.0f);
 	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
-//	const Vector3 NEEDLE_SCALE(10.0f, 10.0f, 10.0f);
 	const int ENEMY_NUM = 4;
 }
 

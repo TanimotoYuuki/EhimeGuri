@@ -11,6 +11,8 @@ class Config;
 class FallingFloor;
 class MovingNeedle;
 class RotationFloor;
+class StairsInTheForest;
+class FallingRocks;
 class Lever;
 class Stage2 : public IGameObject
 {
@@ -23,7 +25,7 @@ public:
 
 	bool Start();
 	void Update();// 更新処理。
-//	bool LevelRender();// レベルの処理。
+	bool LevelRender();// レベルの処理。
 	void Render(RenderContext& rc);// 描画処理。
 	
 
@@ -32,10 +34,11 @@ public:
 	/// </summary>
 	Stage2* m_stage2 = nullptr;// ステージ2
 	Config* m_filePathConfig = nullptr;// ファイルパス。
+	FallingRocks* m_fallingRocks;
 	FallingFloor* m_fallingFloor = nullptr;// 落下する床。
 	MovingNeedle* m_movingNeedle = nullptr;// 動く針。
 	RotationFloor* m_rotationFloor = nullptr;// 回転する床
-
+	StairsInTheForest* m_StairsInTheForest;
 private:
 	ModelRender m_modelRender;// モデルの描画。
 	PhysicsStaticObject m_physicsStaticObject;// 静的物理オブジェクト。

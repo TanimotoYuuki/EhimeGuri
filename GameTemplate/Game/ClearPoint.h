@@ -24,7 +24,7 @@ public:
 	void Render(RenderContext& rc);// 描画処理。
 
 	Config* m_config = nullptr;
-	StageClear* m_stageClear = nullptr;
+	StageClear* m_stageClear;
 	Player* m_player = nullptr;
 	ModelRender m_modelRender;
 	Vector3	position;

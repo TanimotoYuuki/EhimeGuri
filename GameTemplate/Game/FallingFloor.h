@@ -1,5 +1,6 @@
 #pragma once
 class Config;
+class Player;
 class FallingFloor : public IGameObject
 {
 public:
@@ -15,6 +16,7 @@ public:
 	void Update();// 更新処理。
 	void Floor();// 落下処理。
 	void Render(RenderContext& rc);// 描画処理。
+
 	/// <summary>
 	/// 座標のセット
 	/// </summary>
@@ -29,10 +31,24 @@ public:
 	{
 		return m_position;
 	}
+
+
+
 private:
-	Config* m_filePathConfig = nullptr;
+
+	enum enMovingFloorState
+	{
+		enMovingFloorState_MovingRight,
+		enMovingFloorState_MovingLeft
+	};
+	enMovingFloorState m_movingFloorState = enMovingFloorState_MovingRight;
+	CollisionObject* m_collisionObject = nullptr;// コリジョン。
+	Player* m_player = nullptr;// プレイヤー。
+	PhysicsStaticObject* m_physicsStaticObject;// 当たり判定。
+	Config* m_filePathConfig = nullptr;// コンフィグ。
 	ModelRender m_modelRender;// モデル。
-	Vector3 m_position;
+	Vector3 m_position;// 座標。
+	Vector3 m_initPosition;// 座標を設定。
 
 };
 

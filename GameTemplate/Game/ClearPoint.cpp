@@ -19,7 +19,6 @@ ClearPoint::ClearPoint()
 
 	m_player = FindGO<Player>("player");
 
-	m_stageClear = FindGO<StageClear>("stageClear");
 }
 
 // 更新作業。
@@ -33,12 +32,13 @@ void ClearPoint::Update()
 	//Playerがこのモデルと衝突するとGameClearを知らせる。
 	Vector3 diff = position - m_player->m_position;
 
+	// ゴールポールとプレイヤーの距離を測る
 	if (diff.Length() < 20.0f)
 	{
+		// ステージクリアをnew
 		StageClear_NewGO();
 	}
-	//// ゲームクリアのフラグを立てる。
-	//m_stageClear->SetIsClear(true);
+
 
 }
 
@@ -51,13 +51,15 @@ void ClearPoint::Render(RenderContext& rc)
 // NewGO。
 void ClearPoint::StageClear_NewGO()
 {
+	// ステージクリアの処理を追加する場合はここに記述。
+    // ゲームクリアのフラグを立てる。
+	NewGO<StageClear>(0, "stageClear");
+	m_stageClear = FindGO<StageClear>("stageClear");
+	m_stageClear->SetIsClear(true);
 
-	//Playerがこのモデルと衝突するとGameClearを知らせる。
-	Vector3 diff = position - m_player->m_position;
-
-	if (diff.Length() < 20.0f)
+	// ステージクリアの状態を確認する。
+	if (m_stageClear->GetIsClear() == true)
 	{
-		NewGO<StageClear>(0, "stageClear");
 		DeleteGO(this);
 	}
 
