@@ -9,6 +9,7 @@ class StageClear;
 class Config;
 class Stage1Scene;
 class GameClear;
+class Fade;
 class ClearPoint : public IGameObject
 { 
 public:
@@ -16,9 +17,10 @@ public:
     /// クリアポイント
     /// </summary>
 
-	ClearPoint();
+	ClearPoint() {};
 	~ClearPoint() {};
 
+	bool Start();//開始処理
 	void Update();// 更新作業。
 	void StageClear_NewGO();
 	void Render(RenderContext& rc);// 描画処理。
@@ -30,6 +32,7 @@ public:
 	Vector3	position;
 	Stage1Scene* m_stage1Scene = nullptr;
 	GameClear* m_gameClear = nullptr;
+	Fade* m_fade = nullptr;
 	int clearCount = 0;
 
 

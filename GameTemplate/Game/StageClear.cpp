@@ -32,8 +32,12 @@ bool StageClear::Start()
 	m_player->m_stageClearFlag = true;
 
 	//1 フェード。
+	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
+	m_fade->FadeTransition(enFadeState_None);
 
+	//ステージクリア時の音の再生。
+	g_gameSoundEngine->PlaySE(GameSoundList_SE_System_StageClear, 1.0f);
 	return true;
 }
 
@@ -77,19 +81,8 @@ void StageClear::UpdateStageClearSpriteEasing()
 		{
 			//ステージクリア演出を終了する。
 			m_stageClearDirectionFinishFlag = true;
-			//フェードをフェードインに切り替える。
-			m_fade->FadeTransition(enFadeState_FadeIn);
 		}
 		return;
-	}
-
-	//フェードインが完了したら
-	if (m_stageClearDirectionFinishFlag == true && m_fade->GetFadeState() == enFadeState_None)
-	{
-		//フェードをローディングに切り替える
-		m_fade->FadeTransition(enFadeState_Loading);
-		//ローディング開始フラグを立てる
-		m_loadingStartFlag = true;
 	}
 
 	m_easingTime += 0.5f * g_gameTime->GetFrameDeltaTime();
@@ -98,6 +91,12 @@ void StageClear::UpdateStageClearSpriteEasing()
 	if (m_easingTime > 1.0f)
 	{
 		m_easingTime = 1.0f;
+
+		//フェードをローディングに切り替える
+		m_fade->FadeTransition(enFadeState_FadeOut);
+
+		//ローディング開始フラグを立てる
+		m_loadingStartFlag = true;
 	}
 
 	//ステージクリアUIの更新。
@@ -125,16 +124,6 @@ void StageClear::LoadingProcess()
 			g_camera3D->SetPosition(STAGE2_START_POSITION);
 			g_camera3D->SetTarget(STAGE2_START_POSITION);
 
-			//フェードをフェードアウトに切り替える
-			m_fade->FadeTransition(enFadeState_FadeOut);
-		}
-	}
-	//フェードアウト中
-	else if (m_fade->GetFadeState() == enFadeState_FadeOut)
-	{
-		//フェードアウトが完了したらステージ2へ遷移
-		if (m_fade->GetFadeState() == enFadeState_None)
-		{
 			//SceneManagerを経由してステージ2への遷移を要求
 			Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
 			//このオブジェクトを削除

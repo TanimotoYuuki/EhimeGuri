@@ -12,10 +12,10 @@ GameCamera::~GameCamera() {
 
 bool GameCamera::Start() {
 	//注視点から視点までのベクトルを設定。
-//	m_toCameraPos.Set(0.0f, 100.0f, -500.0f);
+//	SetToCameraPos(Vector3(0.0f, 100.0f, -500.0f));
 	
 	// テスト用
-	m_toCameraPos.Set(0.0f, 200.0f, -800.0f);
+	SetToCameraPos(Vector3(0.0f, 200.0f, -800.0f));
 
 
 	//カメラのニアクリップとファークリップを設定する。
@@ -73,7 +73,7 @@ void GameCamera::Update() {
 
 	//左画面端の計算
 	m_leftScreenEdge = m_cameraTarget;
-	m_leftScreenEdge.x = m_cameraTarget.x - ((FRAME_BUFFER_H / 2) + 50.0f);
+	m_leftScreenEdge.x = m_cameraTarget.x - (((FRAME_BUFFER_H / 2) + 50.0f) * m_toCameraPosmultiplier);
 
 	//左スティックを左に倒しているときに左画面端まで行ったらプレイヤーを移動できないようにする
 	if (g_pad[0]->GetLStickXF() < 0.0f)
