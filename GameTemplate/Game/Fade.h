@@ -51,10 +51,8 @@ public:
 		}
 	}
 
-	// フェードステートを取得
-	EnFadeState GetFadeState() const { return m_fadeState; }
-
 private:
+
 	//点
 	enum EnPoint
 	{
@@ -69,7 +67,7 @@ private:
 	SpriteRender m_point[enPoint_Num];			//点
 	Vector3 m_pointInitPosition[enPoint_Num];	//点の初期位置
 	Vector3 m_pointPosition[enPoint_Num];		//点の現在位置
-	EnFadeState m_fadeState = enFadeState_FadeIn;		//フェードステート
+	int m_fadeState = enFadeState_FadeIn;		//フェードステート
 	int m_pointMove = enPoint_Left;				//点動作
 	bool m_loadingFlag = false;					//ローディングフラグ
 	bool m_pointFallFlag = false;				//点落下フラグ

@@ -4,13 +4,16 @@
 #include "Config.h"
 #include "Player.h" 
 #include "Scene.h"
+#include "Fade.h"
+
 namespace
 {
    //モデルの大きさ。
    const Vector3 SCALE(5.0f, 5.0f, 5.0f);
 }
 
-ClearPoint::ClearPoint()
+// 開始処理
+bool ClearPoint::Start()
 {
 
 
@@ -18,6 +21,8 @@ ClearPoint::ClearPoint()
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
+
+	m_stageClear = FindGO<StageClear>("stageClear");
 }
 
 // 更新作業。
@@ -57,6 +62,7 @@ void ClearPoint::StageClear_NewGO()
 	// ステージクリアの状態を確認する。
 	if (m_stageClear->GetIsClear() == true)
 	{
+		NewGO<StageClear>(0, "stageClear");
 		DeleteGO(this);
 	}
 
