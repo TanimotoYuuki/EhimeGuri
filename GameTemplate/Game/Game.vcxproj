@@ -258,6 +258,7 @@
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="sinju.cpp" />
     <ClCompile Include="StageClear.cpp" />
+    <ClCompile Include="StairsInTheForest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -269,6 +270,7 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Tobeyaki.cpp" />
     <ClCompile Include="Towel.cpp" />
+    <ClCompile Include="Tower.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +303,7 @@
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="sinju.h" />
     <ClInclude Include="StageClear.h" />
+    <ClInclude Include="StairsInTheForest.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="S_MovingFloor.h" />
@@ -308,6 +311,7 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="Tobeyaki.h" />
     <ClInclude Include="Towel.h" />
+    <ClInclude Include="Tower.h" />
     <ClInclude Include="TransparentBlock.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

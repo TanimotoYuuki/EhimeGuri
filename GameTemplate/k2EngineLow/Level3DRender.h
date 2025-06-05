@@ -20,6 +20,8 @@ namespace nsK2EngineLow
 		/// <returns>名前が同じ場合trueを返す</returns>
 		const bool EqualObjectName(const wchar_t* objName)
 		{
+
+			// 変更前のコード
 			return wcscmp(objName, name) == 0;
 		}
 
@@ -43,7 +45,7 @@ namespace nsK2EngineLow
 		Quaternion rotation = Quaternion::Identity;		//回転
 		Vector3 scale = Vector3::One;					//拡大率
 
-		//変更前//
+		
 		const wchar_t* name;							//名前
 		int number = 0;
 	};

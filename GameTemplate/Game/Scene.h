@@ -68,6 +68,9 @@ public:
 
 	bool m_isGameClearFlag = false; // ゲームクリアフラグ
 
+private:
+	Stage2* m_stage2 = nullptr;		//ステージ2
+	Player* m_player = nullptr;		//プレイヤー
 };  
 
 class TitleScene : public IScene  
