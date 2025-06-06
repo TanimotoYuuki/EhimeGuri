@@ -40,6 +40,15 @@ void RotationFloor::Update()
 	m_modelRender.Update();
 }
 
+void RotationFloor::Rotation()
+{
+	m_Rot.AddRotationDegY(2.0f);
+
+	//絵描きさんに回転を教える。
+	m_modelRender.SetRotation(m_Rot);
+
+}
+
 void RotationFloor::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);

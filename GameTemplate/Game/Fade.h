@@ -51,6 +51,11 @@ public:
 		}
 	}
 
+	int GetFadeState() const
+	{
+		return m_fadeState;
+	}
+
 private:
 
 	//点

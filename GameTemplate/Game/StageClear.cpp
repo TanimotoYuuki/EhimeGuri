@@ -30,6 +30,14 @@ bool StageClear::Start()
 	//0 プレイヤー。
 	m_player = FindGO<Player>("player");
 	m_player->m_stageClearFlag = true;
+
+	//1 フェード。
+	NewGO<Fade>(0, "fade");
+	m_fade = FindGO<Fade>("fade");
+	m_fade->FadeTransition(enFadeState_None);
+
+	//ステージクリア時の音の再生。
+	g_gameSoundEngine->PlaySE(GameSoundList_SE_System_StageClear, 1.0f);
 	return true;
 }
 

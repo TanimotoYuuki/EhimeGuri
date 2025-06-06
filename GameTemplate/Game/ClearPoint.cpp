@@ -23,6 +23,7 @@ bool ClearPoint::Start()
 	m_player = FindGO<Player>("player");
 
 	m_stageClear = FindGO<StageClear>("stageClear");
+	return true;
 }
 
 // 更新作業。
