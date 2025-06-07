@@ -25,6 +25,9 @@ void Checpoint::Update()
 	if (diff.Length() < 20.0f)
 	{
 		m_player->checcount = 1;
+
+		//中間地点を通過した時の音の再生。
+		g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_PassingCheckPoint, 1.0f);
 		DeleteGO(this);
 	}
 }

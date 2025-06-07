@@ -263,6 +263,9 @@ void Game::Update()
 			//ゲームオーバー演出を流す
 			m_gameOverFlag = true;
 		}
+
+		//ステージ1BGMを削除
+		DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
 		return;
 	}
 
@@ -337,6 +340,8 @@ void Game::Update()
 	m_sinjuRender.Update();
 	m_sinjugetRender.Update();
 	
+	//ステージ1BGMを再生。
+	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage1, 1.0f);
 }
 
 // 透明ブロックのNewGO。

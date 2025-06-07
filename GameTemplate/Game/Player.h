@@ -15,10 +15,11 @@ public:
 	void Move();								
 	void Rotation();							
 	void ManageState();							
-	void PlayAnimation();						
+	void PlayAnimation();
 	void PlayerStamina();
 	void PlayerhealSutamina();
 	void Derei();
+	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName); // アニメーションイベント
 
 	const Vector3& GetPosition() const
 	{

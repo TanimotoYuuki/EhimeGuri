@@ -45,6 +45,11 @@ Player::Player() {
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.Update();
+
+	//アニメーションイベント
+	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+		OnAnimationEvent(clipName, eventName);
+	});
 }
 Player::~Player() {
 
@@ -136,6 +141,9 @@ void Player::Move() {
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				
 				m_moveSpeed.y = 525.0f;
+
+				//ジャンプした時の音の再生。
+				g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_Jump, 2.0f);
 			}
 		}
 	}
@@ -176,6 +184,9 @@ void Player::Move() {
 		if (IsPlayerRespawn())
 		{
 			m_respawnFlag = false;
+			
+			//プレイヤーがミスした時の音の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_Miss, 1.0f);
 		}
 	}
 
@@ -272,6 +283,17 @@ void Player::Derei() {
 		m_sutaminaZeroFlag = false;
 	}
 }
+
+void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
+{
+	(void)clipName;
+	if (wcscmp(eventName, L"footstep") == 0)
+	{
+		//プレイヤーの足音の再生。
+		g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_FootStep, 5.0f);
+	}
+}
+
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 }
