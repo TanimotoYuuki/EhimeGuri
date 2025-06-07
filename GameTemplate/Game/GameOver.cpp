@@ -30,6 +30,9 @@ bool GameOver::Start()
 
 	//2 ゲーム。
 	m_game = FindGO<Game>("game");
+
+	//ゲームオーバー時の音の再生。
+	g_gameSoundEngine->PlaySE(GameSoundList_SE_System_GameOver, 1.0f);
 	return true;
 }
 
@@ -178,6 +181,8 @@ void GameOver::Action()
 		//十字キーを左に倒したら。
 		if (g_pad[0]->IsTrigger(enButtonLeft))
 		{
+			//選択音の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
 			//現在の選択がスタートだったら。
 			if (m_gameOverSelect == enSelect_Continue)
 			{
@@ -191,6 +196,8 @@ void GameOver::Action()
 		//十字キーを右に倒したら。
 		else if (g_pad[0]->IsTrigger(enButtonRight))
 		{
+			//選択音の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
 			//現在の選択がゲーム終了だったら。
 			if (m_gameOverSelect == enSelect_ReturnTitle)
 			{
@@ -207,6 +214,9 @@ void GameOver::Action()
 		{
 			//ボタンが押された。
 			m_pressButtonFlag = true;
+
+			//決定音(画面遷移用)の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Decision_ScreenTransition, 1.0f);
 		}
 	}
 	//遷移フラグが立ったら選択に応じて反映する。

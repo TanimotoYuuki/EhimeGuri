@@ -98,6 +98,9 @@ void TransparentBlock::Update()
 					m_physicsStaticObject.CreateFromModel(m_transparentBlockModel.GetModel(), m_transparentBlockModel.GetModel().GetWorldMatrix());
 					m_collisionCreatFlag = true;
 				}
+
+				//ブロックを叩いた時の音の再生。
+				g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_BlockTouch, 2.0f);
 			}
 		}
 	}
@@ -118,6 +121,9 @@ void TransparentBlock::Update()
 				{
 					m_player->m_moveSpeed.y *= -1.0f;
 				}
+
+				//ブロックを叩いた時の音の再生。
+				g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_BlockTouch, 2.0f);
 			}
 		}
 	}
