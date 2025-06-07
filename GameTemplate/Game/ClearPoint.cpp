@@ -57,15 +57,11 @@ void ClearPoint::StageClear_NewGO()
 	// ステージクリアの処理を追加する場合はここに記述。
     // ゲームクリアのフラグを立てる。
 	NewGO<StageClear>(0, "stageClear");
-	m_stageClear = FindGO<StageClear>("stageClear");
 	m_stageClear->SetIsClear(true);
 
 	// ステージクリアの状態を確認する。
 	if (m_stageClear->GetIsClear() == true)
 	{
-
-		NewGO<StageClear>(0, "stageClear");
-
 		//ステージ1BGMを削除
 		DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
 

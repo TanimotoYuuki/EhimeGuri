@@ -55,6 +55,31 @@ void StageClear::Update()
 	}
 }
 
+void StageClear::LoadingProcess()
+{
+	// ローディング画面表示中。
+	if (m_fade->GetFadeState() == enFadeState_Loading)
+	{
+		// 3.0f経過したら。
+		if (g_gameTime->StopWatch(3.0f))
+		{
+			// プレイヤーをステージ2の開始位置に移動。
+			if (m_player != nullptr)
+			{
+				m_player->SetPosition(STAGE2_START_POSITION);
+			}
+
+			// カメラをステージ2の開始位置に移動。
+			g_camera3D->SetPosition(STAGE2_START_POSITION);
+			g_camera3D->SetTarget(STAGE2_START_POSITION);
+
+			// SceneManagerを経由してステージ2への遷移を要求。
+			Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
+			// オブジェクトを削除。
+			DeleteGO(this);
+		}
+	}
+}
 //描画処理。
 void StageClear::Render(RenderContext& rc)
 {
@@ -87,14 +112,6 @@ void StageClear::UpdateStageClearSpriteEasing()
 		return;
 	}
 
-	//フェードインが完了したら
-	if (m_stageClearDirectionFinishFlag == true && m_fade->GetFadeState() == enFadeState_None)
-	{
-		//フェードをローディングに切り替える
-		m_fade->FadeTransition(enFadeState_Loading);
-		//ローディング開始フラグを立てる
-		m_loadingStartFlag = true;
-	}
 
 	m_easingTime += 0.5f * g_gameTime->GetFrameDeltaTime();
 

@@ -18,6 +18,8 @@ bool GameCamera::Start() {
 	g_camera3D->SetNear(1.0f);
 	g_camera3D->SetFar(10000.0f);
 
+	SetToCameraPos(Vector3(0.0f, 100.0f, -500.0f));
+
 	//注視点の初期化
 	m_cameraTarget.x = m_player->m_position.x;
 	m_cameraTarget.y = m_player->m_position.y;
