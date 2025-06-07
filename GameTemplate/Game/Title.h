@@ -113,6 +113,7 @@ private:
 	int m_titleTransition = enTitleTransition_Title;								//タイトル画面用遷移。
 	Vector4 m_modeUIColor[enModeSelect_Num];										//モード選択UIのカラー。
 	float m_alpha = 0.0f;															//透明度。
+	float m_titleBGMVolume = 0.0f;													//タイトルBGMの音量。
 	SpriteRender m_titleBackGround;													//タイトル背景。
 	SpriteRender m_pressAButtonUI;													//Aボタンを押すUI。
 	SpriteRender m_modeUI[enModeSelect_Num];										//モードUI。
@@ -127,6 +128,7 @@ private:
 	bool m_pressButtonFlag = false;													//ボタンを押したか?
 	bool m_pressButtonActionFlag = false;											//ボタンを押したときの動作をしたか?
 	bool m_titleTransitionFlag = false;												//タイトル画面遷移フラグ。
+	bool m_getTitleBGMVolumeFlag = false;											//タイトルBGMの音量を取得したか?
 	Fade* m_fade = nullptr;															//フェード用インスタンス。
 	SkyCube* m_skyCube = nullptr;													//スカイキューブ用のインスタンス。
 	int m_skyCubeType = enSkyCubeType_Day;											//スカイキューブの背景。

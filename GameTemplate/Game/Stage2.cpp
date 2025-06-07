@@ -25,7 +25,7 @@ bool Stage2::Start()
 	m_filePathConfig = NewGO<Config>(0, "config");
 
 	//モデルの初期化
-	m_modelRender.Init("Assets/modelData/Stage/Assets/Stage2.tkm");
+	m_modelRender.Init("Assets/level3D/Stage2.tkm");
 	m_modelRender.SetScale(SCALE);// スケールのセット。
 
 	//レベルオブジェクトのロード
@@ -51,13 +51,13 @@ void Stage2::Update()
 bool Stage2::LevelRender()
 {
 	// Levelを構築する。
-	m_level3DRender.Init("stage2.tkl", [&](LevelObjectData& objData)
+	m_level3DRender.Init("Assets/level3D/stage2.tkl", [&](LevelObjectData& objData)
 	{
 		//オブジェクトの位置を設定
 		m_position = objData.position;
 
 		// 名前が「FallingFloor」だったら。
-		if (objData.EqualObjectName(L"FallingFloor") == true)
+		if (objData.ForwardMatchName(L"FallingFloor") == true)
 		{
 			// 落下床オブジェクトの作成。
 			m_fallingFloor = NewGO<FallingFloor>(0, "FallingFloor");
@@ -67,7 +67,7 @@ bool Stage2::LevelRender()
 		}
 
 		// 名前が「movingNeedle」だったら。
-		else if (objData.EqualObjectName(L"movingNeedle") == true)
+		else if (objData.EqualObjectName(L"MovingNeedle") == true)
 		{
 			// 針オブジェクトの作成。
 			m_movingNeedle = NewGO<MovingNeedle>(0, "movingneedle");
@@ -87,7 +87,7 @@ bool Stage2::LevelRender()
 		}
 
 		// 名前が「FallingRocks」だったら。
-		else if (objData.EqualObjectName(L"FallingRocks") == true)
+		else if (objData.ForwardMatchName(L"FallingRocks") == true)
 		{
 			// 落石のオブジェクト生成。
 			m_fallingRocks = NewGO<FallingRocks>(0, "fallingRocks");
@@ -114,6 +114,7 @@ bool Stage2::LevelRender()
 			m_StairsInTheForest->SetPosition(m_position);
 			return true;
 		}
+		return false;
 	});
 	return true;
 }

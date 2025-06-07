@@ -98,6 +98,21 @@ void Title::Update()
 
 	//ライトカメラの更新。
 	g_renderingEngine->SetLightCameraTarget(m_playerModelPosition);
+
+	//このクラスが削除していないとき処理する。
+	if (!this->IsDead())
+	{
+		//タイトル画面BGMの再生。
+		g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Title, 1.0f);
+
+		//タイトル画面BGMの音量を取得していなかったら
+		if (m_getTitleBGMVolumeFlag != true)
+		{
+			//タイトル画面BGMの音量を取得。
+			m_titleBGMVolume = g_gameSoundEngine->GetVolume(GameSoundList_BGM_Title);
+			m_getTitleBGMVolumeFlag = true;
+		}
+	}
 }
 
 //描画処理。
@@ -199,6 +214,9 @@ void Title::Action()
 				{
 					//ボタンが押された
 					m_pressButtonFlag = true;
+					
+					//決定音の再生。
+					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Decision, 1.0f);
 				}
 			}
 
@@ -220,6 +238,8 @@ void Title::Action()
 				//十字キーを上に倒したら
 				if (g_pad[0]->IsTrigger(enButtonUp))
 				{
+					//選択音の再生。
+					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
 					//現在の選択がスタートだったら
 					if (m_modeSelect == enModeSelect_Start)
 					{
@@ -233,6 +253,8 @@ void Title::Action()
 				//十字キーを下に倒したら
 				else if (g_pad[0]->IsTrigger(enButtonDown))
 				{
+					//選択音の再生。
+					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
 					//現在の選択がゲーム終了だったら
 					if (m_modeSelect == enModeSelect_Shutdown)
 					{
@@ -249,12 +271,28 @@ void Title::Action()
 				{
 					//ボタンが押された
 					m_pressButtonFlag = true;
+
+					//モード選択がスタートを選択していたら
+					if (m_modeSelect==enModeSelect_Start)
+					{
+						//決定音(画面遷移用)の再生。
+						g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Decision_ScreenTransition, 1.0f);
+					}
+					//モード選択でスタート以外を選択していたら
+					else
+					{
+						//決定音の再生。
+						g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Decision, 1.0f);
+					}
 				}
 				//Bボタンを押したら
 				else if (g_pad[0]->IsTrigger(enButtonB))
 				{
 					//タイトルへ遷移
 					m_titleTransition = enTitleTransition_Title;
+
+					//キャンセル音の再生。
+					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Cancel, 1.0f);
 				}
 			}
 
@@ -291,6 +329,9 @@ void Title::Action()
 				m_titleTransition = enTitleTransition_ModeSelect;
 				//ボタンが押されていない
 				m_pressButtonFlag = false;
+
+				//決定音の再生。
+				g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Decision, 1.0f);
 			}
 			break;
 		default:
@@ -305,6 +346,20 @@ void Title::Action()
 		{
 			//フェードをフェードアウトに切り替える
 			m_fade->FadeTransition(enFadeState_FadeOut);
+
+			if (m_titleBGMVolume > 0.0f)
+			{
+				//タイトル画面BGMの音量を下げる。
+				m_titleBGMVolume -= 0.03f;
+				g_gameSoundEngine->SetVolume(GameSoundList_BGM_Title, m_titleBGMVolume);
+			}
+			else
+			{
+				//タイトル画面BGMの音量を0に固定する。
+				m_titleBGMVolume = 0.0f;
+				g_gameSoundEngine->SetVolume(GameSoundList_BGM_Title, m_titleBGMVolume);
+			}
+
 			//2.5秒経過したらシーンを遷移する
 			if (m_sceneTransitionFlag != true)
 			{
@@ -319,6 +374,8 @@ void Title::Action()
 			//ゲームロードフラグが立ったらゲームクラスを生成する
 			if (m_gameLoadFlag == true)
 			{
+				//タイトル画面BGMを削除。
+				DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Title));
 				NewGO<Game>(0, "game");
 				DeleteGO(this);
 			}

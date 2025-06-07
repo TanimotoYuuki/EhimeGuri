@@ -58,6 +58,9 @@ void Block::Update()
 			{
 				m_player->m_moveSpeed.y *= -1.0f;
 			}
+
+			//ブロックを叩いた時の音の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_BlockTouch, 2.0f);
 		}
 	}
 	

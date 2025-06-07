@@ -98,6 +98,9 @@ void ItemEnemy::Update() {
 			m_mikan = FindGO<Mikan>("mikan");
 			m_mikan->m_position = m_position;
 			m_mikan->m_position.y = m_position.y + 45.0f;
+
+			//プレイヤーが敵を踏んだ時の音を再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);
 		}
 		else {
 			//プレイヤーに触れた。

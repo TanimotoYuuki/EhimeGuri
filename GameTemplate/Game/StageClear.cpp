@@ -36,7 +36,7 @@ bool StageClear::Start()
 	m_fade = FindGO<Fade>("fade");
 	m_fade->FadeTransition(enFadeState_None);
 
-	//ステージクリア時の音の再生。
+	//ステージクリアBGMの再生。
 	g_gameSoundEngine->PlaySE(GameSoundList_SE_System_StageClear, 1.0f);
 	return true;
 }

@@ -7,6 +7,7 @@ namespace nsK2EngineLow {
 	GameTime* g_gameTime = nullptr;
 	RenderingEngine* g_renderingEngine = nullptr;
 	CollisionObjectManager* g_collisionObjectManager = nullptr;
+	GameSoundEngine* g_gameSoundEngine = nullptr;
 
 	K2EngineLow::~K2EngineLow()
 	{
@@ -15,6 +16,7 @@ namespace nsK2EngineLow {
 		g_gameTime = nullptr;
 		g_renderingEngine = nullptr;
 		g_collisionObjectManager = nullptr;
+		g_gameSoundEngine = nullptr;
 		
 		delete m_graphicsEngine;
 		
@@ -50,6 +52,10 @@ namespace nsK2EngineLow {
 		g_renderingEngine->Init();
 
 		g_collisionObjectManager = new CollisionObjectManager;
+
+		g_gameSoundEngine = new GameSoundEngine;
+		g_gameSoundEngine->Init();
+
 #ifdef K2_DEBUG
 		if (m_graphicsEngine) {
 			m_fpsFont = std::make_unique<Font>();
@@ -94,6 +100,7 @@ namespace nsK2EngineLow {
 			pad.Update();
 		}
 		g_soundEngine->Update();
+		g_gameSoundEngine->Update();
 		GameObjectManager::GetInstance()->ExecuteUpdate();
 		// エフェクトエンジンの更新。
 		EffectEngine::GetInstance()->Update(g_gameTime->GetFrameDeltaTime());
