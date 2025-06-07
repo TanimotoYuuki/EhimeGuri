@@ -62,6 +62,9 @@ void ClearPoint::StageClear_NewGO()
 	// ステージクリアの状態を確認する。
 	if (m_stageClear->GetIsClear() == true)
 	{
+		//ステージ1BGMを削除
+		DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
+
 		DeleteGO(m_fade);
 		DeleteGO(this);
 	}

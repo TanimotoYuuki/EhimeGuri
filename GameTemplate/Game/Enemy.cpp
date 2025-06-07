@@ -93,6 +93,9 @@ void Enemy::Update() {
 			Enemyanimationstate = 1;
 			m_player->m_moveSpeed.y = 500.0f;
 			charactercontroller.RemoveRigidBoby();
+
+			//プレイヤーが敵を踏んだ時の音を再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);
 		}
 		else {
 			//プレイヤーに触れた

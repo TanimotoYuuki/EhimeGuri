@@ -26,6 +26,9 @@ void Mikan::Update() {
 	{
 		if (deff.Length() <= 70.0f) {
 			m_player->mikanCount += 1;
+
+			// アイテムを取得したの音の再生。
+			g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_ItemGet, 3.0f);
 			DeleteGO(this);
 		}
 	}

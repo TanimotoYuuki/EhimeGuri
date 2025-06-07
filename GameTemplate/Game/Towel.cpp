@@ -28,6 +28,9 @@ void Towel::Update()
 	Vector3 deff = m_player->m_position - m_position;
 	if (deff.Length() <= 100.0f) {
 		m_player->taoruCount = 1;
+
+		// アイテムを取得したの音の再生。
+		g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_ItemGet, 3.0f);
 		DeleteGO(this);
 	}
 }

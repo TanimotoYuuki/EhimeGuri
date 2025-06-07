@@ -336,6 +336,7 @@
     <ClCompile Include="SceneLight.cpp" />
     <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="SkyCube.cpp" />
+    <ClCompile Include="GameSoundEngine.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
@@ -438,6 +439,7 @@
     <ClInclude Include="SceneLight.h" />
     <ClInclude Include="Shadow.h" />
     <ClInclude Include="SkyCube.h" />
+    <ClInclude Include="GameSoundEngine.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />
