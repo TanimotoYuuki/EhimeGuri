@@ -3,8 +3,8 @@ class Config;
 class Tower : public IGameObject
 {
 public:
-	Tower();
-	~Tower();
+	Tower() {};
+	~Tower() {};
 
 	bool Start();// 初期化処理。
 	void Update();// 更新処理。

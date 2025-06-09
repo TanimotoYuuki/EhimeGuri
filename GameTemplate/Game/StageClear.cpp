@@ -106,12 +106,9 @@ void StageClear::UpdateStageClearSpriteEasing()
 		{
 			//ステージクリア演出を終了する。
 			m_stageClearDirectionFinishFlag = true;
-			//フェードをフェードインに切り替える。
-			m_fade->FadeTransition(enFadeState_FadeIn);
 		}
 		return;
 	}
-
 
 	m_easingTime += 0.5f * g_gameTime->GetFrameDeltaTime();
 
