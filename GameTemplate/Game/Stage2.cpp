@@ -96,10 +96,19 @@ bool Stage2::LevelRender()
 			return true;
 		}
 
+		// 名前が「Tower」だったら
+		else if (objData.EqualObjectName(L"Tower") == true)
+		{
+			// タワーのオブジェクト生成。
+			m_Tower = NewGO<Tower>(0, "Tower");
+			// 座標の設定。
+			m_Tower->SetPosition(m_position);
+			return true;
+		}
+
 		// 名前が「Stairs in the forest」だったら
 		else if (objData.EqualObjectName(L"Stairs in the forest") == true)
 		{
-			// 階段モデルの生成。
 			m_StairsInTheForest = NewGO<StairsInTheForest>(0, "Stairsintheforest");
 			// 座標の設定。
 			m_StairsInTheForest->SetPosition(m_position);
