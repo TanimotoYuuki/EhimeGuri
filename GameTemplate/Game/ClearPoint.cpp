@@ -21,7 +21,8 @@ bool ClearPoint::Start()
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
-	m_fade = FindGO<Fade>("fade");
+
+	m_stageClear = FindGO<StageClear>("stageClear");
 	return true;
 }
 
@@ -56,7 +57,6 @@ void ClearPoint::StageClear_NewGO()
 	// ステージクリアの処理を追加する場合はここに記述。
     // ゲームクリアのフラグを立てる。
 	NewGO<StageClear>(0, "stageClear");
-	m_stageClear = FindGO<StageClear>("stageClear");
 	m_stageClear->SetIsClear(true);
 
 	// ステージクリアの状態を確認する。

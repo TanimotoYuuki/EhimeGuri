@@ -8,6 +8,7 @@
 using namespace std;
 
 class Config;
+class Tower;
 class FallingFloor;
 class MovingNeedle;
 class RotationFloor;
@@ -39,6 +40,7 @@ public:
 	MovingNeedle* m_movingNeedle = nullptr;// 動く針。
 	RotationFloor* m_rotationFloor = nullptr;// 回転する床
 	StairsInTheForest* m_StairsInTheForest;
+	Tower* m_Tower = nullptr;
 private:
 	ModelRender m_modelRender;// モデルの描画。
 	PhysicsStaticObject m_physicsStaticObject;// 静的物理オブジェクト。
