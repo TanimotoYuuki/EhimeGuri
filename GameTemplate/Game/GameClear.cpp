@@ -90,7 +90,7 @@ void GameClear::Render(RenderContext& rc)
 	}
 
 	//収集率が100%のとき描画する。
-	if (m_hundredPlace[enNumberDraw_GatheringRate] >= 1.0f)
+	if (m_gatheringRate >= 100)
 	{
 		//100%～。
 		//収集率用数字UI(百の位)。
@@ -98,7 +98,7 @@ void GameClear::Render(RenderContext& rc)
 	}
 
 	//収集率が10%以上のとき描画する。
-	if (m_tenPlace[enNumberDraw_GatheringRate] >= 1.0f)
+	if (m_gatheringRate >= 10)
 	{
 		//10%～。
 		//収集率用数字UI(十の位)。
@@ -322,21 +322,14 @@ void GameClear::InitModel()
 void GameClear::GatheringRate(int gatheringItemNum, int totalItemNum)
 {
 	//収集率を求める。
-	m_gatheringRate = (double(gatheringItemNum) / double(totalItemNum)) * 100.0f;
+	m_gatheringRate = ((gatheringItemNum * 100) + (totalItemNum / 2)) / totalItemNum;
 
 	//UIを表示するための計算。
 	//百の位。
 	m_hundredPlace[enNumberDraw_GatheringRate] = m_gatheringRate / 100;
 
 	//十の位。
-	m_tenPlace[enNumberDraw_GatheringRate] = m_gatheringRate / 10;
-
-	//十の位を求める計算の結果が10.0f以上のとき。
-	if (m_tenPlace[enNumberDraw_GatheringRate] >= 10.0f)
-	{
-		//十の位が0を表示できるようにする。
-		m_tenPlace[enNumberDraw_GatheringRate] = enNumver_TenOver;
-	}
+	m_tenPlace[enNumberDraw_GatheringRate] = (m_gatheringRate % 100) / 10;
 
 	//一の位。
 	m_onePlace[enNumberDraw_GatheringRate] = m_gatheringRate % 10;

@@ -69,6 +69,15 @@ public:
 		return m_fade;
 	}
 
+	/// <summary>
+	/// フェードインが終わったかどうか?
+	/// </summary>
+	/// <returns>trueならフェードインが終わった</returns>
+	bool IsFadeInFinish() const
+	{
+		return m_isFadeInFinish;
+	}
+
 private:
 
 	//点
@@ -90,5 +99,6 @@ private:
 	bool m_loadingFlag = false;						//ローディングフラグ
 	bool m_pointFallFlag = false;					//点落下フラグ
 	bool m_fadeTransitionFlag = false;				//フェードが切り替わったか?
+	bool m_isFadeInFinish = false;					//フェードインが終わったか?
 };
 

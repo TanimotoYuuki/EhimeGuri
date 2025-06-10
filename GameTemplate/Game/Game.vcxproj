@@ -227,6 +227,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\k2EngineLow\level3D\Level.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Checpoint.cpp" />
@@ -275,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\k2EngineLow\level3D\Level.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Checpoint.h" />

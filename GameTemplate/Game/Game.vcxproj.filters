@@ -48,6 +48,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="StairsInTheForest.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -91,5 +92,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="StairsInTheForest.h" />
+    <ClInclude Include="GameTimer.h" />
   </ItemGroup>
 </Project>
