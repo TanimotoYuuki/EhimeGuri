@@ -183,6 +183,15 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// ワイプサイズの取得
+		/// </summary>
+		/// <returns>ワイプサイズ</returns>
+		float GetWipeSize() const
+		{
+			return m_spriteRenderConstantBuffer.linearWipe.size;
+		}
+
+		/// <summary>
 		/// リニアワイプの速度を設定
 		/// </summary>
 		/// <param name="wipeScroolSpeed">速度</param>

@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include"Towel.h"
 #include"ItemEnemy.h"
+#include"Fade.h"
 using namespace std;
 
 namespace {
@@ -50,6 +51,8 @@ Player::Player() {
 	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
 		OnAnimationEvent(clipName, eventName);
 	});
+
+	m_fade = FindGO<Fade>("fade");
 }
 Player::~Player() {
 
@@ -73,7 +76,7 @@ void Player::Update() {
 	}
 
 	if (m_playernowsutamina == 0) {
-		m_sutaminaZeroFlag=true;
+		m_sutaminaZeroFlag = true;
 	}
 	if (m_sutaminaZeroFlag == true) {
 		Derei();
@@ -102,7 +105,11 @@ void Player::Move() {
 	m_moveSpeed.z = 0.0f;
 	
 	Vector3 stickL;
-	if (m_stageClearFlag != true && m_gameOverFlag != true)
+
+	//以下の条件になっていたらプレイヤーを動かすことができる
+	if ((m_stageClearFlag != true && m_gameOverFlag != true) &&		//ゲームクリアまたはゲームオーバーになっていないとき
+		(m_fade->GetFadeSprite().GetWipeSize() > 700.0f && m_fade->GetFadeState() == enFadeState_FadeIn)	//フェードインの時に一定の大きさを超えたら
+		)
 	{
 		stickL.x = g_pad[0]->GetLStickXF();
 		stickL.y = g_pad[0]->GetLStickYF();
@@ -135,11 +142,13 @@ void Player::Move() {
 		
 		m_moveSpeed.y = 0.0f;	
 
-		
-		if (m_stageClearFlag != true && m_gameOverFlag != true)
+		//以下の条件になっていたらプレイヤーを動かすことができる
+		if ((m_stageClearFlag != true && m_gameOverFlag != true) &&		//ゲームクリアまたはゲームオーバーになっていないとき
+			(m_fade->GetFadeSprite().GetWipeSize() > 700.0f && m_fade->GetFadeState() == enFadeState_FadeIn)	//フェードインの時に一定の大きさを超えたら
+			)
 		{
 			if (g_pad[0]->IsTrigger(enButtonA)) {
-				
+
 				m_moveSpeed.y = 525.0f;
 
 				//ジャンプした時の音の再生。

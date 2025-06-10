@@ -5,6 +5,7 @@ class S_MovibgFloor;
 class Enemy;
 class Towel;
 class ItemEnemy;
+class Fade;
 class Player:public IGameObject
 {
 public:
@@ -130,7 +131,8 @@ public:
 	Enemy* m_enemy = nullptr;
 	GameOver* m_gameover = nullptr;
 	Towel* m_towel = nullptr;
-	ItemEnemy* m_itemEnemy;//アイテムエネミー用インスタンス
+	ItemEnemy* m_itemEnemy = nullptr;//アイテムエネミー用インスタンス
+	Fade* m_fade = nullptr;
 	int m_playermaxsutamina = 300;
 	int	m_playernowsutamina = 300;
 	bool m_sutaminaZeroFlag = false;
