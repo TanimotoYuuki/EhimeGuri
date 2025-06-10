@@ -66,6 +66,20 @@ void Fade::Update()
 		}
 	}
 
+	//以下の条件になったら
+	if ((m_fade.GetWipeSize() > 700.0f && //ワイプサイズが700より大きい
+		m_fadeState == enFadeState_FadeIn) //フェードステートがフェードイン
+		)
+	{
+		//フェードイン終了
+		m_isFadeInFinish = true;
+	}
+	else
+	{
+		//フェードイン終了しない
+		m_isFadeInFinish = false;
+	}
+
 	//フェードステートがローディングのとき
 	if (m_fadeState == enFadeState_Loading)
 	{
