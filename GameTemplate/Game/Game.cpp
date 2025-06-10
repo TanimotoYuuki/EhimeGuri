@@ -94,6 +94,10 @@ Game::~Game()
 // 初期化処理。
 bool Game::Start()
 {
+	/// <summary>
+	/// フェード関数。
+	/// </summary>
+	Fade_NewGO();
 
 	m_backGroundRender.SetScale(BACKGROUND_SCALE);
 	m_backGroundRender.Update();
@@ -169,10 +173,6 @@ bool Game::Start()
 	ClearPoint_NewGO();
 	HS_fallingBlock_NewGO();
 	S_MovingFloor_NewGO();
-	/// <summary>
-	/// フェード関数。
-	/// </summary>
-	Fade_NewGO();
 
 	//ステージ背景・愛媛県の場所・愛媛県の名所の初期化。
 	for (int i = 0; i < enEhimePlace_Num; i++)

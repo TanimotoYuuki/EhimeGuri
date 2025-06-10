@@ -12,7 +12,7 @@ GameCamera::~GameCamera() {
 
 bool GameCamera::Start() {
 	//注視点から視点までのベクトルを設定。
-	SetToCameraPos(Vector3(0.0f, 100.0f, -500.0f));
+	SetToCameraPos(Vector3(0.0f, 200.0f, -800.0f));
 
 	//カメラのニアクリップとファークリップを設定する。
 	g_camera3D->SetNear(1.0f);

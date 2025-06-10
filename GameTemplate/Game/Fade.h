@@ -51,9 +51,22 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// フェードステートの取得。
+	/// </summary>
+	/// <returns>フェードステート</returns>
 	int GetFadeState() const
 	{
 		return m_fadeState;
+	}
+
+	/// <summary>
+	/// フェード用のスプライトの取得。
+	/// </summary>
+	/// <returns>フェード用スプライト</returns>
+	SpriteRender& GetFadeSprite()
+	{
+		return m_fade;
 	}
 
 private:
