@@ -30,10 +30,10 @@ Player::Player() {
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 
-	m_position = { 0.0f,94.0f,0.0f };
+//	m_position = { 0.0f,94.0f,0.0f };
 
 	// ゴールポールの位置。
-//	m_position = { 17300.0f, 700.0f, 0.0f };
+	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	//初期位置の設定。
 	m_initPosition = m_position;

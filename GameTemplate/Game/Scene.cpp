@@ -10,6 +10,12 @@
 
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
 
+Stage1Scene::~Stage1Scene()
+{
+	DeleteGO(m_stage1);
+
+}
+
 // シーン::初期化処理。
 bool Scene::Start()
 {
@@ -92,7 +98,7 @@ bool Stage2Scene::Start()
 	}
 
 	//カメラをステージ2の開始位置に移動
-	g_camera3D->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+	g_camera3D->SetPosition(Vector3(0.0f, 300.0f, -800.0f));
 	//カメラの注視点を設定
 	g_camera3D->SetTarget(Vector3(0.0f, 0.0f, 0.0f));
 

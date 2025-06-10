@@ -18,6 +18,7 @@ namespace
 bool FallingFloor::Start()
 {
 	m_modelRender.Init("Assets/modelData/FallingFloor/FallingFloor.tkm");
+//	m_modelRender.Init("Assets/modelData/FallingFloor.tkm");
 
 
 

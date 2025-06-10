@@ -43,7 +43,7 @@ class Stage1Scene : public IScene
 {  
 public:  
     Stage1Scene() {};  
-    ~Stage1Scene() {};  
+    ~Stage1Scene();  
 
     bool Start() override;
 	void Update() override;
@@ -60,8 +60,8 @@ private:
 class Stage2Scene : public IScene  
 {  
 public:  
-    Stage2Scene() {};  
-    ~Stage2Scene() {};  
+    Stage2Scene() {};
+    ~Stage2Scene() {};
 
     bool Start() override;
 	void Update() override;
