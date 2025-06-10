@@ -29,7 +29,7 @@ bool Stage2::Start()
 	m_modelRender.SetScale(SCALE);// スケールのセット。
 
 	//レベルオブジェクトのロード
-	LevelRender();
+//	LevelRender();
 
 	m_modelRender.Update();// モデルの更新。
 	m_physicsStaticObject.CreateFromModel
@@ -57,12 +57,12 @@ bool Stage2::LevelRender()
 		m_position = objData.position;
 
 		// 名前が「FallingFloor」だったら。
-		if (objData.ForwardMatchName(L"FallingFloor") == true)
+		if (objData.EqualObjectName(L"FallingFloor") == true)
 		{
-			// 落下床オブジェクトの作成。
-			m_fallingFloor = NewGO<FallingFloor>(0, "FallingFloor");
-			//座標を設定する。
-			m_fallingFloor->SetPosition(m_position);
+			//// 落下床オブジェクトの作成。
+			//m_fallingFloor = NewGO<FallingFloor>(0, "FallingFloor");
+			////座標を設定する。
+			//m_fallingFloor->SetPosition(m_position);
 			return true;
 		}
 
@@ -70,9 +70,9 @@ bool Stage2::LevelRender()
 		else if (objData.EqualObjectName(L"MovingNeedle") == true)
 		{
 			// 針オブジェクトの作成。
-			m_movingNeedle = NewGO<MovingNeedle>(0, "movingneedle");
+			//m_movingNeedle = NewGO<MovingNeedle>(0, "movingneedle");
 			// 座標を設定する。
-			m_movingNeedle->SetPosition(m_position);
+			//m_movingNeedle->SetPosition(m_position);
 			return true;
 		}
 
@@ -87,12 +87,12 @@ bool Stage2::LevelRender()
 		}
 
 		// 名前が「FallingRocks」だったら。
-		else if (objData.ForwardMatchName(L"FallingRocks") == true)
+		else if (objData.EqualObjectName(L"FallingRocks") == true)
 		{
-			// 落石のオブジェクト生成。
-			m_fallingRocks = NewGO<FallingRocks>(0, "fallingRocks");
-			// 座標の設定。
-			m_fallingRocks->SetPosition(m_position);
+			//// 落石のオブジェクト生成。
+			//m_fallingRocks = NewGO<FallingRocks>(0, "fallingRocks");
+			//// 座標の設定。
+			//m_fallingRocks->SetPosition(m_position);
 			return true;
 		}
 
@@ -100,18 +100,18 @@ bool Stage2::LevelRender()
 		else if (objData.EqualObjectName(L"Tower") == true)
 		{
 			// タワーのオブジェクト生成。
-			m_Tower = NewGO<Tower>(0, "Tower");
-			// 座標の設定。
-			m_Tower->SetPosition(m_position);
+			//m_Tower = NewGO<Tower>(0, "Tower");
+			//// 座標の設定。
+			//m_Tower->SetPosition(m_position);
 			return true;
 		}
 
-		// 名前が「Stairs in the forest」だったら
-		else if (objData.EqualObjectName(L"Stairs in the forest") == true)
+		// 名前が「StairsInTheForest」だったら
+		else if (objData.EqualObjectName(L"StairsInTheForest") == true)
 		{
-			m_StairsInTheForest = NewGO<StairsInTheForest>(0, "Stairsintheforest");
-			// 座標の設定。
-			m_StairsInTheForest->SetPosition(m_position);
+			//m_StairsInTheForest = NewGO<StairsInTheForest>(0, "Stairsintheforest");
+			//// 座標の設定。
+			//m_StairsInTheForest->SetPosition(m_position);
 			return true;
 		}
 		return false;

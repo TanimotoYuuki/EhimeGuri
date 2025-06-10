@@ -6,8 +6,8 @@ using namespace std;
 
 bool FallingRocks::Start()
 {
-	string modelPath = m_config->GetFullPath_3DModel("FallingRocks");// ファイルパスを読み込む。
-	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
+	m_modelRender.Init("Assets/modelData/FallingRocks/FallingRocks.tkm");
+
 
 	// 重力の初期化
 	gravity = Vector3(0.0f, -9.8f, 0.0f);
