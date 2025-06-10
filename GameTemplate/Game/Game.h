@@ -20,6 +20,7 @@ class StageClear;// ステージクリア。
 class S_MovingFloor;// 動く床(遅)。
 class GameOver;// ゲームオーバー。
 class GameCamera;// カメラ。
+class GameTimer;// ゲームタイマー。
 class HS_FallingBlock;	//動く床(速)。
 class TransparentBlock;// 透明ブロック。
 class Towel;// タオル。
@@ -41,6 +42,7 @@ public:
 	void Update();// 更新処理。
 	void Render(RenderContext& rc);// 描画処理。
 		
+	void GameTimer_NewGO();// ゲームタイマーのNewGO。
 	void Block_NewGO();// ブロックのNewGO。
 	void ClearPoint_NewGO();// クリアポイントのNewGO。
 	void TransparentBlock_NewGO();// 透明ブロックのNewGO。
@@ -233,6 +235,10 @@ private:
 	/// </summary>
 	GameCamera* m_gameCamera = nullptr;
 	/// <summary>
+	/// ゲームタイマー
+	/// </summary>
+	GameTimer* m_gameTimer = nullptr;
+	/// <summary>
 	/// 落下速度の速い床。
 	/// </summary>
 	HS_FallingBlock* m_HS_FallingBlock = nullptr;
@@ -299,9 +305,7 @@ private:
 	/// <summary>
 	/// フォントレンダー。
 	/// </summary>
-	FontRender m_timerRender;
 	FontRender m_fontRender;
-
 	ModelRender m_backGroundRender;
 	ModelRender	m_modelRender;
 
@@ -377,7 +381,6 @@ private:
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
-	float m_timer = 180.0f;// タイマー。
 	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
 	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
 	bool drawFlag = true;// 描画フラグ。

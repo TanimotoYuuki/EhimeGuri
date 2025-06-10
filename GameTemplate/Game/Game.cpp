@@ -8,6 +8,7 @@
 #include"Game.h"
 #include"GameOver.h"
 #include"GameCamera.h"
+#include"GameTimer.h"
 #include"HS_FallingBlock.h"
 #include"movingNeedle.h"
 #include"MovingFloor.h"
@@ -94,6 +95,11 @@ Game::~Game()
 // 初期化処理。
 bool Game::Start()
 {
+	/// <summary>
+	/// ゲームタイマーのNewGO関数。
+	/// </summary>
+	GameTimer_NewGO();
+
 	/// <summary>
 	/// フェード関数。
 	/// </summary>
@@ -253,13 +259,14 @@ void Game::Update()
 		return;
 	}
 
-	//残り時間が0.0秒になったらゲームオーバー演出を流す
-	if (m_timer <= 0.0f) {
+	//時間切れになったらゲームオーバー演出を流す
+	if (m_gameTimer->IsTimeUp()) {
 		//ゲームオーバーの演出が流れていないとき
 		if (m_gameOverFlag != true)
 		{
 			NewGO<GameOver>(0, "gameover");
 			DeleteGO(m_fade);
+			DeleteGO(m_gameTimer);
 			//ゲームオーバー演出を流す
 			m_gameOverFlag = true;
 		}
@@ -311,16 +318,6 @@ void Game::Update()
 	heri.x *= nokori;
 	m_sutaminaMaxrender.SetScale(heri);
 
-	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"残り%.1f秒", float(m_timer));
-	m_timerRender.SetText(wcsbuf);
-	m_timerRender.SetPosition(Vector3(0.0f, 500.0f, 0.0f));
-	m_timerRender.SetColor({ 1.0f,0.0f,0.0f,1.0f });
-	m_timerRender.SetScale(1.0f);
-
-	m_timer -= g_gameTime->GetFrameDeltaTime();
-
-
 	m_sutaminaMaxrender.Update();
 	m_sutamina0render.Update();
 
@@ -342,6 +339,13 @@ void Game::Update()
 	
 	//ステージ1BGMを再生。
 	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage1, 1.0f);
+}
+
+// ゲームタイマーのNewGO。
+void Game::GameTimer_NewGO()
+{
+	m_gameTimer = NewGO<GameTimer>(0, "gametimer");
+	m_gameTimer->SetTimeLimit(180.0f);
 }
 
 // 透明ブロックのNewGO。
@@ -561,7 +565,6 @@ void Game::Render(RenderContext& rc)
 			m_sutaminaMaxrender.Draw(rc);
 		}
 		m_fontRender.Draw(rc);
-		m_timerRender.Draw(rc);
 		m_mappuRender.Draw(rc);
 		m_gennzaitiRender.Draw(rc);
 		if (m_player->jakoCount == 0) {

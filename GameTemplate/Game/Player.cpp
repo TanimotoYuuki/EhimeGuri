@@ -31,10 +31,10 @@ Player::Player() {
 
 	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
 
-//	m_position = { 0.0f,94.0f,0.0f };
+	m_position = { 0.0f,94.0f,0.0f };
 
 	// ゴールポールの位置。
-	m_position = { 17300.0f, 700.0f, 0.0f };
+//	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	//初期位置の設定。
 	m_initPosition = m_position;
@@ -108,7 +108,7 @@ void Player::Move() {
 
 	//以下の条件になっていたらプレイヤーを動かすことができる
 	if ((m_stageClearFlag != true && m_gameOverFlag != true) &&		//ゲームクリアまたはゲームオーバーになっていないとき
-		(m_fade->GetFadeSprite().GetWipeSize() > 700.0f && m_fade->GetFadeState() == enFadeState_FadeIn)	//フェードインの時に一定の大きさを超えたら
+		(m_fade->IsFadeInFinish())	//フェードインが終わったら
 		)
 	{
 		stickL.x = g_pad[0]->GetLStickXF();
@@ -144,7 +144,7 @@ void Player::Move() {
 
 		//以下の条件になっていたらプレイヤーを動かすことができる
 		if ((m_stageClearFlag != true && m_gameOverFlag != true) &&		//ゲームクリアまたはゲームオーバーになっていないとき
-			(m_fade->GetFadeSprite().GetWipeSize() > 700.0f && m_fade->GetFadeState() == enFadeState_FadeIn)	//フェードインの時に一定の大きさを超えたら
+			(m_fade->IsFadeInFinish())	//フェードインが終わったら
 			)
 		{
 			if (g_pad[0]->IsTrigger(enButtonA)) {
