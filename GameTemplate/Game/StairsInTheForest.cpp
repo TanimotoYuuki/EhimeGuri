@@ -15,7 +15,7 @@ bool StairsInTheForest::Start()
 {
 	// LevelObjectのため、Objectごとにファイル分けをしています。
 	// → 今まで、使っていた定数化を解除。
-	m_modelRender.Init("Assets/modelData/Stairs in the forest/Stairs in the forest.tkm");
+	m_modelRender.Init("Assets/modelData/StairsInTheForest/StairsInTheForest.tkm");
 
 
 	m_modelRender.SetScale(SCALE);// スケールのセット。
