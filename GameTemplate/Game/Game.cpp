@@ -9,12 +9,10 @@
 #include"GameOver.h"
 #include"GameCamera.h"
 #include"GameTimer.h"
-#include"HS_FallingBlock.h"
 #include"movingNeedle.h"
 #include"MovingFloor.h"
 #include"Player.h"
 #include"Scaffold.h"
-#include"ScaffoldBlock.h"
 #include"StageClear.h"
 #include"S_MovingFloor.h"
 #include"TransparentBlock.h"
@@ -31,9 +29,15 @@
 
 namespace
 {
-//	const Vector3 TRANSPARENTBLOCK_SCALE(10.0f, 10.0f, 10.0f);
 	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
-//	const Vector3 NEEDLE_SCALE(10.0f, 10.0f, 10.0f);
+	const Vector3 ENEMY_POSITION1(2800.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_POSITION2(400.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_POSITION3(4800.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_PODITION4(12900.0f, 225.0f, 0.0f);
+	const Vector3 BACKGROUND_FIRSTPOSITION(0.0f, 0.0f, 0.0f);
+
+	const float TIMER = 180.0f;
+
 	const int ENEMY_NUM = 4;
 }
 
@@ -62,7 +66,6 @@ Game::~Game()
 	DeleteGO(m_fallingBlock);
 	DeleteGO(m_fallingBlock1);
 	DeleteGO(m_fallingBlock2);
-	DeleteGO(m_scaffoldBlock);
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
 	DeleteGO(m_block);
@@ -78,7 +81,6 @@ Game::~Game()
 	DeleteGO(m_s_MovingFloor1);
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_HS_FallingBlock);
 	DeleteGO(m_itemenemy);
 	DeleteGO(m_tobeyaki);
 	DeleteGO(m_sinju);
@@ -112,10 +114,10 @@ bool Game::Start()
 	m_gameCamera->SetTarget(m_player);
 
 	Vector3 enemyPosList[ENEMY_NUM] = {
-		{2800.0f,94.0f,0.0f},
-		{400.0f,94.0f,0.0f},
-		{4800.0f,94.0f,0.0f},
-		{12900.0f,225.0f,0.0f}
+		{ENEMY_POSITION1},
+		{ENEMY_POSITION2},
+		{ENEMY_POSITION3},
+		{ENEMY_PODITION4}
 	};
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -171,13 +173,11 @@ bool Game::Start()
 	/// </summary>
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
-	ScaffoldBlock_NewGO();
 	MovingFloor_NewGO();
 	Block_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
 	ClearPoint_NewGO();
-	HS_fallingBlock_NewGO();
 	S_MovingFloor_NewGO();
 
 	//ステージ背景・愛媛県の場所・愛媛県の名所の初期化。
@@ -244,7 +244,10 @@ bool Game::Start()
 
 	// 更新作業。
 	m_modelRender.Update();
+
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+
+
 	return true;
 }
 
@@ -345,7 +348,7 @@ void Game::Update()
 void Game::GameTimer_NewGO()
 {
 	m_gameTimer = NewGO<GameTimer>(0, "gametimer");
-	m_gameTimer->SetTimeLimit(180.0f);
+	m_gameTimer->SetTimeLimit(TIMER);
 }
 
 // 透明ブロックのNewGO。
@@ -389,13 +392,13 @@ void Game::TransparentBlock_NewGO()
 // 落ちるブロックのNewGO。
 void Game::FallingBlock_NewGO()
 {
-	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 7400.0f, 420.0f, 20.0f };
-	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
+	//m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
+	//m_fallingBlock->m_position = { 7400.0f, 420.0f, 20.0f };
+	//m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 
-	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
+	/*m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
 	m_fallingBlock1->m_position = { 8000.0f, 470.0f, 20.0f };
-	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
+	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;*/
 
 	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
 	m_fallingBlock2->m_position = { 8600.0f, 515.0f, 20.0f };
@@ -404,14 +407,7 @@ void Game::FallingBlock_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-// 足場ブロックのNewGO。
-void Game::ScaffoldBlock_NewGO()
-{
-	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
-	m_scaffoldBlock->m_position = { 6650.0f, 125.0f, 0.0f };
-	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
-	m_modelRender.SetPosition(m_position);
-}
+
 
 // 動く床のNewGO。
 void Game::MovingFloor_NewGO()
@@ -515,15 +511,6 @@ void Game::S_MovingFloor_NewGO()
 	m_s_MovingFloor3 = NewGO<S_MovingFloor>(0, "s_movingfloor");
 	m_s_MovingFloor3->m_position = { 15375.0f, 300.0f, 10.0f };
 
-	m_modelRender.SetPosition(m_position);
-}
-
-// 落下速度の速い床。
-void Game::HS_fallingBlock_NewGO()
-{
-	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
-	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
-	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -671,7 +658,7 @@ void Game::UpdateStageBackGroundCurrentPosition()
 	else
 	{
 		//ステージ背景用の初期位置。
-		m_stageBackGroundInitPosition = Vector3(0.0f, 0.0f, 0.0f);
+		m_stageBackGroundInitPosition = BACKGROUND_FIRSTPOSITION;
 	}
 
 	//ステージ背景用の現在位置の更新。

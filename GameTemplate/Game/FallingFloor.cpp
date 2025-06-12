@@ -17,12 +17,13 @@ namespace
 // 初期化処理。
 bool FallingFloor::Start()
 {
+	// ファイルパス。
 	m_modelRender.Init("Assets/modelData/FallingFloor/FallingFloor.tkm");
-//	m_modelRender.Init("Assets/modelData/FallingFloor.tkm");
 
-
-
+	// 大きさを設定。
 	m_modelRender.SetScale(SCALE);
+
+	// 更新処理。
 	m_modelRender.Update();
 	m_player = FindGO<Player>("player");
 
@@ -37,7 +38,6 @@ bool FallingFloor::Start()
 		Quaternion::Identity,
 		COLLISION_SIZE
 	);
-	m_modelRender.SetPosition(m_position);
 
 	m_collisionObject->SetIsEnableAutoDelete(false);
 

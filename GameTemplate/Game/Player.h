@@ -1,4 +1,7 @@
 #pragma once
+
+
+
 class Game;
 class GameOver;
 class S_MovibgFloor;
@@ -6,11 +9,14 @@ class Enemy;
 class Towel;
 class ItemEnemy;
 class Fade;
+class Config;
 class Player:public IGameObject
 {
 public:
-	Player();
-	~Player();
+	Player() {};
+	~Player() {};
+
+	bool Start();
 	void Update();								
 	void Render(RenderContext& rc);				
 	void Move();								
@@ -21,6 +27,7 @@ public:
 	void PlayerhealSutamina();
 	void Derei();
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName); // アニメーションイベント
+
 
 	const Vector3& GetPosition() const
 	{
@@ -67,6 +74,7 @@ public:
 		m_characterController.SetPosition(m_position);
 		m_respawnFlag = true;
 	}
+	
 
 	/// <summary>
 	/// プレイヤーがリスポーンしたか？
@@ -77,15 +85,15 @@ public:
 		return m_respawnFlag;
 	}
 
-	Vector3 m_platformVelocity = Vector3::Zero;
-
-	
-
+	/// <summary>
+	/// 地面についているかどうか。
+	/// </summary>
 	bool IsOnGround() const
 	{
 		return m_isOnGround;
 	}
 
+	// 再生するアニメーション。
 	enum EnAnimationClip {
 		enAnimationClip_idle,
 		enAnimationClip_walk,
@@ -96,6 +104,7 @@ public:
 		enAnimationClip_num
 	};
 
+	// プレイヤーステート。
 	enum PlayerState {
 		enPlayer_idle,
 		enPlayer_walk,
@@ -105,16 +114,19 @@ public:
 		enPlayer_gameover,
 		enPlayer_num
 	};
-	ModelRender	m_modelRender;
-	Vector3	m_position;			
-	AnimationClip m_animationClip[enAnimationClip_num];
-	Vector3	m_moveSpeed = Vector3::Zero;
-	Quaternion m_rotation;
+
+	CharacterController m_characterController;
+	Config* m_config;
+
+	Vector3	m_position;
 	Vector3	m_initPosition;//初期位置
 	Vector3 m_respawnPosition;//リスポーン用位置
+	Vector3 m_platformVelocity = Vector3::Zero;
+	Vector3	m_moveSpeed = Vector3::Zero;
 
+	Quaternion m_rotation;
 	Quaternion m_respawnRotation;//リスポーン用回転
-	CharacterController m_characterController;
+	ModelRender m_modelRender;
 
 
 	int	NeedleCount = 0;
@@ -127,21 +139,40 @@ public:
 	int mikanCount = 0;
 	int tobeyakiCount = 0;
 	int tarutoCount = 0;
+	int m_playermaxsutamina = 300;
+	int	m_playernowsutamina = 300;
+	int checcount = 0;
+
+	bool m_sutaminaZeroFlag = false;
+	bool m_jumpFlag = true;
+	bool m_isOnGround = true;
+	bool m_stageClearFlag = false;
+	bool m_gameOverFlag = false;
+	bool m_respawnFlag = false;//リスポーンしたか？
+	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
+
+private:
+	AnimationClip m_animationClip[enAnimationClip_num];
+
 	Game* m_game = nullptr;
 	Enemy* m_enemy = nullptr;
 	GameOver* m_gameover = nullptr;
 	Towel* m_towel = nullptr;
 	ItemEnemy* m_itemEnemy = nullptr;//アイテムエネミー用インスタンス
 	Fade* m_fade = nullptr;
-	int m_playermaxsutamina = 300;
-	int	m_playernowsutamina = 300;
-	bool m_sutaminaZeroFlag = false;
-	bool m_jumpFlag = true;
-	bool m_isOnGround = true;
-	bool m_stageClearFlag = false;
-	bool m_gameOverFlag = false;
-	int checcount = 0;
-	bool m_respawnFlag = false;//リスポーンしたか？
-	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
+
+	const char* PLAYER_ANIMATION = "Assets/animData/";// ファイルパス。
+	const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。
+
+	/// <summary>
+	/// アニメーションメソッド。
+	/// </summary>
+	const std::string GetFullPath_PlayerAnimation(EnAnimationClip enAnimationClip,const std::string& animationName ,bool flag);
+
+	/// <summary>
+    /// アニメーションを再生する。
+    /// </summary>
+	void SetPlayAnimation();
+
 };
 

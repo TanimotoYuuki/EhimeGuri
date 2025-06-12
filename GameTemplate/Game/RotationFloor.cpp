@@ -42,6 +42,7 @@ void RotationFloor::Update()
 
 void RotationFloor::Rotation()
 {
+
 	m_Rot.AddRotationDegY(2.0f);
 
 	//絵描きさんに回転を教える。

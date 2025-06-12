@@ -12,8 +12,8 @@ class FallingBlock : public IGameObject
 	/// 落下する床
 	/// </summary>
 public:
-	FallingBlock();
-	~FallingBlock();
+	FallingBlock() {};
+	~FallingBlock() {};
 
 	bool Start();
 	void Update();

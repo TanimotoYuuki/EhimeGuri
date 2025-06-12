@@ -24,22 +24,22 @@ public:
     /// </summary>
     static constexpr const char* MODEL_DATA_PATH = "Assets/modelData/Stage/Assets/"; // 3Dモデル。
     static constexpr const char* ENEMY_DATA_PATH = "Assets/modelData/YoshinagaAssets/";// 敵キャラ。
-    static constexpr const char* ENEMY_ANIMATION_PATH = "Assets/modelData/YoshinagaAssets/SkeletonAnim/";// 敵キャラ用のアニメーション。
-    static constexpr const char* PLAYER_ANIMATION_PATH = "Assets/animData/";// Playerのアニメーション。
     static constexpr const char* ITEM_DATA_PATH = "Assets/modelData/tokusannhinn/";// アイテム。
-    
+    static constexpr const char* EHIME_PLACE = "Assets/Sprite/background/1stage/";// 愛媛県の場所。
+
     /// <summary>
     /// 拡張子。
     /// </summary>
     static constexpr const char* FILE_EXTENSION = ".tkm"; // 3Dモデル用の拡張子。
-    static constexpr const char* ENEMY_ANIMATION_FILE_EXTENSION = ".tka"; // アニメーション用の拡張子。
+    static constexpr const char* SPRITE_EXTENSION = ".dds"; // 画像用の拡張子。
+
 
     /// <summary>
     /// それぞれの関数。
     /// </summary>
     static string GetFullPath_3DModel(const std::string& modelName);// 3Dモデル用のファイルパス。
-    static string GetFullPath_Enemy(const std::string& modelName);// 敵キャラ用のファイルパス。
     static string GetFullPath_Item(const std::string& modelName);// アイテムのファイルパス。
-private:
+    static string GetFullPath_EHIMEPLACE(const std::string& modelName);// 愛媛県の場所。
+
 };
 
