@@ -13,7 +13,7 @@ using namespace std;
 
 namespace
 {
-	const Vector3 SCALE{ 10.0f, 10.0f, 10.0f };// モデルの大きさ。
+	const Vector3 SCALE{ 6.5f, 6.5f, 6.5f };// モデルの大きさ。
 	const Vector3 COLLISION_HEIGHT(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
 	const Vector3 COLLISION_SIZE(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 }
@@ -45,6 +45,8 @@ bool Stage2::Start()
 void Stage2::Update()
 {
 	m_modelRender.Update();// モデルの更新。
+	//ステージ2BGMの再生。
+	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage2, 1.0f);
 }
 
 //レベルの処理。

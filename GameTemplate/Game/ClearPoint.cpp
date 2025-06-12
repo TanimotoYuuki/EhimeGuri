@@ -5,7 +5,8 @@
 #include "Player.h" 
 #include "Scene.h"
 #include "Fade.h"
-
+#include "Game.h"
+#include "GameTimer.h"
 namespace
 {
    //モデルの大きさ。
@@ -22,6 +23,8 @@ bool ClearPoint::Start()
 
 	m_player = FindGO<Player>("player");
 	m_fade = FindGO<Fade>("fade");
+	m_game = FindGO<Game>("game");
+	m_gameTimer = FindGO<GameTimer>("gametimer");
 	return true;
 }
 
@@ -62,8 +65,21 @@ void ClearPoint::StageClear_NewGO()
 	// ステージクリアの状態を確認する。
 	if (m_stageClear->GetIsClear() == true)
 	{
-		//ステージ1BGMを削除
-		DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
+		//現在ステージ1をプレイしていたら
+		if (m_game->GetStageState() == m_game->enStageState_Stage1)
+		{
+			//ステージ1BGMを削除
+			DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
+		}
+		//現在ステージ2をプレイしていたら
+		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+		{
+			//ステージ2BGMを削除
+			DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage2));
+		}
+
+		//タイマーUIを描画しない
+		m_gameTimer->NotTimeUIDrawing();
 
 		DeleteGO(m_fade);
 		DeleteGO(this);

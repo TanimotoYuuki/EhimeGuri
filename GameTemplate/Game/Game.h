@@ -82,6 +82,26 @@ public:
 	}
 
 
+	/// <summary>
+	/// チェックポイント。
+	/// </summary>
+	Checpoint* m_checpoint = nullptr;
+
+	//愛媛県の場所
+	enum EnEhimePlace
+	{
+		enEhimePlace_Iyo,				//伊予市
+		enEhimePlace_Oozu,				//大洲市
+		enEhimePlace_Yawatahama,		//八幡浜市
+		enEhimePlace_Uwajima,			//宇和島市
+		enEhimePlace_Onihoku,			//鬼北町
+		enEhimePlace_Kumakougen,		//久万高原町
+		enEhimePlace_Sikokutyuou,		//四国中央市
+		enEhimePlace_Niihama,			//新居浜市
+		enEhimePlace_Imabari,			//今治市
+		enEhimePlace_Matuyama,			//松山市
+		enEhimePlace_Num				//場所数
+	};
 
 	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
@@ -335,11 +355,6 @@ private:
 	Jako* m_jako = nullptr;// じゃこ天。
 	Taruto* m_taruto = nullptr;// タルト。
 	/// <summary>
-	/// チェックポイント。
-	/// </summary>
-	Checpoint* m_checpoint = nullptr;
-	
-	/// <summary>
 	/// フォントレンダー。
 	/// </summary>
 	FontRender m_fontRender;
@@ -353,21 +368,6 @@ private:
 		Sutamina0
 	};
 
-	//愛媛県の場所
-	enum EnEhimePlace
-	{
-		enEhimePlace_Iyo,				//伊予市
-		enEhimePlace_Oozu,				//大洲市
-		enEhimePlace_Yawatahama,		//八幡浜市
-		enEhimePlace_Uwajima,			//宇和島市
-		enEhimePlace_Onihoku,			//鬼北町
-		enEhimePlace_Kumakougen,		//久万高原町
-		enEhimePlace_Sikokutyuou,		//四国中央市
-		enEhimePlace_Niihama,			//新居浜市
-		enEhimePlace_Imabari,			//今治市
-		enEhimePlace_Matuyama,			//松山市
-		enEhimePlace_Num				//場所数
-	};
 	/// <summary>
 	/// 愛媛県での現在位置を切り替える
 	/// </summary>
