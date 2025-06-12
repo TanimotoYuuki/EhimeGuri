@@ -55,6 +55,59 @@ public:
 	void HS_fallingBlock_NewGO();// 落下速度の速い床のNewGO。
 	void Fade_NewGO();// FadeのNewGO。
 
+	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。
+	
+	//ステージステート
+	enum enStageState
+	{
+		enStageState_Stage1,			//ステージ1
+		enStageState_Stage2,			//ステージ2
+		enStageState_Num				//ステージ数
+	};
+
+	/// <summary>
+	/// ステージステートの設定
+	/// </summary>
+	/// <param name="enStageStage">ステージステート</param>
+	void SetStageState(enStageState enStageStage)
+	{
+		m_stageState = enStageStage;
+	}
+
+	/// <summary>
+	/// ステージステートの取得
+	/// </summary>
+	/// <returns>ステージステート</returns>
+	enStageState GetStageState() const
+	{
+		return m_stageState;
+	}
+
+	/// <summary>
+	/// チェックポイント。
+	/// </summary>
+	Checpoint* m_checpoint = nullptr;
+
+	//愛媛県の場所
+	enum EnEhimePlace
+	{
+		enEhimePlace_Iyo,				//伊予市
+		enEhimePlace_Oozu,				//大洲市
+		enEhimePlace_Yawatahama,		//八幡浜市
+		enEhimePlace_Uwajima,			//宇和島市
+		enEhimePlace_Onihoku,			//鬼北町
+		enEhimePlace_Kumakougen,		//久万高原町
+		enEhimePlace_Sikokutyuou,		//四国中央市
+		enEhimePlace_Niihama,			//新居浜市
+		enEhimePlace_Imabari,			//今治市
+		enEhimePlace_Matuyama,			//松山市
+		enEhimePlace_Num				//場所数
+	};
+
+	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
+	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
+	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
+	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
 private:
 	/// <summary>
 	/// ステージ背景用の初期位置の更新
@@ -298,11 +351,6 @@ private:
 	Jako* m_jako = nullptr;// じゃこ天。
 	Taruto* m_taruto = nullptr;// タルト。
 	/// <summary>
-	/// チェックポイント。
-	/// </summary>
-	Checpoint* m_checpoint = nullptr;
-	
-	/// <summary>
 	/// フォントレンダー。
 	/// </summary>
 	FontRender m_fontRender;
@@ -316,21 +364,6 @@ private:
 		Sutamina0
 	};
 
-	//愛媛県の場所
-	enum EnEhimePlace
-	{
-		enEhimePlace_Iyo,				//伊予市
-		enEhimePlace_Oozu,				//大洲市
-		enEhimePlace_Yawatahama,		//八幡浜市
-		enEhimePlace_Uwajima,			//宇和島市
-		enEhimePlace_Onihoku,			//鬼北町
-		enEhimePlace_Kumakougen,		//久万高原町
-		enEhimePlace_Sikokutyuou,		//四国中央市
-		enEhimePlace_Niihama,			//新居浜市
-		enEhimePlace_Imabari,			//今治市
-		enEhimePlace_Matuyama,			//松山市
-		enEhimePlace_Num				//場所数
-	};
 	/// <summary>
 	/// 愛媛県での現在位置を切り替える
 	/// </summary>
@@ -384,11 +417,8 @@ private:
 	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
 	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
 	bool drawFlag = true;// 描画フラグ。
-	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
-	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
-	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
-	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
+	enStageState m_stageState = enStageState_Stage1;//ステージステート
 	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス
 	const char* m_ehimeFamousPlaceFilePath = nullptr;//愛媛県の名所用ファイルパス

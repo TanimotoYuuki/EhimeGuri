@@ -23,5 +23,6 @@ public:
 	Vector3 m_leftScreenEdge;				//左画面端。
 	Vector3 m_toCameraPos;					//注視点から視点に向かうベクトル。
 	double m_toCameraPosmultiplier = 1.0f;	//カメラの倍率。
+	bool m_stageTransitionFlag = false;		//ステージ遷移フラグ
 };
 

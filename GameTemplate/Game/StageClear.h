@@ -5,6 +5,9 @@
 class Player;
 class Config;
 class Fade;
+class GameCamera;
+class GameTimer;
+class Game;
 class StageClear : public IGameObject
 {
 public:
@@ -48,6 +51,9 @@ private:
 	bool m_stageClearDirectionFinishFlag = false;						//ステージクリア演出終了フラグ。
 	Player* m_player = nullptr;											//プレイヤー用のインスタンス。
 	Fade* m_fade = nullptr;												//フェード用のインスタンス。
+	GameCamera* m_gameCamera = nullptr;									//ゲームカメラ用のインスタンス。
+	GameTimer* m_gameTimer = nullptr;									//ゲームタイマー用のインスタンス。
+	Game* m_game = nullptr;												//ゲーム用のインスタンス。
 	bool m_loadingStartFlag = false;									//ローディング開始フラグ
 	bool m_loadingFinishFlag = false;									//ローディング終了フラグ
 	bool m_stage2TransitionFlag = false;								//ステージ2遷移フラグ
