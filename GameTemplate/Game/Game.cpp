@@ -29,7 +29,6 @@
 
 namespace
 {
-	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
 	const Vector3 ENEMY_POSITION1(2800.0f, 94.0f, 0.0f);
 	const Vector3 ENEMY_POSITION2(400.0f, 94.0f, 0.0f);
 	const Vector3 ENEMY_POSITION3(4800.0f, 94.0f, 0.0f);
@@ -43,54 +42,8 @@ namespace
 
 Game::~Game()
 {
-	DeleteGO(m_stage1);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
-	const auto& enemys = FindGOs<Enemy>("enemy");
-	for (auto enemy : enemys)
-	{
-		DeleteGO(enemy);
-	}
-	DeleteGO(m_transparentBlock);
-	DeleteGO(m_transparentBlock1);
-	DeleteGO(m_transparentBlock2);
-	DeleteGO(m_transparentBlock3);
-	DeleteGO(m_transparentBlock4);
-	DeleteGO(m_transparentBlock5);
-	DeleteGO(m_transparentBlock6);
-	DeleteGO(m_transparentBlock7);
-	DeleteGO(m_transparentBlock8);
-	DeleteGO(m_transparentBlock9);
-	DeleteGO(m_transparentBlock10);
-	DeleteGO(m_transparentBlock11);
-	DeleteGO(m_fallingBlock);
-	DeleteGO(m_fallingBlock1);
-	DeleteGO(m_fallingBlock2);
-	DeleteGO(m_movingFloor1);
-	DeleteGO(m_movingFloor2);
-	DeleteGO(m_block);
-	DeleteGO(m_block1);
-	DeleteGO(m_block2);
-	DeleteGO(m_block3);
-	DeleteGO(m_block4);
-	DeleteGO(m_scaffold);
-	DeleteGO(m_scaffold1);
-	DeleteGO(m_towel);
-	DeleteGO(m_clearPoint);
-	DeleteGO(m_s_MovingFloor);
-	DeleteGO(m_s_MovingFloor1);
-	DeleteGO(m_s_MovingFloor2);
-	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_itemenemy);
-	DeleteGO(m_tobeyaki);
-	DeleteGO(m_sinju);
-	DeleteGO(m_jako);
-	DeleteGO(m_taruto);
-	//ドロップアイテムをDeleteGOする場合
-	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
-	m_mikan = FindGO<Mikan>("mikan");
-	DeleteGO(m_mikan);
-	DeleteGO(m_checpoint);
 }
 
 // 初期化処理。
@@ -106,8 +59,6 @@ bool Game::Start()
 	/// </summary>
 	Fade_NewGO();
 
-	m_backGroundRender.SetScale(BACKGROUND_SCALE);
-	m_backGroundRender.Update();
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
@@ -245,8 +196,6 @@ bool Game::Start()
 	m_modelRender.Update();
 
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
-
-
 	return true;
 }
 
@@ -852,11 +801,17 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 //ステージ1オブジェクトの削除。
 void Game::Stage1ObjectDelete()
 {
+	//敵
 	const auto& enemys = FindGOs<Enemy>("enemy");
 	for (auto enemy : enemys)
 	{
 		DeleteGO(enemy);
 	}
+
+	//アイテムをドロップする敵
+	DeleteGO(m_itemenemy);
+
+	//透明ブロック
 	DeleteGO(m_transparentBlock);
 	DeleteGO(m_transparentBlock1);
 	DeleteGO(m_transparentBlock2);
@@ -869,27 +824,41 @@ void Game::Stage1ObjectDelete()
 	DeleteGO(m_transparentBlock9);
 	DeleteGO(m_transparentBlock10);
 	DeleteGO(m_transparentBlock11);
+
+	//落ちるブロック
 	DeleteGO(m_fallingBlock);
 	DeleteGO(m_fallingBlock1);
 	DeleteGO(m_fallingBlock2);
-	DeleteGO(m_scaffoldBlock);
+
+	//動く床
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
+
+	//ブロック
 	DeleteGO(m_block);
 	DeleteGO(m_block1);
 	DeleteGO(m_block2);
 	DeleteGO(m_block3);
 	DeleteGO(m_block4);
+
+	//足場ブロック
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
-	DeleteGO(m_towel);
+
+	//チェックポイント
+	DeleteGO(m_checpoint);
+
+	//クリアポイント
 	DeleteGO(m_clearPoint);
+
+	//落下速度の遅い床
 	DeleteGO(m_s_MovingFloor);
 	DeleteGO(m_s_MovingFloor1);
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_HS_FallingBlock);
-	DeleteGO(m_itemenemy);
+
+	//アイテム
+	DeleteGO(m_towel);
 	DeleteGO(m_tobeyaki);
 	DeleteGO(m_sinju);
 	DeleteGO(m_jako);
@@ -898,5 +867,4 @@ void Game::Stage1ObjectDelete()
 	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
-	DeleteGO(m_checpoint);
 }
