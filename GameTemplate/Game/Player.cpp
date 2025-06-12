@@ -78,13 +78,22 @@ bool Player::Start()
 		OnAnimationEvent(clipName, eventName);
 		});
 
+	m_game = FindGO<Game>("game");
 	m_fade = FindGO<Fade>("fade");
 
 	return true;
 }
 
 // 更新処理。
-void Player::Update() {
+void Player::Update()
+{
+	//フェード用のインスタンスがnullptrだったら
+	if (m_fade == nullptr)
+	{
+		//Fadeクラスの検索。
+		FadeFindGO();
+	}
+
 	//ItemEnemyクラスの検索が終わっていないときに処理する。
 	if (m_itemEnemyFindGoCompleteFlag != true)
 	{
@@ -92,14 +101,38 @@ void Player::Update() {
 		ItemEnemyFindGO();
 	}
 
-	if (checcount == 0) {
-		//リスポーン地点の設定。
-		SetRespawnPositon(FIRSTPOSITION);
+	if (checcount == 0) 
+	{
+		//現在ステージ1をプレイしていたら
+		if (m_game->GetStageState() == m_game->enStageState_Stage1)
+		{
+			//リスポーン地点の設定。
+			SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
+		}
+		//現在ステージ2をプレイしていたら
+		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+		{
+			//リスポーン地点の設定。
+			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
+		}
+
 	}
 
-	else if (checcount == 1) {
-		//リスポーン地点の設定。
-		SetRespawnPositon(Vector3(10300.0f, 120.0f, 0.0f));
+	else if (checcount == 1) 
+	{
+		//現在ステージ1をプレイしていたら
+		if (m_game->GetStageState() == m_game->enStageState_Stage1)
+		{
+			//リスポーン地点の設定。
+			SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
+		}
+		//現在ステージ2をプレイしていたら
+		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+		{
+			//リスポーン地点の設定。
+			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
+		}
+
 	}
 
 	if (m_playernowsutamina == 0) {
@@ -109,23 +142,30 @@ void Player::Update() {
 	if (m_sutaminaZeroFlag == true) {
 		Derei();
 	}
-	
+
 	// 動作処理。
 	Move();
-	
+
 	// 回転処理。
 	Rotation();
-	
+
 	// ステート。
 	ManageState();
-	
+
 	// アニメーション。
 	PlayAnimation();
 
 	// 更新処理。
 	m_modelRender.Update();
-	
+
 }
+
+//Fadeクラスの検索。
+void Player::FadeFindGO()
+{
+	m_fade = FindGO<Fade>("fade");
+}
+
 
 //ItemEnemyクラスの検索。
 void Player::ItemEnemyFindGO()

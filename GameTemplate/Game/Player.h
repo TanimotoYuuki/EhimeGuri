@@ -49,6 +49,11 @@ public:
 	}
 
 	/// <summary>
+	/// フェードクラスの検索。
+	/// </summary>
+	void FadeFindGO();
+
+	/// <summary>
 	/// ItemEnemyクラスの検索。
 	/// </summary>
 	void ItemEnemyFindGO();
