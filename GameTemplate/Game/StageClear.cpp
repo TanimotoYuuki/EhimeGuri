@@ -2,6 +2,9 @@
 #include "StageClear.h"
 #include "Player.h"
 #include "Fade.h"
+#include "GameCamera.h"
+#include "GameTimer.h"
+#include "Game.h"
 #include "Title.h"
 #include "Scene.h"
 namespace
@@ -9,7 +12,7 @@ namespace
 	//ステージクリア演出をする位置。
 	const Vector3 STAGE_CLEAR_POSITION = Vector3(0.0f, 0.0f, 0.0f);
 	//ステージ2の開始位置
-	const Vector3 STAGE2_START_POSITION = Vector3(0.0f, 0.0f, 0.0f);
+	const Vector3 STAGE2_START_POSITION = Vector3(0.0f, 160.0f, 0.0f);
 }
 
 //開始処理。
@@ -35,6 +38,15 @@ bool StageClear::Start()
 	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	m_fade->FadeTransition(enFadeState_None);
+
+	//2 ゲームカメラ
+	m_gameCamera = FindGO<GameCamera>("gamecamera");
+
+	//3 ゲームタイマー
+	m_gameTimer = FindGO<GameTimer>("gametimer");
+
+	//4 ゲーム
+	m_game = FindGO<Game>("game");
 
 	//ステージクリアBGMの再生。
 	g_gameSoundEngine->PlaySE(GameSoundList_SE_System_StageClear, 1.0f);
@@ -66,12 +78,47 @@ void StageClear::LoadingProcess()
 			// プレイヤーをステージ2の開始位置に移動。
 			if (m_player != nullptr)
 			{
-				m_player->SetPosition(STAGE2_START_POSITION);
+				// ステージ2でのプレイヤーの初期設定
+				// 位置
+				m_player->m_characterController.SetPosition(STAGE2_START_POSITION);
+				m_player->m_modelRender.SetPosition(STAGE2_START_POSITION);
+				m_player->m_initPosition = STAGE2_START_POSITION;
+				// 角度
+				m_player->m_rotation.SetRotationDegY(90.0f);
+				m_player->m_modelRender.SetRotation(m_player->m_rotation);
+				// 更新
+				m_player->m_modelRender.Update();
+
+				// プレイヤークラスのチェックカウントを0にする
+				m_player->checcount = 0;
+
+				// プレイヤークラスのステージクリアフラグをfalseにする
+				m_player->m_stageClearFlag = false;
+
+				// プレイヤークラスのフェード用のインスタンスをnullptrにする
+				m_player->m_fade = nullptr;
 			}
 
 			// カメラをステージ2の開始位置に移動。
-			g_camera3D->SetPosition(STAGE2_START_POSITION);
-			g_camera3D->SetTarget(STAGE2_START_POSITION);
+			m_gameCamera->m_stageTransitionFlag = true;
+
+			// 制限時間の設定
+			m_gameTimer->SetTimeLimit(180.0f);
+
+			// ステージ1オブジェクトの削除
+			m_game->Stage1ObjectDelete();
+
+			// ゲームクラスのチェックポイント用のインスタンスをnullptrにする
+			m_game->m_checpoint = nullptr;
+
+			// 愛媛県での場所の変更
+			m_game->m_nowEhimePlace = m_game->enEhimePlace_Kumakougen;
+			m_game->m_previousEhimePlace = m_game->enEhimePlace_Kumakougen;
+			m_game->m_ehimePlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
+			m_game->m_ehimeFamousPlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
+
+			// ステージ2に移行
+			m_game->SetStageState(m_game->enStageState_Stage2);
 
 			// SceneManagerを経由してステージ2への遷移を要求。
 			Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
