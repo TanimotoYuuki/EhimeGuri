@@ -15,7 +15,6 @@ class FallingBlock;// 落ちる床。
 class movingNeedle;// 針。
 class MovingFloor;// 移動する床。
 class Scaffold;// 足場。
-class ScaffoldBlock;// T型の足場。
 class StageClear;// ステージクリア。
 class S_MovingFloor;// 動く床(遅)。
 class GameOver;// ゲームオーバー。
@@ -23,6 +22,7 @@ class GameCamera;// カメラ。
 class GameTimer;// ゲームタイマー。
 class HS_FallingBlock;	//動く床(速)。
 class TransparentBlock;// 透明ブロック。
+class TransparentWall;
 class Towel;// タオル。
 class Fade;// フェード。
 class ItemEnemy;// 敵のアイテム。
@@ -49,14 +49,12 @@ public:
 	void FallingBlock_NewGO();// 落ちるブロックのNewGO。
 	void MovingFloor_NewGO();// 動く床のNewGO 。
 	void Item_NewGO();// アイテムのNewGO。
-	void ScaffoldBlock_NewGO();// T字ブロックのNewGO。
 	void Scaffold_NewGO();// 足場ブロックのNewGO。
 	void S_MovingFloor_NewGO();// 落下速度の遅い床のNewGO。
-	void HS_fallingBlock_NewGO();// 落下速度の速い床のNewGO。
 	void Fade_NewGO();// FadeのNewGO。
 
 	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。
-	
+
 	//ステージステート
 	enum enStageState
 	{
@@ -83,6 +81,7 @@ public:
 		return m_stageState;
 	}
 
+
 	/// <summary>
 	/// チェックポイント。
 	/// </summary>
@@ -108,6 +107,7 @@ public:
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
 	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
 	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
+
 private:
 	/// <summary>
 	/// ステージ背景用の初期位置の更新
@@ -239,6 +239,8 @@ private:
 		}
 	}
 
+
+
 	/// <summary>
 	/// ブロック。
 	/// </summary>
@@ -247,6 +249,8 @@ private:
 	Block* m_block2 = nullptr;
 	Block* m_block3 = nullptr;
 	Block* m_block4 = nullptr;
+
+
 	/// <summary>
 	/// 第1ステージ。
 	/// </summary>
@@ -302,7 +306,6 @@ private:
 	/// <summary>
 	/// 足場ブロック。
 	/// </summary>
-	ScaffoldBlock* m_scaffoldBlock = nullptr;
 	Scaffold* m_scaffold = nullptr;
 	Scaffold* m_scaffold1 = nullptr;
 	/// <summary>
@@ -333,6 +336,7 @@ private:
 	TransparentBlock* m_transparentBlock9 = nullptr;
 	TransparentBlock* m_transparentBlock10 = nullptr;
 	TransparentBlock* m_transparentBlock11 = nullptr;
+	TransparentWall* m_transparentWall;
 	/// <summary>
 	/// タオル。
 	/// </summary>
@@ -419,6 +423,7 @@ private:
 	bool drawFlag = true;// 描画フラグ。
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
 	enStageState m_stageState = enStageState_Stage1;//ステージステート
+
 	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス
 	const char* m_ehimeFamousPlaceFilePath = nullptr;//愛媛県の名所用ファイルパス

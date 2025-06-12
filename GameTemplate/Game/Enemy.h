@@ -12,28 +12,46 @@ public:
 	void Rotation();
 	void EnemyAnimation();
 
-	ModelRender m_modelrender;
-	Vector3 m_position;
-	Quaternion rotation;
-	Vector3 firstposition;
-	enum Enannimation {
+	enum EnAnimationClip
+	{
 		enAnimationclip_idle,
 		enAnimationclip_walk,
 		enAnimationclip_death,
 		enAnimationclip_num
 	};
-	AnimationClip animationclip[enAnimationclip_num];
 	CharacterController charactercontroller;
 	SphereCollider m_sphereColl;
 	Vector3 movespeed;
-	int Enemystate = 0;
-	int Enemyanimationstate = 0;
 	Player* m_player = nullptr;
 	Game* m_game = nullptr;
 	GameOver* m_gameover = nullptr;
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定
+	Vector3 m_position;
+	Vector3 firstposition;
+	ModelRender m_modelrender;
+	Quaternion rotation;
+
+	int Enemystate = 0;
+	int Enemyanimationstate = 0;
+
 	bool m_touchPlayerFlag = false;//プレイヤーに触れたか？
+
+private:
+
+	AnimationClip m_animationclip[enAnimationclip_num];
+
+	const char* ENEMY_ANIMATION = "Assets/modelData/YoshinagaAssets/SkeletonAnim/";// ファイルパス。
+	const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。
+
+	/// <summary>
+    /// アニメーションメソッド。
+    /// </summary>
+	const std::string GetFullPath_EnemyAnimation(EnAnimationClip enemyAnimation, const std::string& animationName, bool flag);
+	/// <summary>
+	/// アニメーションをセット。
+	/// </summary>
+	void SetEnemyAnimation();
 };
 
 

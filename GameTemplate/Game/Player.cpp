@@ -4,44 +4,70 @@
 #include "Config.h"
 #include "GameOver.h"
 #include "Enemy.h"
-#include"Towel.h"
-#include"ItemEnemy.h"
-#include"Fade.h"
+#include "Towel.h"
+#include "ItemEnemy.h"
+#include "Fade.h"
 using namespace std;
 
-namespace {
+namespace 
+{
+	// スタミナの最大値。
 	const float SUTAMINA_MAX = 300.0f;
-}
-Player::Player() {
-	m_animationClip[enAnimationClip_idle].Load("Assets/animData/playeridle.tka");
-	m_animationClip[enAnimationClip_idle].SetLoopFlag(true);
-	m_animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
-	m_animationClip[enAnimationClip_walk].SetLoopFlag(true);
-	m_animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
-	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
-	m_animationClip[enAnimationClip_jump].Load("Assets/animData/playerjump.tka");
-	m_animationClip[enAnimationClip_jump].SetLoopFlag(false);
-	m_animationClip[enAnimationClip_stageclear].Load("Assets/animData/stageclear.tka");
-	m_animationClip[enAnimationClip_stageclear].SetLoopFlag(true);
-	m_animationClip[enAnimationClip_gameover].Load("Assets/animData/gameover.tka");
-	m_animationClip[enAnimationClip_gameover].SetLoopFlag(false);
 
+	// キャラコンの定数。
+	const float RADIUS = 25.0f;
+	const float HEIGHT = 100.0f;
+
+	// モデルの回転度数。
+	const float ROTATIONDEG = 90.0f;
+	const float ROTATIONDEG2 = 180.0f;
+
+	// モデルにかかる重力。
+	const float GLAVITY = 15.0f;
+
+	// モデルの大きさ。
+	const Vector3 SCALE(0.5f, 0.5f, 0.5f);
+
+	// モデルの初期座標。
+	const Vector3 FIRSTPOSITION(0.0f, 94.0f, 0.0f);
+//  const Vector3 FIRSTPOSITION(-600.0f, 0.0f, 0.0f);
+}
+
+// アニメーションメソッド。
+const std:: string Player::GetFullPath_PlayerAnimation(EnAnimationClip enAnimationClip, const std::string& animationName, bool flag)
+{
+    std::string Animation = PLAYER_ANIMATION + animationName + ANIMATION_FILE_EXTENSION;
+
+	// アニメーションのロード。
+	m_animationClip[enAnimationClip].Load(Animation.c_str());
+	m_animationClip[enAnimationClip].SetLoopFlag(flag);
+
+	return Animation;
+};
+
+// 初期化処理。
+bool Player::Start()
+{
+	// アニメーションをセットするメソッド。
+	SetPlayAnimation();
+	
+	// モデルをセット。
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
 
-	m_modelRender.SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	// 大きさをセット。
+	m_modelRender.SetScale(SCALE);
 
-	m_position = { 0.0f,94.0f,0.0f };
+	// 初期座標。
+	m_position = { FIRSTPOSITION };
 
-	// ゴールポールの位置。
-//	m_position = { 17300.0f, 700.0f, 0.0f };
+	//m_position = { 17300.0f, 700.0f, 0.0f };
 
-	//初期位置の設定。
 	m_initPosition = m_position;
 
-	m_characterController.Init(25.0f, 100.0f, m_position);
-	m_rotation.SetRotationDegY(90.0f);
-	m_respawnRotation.SetRotationDegY(90.0f);
+	m_characterController.Init(RADIUS, HEIGHT, m_position);
+	m_rotation.SetRotationDegY(ROTATIONDEG);
+	m_respawnRotation.SetRotationDegY(ROTATIONDEG);
 
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
@@ -50,16 +76,18 @@ Player::Player() {
 	//アニメーションイベント
 	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
 		OnAnimationEvent(clipName, eventName);
-	});
+		});
 
 	m_game = FindGO<Game>("game");
 	m_fade = FindGO<Fade>("fade");
-}
-Player::~Player() {
 
+	return true;
 }
 
-void Player::Update() {
+// 更新処理。
+void Player::Update()
+{
+
 	//フェード用のインスタンスがnullptrだったら
 	if (m_fade == nullptr)
 	{
@@ -74,6 +102,8 @@ void Player::Update() {
 		ItemEnemyFindGO();
 	}
 
+
+
 	if (checcount == 0) {
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
@@ -87,39 +117,60 @@ void Player::Update() {
 			//リスポーン地点の設定。
 			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
 		}
+
+
+	}
+
+	
 	}
 	else if (checcount == 1) {
+
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
 			//リスポーン地点の設定。
+
+			SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
+
 			SetRespawnPositon(Vector3{ 10300.0f,120.0f,0.0f });
+
 		}
 		//現在ステージ2をプレイしていたら
 		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
 		{
 			//リスポーン地点の設定。
+			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
+		}
+
+
 			SetRespawnPositon(Vector3{ 9350.0f,400.0f,0.0f });
 		}
+
 	}
 
 	if (m_playernowsutamina == 0) {
 		m_sutaminaZeroFlag = true;
 	}
+
 	if (m_sutaminaZeroFlag == true) {
 		Derei();
 	}
-	
+
+	// 動作処理。
 	Move();
-	
+
+	// 回転処理。
 	Rotation();
-	
+
+	// ステート。
 	ManageState();
-	
+
+	// アニメーション。
 	PlayAnimation();
 
+	// 更新処理。
 	m_modelRender.Update();
-	
+
 }
 
 //Fadeクラスの検索。
@@ -128,6 +179,7 @@ void Player::FadeFindGO()
 	m_fade = FindGO<Fade>("fade");
 }
 
+
 //ItemEnemyクラスの検索。
 void Player::ItemEnemyFindGO()
 {
@@ -135,6 +187,7 @@ void Player::ItemEnemyFindGO()
 	m_itemEnemyFindGoCompleteFlag = true;
 }
 
+// 動作処理。
 void Player::Move() {
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
@@ -169,7 +222,6 @@ void Player::Move() {
 		}
 	}
 
- 	float glavity = 15.0f;
 
 	
 	if (m_characterController.IsOnGround())
@@ -192,7 +244,7 @@ void Player::Move() {
 		}
 	}
 	
-	m_moveSpeed.y -= glavity;
+	m_moveSpeed.y -= GLAVITY;
 
 	//ゲームクリアまたはゲームオーバーではないとき処理する。
 	if (m_stageClearFlag != true && m_gameOverFlag != true)
@@ -245,17 +297,20 @@ void Player::Move() {
 
 }
 
+// 回転処理。
 void Player::Rotation() {
 	if (fabsf(m_moveSpeed.x) >= 0.001f || fabsf(m_moveSpeed.z) >= 0.001f) {
 		m_rotation.SetRotationYFromDirectionXZ(m_moveSpeed);
 		m_modelRender.SetRotation(m_rotation);
 	}
 }
+
+// ステート。
 void Player::ManageState() {
 	if (m_stageClearFlag == true)
 	{
 		m_playerState = enPlayer_stageclear;
-		m_rotation.SetRotationDegY(180.0f);
+		m_rotation.SetRotationDegY(ROTATIONDEG2);
 		m_modelRender.SetRotation(m_rotation);
 		return;
 	}
@@ -285,6 +340,8 @@ void Player::ManageState() {
 		PlayerhealSutamina();
 	}
 }
+
+// アニメーション再生する。
 void Player::PlayAnimation() {
 	switch (m_playerState) {
 	case enPlayer_idle:
@@ -309,25 +366,32 @@ void Player::PlayAnimation() {
 		break;
 	}
 }
+
+// スタミナ。
 void Player::PlayerStamina()
 {
-	m_playernowsutamina -=1 /*g_gameTime->GetFrameDeltaTime()*/;
+	m_playernowsutamina -=1;
 	if (m_playernowsutamina < 0) {
 		m_playernowsutamina = 0;
 	}
 }
+
+// スタミナの減算描画。
 void Player::PlayerhealSutamina() {
 	m_playernowsutamina += 1;
 	if (m_playernowsutamina > SUTAMINA_MAX) {
 		m_playernowsutamina = SUTAMINA_MAX;
 	}
 }
+
+// スタミナの減算処理。
 void Player::Derei() {
 	if (m_playermaxsutamina / 2.0f<m_playernowsutamina) {
 		m_sutaminaZeroFlag = false;
 	}
 }
 
+// Playerの足音コモン。
 void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 {
 	(void)clipName;
@@ -338,6 +402,30 @@ void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 	}
 }
 
+// 描画処理。
 void Player::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
+}
+
+// アニメーションのセット。
+void Player::SetPlayAnimation()
+{
+	// 待機モーション。
+	GetFullPath_PlayerAnimation(enAnimationClip_idle, "playeridle", true);
+
+	// 歩きモーション。	
+	GetFullPath_PlayerAnimation(enAnimationClip_walk, "playerwalk", true);
+
+	// 走りモーション。
+	GetFullPath_PlayerAnimation(enAnimationClip_run, "playerrun", true);
+
+	// ジャンプモーション。
+	GetFullPath_PlayerAnimation(enAnimationClip_jump, "playerjump", false);
+
+	// ステージクリア。
+	GetFullPath_PlayerAnimation(enAnimationClip_stageclear, "stageclear", false);
+
+	// ゲームオーバー。
+	GetFullPath_PlayerAnimation(enAnimationClip_gameover, "gameover", true);
+
 }

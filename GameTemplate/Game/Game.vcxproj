@@ -244,7 +244,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="HS_FallingBlock.cpp" />
     <ClCompile Include="ItemEnemy.cpp" />
     <ClCompile Include="Jako.cpp" />
     <ClCompile Include="main.cpp" />
@@ -291,7 +290,6 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
-    <ClInclude Include="HS_FallingBlock.h" />
     <ClInclude Include="ItemEnemy.h" />
     <ClInclude Include="Jako.h" />
     <ClInclude Include="Mikan.h" />

@@ -4,38 +4,38 @@
 #include "GameOver.h"
 #include "Player.h"
 
+// 名前空間。
 namespace
 {
-	const Vector3 FALLINGBLOCK_SCALE(3.0f, 3.0f, 5.0f);	//モデルの大きさ
 	const float SPEED = 340.0f;//モデルの落下速度
 	const float LIMITED = 300.0f;//モデルが動ける上限数
 	const Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);//コリジョンの高さ
 	const Vector3 COLLISION_SIZE (365.0f, 5.0f, 225.0f);//コリジョンの大きさ
-}
-
-FallingBlock::FallingBlock()
-{
-	
-}
-
-FallingBlock::~FallingBlock()
-{
+	const Vector3 FALLINGBLOCK_SCALE(3.0f, 3.0f, 5.0f);	//モデルの大きさ
 
 }
 
+// 初期化処理。
 bool FallingBlock::Start()
 {
 	//ファイルパス
 	string modelPath = m_config->GetFullPath_3DModel("ashiba_block");// ファイルパスを読み込む。
 	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 	
-	
+	// モデルの大きさ。
 	m_modelRender.SetScale(FALLINGBLOCK_SCALE);
+
+	// モデルの更新作業。
 	m_modelRender.Update();
+
+	// 探索処理。
 	m_player = FindGO<Player>("player");
 	m_movingFloor = FindGO<MovingFloor>("movingfloor");
+
+	// 当たり判定。
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
+	// コリジョン。
 	m_collisionObject = NewGO<CollisionObject>(0, "collisionobject");
 
 
@@ -47,14 +47,17 @@ bool FallingBlock::Start()
 		COLLISION_SIZE
 	);
 
+	// 座標を設定。
 	m_modelRender.SetPosition(m_position);
 	m_initPosition = m_position;
 
+	// コリジョンを破棄。
 	m_collisionObject->SetIsEnableAutoDelete(false);
 	m_firstposition = m_position;
 	return true;
 }
 
+// 動作処理。
 void FallingBlock::Move()
 {
 	Vector3 moveSpeed = Vector3::Zero;
@@ -80,8 +83,7 @@ void FallingBlock::Move()
 	}
 }
 
-
-
+// 更新処理。
 void FallingBlock::Update()
 {
 
@@ -114,13 +116,18 @@ void FallingBlock::Update()
 		m_modelRender.SetPosition(m_position);
 	}
 	
+	// モデルの更新処理。
 	m_modelRender.Update();
+
+	// 当たり判定。
 	m_physicsStaticObject.SetPosition(m_position);
+
+	// コリジョン。
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
 
 }
 
-
+// 描画処理。
 void FallingBlock::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);
