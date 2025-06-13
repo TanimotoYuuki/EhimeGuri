@@ -5,15 +5,18 @@
 namespace
 {
 	//ブロックの表面。
-	const Vector3 BLOCKSURFACE_COLLISION_HEIGHT(0.0f, 51.0f, 0.0f);		//高さ。
-	const Vector3 BLOCKSURFACE_COLLISION_SIZE(100.0f, 100.0f, 25.0f);	//大きさ。
+	const Vector3 BLOCKSURFACE_COLLISION_HEIGHT(0.0f, 51.0f, 0.0f);// 高さ。
+	const Vector3 BLOCKSURFACE_COLLISION_SIZE(100.0f, 100.0f, 25.0f);// 大きさ。
+
 	//ブロックの底面。
-	const Vector3 BLOCKBOTTOM_COLLISION_HEIGHT(0.0f, 0.0f, 0.0f);		//高さ。
-	const Vector3 BLOCKBOTTOM_COLLISION_SIZE(100.0f, 0.0f, 25.0f);		//大きさ。
+	const Vector3 BLOCKBOTTOM_COLLISION_HEIGHT(0.0f, 0.0f, 0.0f);// 高さ。
+	const Vector3 BLOCKBOTTOM_COLLISION_SIZE(100.0f, 0.0f, 25.0f);// 大きさ。
+
 	//ブロックを叩ける距離。
-	float BLOCK_TOUCH_DISTANCE = 50.0f;							//距離。
+	float BLOCK_TOUCH_DISTANCE = 50.0f;// 距離。
+
 	//透明ブロックをーが叩いたときの動き。
-	Vector3 BLOCK_TOUCH_MOVE = Vector3(0.0f, 500.0f, 0.0f);		//動き。
+	Vector3 BLOCK_TOUCH_MOVE = Vector3(0.0f, 500.0f, 0.0f);// 動き。
 }
 
 //開始処理。
@@ -104,6 +107,7 @@ void TransparentBlock::Update()
 			}
 		}
 	}
+
 	//透明ブロックを叩いているとき。
 	else
 	{

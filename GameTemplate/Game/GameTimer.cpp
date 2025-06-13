@@ -60,26 +60,34 @@ bool GameTimer::Start()
 
 void GameTimer::Update()
 {
-	//タイマーの更新処理
-	UpdateTimer();
+	//タイマーUIを描画しているとき
+	if (m_isTimeUIDrawing == true)
+	{
+		//タイマーの更新処理
+		UpdateTimer();
 
-	//スプライトの動作
-	SpriteMove();
+		//スプライトの動作
+		SpriteMove();
+	}
 }
 
 void GameTimer::Render(RenderContext& rc)
 {
-	//タイマーUI
-	m_timerUI.Draw(rc);
+	//タイマーUIを描画するかどうかを判定するフラグがtrueのとき描画する
+	if (m_isTimeUIDrawing == true)
+	{
+		//タイマーUI
+		m_timerUI.Draw(rc);
 
-	//数字UI(百の位)
-	m_hundredPlaceNumberUI[m_hundredPlace].Draw(rc);
+		//数字UI(百の位)
+		m_hundredPlaceNumberUI[m_hundredPlace].Draw(rc);
 
-	//数字UI(十の位)
-	m_tenPlaceNumberUI[m_tenPlace].Draw(rc);
+		//数字UI(十の位)
+		m_tenPlaceNumberUI[m_tenPlace].Draw(rc);
 
-	//数字UI(一の位)
-	m_onePlaceNumberUI[m_onePlace].Draw(rc);
+		//数字UI(一の位)
+		m_onePlaceNumberUI[m_onePlace].Draw(rc);
+	}
 }
 
 //タイマーの更新処理

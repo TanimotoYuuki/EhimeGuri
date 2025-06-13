@@ -47,11 +47,13 @@ void GameCamera::Update() {
 		}
 	}
 
-	//プレイヤーがリスポーンしたら注視点(X軸)を動かす
-	if (m_player->IsPlayerRespawn())
+	//プレイヤーがリスポーンしたら注視点(X軸)を動かす　または
+	//ステージ遷移フラグがtrueになっていたら注視点(X軸)を動かす
+	if (m_player->IsPlayerRespawn() || m_stageTransitionFlag == true)
 	{
 		//注視点(X軸)
 		m_cameraTarget.x = m_player->m_position.x;
+		m_stageTransitionFlag = false;
 	}
 
 	//注視点(Y軸)

@@ -9,17 +9,16 @@
 #include"GameOver.h"
 #include"GameCamera.h"
 #include"GameTimer.h"
-#include"HS_FallingBlock.h"
 #include"movingNeedle.h"
 #include"MovingFloor.h"
 #include"Player.h"
 #include"Scaffold.h"
-#include"ScaffoldBlock.h"
 #include"StageClear.h"
 #include"S_MovingFloor.h"
 #include"TransparentBlock.h"
 #include"Title.h"
 #include"Towel.h"
+#include"Tower.h"
 #include"Fade.h"
 #include"ItemEnemy.h"
 #include"Tobeyaki.h"
@@ -28,18 +27,23 @@
 #include"Jako.h"
 #include"Taruto.h"
 #include"Checpoint.h"
+#include"RotationFloor.h"
 
 namespace
 {
-//	const Vector3 TRANSPARENTBLOCK_SCALE(10.0f, 10.0f, 10.0f);
-	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
-//	const Vector3 NEEDLE_SCALE(10.0f, 10.0f, 10.0f);
+	const Vector3 ENEMY_POSITION1(2800.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_POSITION2(400.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_POSITION3(4800.0f, 94.0f, 0.0f);
+	const Vector3 ENEMY_PODITION4(12900.0f, 225.0f, 0.0f);
+	const Vector3 BACKGROUND_FIRSTPOSITION(0.0f, 0.0f, 0.0f);
+
+	const float TIMER = 180.0f;
+
 	const int ENEMY_NUM = 4;
 }
 
 Game::~Game()
 {
-	DeleteGO(m_stage1);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
 	const auto& enemys = FindGOs<Enemy>("enemy");
@@ -60,9 +64,6 @@ Game::~Game()
 	DeleteGO(m_transparentBlock10);
 	DeleteGO(m_transparentBlock11);
 	DeleteGO(m_fallingBlock);
-	DeleteGO(m_fallingBlock1);
-	DeleteGO(m_fallingBlock2);
-	DeleteGO(m_scaffoldBlock);
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
 	DeleteGO(m_block);
@@ -73,16 +74,14 @@ Game::~Game()
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
-	DeleteGO(m_clearPoint);
+	DeleteGO(m_Stage1Goal);
 	DeleteGO(m_s_MovingFloor);
 	DeleteGO(m_s_MovingFloor1);
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_HS_FallingBlock);
 	DeleteGO(m_itemenemy);
 	DeleteGO(m_tobeyaki);
 	DeleteGO(m_sinju);
-	DeleteGO(m_mikan);
 	DeleteGO(m_jako);
 	DeleteGO(m_taruto);
 	//ドロップアイテムをDeleteGOする場合
@@ -90,6 +89,7 @@ Game::~Game()
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
 	DeleteGO(m_checpoint);
+
 }
 
 // 初期化処理。
@@ -105,17 +105,15 @@ bool Game::Start()
 	/// </summary>
 	Fade_NewGO();
 
-	m_backGroundRender.SetScale(BACKGROUND_SCALE);
-	m_backGroundRender.Update();
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
 
 	Vector3 enemyPosList[ENEMY_NUM] = {
-		{2800.0f,94.0f,0.0f},
-		{400.0f,94.0f,0.0f},
-		{4800.0f,94.0f,0.0f},
-		{12900.0f,225.0f,0.0f}
+		{ENEMY_POSITION1},
+		{ENEMY_POSITION2},
+		{ENEMY_POSITION3},
+		{ENEMY_PODITION4}
 	};
 
 	for (int i = 0; i < ENEMY_NUM; i++) {
@@ -171,13 +169,11 @@ bool Game::Start()
 	/// </summary>
 	TransparentBlock_NewGO();
 	FallingBlock_NewGO();
-	ScaffoldBlock_NewGO();
 	MovingFloor_NewGO();
 	Block_NewGO();
 	Scaffold_NewGO();
 	Item_NewGO();
-	ClearPoint_NewGO();
-	HS_fallingBlock_NewGO();
+	Stage1Goal_NewGO();
 	S_MovingFloor_NewGO();
 
 	//ステージ背景・愛媛県の場所・愛媛県の名所の初期化。
@@ -244,6 +240,7 @@ bool Game::Start()
 
 	// 更新作業。
 	m_modelRender.Update();
+
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
@@ -251,6 +248,35 @@ bool Game::Start()
 // 更新作業。
 void Game::Update()
 {
+////// 第2ステージ用 /////////////////////////////////////////////
+	// チェックポイント。	  
+	if (m_checpoint == nullptr)
+	{
+		m_checpoint = NewGO<Checpoint>(1, "checpoint");
+		m_checpoint->position = { 9350.0f,360.0f,0.0f };
+		m_modelRender.SetPosition(m_position);
+	}
+
+	// 回転床。
+	if (m_RotationFloor == nullptr)
+	{
+		RotationFloor_NewGO();
+	}
+
+	// ゴールポール。
+	if (m_Stage2Goal == nullptr)
+	{
+		State2Goal_NewGO();
+	}
+
+	// タワー。
+	if (m_tower == nullptr)
+	{
+		Tower_NewGO();
+	}
+
+////////////////////////////////////////////////////////////////////
+
 	//ステージクリアとゲームオーバーの時は処理しない
 	if (m_player->m_stageClearFlag == true ||
 		m_player->m_gameOverFlag == true
@@ -271,8 +297,18 @@ void Game::Update()
 			m_gameOverFlag = true;
 		}
 
-		//ステージ1BGMを削除
-		DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
+		//現在ステージ1をプレイしていたら
+		if (GetStageState() == enStageState_Stage1)
+		{
+			//ステージ1BGMを削除
+			DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage1));
+		}
+		//現在ステージ2をプレイしていたら
+		else if(GetStageState() == enStageState_Stage2)
+		{
+			//ステージ2BGMを削除
+			DeleteGO(g_gameSoundEngine->GetSoundInstance(GameSoundList_BGM_Stage2));
+		}
 		return;
 	}
 
@@ -337,15 +373,19 @@ void Game::Update()
 	m_sinjuRender.Update();
 	m_sinjugetRender.Update();
 	
-	//ステージ1BGMを再生。
-	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage1, 1.0f);
+	//現在ステージ1をプレイしているとき
+	if (GetStageState() == enStageState_Stage1)
+	{
+		//ステージ1BGMを再生。
+		g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage1, 1.0f);
+	}
 }
 
 // ゲームタイマーのNewGO。
 void Game::GameTimer_NewGO()
 {
 	m_gameTimer = NewGO<GameTimer>(0, "gametimer");
-	m_gameTimer->SetTimeLimit(180.0f);
+	m_gameTimer->SetTimeLimit(TIMER);
 }
 
 // 透明ブロックのNewGO。
@@ -379,10 +419,6 @@ void Game::TransparentBlock_NewGO()
 	m_transparentBlock9->m_position = { 5300.0f, 325.0f, 0.0f };
 	m_transparentBlock9->m_firstposition = m_transparentBlock9->m_position;
 
-	/*m_transparentBlock10 = NewGO<TransparentBlock>(1, "transparentblock");
-	m_transparentBlock10->m_position = { 10300.0f, 200.0f, 0.0f };
-	m_transparentBlock10->m_firstposition = m_transparentBlock10->m_position;*/
-
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -390,26 +426,9 @@ void Game::TransparentBlock_NewGO()
 void Game::FallingBlock_NewGO()
 {
 	m_fallingBlock = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock->m_position = { 7400.0f, 420.0f, 20.0f };
+	m_fallingBlock->m_position = { 8600.0f, 515.0f, 20.0f };
 	m_fallingBlock->m_firstposition = m_fallingBlock->m_position;
 
-	m_fallingBlock1 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock1->m_position = { 8000.0f, 470.0f, 20.0f };
-	m_fallingBlock1->m_firstposition = m_fallingBlock1->m_position;
-
-	m_fallingBlock2 = NewGO<FallingBlock>(0, "fallingblock");
-	m_fallingBlock2->m_position = { 8600.0f, 515.0f, 20.0f };
-	m_fallingBlock2->m_firstposition = m_fallingBlock2->m_position;
-
-	m_modelRender.SetPosition(m_position);
-}
-
-// 足場ブロックのNewGO。
-void Game::ScaffoldBlock_NewGO()
-{
-	m_scaffoldBlock = NewGO<ScaffoldBlock>(0, "scaffoldblock");
-	m_scaffoldBlock->m_position = { 6650.0f, 125.0f, 0.0f };
-	m_scaffoldBlock->m_firstposition = m_scaffoldBlock->m_position;
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -491,11 +510,19 @@ void Game::Item_NewGO()
 
 }
 
-// クリアポイントのNewGO。
-void Game::ClearPoint_NewGO()
+// ゴールポール。(Stage1)
+void Game::Stage1Goal_NewGO()
 {
-	m_clearPoint = NewGO<ClearPoint>(0, "clearpoint");
-	m_clearPoint->position = { 17500.0f, 700.0f, 0.0f };
+	m_Stage1Goal = NewGO<ClearPoint>(0, "clearpoint");
+	m_Stage1Goal->position = { 17500.0f, 700.0f, 0.0f };
+	m_modelRender.SetPosition(m_position);
+}
+
+// ゴールポール。(Stage2)
+void Game::State2Goal_NewGO()
+{
+	m_Stage2Goal = NewGO<ClearPoint>(0, "clearpoint");
+	m_Stage2Goal->position = { 16000.0f, 100.0f, 0.0f };
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -518,12 +545,19 @@ void Game::S_MovingFloor_NewGO()
 	m_modelRender.SetPosition(m_position);
 }
 
-// 落下速度の速い床。
-void Game::HS_fallingBlock_NewGO()
+// 回転床のNewGO
+void Game::RotationFloor_NewGO()
 {
-	m_HS_FallingBlock = NewGO<HS_FallingBlock>(0, "hs_fallingblock");
-	m_HS_FallingBlock->m_position = { 17500.0f,1000.0f, 200.0f };
-	m_HS_FallingBlock->m_firstposition = m_HS_FallingBlock->m_position;
+	m_RotationFloor = NewGO<RotationFloor>(0, "RotationFloor");
+	m_RotationFloor->m_position = { 3500.0f, 100.0f, 0.0f };
+	m_modelRender.SetPosition(m_position);
+}
+
+// タワーのNewGO
+void Game::Tower_NewGO()
+{
+	m_tower = NewGO<Tower>(0, "tower");
+	m_tower->m_position = { 15000.0f, 0.0f, 0.0f };
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -567,23 +601,28 @@ void Game::Render(RenderContext& rc)
 		m_fontRender.Draw(rc);
 		m_mappuRender.Draw(rc);
 		m_gennzaitiRender.Draw(rc);
-		if (m_player->jakoCount == 0) {
-			m_jakorender.Draw(rc);
-		}
-		else if (m_player->jakoCount == 1) {
-			m_jakogetrender.Draw(rc);
-		}
-		if (m_player->mikanCount == 0) {
-			m_mikanRender.Draw(rc);
-		}
-		else if (m_player->mikanCount == 1) {
-			m_mikangetRender.Draw(rc);
-		}
-		if (m_player->sinjuCount == 0) {
-			m_sinjuRender.Draw(rc);
-		}
-		else if (m_player->sinjuCount == 1) {
-			m_sinjugetRender.Draw(rc);
+
+		//現在ステージ1をプレイしているとき
+		if (GetStageState() == enStageState_Stage1)
+		{
+			if (m_player->jakoCount == 0) {
+				m_jakorender.Draw(rc);
+			}
+			else if (m_player->jakoCount == 1) {
+				m_jakogetrender.Draw(rc);
+			}
+			if (m_player->mikanCount == 0) {
+				m_mikanRender.Draw(rc);
+			}
+			else if (m_player->mikanCount == 1) {
+				m_mikangetRender.Draw(rc);
+			}
+			if (m_player->sinjuCount == 0) {
+				m_sinjuRender.Draw(rc);
+			}
+			else if (m_player->sinjuCount == 1) {
+				m_sinjugetRender.Draw(rc);
+			}
 		}
 	}
 }
@@ -621,12 +660,12 @@ void Game::GetStageBackGroundData(int place)
 	//鬼北町。
 	case enEhimePlace_Onihoku:			
 		m_stageBackGroundFilePath = "Assets/Sprite/background/1stage/kihokutyou.dds";
-		m_stageBackGroundTransitionPosition[enEhimePlace_Onihoku] = Vector3(m_clearPoint->position.x, 0.0f, 0.0f);
+		m_stageBackGroundTransitionPosition[enEhimePlace_Onihoku] = Vector3(m_Stage1Goal->position.x, 0.0f, 0.0f);
 		break;
 
 	//久万高原町。
 	case enEhimePlace_Kumakougen:		
-		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/kumakougen.dds";
+		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/kumakougentyou.dds";
 		m_stageBackGroundTransitionPosition[enEhimePlace_Kumakougen] = Vector3(4000.0f, 0.0f, 0.0f);
 		break;
 
@@ -651,7 +690,7 @@ void Game::GetStageBackGroundData(int place)
 	//松山市。
 	case enEhimePlace_Matuyama:			
 		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/matuyama.dds";
-		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(m_clearPoint->position.x, 0.0f, 0.0f);
+		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(m_Stage1Goal->position.x, 0.0f, 0.0f);
 		break;
 	default:
 		break;
@@ -671,7 +710,7 @@ void Game::UpdateStageBackGroundCurrentPosition()
 	else
 	{
 		//ステージ背景用の初期位置。
-		m_stageBackGroundInitPosition = Vector3(0.0f, 0.0f, 0.0f);
+		m_stageBackGroundInitPosition = BACKGROUND_FIRSTPOSITION;
 	}
 
 	//ステージ背景用の現在位置の更新。
@@ -694,31 +733,66 @@ void Game::UpdateStageBackGroundGolePosition()
 //現在の愛媛県の場所の設定。
 void Game::SetNowEhimePlace(const Vector3& pos)
 {
-	//ステージごとの特定の位置まで行ったら現在の場所を切り替える。
-	if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Uwajima].x)
+	switch (GetStageState())
 	{
-		//鬼北町。
-		NowEhimePlaceTransition(enEhimePlace_Onihoku);
-	}
-	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Yawatahama].x)
-	{
-		//宇和島市。
-		NowEhimePlaceTransition(enEhimePlace_Uwajima);
-	}
-	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Oozu].x)
-	{
-		//八幡浜市。
-		NowEhimePlaceTransition(enEhimePlace_Yawatahama);
-	}
-	else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Iyo].x)
-	{
-		//大洲市。
-		NowEhimePlaceTransition(enEhimePlace_Oozu);
-	}
-	else
-	{
-		//伊予市。
-		NowEhimePlaceTransition(enEhimePlace_Iyo);
+	case enStageState_Stage1: //ステージ1
+		//ステージごとの特定の位置まで行ったら現在の場所を切り替える。
+		if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Uwajima].x)
+		{
+			//鬼北町。
+			NowEhimePlaceTransition(enEhimePlace_Onihoku);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Yawatahama].x)
+		{
+			//宇和島市。
+			NowEhimePlaceTransition(enEhimePlace_Uwajima);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Oozu].x)
+		{
+			//八幡浜市。
+			NowEhimePlaceTransition(enEhimePlace_Yawatahama);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Iyo].x)
+		{
+			//大洲市。
+			NowEhimePlaceTransition(enEhimePlace_Oozu);
+		}
+		else
+		{
+			//伊予市。
+			NowEhimePlaceTransition(enEhimePlace_Iyo);
+		}
+		break;
+	case enStageState_Stage2: //ステージ2
+		//ステージごとの特定の位置まで行ったら現在の場所を切り替える。
+		if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Imabari].x)
+		{
+			//松山市。
+			NowEhimePlaceTransition(enEhimePlace_Matuyama);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Niihama].x)
+		{
+			//今治市。
+			NowEhimePlaceTransition(enEhimePlace_Imabari);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Sikokutyuou].x)
+		{
+			//新居浜市。
+			NowEhimePlaceTransition(enEhimePlace_Niihama);
+		}
+		else if (pos.x >= m_stageBackGroundTransitionPosition[enEhimePlace_Kumakougen].x)
+		{
+			//四国中央市。
+			NowEhimePlaceTransition(enEhimePlace_Sikokutyuou);
+		}
+		else
+		{
+			//久万高原町。
+			NowEhimePlaceTransition(enEhimePlace_Kumakougen);
+		}
+		break;
+	default:
+		break;
 	}
 }
 
@@ -800,4 +874,84 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 
 	//遷移用のステージ背景の乗算カラーの設定
 	m_stageBackGroundTransition[m_previousEhimePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
+}
+
+//ステージ1オブジェクトの削除。
+void Game::Stage1ObjectDelete()
+{
+	//敵
+	const auto& enemys = FindGOs<Enemy>("enemy");
+	for (auto enemy : enemys)
+	{
+		DeleteGO(enemy);
+	}
+
+	//アイテムをドロップする敵
+	DeleteGO(m_itemenemy);
+
+	//透明ブロック
+	DeleteGO(m_transparentBlock);
+	DeleteGO(m_transparentBlock1);
+	DeleteGO(m_transparentBlock2);
+	DeleteGO(m_transparentBlock3);
+	DeleteGO(m_transparentBlock4);
+	DeleteGO(m_transparentBlock5);
+	DeleteGO(m_transparentBlock6);
+	DeleteGO(m_transparentBlock7);
+	DeleteGO(m_transparentBlock8);
+	DeleteGO(m_transparentBlock9);
+	DeleteGO(m_transparentBlock10);
+	DeleteGO(m_transparentBlock11);
+
+	//落ちるブロック
+	DeleteGO(m_fallingBlock);
+	DeleteGO(m_movingFloor1);
+	DeleteGO(m_movingFloor2);
+
+	//ブロック
+	DeleteGO(m_block);
+	DeleteGO(m_block1);
+	DeleteGO(m_block2);
+	DeleteGO(m_block3);
+	DeleteGO(m_block4);
+
+	//足場ブロック
+	DeleteGO(m_scaffold);
+	DeleteGO(m_scaffold1);
+	DeleteGO(m_towel);
+	DeleteGO(m_Stage1Goal);
+
+	//チェックポイント
+	DeleteGO(m_checpoint);
+
+	//クリアポイント
+	DeleteGO(m_clearPoint);
+	DeleteGO(m_s_MovingFloor);
+	DeleteGO(m_s_MovingFloor1);
+	DeleteGO(m_s_MovingFloor2);
+	DeleteGO(m_s_MovingFloor3);
+	DeleteGO(m_itemenemy);
+
+
+	//アイテム
+	DeleteGO(m_towel);
+
+	DeleteGO(m_tobeyaki);
+	DeleteGO(m_sinju);
+	DeleteGO(m_jako);
+	DeleteGO(m_taruto);
+	//ドロップアイテムをDeleteGOする場合
+	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
+	m_mikan = FindGO<Mikan>("mikan");
+	DeleteGO(m_mikan);
+	DeleteGO(m_checpoint);
+}
+
+//ステージ2オブジェクトの削除。
+void Game::Stage2ObjectDelete()
+{
+	DeleteGO(m_RotationFloor);
+	DeleteGO(m_Stage2Goal);
+	DeleteGO(m_tower);
+
 }

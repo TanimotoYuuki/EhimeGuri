@@ -3,14 +3,14 @@
 #include "Config.h"
 using namespace std;
 
+namespace
+{
+	const Vector3 GRABITY(0.0f, -9.8f, 0.0f);
+}
 
 bool FallingRocks::Start()
 {
 	m_modelRender.Init("Assets/modelData/FallingRocks/FallingRocks.tkm");
-
-
-	// 重力の初期化
-	gravity = Vector3(0.0f, -9.8f, 0.0f);
 
 	// 各落石の初期設定
 	for (int i = 0; i < MAX_ROCKS; i++)

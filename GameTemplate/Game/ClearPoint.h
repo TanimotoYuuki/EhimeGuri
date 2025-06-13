@@ -10,6 +10,8 @@ class Config;
 class Stage1Scene;
 class GameClear;
 class Fade;
+class Game;
+class GameTimer;
 class ClearPoint : public IGameObject
 { 
 public:
@@ -47,7 +49,7 @@ public:
 		return isClear;
 	}
 	bool isClear = false; // ゲームクリアフラグ
-
-
+	Game* m_game = nullptr; //ゲーム用インスタンス
+	GameTimer* m_gameTimer = nullptr; //ゲームタイマー用のインスタンス
 };
 

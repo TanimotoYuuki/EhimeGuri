@@ -4,6 +4,30 @@
 #include "Title.h"
 #include "Fade.h"
 
+namespace
+{
+	// WIDHT … 横。
+	// HEIGHT … 縦。
+
+	// カメラ用の定数。
+	const Vector3 CAMERA_POSITION(0.0f, 100.0f, -200.0f);
+	const Vector3 CAMERA_TARGET(0.0f, 50.0f, 0.0f);
+
+	// リザルト用の定数。
+	const float RESULT_WIDHT = 1600;
+	const float RESULT_HEIGHT = 900;
+
+	// 収集率用の定数。
+	const float PERCENT_WIDHT = 1024;
+	const float PERCENT_HEIGHT = 128;
+	const Vector3 UI_POSITION(675.0f, 275.0f, 0.0f);
+	
+	// 背景用の定数。
+	const int PLACE_WIDHT = 1024;
+	const int PLACE_HEIGHT = 128; 
+	const Vector3 PLACE_POSITION(672.5f, 10.0f, 0.0f);
+}
+
 //デストラクタ。
 GameClear::~GameClear()
 {
@@ -137,8 +161,8 @@ void GameClear::Render(RenderContext& rc)
 void GameClear::InitCamera()
 {
 	//カメラの位置と注視点の初期設定。
-	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
-	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
+	g_camera3D->SetPosition(CAMERA_POSITION);
+	g_camera3D->SetTarget(CAMERA_TARGET);
 }
 
 //スプライトの初期化。
@@ -147,21 +171,21 @@ void GameClear::InitSprite()
 	//各スプライトの初期設定。
 	//リザルト画面。
 	//0 リザルト画面の初期化。
-	m_result.Init("Assets/result/screen/result.dds", 1600, 900);
+	m_result.Init("Assets/result/screen/result.dds", RESULT_WIDHT, RESULT_HEIGHT);
 
 	//パーセントUI。
 	//1 パーセントUIの初期化。
-	m_percentUI.Init("Assets/result/text/percent.dds", 1024, 128);
+	m_percentUI.Init("Assets/result/text/percent.dds",PERCENT_WIDHT, PERCENT_HEIGHT);
 	//1.1 パーセントUIの座標の設定。
-	m_percentUI.SetPosition(Vector3(675.0f, 275.0f, 0.0f));
+	m_percentUI.SetPosition(UI_POSITION);
 	//1.2 パーセントUIの更新。
 	m_percentUI.Update();
 
 	//位UI。
 	//2 位UIの初期化。
-	m_placeUI.Init("Assets/result/text/place.dds", 1024, 128);
-	//2.1 位UIの座標の設定。
-	m_placeUI.SetPosition(Vector3(672.5f, 10.0f, 0.0f));
+	m_placeUI.Init("Assets/result/text/place.dds", PLACE_WIDHT, PLACE_HEIGHT);
+	//2.1 位UIの座標の設定
+	m_placeUI.SetPosition(PLACE_POSITION);
 	//2.2 位UIの更新。
 	m_placeUI.Update();
 
