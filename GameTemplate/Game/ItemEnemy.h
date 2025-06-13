@@ -5,6 +5,7 @@ class Player;
 class Game;
 class GameOver;
 class Mikan;
+class Taruto;
 class ItemEnemy:public IGameObject
 {
 public:
@@ -35,6 +36,7 @@ public:
 	Game* m_game  =nullptr;
 	GameOver* m_gameover = nullptr;
 	Mikan* m_mikan = nullptr;
+	Taruto* m_taruto = nullptr;
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定。
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定。
 	bool m_touchPlayerFlag = false;//プレイヤーに触れたか？
