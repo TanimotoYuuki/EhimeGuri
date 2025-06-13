@@ -266,47 +266,47 @@ bool Game::Start()
 void Game::Update()
 {
 ////// 第2ステージ用 /////////////////////////////////////////////
-	// チェックポイント。
-	// チェックポイント用のインスタンスがnullptrだったらNewGOする。	  
-	if (m_checpoint == nullptr)
-	{
-		m_checpoint = NewGO<Checpoint>(1, "checpoint");
-		m_checpoint->position = { 9350.0f,360.0f,0.0f };
-		m_modelRender.SetPosition(m_position);
-	}
-
-	//アイテムエネミー用のインスタンスがnullptrだったらNewGOする。
-	if (m_itemenemy == nullptr)
-	{
-		m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
-		m_itemenemy->m_position = { 7700.0f, 400.0f, 0.0f };
-		m_itemenemy->firstposition = m_itemenemy->m_position;
-		m_player->m_itemEnemy = nullptr;
-	}
-
-	//ステージ2用のエネミーをNewGOするかどうか判定するフラグがtrueになっていたらNewGOする。
-	if (m_stage2EnemyNewGOFlag == true)
-	{
-		Vector3 enemyPosList[STAGE2_ENEMY_NUM] = {
-			{STAGE2_ENEMY_POSITION1},
-			{STAGE2_ENEMY_POSITION2},
-			{STAGE2_ENEMY_POSITION3},
-			{STAGE2_ENEMY_POSITION4}
-			,{STAGE2_ENEMY_POSITION5}
-			,{STAGE2_ENEMY_POSITION6}
-		};
-
-		for (int i = 0; i < STAGE2_ENEMY_NUM; i++) {
-			m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-			m_enemyList[i]->m_position = enemyPosList[i];
-			m_enemyList[i]->firstposition = enemyPosList[i];
-		}
-		m_stage2EnemyNewGOFlag = false;
-	}
-
-	//現在ステージ2をプレイしているとき
+    //現在ステージ2をプレイしているとき
 	if (GetStageState() == enStageState_Stage2)
 	{
+		// チェックポイント。
+		// チェックポイント用のインスタンスがnullptrだったらNewGOする。	  
+		if (m_checpoint == nullptr)
+		{
+			m_checpoint = NewGO<Checpoint>(1, "checpoint");
+			m_checpoint->position = { 9350.0f,360.0f,0.0f };
+			m_modelRender.SetPosition(m_position);
+		}
+
+		//アイテムエネミー用のインスタンスがnullptrだったらNewGOする。
+		if (m_itemenemy == nullptr)
+		{
+			m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
+			m_itemenemy->m_position = { 7700.0f, 400.0f, 0.0f };
+			m_itemenemy->firstposition = m_itemenemy->m_position;
+			m_player->m_itemEnemy = nullptr;
+		}
+
+		//ステージ2用のエネミーをNewGOするかどうか判定するフラグがtrueになっていたらNewGOする。
+		if (m_stage2EnemyNewGOFlag == true)
+		{
+			Vector3 enemyPosList[STAGE2_ENEMY_NUM] = {
+				{STAGE2_ENEMY_POSITION1},
+				{STAGE2_ENEMY_POSITION2},
+				{STAGE2_ENEMY_POSITION3},
+				{STAGE2_ENEMY_POSITION4}
+				,{STAGE2_ENEMY_POSITION5}
+				,{STAGE2_ENEMY_POSITION6}
+			};
+
+			for (int i = 0; i < STAGE2_ENEMY_NUM; i++) {
+				m_enemyList[i] = NewGO<Enemy>(0, "enemy");
+				m_enemyList[i]->m_position = enemyPosList[i];
+				m_enemyList[i]->firstposition = enemyPosList[i];
+			}
+			m_stage2EnemyNewGOFlag = false;
+		}
+
 		// 回転床。
 		if (m_RotationFloor == nullptr)
 		{
@@ -339,7 +339,6 @@ void Game::Update()
 			m_modelRender.SetPosition(m_position);
 		}
 	}
-
 ////////////////////////////////////////////////////////////////////
 
 	//ステージクリアとゲームオーバーの時は処理しない
@@ -999,19 +998,21 @@ void Game::Stage1ObjectDelete()
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
-	DeleteGO(m_Stage1Goal);
 
 	//チェックポイント
 	DeleteGO(m_checpoint);
 
 	//クリアポイント
 	DeleteGO(m_Stage1Goal);
+
+	//落下速度の遅い床
 	DeleteGO(m_s_MovingFloor);
 	DeleteGO(m_s_MovingFloor1);
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_itemenemy);
 
+	//アイテムエネミー
+	DeleteGO(m_itemenemy);
 
 	//アイテム
 	DeleteGO(m_towel);
@@ -1024,14 +1025,18 @@ void Game::Stage1ObjectDelete()
 	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
-	DeleteGO(m_checpoint);
 }
 
 //ステージ2オブジェクトの削除。
 void Game::Stage2ObjectDelete()
 {
+	// 回転床。
 	DeleteGO(m_RotationFloor);
+
+	// ゴールポール。
 	DeleteGO(m_Stage2Goal);
+
+	// タワー。
 	DeleteGO(m_tower);
 
 }

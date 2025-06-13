@@ -2,7 +2,6 @@
 #include "Stage2.h"
 #include "Config.h"
 #include "FallingFloor.h"
-#include "FallingRocks.h"
 #include "MovingNeedle.h"
 #include "RotationFloor.h"
 #include "Tower.h"
@@ -26,7 +25,7 @@ bool Stage2::Start()
 	m_filePathConfig = NewGO<Config>(0, "config");
 
 	//モデルの初期化
-	m_modelRender.Init("Assets/level3D/Stage2.tkm");
+	m_modelRender.Init("Assets/level3D/Stage2.tkm", 0, 0, enModelUpAxisZ, false, true);
 	m_modelRender.SetScale(SCALE);// スケールのセット。
 
 	//レベルオブジェクトのロード

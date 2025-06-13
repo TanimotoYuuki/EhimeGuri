@@ -12,6 +12,7 @@ class Enemy;// エネミー。
 class ClearPoint;// クリアポイント。
 class Config;// ファイルパス統合クラス。
 class FallingBlock;// 落ちる床。
+class FallingRocks;
 class movingNeedle;// 針。
 class MovingFloor;// 移動する床。
 class Scaffold;// 足場。
@@ -58,7 +59,8 @@ public:
 	void Fade_NewGO();// FadeのNewGO。
 	void RotationFloor_NewGO();// 回転床のNewGO。
 	void Tower_NewGO();// タワーのNewGO。
-	
+	void FallingRocks_NewGO();// 落石。
+
 	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。
 	void Stage2ObjectDelete();//ステージ2オブジェクトの削除。
 	//ステージステート
@@ -128,6 +130,10 @@ public:
     /// </summary>
 	RotationFloor* m_RotationFloor = nullptr;
 
+	/// <summary>
+    /// 落石。
+    /// </summary>
+	FallingRocks* m_fallingRocks = nullptr;
 
 
 private:
@@ -262,7 +268,6 @@ private:
 	}
 
 
-
 	/// <summary>
 	/// ブロック。
 	/// </summary>
@@ -352,7 +357,12 @@ private:
 	TransparentBlock* m_transparentBlock9 = nullptr;
 	TransparentBlock* m_transparentBlock10 = nullptr;
 	TransparentBlock* m_transparentBlock11 = nullptr;
+
+	/// <summary>
+	/// 透明壁。
+	/// </summary>
 	TransparentWall* m_transparentWall;
+
 	/// <summary>
 	/// タオル。
 	/// </summary>
