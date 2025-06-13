@@ -156,6 +156,7 @@ public:
 	bool m_gameOverFlag = false;
 	bool m_respawnFlag = false;//リスポーンしたか？
 	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
+	Fade* m_fade = nullptr;//フェード用インスタンス
 
 private:
 	AnimationClip m_animationClip[enAnimationClip_num];

@@ -375,7 +375,6 @@ private:
 	/// フォントレンダー。
 	/// </summary>
 	FontRender m_fontRender;
-	ModelRender m_backGroundRender;
 	ModelRender	m_modelRender;
 
 	PhysicsStaticObject m_physicsStaticObject;

@@ -102,7 +102,7 @@ void Player::Update()
 	}
 
 	if (checcount == 0) 
-	{
+  {
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
@@ -117,14 +117,13 @@ void Player::Update()
 		}
 
 	}
-
-	else if (checcount == 1) 
-	{
+	else if (checcount == 1) {
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
 			//リスポーン地点の設定。
 			SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
+
 		}
 		//現在ステージ2をプレイしていたら
 		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
@@ -410,7 +409,7 @@ void Player::SetPlayAnimation()
 	GetFullPath_PlayerAnimation(enAnimationClip_jump, "playerjump", false);
 
 	// ステージクリア。
-	GetFullPath_PlayerAnimation(enAnimationClip_stageclear, "stageclear", false);
+	GetFullPath_PlayerAnimation(enAnimationClip_stageclear, "stageclear", true);
 
 	// ゲームオーバー。
 	GetFullPath_PlayerAnimation(enAnimationClip_gameover, "gameover", true);
