@@ -1,5 +1,6 @@
 #pragma once
 class Config;
+class Player;
 class RotationFloor : public IGameObject
 {
 public:
@@ -27,6 +28,7 @@ public:
 
 	Config* m_filePathConfig;
 	CollisionObject* m_collisionObject;
+	Player* m_player = nullptr;
 	Vector3 m_position;
 	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;

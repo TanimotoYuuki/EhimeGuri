@@ -6,6 +6,7 @@
 #include "MovingNeedle.h"
 #include "RotationFloor.h"
 #include "Tower.h"
+#include "Player.h"
 #include "level3DRender.h"
 #include "StairsInTheForest.h"
 #include <string>
@@ -29,15 +30,13 @@ bool Stage2::Start()
 	m_modelRender.SetScale(SCALE);// スケールのセット。
 
 	//レベルオブジェクトのロード
-	LevelRender();
+	//LevelRender();
+
 
 	m_modelRender.Update();// モデルの更新。
-	m_physicsStaticObject.CreateFromModel
-	(
-		m_modelRender.GetModel(),
-		m_modelRender.GetModel().GetWorldMatrix()
-	);
+	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(),m_modelRender.GetModel().GetWorldMatrix());
 
+	m_player = FindGO<Player>("Player");
 	return true;
 }
 
@@ -49,85 +48,86 @@ void Stage2::Update()
 	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage2, 1.0f);
 }
 
+
 //レベルの処理。
-bool Stage2::LevelRender()
-{
-	// Levelを構築する。
-	m_level3DRender.Init("Assets/level3D/stage2.tkl", [&](LevelObjectData& objData)
-	{
-		//オブジェクトの位置を設定
-		m_position = objData.position;
-
-		// 名前が「FallingFloor」だったら。
-		if (objData.EqualObjectName(L"FallingFloor") == true)
-		{
-			// 落下床オブジェクトの作成。
-			m_fallingFloor = NewGO<FallingFloor>(0, "FallingFloor");
-			// 落下処理。
-			m_fallingFloor->Floor();
-			//座標を設定する。
-			m_fallingFloor->SetPosition(m_position);
-			return true;
-		}
-
-		// 名前が「movingNeedle」だったら。
-		else if (objData.EqualObjectName(L"MovingNeedle") == true)
-		{
-			// 針オブジェクトの作成。
-			m_movingNeedle = NewGO<MovingNeedle>(0, "movingneedle");
-
-			// 座標を設定する。
-			m_movingNeedle->SetPosition(m_position);
-			return true;
-		}
-
-		// 名前が「RotationFloor」だったら。
-		else if (objData.EqualObjectName(L"RotationFloor") == true)
-		{
-			// 回転する床オブジェクトの作成。
-			m_rotationFloor = NewGO<RotationFloor>(0, "rotationfloor"); 
-			// 回転処理。
-			m_rotationFloor->Rotation();
-			// 座標を設定する。
-			m_rotationFloor->SetPosition(m_position);
-			return true;
-		}
-
-		// 名前が「FallingRocks」だったら。
-		else if (objData.EqualObjectName(L"FallingRocks") == true)
-		{
-			// 落石のオブジェクト生成。
-			m_fallingRocks = NewGO<FallingRocks>(0, "fallingRocks");
-			// 落下処理。
-			
-			// 座標の設定。
-			m_fallingRocks->SetPosition(m_position);
-			return true;
-		}
-
-		// 名前が「Tower」だったら
-		else if (objData.EqualObjectName(L"Tower") == true)
-		{
-			// タワーのオブジェクト生成。
-			m_Tower = NewGO<Tower>(0, "Tower");
-			// 座標の設定。
-			m_Tower->SetPosition(m_position);
-			return true;
-		}
-
-		// 名前が「StairsInTheForest」だったら
-		else if (objData.EqualObjectName(L"StairsInTheForest") == true)
-		{
-			// 階段オブジェクトの生成。
-			m_StairsInTheForest = NewGO<StairsInTheForest>(0, "Stairsintheforest");
-			// 座標の設定。
-			m_StairsInTheForest->SetPosition(m_position);
-			return true;
-		}
-		return false;
-	});
-	return true;
-}
+//bool Stage2::LevelRender()
+//{
+//	// Levelを構築する。
+//	m_level3DRender.Init("Assets/level3D/stage2.tkl", [&](LevelObjectData& objData)
+//	{
+//		//オブジェクトの位置を設定
+//		m_position = objData.position;
+//
+//		// 名前が「FallingFloor」だったら。
+//		if (objData.EqualObjectName(L"FallingFloor") == true)
+//		{
+//			// 落下床オブジェクトの作成。
+//			m_fallingFloor = NewGO<FallingFloor>(0, "FallingFloor");
+//			// 落下処理。
+//			m_fallingFloor->Floor();
+//			//座標を設定する。
+//			m_fallingFloor->SetPosition(m_position);
+//			return true;
+//		}
+//
+//		// 名前が「movingNeedle」だったら。
+//		else if (objData.EqualObjectName(L"MovingNeedle") == true)
+//		{
+//			// 針オブジェクトの作成。
+//			m_movingNeedle = NewGO<MovingNeedle>(0, "movingneedle");
+//
+//			// 座標を設定する。
+//			m_movingNeedle->SetPosition(m_position);
+//			return true;
+//		}
+//
+//		// 名前が「RotationFloor」だったら。
+//		else if (objData.EqualObjectName(L"RotationFloor") == true)
+//		{
+//			// 回転する床オブジェクトの作成。
+//			m_rotationFloor = NewGO<RotationFloor>(0, "rotationfloor"); 
+//			// 回転処理。
+//			m_rotationFloor->Rotation();
+//			// 座標を設定する。
+//			m_rotationFloor->SetPosition(m_position);
+//			return true;
+//		}
+//
+//		// 名前が「FallingRocks」だったら。
+//		else if (objData.EqualObjectName(L"FallingRocks") == true)
+//		{
+//			// 落石のオブジェクト生成。
+//			m_fallingRocks = NewGO<FallingRocks>(0, "fallingRocks");
+//			// 落下処理。
+//			
+//			// 座標の設定。
+//			m_fallingRocks->SetPosition(m_position);
+//			return true;
+//		}
+//
+//		// 名前が「Tower」だったら
+//		else if (objData.EqualObjectName(L"Tower") == true)
+//		{
+//			// タワーのオブジェクト生成。
+//			m_Tower = NewGO<Tower>(0, "Tower");
+//			// 座標の設定。
+//			m_Tower->SetPosition(m_position);
+//			return true;
+//		}
+//
+//		// 名前が「StairsInTheForest」だったら
+//		else if (objData.EqualObjectName(L"StairsInTheForest") == true)
+//		{
+//			// 階段オブジェクトの生成。
+//			m_StairsInTheForest = NewGO<StairsInTheForest>(0, "Stairsintheforest");
+//			// 座標の設定。
+//			m_StairsInTheForest->SetPosition(m_position);
+//			return true;
+//		}
+//		return false;
+//	});
+//	return true;
+//}
 
 // 描画処理。
 void Stage2::Render(RenderContext& rc)

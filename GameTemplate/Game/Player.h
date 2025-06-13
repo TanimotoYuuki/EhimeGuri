@@ -122,6 +122,7 @@ public:
 
 	CharacterController m_characterController;
 	Config* m_config;
+	Fade* m_fade = nullptr;
 
 	Vector3	m_position;
 	Vector3	m_initPosition;//初期位置

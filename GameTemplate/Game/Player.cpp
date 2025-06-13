@@ -59,9 +59,9 @@ bool Player::Start()
 	m_modelRender.SetScale(SCALE);
 
 	// 初期座標。
-	m_position = { FIRSTPOSITION };
+	//m_position = { FIRSTPOSITION };
 
-	//m_position = { 17300.0f, 700.0f, 0.0f };
+	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	m_initPosition = m_position;
 
@@ -101,7 +101,8 @@ void Player::Update()
 		ItemEnemyFindGO();
 	}
 
-	if (checcount == 0) {
+	if (checcount == 0) 
+  {
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
@@ -114,21 +115,23 @@ void Player::Update()
 			//リスポーン地点の設定。
 			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
 		}
+
 	}
 	else if (checcount == 1) {
 		//現在ステージ1をプレイしていたら
 		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
 			//リスポーン地点の設定。
-			SetRespawnPositon(Vector3{ 10300.0f,120.0f,0.0f });
+			SetRespawnPositon(Vector3{ 0.0f,94.0f,0.0f });
 
 		}
 		//現在ステージ2をプレイしていたら
 		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
 		{
 			//リスポーン地点の設定。
-			SetRespawnPositon(Vector3{ 9350.0f,400.0f,0.0f });
+			SetRespawnPositon(Vector3{ 0.0f,160.0f,0.0f });
 		}
+
 	}
 
 	if (m_playernowsutamina == 0) {
