@@ -122,7 +122,6 @@ public:
 
 	CharacterController m_characterController;
 	Config* m_config;
-	Fade* m_fade = nullptr;
 
 	Vector3	m_position;
 	Vector3	m_initPosition;//初期位置
@@ -156,6 +155,7 @@ public:
 	bool m_gameOverFlag = false;
 	bool m_respawnFlag = false;//リスポーンしたか？
 	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
+	Fade* m_fade = nullptr;//フェード用インスタンス
 
 private:
 	AnimationClip m_animationClip[enAnimationClip_num];

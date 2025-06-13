@@ -31,7 +31,6 @@
 
 namespace
 {
-	const Vector3 BACKGROUND_SCALE(10.0f, 10.0f, 10.0f);
 	const Vector3 ENEMY_POSITION1(2800.0f, 94.0f, 0.0f);
 	const Vector3 ENEMY_POSITION2(400.0f, 94.0f, 0.0f);
 	const Vector3 ENEMY_POSITION3(4800.0f, 94.0f, 0.0f);
@@ -45,7 +44,6 @@ namespace
 
 Game::~Game()
 {
-	DeleteGO(m_stage1);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
 	const auto& enemys = FindGOs<Enemy>("enemy");
@@ -91,6 +89,7 @@ Game::~Game()
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
 	DeleteGO(m_checpoint);
+
 }
 
 // 初期化処理。
@@ -106,8 +105,6 @@ bool Game::Start()
 	/// </summary>
 	Fade_NewGO();
 
-	m_backGroundRender.SetScale(BACKGROUND_SCALE);
-	m_backGroundRender.Update();
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
 	m_gameCamera->SetTarget(m_player);
@@ -245,8 +242,6 @@ bool Game::Start()
 	m_modelRender.Update();
 
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
-
-
 	return true;
 }
 
@@ -254,32 +249,38 @@ bool Game::Start()
 void Game::Update()
 {
 ////// 第2ステージ用 /////////////////////////////////////////////
-	// チェックポイント。	  
-	if (m_checpoint == nullptr)
-	{
-		m_checpoint = NewGO<Checpoint>(1, "checpoint");
-		m_checpoint->position = { 9350.0f,360.0f,0.0f };
-		m_modelRender.SetPosition(m_position);
-	}
 
-	// 回転床。
-	if (m_RotationFloor == nullptr)
+    //現在ステージ2をプレイしているとき
+	if (GetStageState() == enStageState_Stage2)
 	{
-		RotationFloor_NewGO();
-	}
+		// チェックポイント。	  
+		if (m_checpoint == nullptr)
+		{
+			m_checpoint = NewGO<Checpoint>(1, "checpoint");
+			m_checpoint->position = { 9350.0f,360.0f,0.0f };
+			m_modelRender.SetPosition(m_position);
+		}
 
-	// ゴールポール。
-	if (m_Stage2Goal == nullptr)
-	{
-		State2Goal_NewGO();
-	}
+		// 回転床。
+		if (m_RotationFloor == nullptr)
+		{
+			RotationFloor_NewGO();
+		}
 
-	// タワー。
-	if (m_tower == nullptr)
-	{
-		Tower_NewGO();
-	}
+		// ゴールポール。
+		if (m_Stage2Goal == nullptr)
+		{
+			State2Goal_NewGO();
+		}
 
+		// タワー。
+		if (m_tower == nullptr)
+		{
+			Tower_NewGO();
+		}
+
+
+	}
 ////////////////////////////////////////////////////////////////////
 
 	//ステージクリアとゲームオーバーの時は処理しない
@@ -884,11 +885,17 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 //ステージ1オブジェクトの削除。
 void Game::Stage1ObjectDelete()
 {
+	//敵
 	const auto& enemys = FindGOs<Enemy>("enemy");
 	for (auto enemy : enemys)
 	{
 		DeleteGO(enemy);
 	}
+
+	//アイテムをドロップする敵
+	DeleteGO(m_itemenemy);
+
+	//透明ブロック
 	DeleteGO(m_transparentBlock);
 	DeleteGO(m_transparentBlock1);
 	DeleteGO(m_transparentBlock2);
@@ -901,14 +908,20 @@ void Game::Stage1ObjectDelete()
 	DeleteGO(m_transparentBlock9);
 	DeleteGO(m_transparentBlock10);
 	DeleteGO(m_transparentBlock11);
+
+	//落ちるブロック
 	DeleteGO(m_fallingBlock);
 	DeleteGO(m_movingFloor1);
 	DeleteGO(m_movingFloor2);
+
+	//ブロック
 	DeleteGO(m_block);
 	DeleteGO(m_block1);
 	DeleteGO(m_block2);
 	DeleteGO(m_block3);
 	DeleteGO(m_block4);
+
+	//足場ブロック
 	DeleteGO(m_scaffold);
 	DeleteGO(m_scaffold1);
 	DeleteGO(m_towel);
@@ -918,6 +931,10 @@ void Game::Stage1ObjectDelete()
 	DeleteGO(m_s_MovingFloor2);
 	DeleteGO(m_s_MovingFloor3);
 	DeleteGO(m_itemenemy);
+
+	//アイテム
+	DeleteGO(m_towel);
+
 	DeleteGO(m_tobeyaki);
 	DeleteGO(m_sinju);
 	DeleteGO(m_jako);
@@ -932,7 +949,13 @@ void Game::Stage1ObjectDelete()
 //ステージ2オブジェクトの削除。
 void Game::Stage2ObjectDelete()
 {
+	// 回転床。
 	DeleteGO(m_RotationFloor);
+
+	// ゴールポール。
 	DeleteGO(m_Stage2Goal);
+
+	// タワー。
 	DeleteGO(m_tower);
+
 }
