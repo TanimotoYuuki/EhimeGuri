@@ -89,17 +89,25 @@ public:
 		return m_stageState;
 	}
 
-
-
 	int	m_nowEhimePlace = enEhimePlace_Iyo;//愛媛県での現在位置
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
 	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
 	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
+	bool m_stage2EnemyNewGOFlag = false;//ステージ2用のエネミーをNewGOするか?
 
 	/// <summary>
 	/// チェックポイント。
 	/// </summary>
 	Checpoint* m_checpoint = nullptr;
+
+	/// <summary>
+	/// エネミー。
+	/// </summary>
+	Enemy* m_enemyList[5];
+	/// <summary>
+	/// アイテムエネミー
+	/// </summary>
+	ItemEnemy* m_itemenemy = nullptr;
 
 	//愛媛県の場所
 	enum EnEhimePlace
@@ -281,10 +289,6 @@ private:
 	ClearPoint* m_Stage2Goal = nullptr;
 	Config* m_config = nullptr;
 	/// <summary>
-	/// エネミー。
-	/// </summary>
-	Enemy* m_enemyList[5];
-	/// <summary>
 	/// 落ちる床。
 	/// </summary>
 	FallingBlock* m_fallingBlock= nullptr;
@@ -374,7 +378,6 @@ private:
 	/// <summary>
 	/// アイテム類。
 	/// </summary>
-	ItemEnemy* m_itemenemy = nullptr;// 敵のアイテム。
 	Tobeyaki* m_tobeyaki = nullptr;// 砥部焼。
 	sinju* m_sinju = nullptr;// 真珠。
 	Mikan* m_mikan = nullptr;// みかん。
@@ -424,6 +427,10 @@ private:
 	SpriteRender m_mikangetRender;
 	SpriteRender m_sinjuRender;
 	SpriteRender m_sinjugetRender;
+	SpriteRender m_tarutoRender;
+	SpriteRender m_tarutogetRender;
+	SpriteRender m_tobeyakiRender;
+	SpriteRender m_tobeyakigetRneder;
 	SpriteRender m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
 	SpriteRender m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
 	/// <summary>

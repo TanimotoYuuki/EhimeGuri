@@ -111,6 +111,12 @@ void StageClear::LoadingProcess()
 			// ゲームクラスのチェックポイント用のインスタンスをnullptrにする
 			m_game->m_checpoint = nullptr;
 
+			// ゲームクラスのアイテムエネミー用のインスタンスをnullptrにする
+			m_game->m_itemenemy = nullptr;
+
+			// ステージ2用のエネミーをNewGOするフラグをtrueにする
+			m_game->m_stage2EnemyNewGOFlag = true;
+
 			// 愛媛県での場所の変更
 			m_game->m_nowEhimePlace = m_game->enEhimePlace_Kumakougen;
 			m_game->m_previousEhimePlace = m_game->enEhimePlace_Kumakougen;

@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "GameOver.h"
 #include"Mikan.h"
+#include"Taruto.h"
 bool ItemEnemy::Start() {
 	animationclip[enAnimationclip_idle].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonIdle.tka");
 	animationclip[enAnimationclip_idle].SetLoopFlag(true);
@@ -94,10 +95,22 @@ void ItemEnemy::Update() {
 			Enemyanimationstate = 1;
 			m_player->m_moveSpeed.y = 500.0f;
 			charactercontroller.RemoveRigidBoby();
-			NewGO<Mikan>(0, "mikan");
-			m_mikan = FindGO<Mikan>("mikan");
-			m_mikan->m_position = m_position;
-			m_mikan->m_position.y = m_position.y + 45.0f;
+			//現在ステージ1をプレイしているとき
+			if (m_game->GetStageState() == m_game->enStageState_Stage1)
+			{
+				NewGO<Mikan>(0, "mikan");
+				m_mikan = FindGO<Mikan>("mikan");
+				m_mikan->m_position = m_position;
+				m_mikan->m_position.y = m_position.y + 45.0f;
+			}
+			//現在ステージ2をプレイしているとき
+			else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+			{
+				NewGO<Taruto>(0, "taruto");
+				m_taruto = FindGO<Taruto>("taruto");
+				m_taruto->m_position = m_position;
+				m_taruto->m_position.y = m_position.y + 45.0f;
+			}
 
 			//プレイヤーが敵を踏んだ時の音を再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);

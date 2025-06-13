@@ -154,8 +154,8 @@ public:
 	bool m_stageClearFlag = false;
 	bool m_gameOverFlag = false;
 	bool m_respawnFlag = false;//リスポーンしたか？
-	bool m_itemEnemyFindGoCompleteFlag = false;//ItemEnemyクラスの検索が完了したか？
 	Fade* m_fade = nullptr;//フェード用インスタンス
+	ItemEnemy* m_itemEnemy = nullptr;//アイテムエネミー用インスタンス
 
 private:
 	AnimationClip m_animationClip[enAnimationClip_num];
@@ -164,7 +164,6 @@ private:
 	Enemy* m_enemy = nullptr;
 	GameOver* m_gameover = nullptr;
 	Towel* m_towel = nullptr;
-	ItemEnemy* m_itemEnemy = nullptr;//アイテムエネミー用インスタンス
 
 	const char* PLAYER_ANIMATION = "Assets/animData/";// ファイルパス。
 	const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。

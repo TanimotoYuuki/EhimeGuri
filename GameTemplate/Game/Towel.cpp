@@ -4,7 +4,7 @@
 #include"Player.h"
 namespace
 {
-	const Vector3 SCALE{ 2.0f,2.0f,3.0f }; // 大きさ。
+	const Vector3 SCALE{ 0.2f,0.2f,0.3f }; // 大きさ。
 }
 
 bool Towel::Start()
