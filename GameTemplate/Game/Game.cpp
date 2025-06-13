@@ -37,12 +37,16 @@ namespace
 	const Vector3 STAGE1_ENEMY_PODITION4(12900.0f, 225.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION1(800.0f, 200.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION2(1400.0f, 200.0f, 0.0f);
+	const Vector3 STAGE2_ENEMY_POSITION3(4250.0f, 500.0f, 0.0f);
+	const Vector3 STAGE2_ENEMY_POSITION4(4600.0f, 300.0f, 0.0f);
+	const Vector3 STAGE2_ENEMY_POSITION5(7100.0f, 200.0f, 0.0f);
+	const Vector3 STAGE2_ENEMY_POSITION6(8000.0f, 500.0f, 0.0f);
 	const Vector3 BACKGROUND_FIRSTPOSITION(0.0f, 0.0f, 0.0f);
 
 	const float TIMER = 180.0f;
 
 	const int STAGE1_ENEMY_NUM = 4;
-	const int STAGE2_ENEMY_NUM = 2;
+	const int STAGE2_ENEMY_NUM = 6;
 }
 
 Game::~Game()
@@ -167,6 +171,16 @@ bool Game::Start()
 	m_sinjuRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
 	m_sinjugetRender.Init("Assets/modelData/sinjuget.DDS", 100.0f, 100.0f);
 	m_sinjugetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+
+	m_tarutoRender.Init("Assets/modelData/taruto.DDS", 100.0f, 100.0f);
+	m_tarutoRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+	m_tarutogetRender.Init("Assets/modelData/tarutoget.DDS", 100.0f, 100.0f);
+	m_tarutogetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+
+	m_tobeyakiRender.Init("Assets/modelData/tobeyaki.DDS", 100.0f, 100.0f);
+	m_tobeyakiRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+	m_tobeyakigetRneder.Init("Assets/modelData/tobeyakiget.DDS", 100.0f, 100.0f);
+	m_tobeyakigetRneder.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
 	/// <summary>
 	/// 3DオブジェクトのNewGO関数。
 	/// </summary>
@@ -261,14 +275,14 @@ void Game::Update()
 		m_modelRender.SetPosition(m_position);
 	}
 
-	////アイテムエネミー用のインスタンスがnullptrだったらNewGOする。
-	//if (m_itemenemy == nullptr)
-	//{
-	//	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
-	//	m_itemenemy->m_position = { 800.0f,200.0f,0.0f };
-	//	m_itemenemy->firstposition = m_itemenemy->m_position;
-	//	m_player->m_itemEnemy = nullptr;
-	//}
+	//アイテムエネミー用のインスタンスがnullptrだったらNewGOする。
+	if (m_itemenemy == nullptr)
+	{
+		m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
+		m_itemenemy->m_position = { 7700.0f, 400.0f, 0.0f };
+		m_itemenemy->firstposition = m_itemenemy->m_position;
+		m_player->m_itemEnemy = nullptr;
+	}
 
 	//ステージ2用のエネミーをNewGOするかどうか判定するフラグがtrueになっていたらNewGOする。
 	if (m_stage2EnemyNewGOFlag == true)
@@ -276,6 +290,10 @@ void Game::Update()
 		Vector3 enemyPosList[STAGE2_ENEMY_NUM] = {
 			{STAGE2_ENEMY_POSITION1},
 			{STAGE2_ENEMY_POSITION2},
+			{STAGE2_ENEMY_POSITION3},
+			{STAGE2_ENEMY_POSITION4}
+			,{STAGE2_ENEMY_POSITION5}
+			,{STAGE2_ENEMY_POSITION6}
 		};
 
 		for (int i = 0; i < STAGE2_ENEMY_NUM; i++) {
@@ -305,6 +323,20 @@ void Game::Update()
 		if (m_tower == nullptr)
 		{
 			Tower_NewGO();
+		}
+
+		if(m_tobeyaki == nullptr)
+		{
+			m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
+			m_tobeyaki->m_position = { 3850.0f,450.0f,0.0f };      //第二ステージ用
+			m_modelRender.SetPosition(m_position);
+		}
+
+		if (m_towel == nullptr)
+		{
+			m_towel = NewGO<Towel>(0, "towel");
+			m_towel->m_position = { 10100.0f, 550.0f, 0.0f };     //第二ステージ用
+			m_modelRender.SetPosition(m_position);
 		}
 	}
 
@@ -405,6 +437,12 @@ void Game::Update()
 
 	m_sinjuRender.Update();
 	m_sinjugetRender.Update();
+
+	m_tobeyakiRender.Update();
+	m_tobeyakigetRneder.Update();
+
+	m_tarutoRender.Update();
+	m_tarutogetRender.Update();
 	
 	//現在ステージ1をプレイしているとき
 	if (GetStageState() == enStageState_Stage1)
@@ -521,26 +559,13 @@ void Game::Scaffold_NewGO()
 // アイテムのNewGO。
 void Game::Item_NewGO()
 {
-   //m_towel = NewGO<Towel>(0,"towel");
-   //m_towel->m_position = { 10500.0f, 250.0f, 0.0f };     //第二ステージ用
-   //m_modelRender.SetPosition(m_position);
-
    m_sinju = NewGO<sinju>(0, "sinju");
    m_sinju->m_position = { 14470.0f,600.0f,0.0f };
    m_modelRender.SetPosition(m_position);
 
-   /*m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
-   m_tobeyaki->m_position = { 700.0f,200.0f,0.0f };      //第二ステージ用
-   m_modelRender.SetPosition(m_position);*/
-
    m_jako = NewGO<Jako>(0, "jako");
    m_jako->m_position = { 6000.0f,500.0f,0.0f };
    m_modelRender.SetPosition(m_position);
-
-   /*m_taruto = NewGO<Taruto>(0, "taruto");
-   m_taruto->m_position = { 500.0f,200.0f,0.0f };     //第二ステージ用
-   m_modelRender.SetPosition(m_position);*/
-
 }
 
 // ゴールポール。(Stage1)
@@ -660,7 +685,24 @@ void Game::Render(RenderContext& rc)
 		//現在ステージ2をプレイしているとき
 		else if (GetStageState() == enStageState_Stage2)
 		{
-
+			if (m_player->tarutoCount == 0) {
+				m_tarutoRender.Draw(rc);
+			}
+			else if (m_player->tarutoCount == 1) {
+				m_tarutogetRender.Draw(rc);
+			}
+			if (m_player->tobeyakiCount == 0) {
+				m_tobeyakiRender.Draw(rc);
+			}
+			else if (m_player->tobeyakiCount == 1) {
+				m_tobeyakigetRneder.Draw(rc);
+			}
+			if (m_player->taoruCount == 0) {
+				m_taorukuroRender.Draw(rc);
+			}
+			else if (m_player->taoruCount == 1) {
+				m_taorutoriRender.Draw(rc);
+			}
 		}
 	}
 }
