@@ -29,6 +29,7 @@ public:
 	void SetTimeLimit(float time)
 	{
 		m_time = time; 
+		m_isTimeUIDrawing = true;
 	}
 
 	/// <summary>
@@ -38,6 +39,15 @@ public:
 	bool IsTimeUp() const
 	{
 		return m_timeUpFlag;
+	}
+
+	/// <summary>
+	/// タイマーUIを描画しない
+	/// </summary>
+	/// <returns></returns>
+	void NotTimeUIDrawing()
+	{
+		m_isTimeUIDrawing = false;
 	}
 
 private:
@@ -67,6 +77,7 @@ private:
 	float m_time = 0.0f;								//経過時間
 	float m_colorChange = 0.0f;							//色の変化									
 	bool m_timeUpFlag = false;							//時間切れフラグ
+	bool m_isTimeUIDrawing = false;						//タイマーUIを描画するか?
 	Fade* m_fade = nullptr;								//フェード用インスタンス
 };
 

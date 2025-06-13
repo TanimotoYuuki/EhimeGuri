@@ -59,9 +59,9 @@ bool Player::Start()
 	m_modelRender.SetScale(SCALE);
 
 	// 初期座標。
-	m_position = { FIRSTPOSITION };
+	//m_position = { FIRSTPOSITION };
 
-	//m_position = { 17300.0f, 700.0f, 0.0f };
+	m_position = { 17300.0f, 700.0f, 0.0f };
 
 	m_initPosition = m_position;
 

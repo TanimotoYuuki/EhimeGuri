@@ -24,6 +24,7 @@ class HS_FallingBlock;	//動く床(速)。
 class TransparentBlock;// 透明ブロック。
 class TransparentWall;
 class Towel;// タオル。
+class Tower;// タワー。
 class Fade;// フェード。
 class ItemEnemy;// 敵のアイテム。
 class Tobeyaki;// 砥部焼。
@@ -32,6 +33,7 @@ class Mikan;// みかん。
 class Jako;// じゃこ天。
 class Taruto;// タルト。
 class Checpoint;// 中間地点。
+class RotationFloor;
 
 class Game : public IGameObject
 {
@@ -44,7 +46,9 @@ public:
 		
 	void GameTimer_NewGO();// ゲームタイマーのNewGO。
 	void Block_NewGO();// ブロックのNewGO。
-	void ClearPoint_NewGO();// クリアポイントのNewGO。
+	void Stage1Goal_NewGO();// ステージ1のゴールポイント。
+	void State2Goal_NewGO();// ステージ2のゴールポイント。
+
 	void TransparentBlock_NewGO();// 透明ブロックのNewGO。
 	void FallingBlock_NewGO();// 落ちるブロックのNewGO。
 	void MovingFloor_NewGO();// 動く床のNewGO 。
@@ -52,9 +56,11 @@ public:
 	void Scaffold_NewGO();// 足場ブロックのNewGO。
 	void S_MovingFloor_NewGO();// 落下速度の遅い床のNewGO。
 	void Fade_NewGO();// FadeのNewGO。
-
+	void RotationFloor_NewGO();// 回転床のNewGO。
+	void Tower_NewGO();// タワーのNewGO。
+	
 	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。
-
+	void Stage2ObjectDelete();//ステージ2オブジェクトの削除。
 	//ステージステート
 	enum enStageState
 	{
@@ -87,6 +93,34 @@ public:
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
 	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
 	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
+
+	/// <summary>
+	/// チェックポイント。
+	/// </summary>
+	Checpoint* m_checpoint = nullptr;
+
+	//愛媛県の場所
+	enum EnEhimePlace
+	{
+		enEhimePlace_Iyo,				//伊予市
+		enEhimePlace_Oozu,				//大洲市
+		enEhimePlace_Yawatahama,		//八幡浜市
+		enEhimePlace_Uwajima,			//宇和島市
+		enEhimePlace_Onihoku,			//鬼北町
+		enEhimePlace_Kumakougen,		//久万高原町
+		enEhimePlace_Sikokutyuou,		//四国中央市
+		enEhimePlace_Niihama,			//新居浜市
+		enEhimePlace_Imabari,			//今治市
+		enEhimePlace_Matuyama,			//松山市
+		enEhimePlace_Num				//場所数
+	};
+
+	/// <summary>
+    /// ステージ2で使うオブジェクト。
+    /// </summary>
+	RotationFloor* m_RotationFloor = nullptr;
+
+
 
 private:
 	/// <summary>
@@ -238,7 +272,8 @@ private:
 	/// <summary>
 	/// クリアポイント。
 	/// </summary>
-	ClearPoint* m_clearPoint = nullptr;
+	ClearPoint* m_Stage1Goal = nullptr;
+	ClearPoint* m_Stage2Goal = nullptr;
 	Config* m_config = nullptr;
 	/// <summary>
 	/// エネミー。
@@ -247,10 +282,7 @@ private:
 	/// <summary>
 	/// 落ちる床。
 	/// </summary>
-	FallingBlock* m_fallingBlock = nullptr;
-	FallingBlock* m_fallingBlock1 = nullptr;
-	FallingBlock* m_fallingBlock2 = nullptr;
-	FallingBlock* m_fallingBlock3 = nullptr;
+	FallingBlock* m_fallingBlock= nullptr;
 	/// <summary>
 	/// プレイヤー。
 	/// </summary>
@@ -322,6 +354,10 @@ private:
 	/// </summary>
 	Towel* m_towel = nullptr;
 	/// <summary>
+	/// タワー。
+	/// </summary>
+	Tower* m_tower = nullptr;
+	/// <summary>
 	/// フェード。
 	/// </summary>
 	Fade* m_fade= nullptr;
@@ -334,11 +370,7 @@ private:
 	Mikan* m_mikan = nullptr;// みかん。
 	Jako* m_jako = nullptr;// じゃこ天。
 	Taruto* m_taruto = nullptr;// タルト。
-	/// <summary>
-	/// チェックポイント。
-	/// </summary>
-	Checpoint* m_checpoint = nullptr;
-	
+		
 	/// <summary>
 	/// フォントレンダー。
 	/// </summary>
@@ -353,21 +385,7 @@ private:
 		Sutamina0
 	};
 
-	//愛媛県の場所
-	enum EnEhimePlace
-	{
-		enEhimePlace_Iyo,				//伊予市
-		enEhimePlace_Oozu,				//大洲市
-		enEhimePlace_Yawatahama,		//八幡浜市
-		enEhimePlace_Uwajima,			//宇和島市
-		enEhimePlace_Onihoku,			//鬼北町
-		enEhimePlace_Kumakougen,		//久万高原町
-		enEhimePlace_Sikokutyuou,		//四国中央市
-		enEhimePlace_Niihama,			//新居浜市
-		enEhimePlace_Imabari,			//今治市
-		enEhimePlace_Matuyama,			//松山市
-		enEhimePlace_Num				//場所数
-	};
+	
 	/// <summary>
 	/// 愛媛県での現在位置を切り替える
 	/// </summary>

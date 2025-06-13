@@ -122,6 +122,7 @@ public:
 
 	CharacterController m_characterController;
 	Config* m_config;
+	Fade* m_fade = nullptr;
 
 	Vector3	m_position;
 	Vector3	m_initPosition;//初期位置
@@ -164,7 +165,6 @@ private:
 	GameOver* m_gameover = nullptr;
 	Towel* m_towel = nullptr;
 	ItemEnemy* m_itemEnemy = nullptr;//アイテムエネミー用インスタンス
-	Fade* m_fade = nullptr;
 
 	const char* PLAYER_ANIMATION = "Assets/animData/";// ファイルパス。
 	const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。

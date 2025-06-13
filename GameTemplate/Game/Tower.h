@@ -1,4 +1,5 @@
 #pragma once
+class Player;
 class Config;
 class Tower : public IGameObject
 {
@@ -8,6 +9,7 @@ public:
 
 	bool Start();// 初期化処理。
 	void Update();// 更新処理。
+	void Move();// 動作処理。
 	void Render(RenderContext& rc);// 描画処理。	
 	/// <summary>
 	/// 座標のセット
@@ -23,10 +25,25 @@ public:
 	{
 		return m_position;
 	}
-	Config* m_config;
-private:
-	ModelRender m_modelRender;
-	Vector3 m_position;
 
+	Vector3 m_position;
+	Vector3 m_firstPosition;
+
+private:
+	Config* m_config;
+	CollisionObject* m_collisionObject;
+	Player* m_player = nullptr;
+	PhysicsStaticObject m_physicsStaticObject;
+	ModelRender m_modelRender;
+
+	// 移動方向を決めるステート。
+	enum enMovingFloorState
+	{
+		enMovingFloorState_MovingRight, // 右。
+		enMovingFloorState_MovingLeft// 左。
+	};
+
+	// ステートの初期化。
+	enMovingFloorState m_movingFloorState = enMovingFloorState_MovingRight;
 };
 
