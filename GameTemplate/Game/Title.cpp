@@ -152,6 +152,7 @@ void Title::Render(RenderContext& rc)
 				m_modeUI[enModeSelect_Shutdown].Draw(rc);
 				
 				//ゲームパッドUI。
+				m_gamePadUI[enGamePad_LStick].Draw(rc);
 				m_gamePadUI[enGamePad_DPad].Draw(rc);
 				m_gamePadUI[enGamePad_AButton].Draw(rc);
 				m_gamePadUI[enGamePad_BButton].Draw(rc);
@@ -235,8 +236,9 @@ void Title::Action()
 			//Aボタンを押していないとき選択ができる
 			if (m_pressButtonFlag != true)
 			{
-				//十字キーを上に倒したら
-				if (g_pad[0]->IsTrigger(enButtonUp))
+				//十字キーを上に倒す または
+				//左スティックを上に倒したとき
+				if (g_pad[0]->IsTrigger(enButtonUp) || g_pad[0]->IsTriggerLStickUp())
 				{
 					//選択音の再生。
 					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
@@ -250,8 +252,9 @@ void Title::Action()
 					//選択が上に上がる
 					m_modeSelect -= SELECT_UP;
 				}
-				//十字キーを下に倒したら
-				else if (g_pad[0]->IsTrigger(enButtonDown))
+				//十字キーを下に倒す または
+				//左スティックを下に倒したとき
+				else if (g_pad[0]->IsTrigger(enButtonDown) || g_pad[0]->IsTriggerLStickDown())
 				{
 					//選択音の再生。
 					g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
@@ -755,6 +758,12 @@ void Title::InitSprite()
 	//ゲームパッド(Lスティック)UI
 	//10 ゲームパッド(Lスティック)UIの初期化
 	m_gamePadUI[enGamePad_LStick].Init("Assets/title/gamepad/lstick.dds", 512, 512);
+	//10.1 ゲームパッド(Lスティック)UIの大きさの設定
+	m_gamePadUI[enGamePad_LStick].SetPosition(Vector3(75.0f, -345.0f, 0.0f));
+	//10.2 ゲームパッド(Lスティック)UIの大きさの設定
+	m_gamePadUI[enGamePad_LStick].SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	//10.3 ゲームパッド(Lスティック)UIの更新
+	m_gamePadUI[enGamePad_LStick].Update();
 
 	//ゲームパッド(Rスティック)UI
 	//11 ゲームパッド(Rスティック)UIの初期化

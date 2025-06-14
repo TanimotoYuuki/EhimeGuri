@@ -161,4 +161,22 @@ void GameTimer::SpriteMove()
 		m_onePlaceNumberUI[m_onePlace].SetMulColor(Vector4(1.0f, t, t, 1.0f));
 		m_onePlaceNumberUI[m_onePlace].Update();
 	}
+	else
+	{
+		//タイマーUI
+		m_timerUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_timerUI.Update();
+
+		//数字UI(百の位)
+		m_hundredPlaceNumberUI[m_hundredPlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_hundredPlaceNumberUI[m_hundredPlace].Update();
+
+		//数字UI(十の位)
+		m_tenPlaceNumberUI[m_tenPlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_tenPlaceNumberUI[m_tenPlace].Update();
+
+		//数字UI(一の位)
+		m_onePlaceNumberUI[m_onePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_onePlaceNumberUI[m_onePlace].Update();
+	}
 }

@@ -65,6 +65,9 @@ void GameOver::Render(RenderContext& rc)
 	//ゲームオーバー演出が終わったら描画する。
 	if (m_gameOverDirectionFlag == true)
 	{
+		//LスティックUI。
+		m_lStickUI.Draw(rc);
+
 		//十字キーUI。
 		m_dPadUI.Draw(rc);
 
@@ -103,13 +106,15 @@ void GameOver::InitSprite()
 	m_gameOverSelectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
 	//1.2 ゲームオーバー時の選択UI(コンティニュー)の大きさの設定。
 	m_gameOverSelectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	//1.3 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定。
+	//1.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
+	m_gameOverSelectUIScale[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetScale();
+	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定。
 	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得。
+	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得。
 	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
-	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定。
+	//1.6 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定。
 	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	//1.6 ゲームオーバー時の選択UI(コンティニュー)の更新処理。
+	//1.7 ゲームオーバー時の選択UI(コンティニュー)の更新処理。
 	m_gameOverSelectUI[enSelect_Continue].Update();
 
 	//ゲームオーバー時の選択UI(タイトルへ戻る)。
@@ -119,43 +124,55 @@ void GameOver::InitSprite()
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
 	//2.2 ゲームオーバー時の選択UI(タイトルへ戻る)の大きさの設定。
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	//2.3 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定。
+	//2.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
+	m_gameOverSelectUIScale[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetScale();
+	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定。
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得。
+	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得。
 	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
-	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定。
+	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定。
 	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理。
+	//2.7 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理。
 	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 
+	//ゲームパッド(Lスティック)UI
+	//3 ゲームパッド(Lスティック)UIの初期化
+	m_lStickUI.Init("Assets/title/gamepad/lstick.dds", 512, 512);
+	//3.1 ゲームパッド(Lスティック)UIの大きさの設定
+	m_lStickUI.SetPosition(Vector3(275.0f, -345.0f, 0.0f));
+	//3.2 ゲームパッド(Lスティック)UIの大きさの設定
+	m_lStickUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	//3.3 ゲームパッド(Lスティック)UIの更新
+	m_lStickUI.Update();
+
 	//十字キーUI。
-	//3 十字キーUIの初期化。
+	//4 十字キーUIの初期化。
 	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", 512, 512);
-	//3.1 十字キーUIの座標の設定。
+	//4.1 十字キーUIの座標の設定。
 	m_dPadUI.SetPosition(Vector3(325.0f, -345.0f, 0.0f));
-	//3.2 十字キーUIの大きさの設定。
+	//4.2 十字キーUIの大きさの設定。
 	m_dPadUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	//3.3 十字キーUIの更新処理。
+	//4.3 十字キーUIの更新処理。
 	m_dPadUI.Update();
 
 	//AボタンUI。
-	//4 AボタンUIの初期化。
+	//5 AボタンUIの初期化。
 	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", 512, 512);
-	//4.1 AボタンUIの座標の設定
+	//5.1 AボタンUIの座標の設定
 	m_aButtonUI.SetPosition(Vector3(Vector3(525.0f, -345.0f, 0.0f)));
-	//4.2 AボタンUIの大きさの設定。
+	//5.2 AボタンUIの大きさの設定。
 	m_aButtonUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	//4.3 AボタンUIの更新処理。
+	//5.3 AボタンUIの更新処理。
 	m_aButtonUI.Update();
 
 	//選択UI。
-	//5 選択UIの初期化。
+	//6 選択UIの初期化。
 	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
-	//5.1 選択UIの座標の設定。
+	//6.1 選択UIの座標の設定。
 	m_selectUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
-	//5.2 選択UIの大きさの設定。
+	//6.2 選択UIの大きさの設定。
 	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
-	//5.3 選択UIの更新処理。
+	//6.3 選択UIの更新処理。
 	m_selectUI.Update();
 
 	//決定UI。
@@ -178,8 +195,9 @@ void GameOver::Action()
 	//Aボタンを押していないとき選択ができる。
 	if (m_pressButtonFlag != true)
 	{
-		//十字キーを左に倒したら。
-		if (g_pad[0]->IsTrigger(enButtonLeft))
+		//十字キーを左に倒す または
+		//左スティックを左に倒したとき
+		if (g_pad[0]->IsTrigger(enButtonLeft) || g_pad[0]->IsTriggerLStickLeft())
 		{
 			//選択音の再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
@@ -193,8 +211,9 @@ void GameOver::Action()
 			//選択が左にいく。
 			m_gameOverSelect -= 1;
 		}
-		//十字キーを右に倒したら。
-		else if (g_pad[0]->IsTrigger(enButtonRight))
+		//十字キーを右に倒す または
+		//左スティックを右に倒したとき
+		else if (g_pad[0]->IsTrigger(enButtonRight) || g_pad[0]->IsTriggerLStickRight())
 		{
 			//選択音の再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_SelectScreen_Select, 1.0f);
@@ -358,18 +377,69 @@ void GameOver::SpriteMove()
 		}
 	}
 
+	//Aボタンを押していないとき
+	if (m_pressButtonFlag != true)
+	{
+		m_gameOverSelectUIScaleChange = m_gameOverSelectUI[m_gameOverSelect].GetScale();
+
+		//ゲームオーバー時の選択UIの大きさを小さくしないとき
+		if (m_gameOverSelectUIScaleDownFlag != true)
+		{
+			//ゲームオーバー時の選択UIを大きくする。
+			m_gameOverSelectUIScaleChange.x += g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.y += g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.z += g_gameTime->GetFrameDeltaTime() * 0.5f;
+
+			if (m_gameOverSelectUIScaleChange.x > 0.7f)
+			{
+				m_gameOverSelectUIScaleDownFlag = true;
+			}
+		}
+		//ゲームオーバー時の選択UIの大きさを小さくするとき
+		else
+		{
+			//ゲームオーバー時の選択UIを小さくする。
+			m_gameOverSelectUIScaleChange.x -= g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.y -= g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.z -= g_gameTime->GetFrameDeltaTime() * 0.5f;
+
+			if (m_gameOverSelectUIScaleChange.x < 0.5f)
+			{
+				m_gameOverSelectUIScaleDownFlag = false;
+			}
+		}
+	}
+
 	//ゲームオーバー時の選択。
 	switch (m_gameOverSelect)
 	{
 	case enSelect_Continue:			//コンティニュー。
 		//ゲームオーバー時の選択UI。
+		//大きさ。
+		m_gameOverSelectUI[enSelect_Continue].SetScale(m_gameOverSelectUIScaleChange);
+		m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(m_gameOverSelectUIScale[enSelect_ReturnTitle]);
+		
+		//乗算カラー。
 		m_gameOverSelectUI[enSelect_Continue].SetMulColor(m_gameOverSelectUIColor[enSelect_Continue]);
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+
+		//更新
+		m_gameOverSelectUI[enSelect_Continue].Update();
+		m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 		break;
 	case enSelect_ReturnTitle:		//タイトルへ戻る。
 		//ゲームオーバー時の選択UI。
+		//大きさ。
+		m_gameOverSelectUI[enSelect_Continue].SetScale(m_gameOverSelectUIScale[enSelect_Continue]);
+		m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(m_gameOverSelectUIScaleChange);
+
+		//乗算カラー。
 		m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(m_gameOverSelectUIColor[enSelect_ReturnTitle]);
+
+		//更新
+		m_gameOverSelectUI[enSelect_Continue].Update();
+		m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 		break;
 	default:
 		break;

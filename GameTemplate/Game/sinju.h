@@ -3,6 +3,7 @@ using namespace std;
 
 class Player;
 class Config;
+class Game;
 class sinju:public IGameObject
 {
 public:
@@ -22,5 +23,6 @@ public:
 	Vector3 m_firstposition;
 	Quaternion m_rotation;
 	Player* m_player = nullptr;
+	Game* m_game = nullptr;
 };
 

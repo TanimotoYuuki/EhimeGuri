@@ -17,7 +17,7 @@ namespace
 bool Tower::Start()
 {
 
-	m_modelRender.Init("Assets/modelData/Tower/Tower.tkm");
+	m_modelRender.Init("Assets/modelData/Tower/Tower.tkm", 0, 0, enModelUpAxisZ, false, true);
 
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
