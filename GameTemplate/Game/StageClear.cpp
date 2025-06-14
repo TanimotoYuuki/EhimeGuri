@@ -72,64 +72,87 @@ void StageClear::LoadingProcess()
 	// ローディング画面表示中。
 	if (m_fade->GetFadeState() == enFadeState_Loading)
 	{
-		// 3.0f経過したら。
-		if (g_gameTime->StopWatch(3.0f))
+		//現在ステージ1をプレイしているとき
+		if (m_game->GetStageState() == m_game->enStageState_Stage1)
 		{
-			// プレイヤーをステージ2の開始位置に移動。
-			if (m_player != nullptr)
+			// 3.0f経過したら。
+			if (g_gameTime->StopWatch(3.0f))
 			{
-				// ステージ2でのプレイヤーの初期設定
-				// 位置
-				m_player->m_characterController.SetPosition(STAGE2_START_POSITION);
-				m_player->m_modelRender.SetPosition(STAGE2_START_POSITION);
-				m_player->m_initPosition = STAGE2_START_POSITION;
-				// 角度
-				m_player->m_rotation.SetRotationDegY(90.0f);
-				m_player->m_modelRender.SetRotation(m_player->m_rotation);
-				// 更新
-				m_player->m_modelRender.Update();
+				// プレイヤーをステージ2の開始位置に移動。
+				if (m_player != nullptr)
+				{
+					// ステージ2でのプレイヤーの初期設定
+					// 位置
+					m_player->m_characterController.SetPosition(STAGE2_START_POSITION);
+					m_player->m_modelRender.SetPosition(STAGE2_START_POSITION);
+					m_player->m_initPosition = STAGE2_START_POSITION;
+					// 角度
+					m_player->m_rotation.SetRotationDegY(90.0f);
+					m_player->m_modelRender.SetRotation(m_player->m_rotation);
+					// 更新
+					m_player->m_modelRender.Update();
 
-				// プレイヤークラスのチェックカウントを0にする
-				m_player->checcount = 0;
+					// プレイヤークラスのチェックカウントを0にする
+					m_player->checcount = 0;
 
-				// プレイヤークラスのステージクリアフラグをfalseにする
-				m_player->m_stageClearFlag = false;
+					// プレイヤークラスのステージクリアフラグをfalseにする
+					m_player->m_stageClearFlag = false;
 
-				// プレイヤークラスのフェード用のインスタンスをnullptrにする
-				m_player->m_fade = nullptr;
+					// プレイヤークラスのフェード用のインスタンスをnullptrにする
+					m_player->m_fade = nullptr;
+				}
+
+				// カメラをステージ2の開始位置に移動。
+				m_gameCamera->m_stageTransitionFlag = true;
+
+				// 制限時間の設定
+				m_gameTimer->SetTimeLimit(180.0f);
+
+				// ステージ1オブジェクトの削除
+				m_game->Stage1ObjectDelete();
+
+				// ゲームクラスのチェックポイント用のインスタンスをnullptrにする
+				m_game->m_checpoint = nullptr;
+
+				// ゲームクラスのアイテムエネミー用のインスタンスをnullptrにする
+				m_game->m_itemenemy = nullptr;
+
+				// ステージ2用のエネミーをNewGOするフラグをtrueにする
+				m_game->m_stage2EnemyNewGOFlag = true;
+
+				// 愛媛県での場所の変更
+				m_game->m_nowEhimePlace = m_game->enEhimePlace_Kumakougen;
+				m_game->m_previousEhimePlace = m_game->enEhimePlace_Kumakougen;
+				m_game->m_ehimePlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
+				m_game->m_ehimeFamousPlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
+
+				// ステージ2に移行
+				m_game->SetStageState(m_game->enStageState_Stage2);
+
+				// SceneManagerを経由してステージ2への遷移を要求。
+				Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
+				// オブジェクトを削除。
+				DeleteGO(this);
 			}
+		}
+		//現在ステージ2をプレイしているとき
+		else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+		{
+			// 1.0f経過したら。
+			if (g_gameTime->StopWatch(2.0f))
+			{
+				// ステージ2オブジェクトの削除
+				m_game->Stage2ObjectDelete();
 
-			// カメラをステージ2の開始位置に移動。
-			m_gameCamera->m_stageTransitionFlag = true;
+				// メインオブジェクトの削除
+				m_game->MainObjectDelete();
 
-			// 制限時間の設定
-			m_gameTimer->SetTimeLimit(180.0f);
+				// SceneManagerを経由してゲームクリア画面への遷移を要求。
+				Scene_Manager::GetInstance()->SetRequest(SceneID::S_GameClear);
 
-			// ステージ1オブジェクトの削除
-			m_game->Stage1ObjectDelete();
-
-			// ゲームクラスのチェックポイント用のインスタンスをnullptrにする
-			m_game->m_checpoint = nullptr;
-
-			// ゲームクラスのアイテムエネミー用のインスタンスをnullptrにする
-			m_game->m_itemenemy = nullptr;
-
-			// ステージ2用のエネミーをNewGOするフラグをtrueにする
-			m_game->m_stage2EnemyNewGOFlag = true;
-
-			// 愛媛県での場所の変更
-			m_game->m_nowEhimePlace = m_game->enEhimePlace_Kumakougen;
-			m_game->m_previousEhimePlace = m_game->enEhimePlace_Kumakougen;
-			m_game->m_ehimePlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
-			m_game->m_ehimeFamousPlaceDrawingUI = m_game->enEhimePlace_Kumakougen;
-
-			// ステージ2に移行
-			m_game->SetStageState(m_game->enStageState_Stage2);
-
-			// SceneManagerを経由してステージ2への遷移を要求。
-			Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage2);
-			// オブジェクトを削除。
-			DeleteGO(this);
+				// オブジェクトの削除
+				DeleteGO(this);
+			}
 		}
 	}
 }

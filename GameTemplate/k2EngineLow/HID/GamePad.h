@@ -33,6 +33,7 @@ namespace nsK2EngineLow {
 	class GamePad : public Noncopyable {
 	public:
 		static const int CONNECT_PAD_MAX = 4;		//接続可能なパッドの最大数。
+		static constexpr float STICK_THRESHOLD = 0.5f;		//スティックのしきい値
 		
 		/// <summary>
 		/// パッドステータス
@@ -82,6 +83,19 @@ namespace nsK2EngineLow {
 		{
 			return m_trigger[button] != 0;
 		}
+
+		//スティックのトリガー判定
+		//左スティック
+		bool IsTriggerLStickUp() const { return  m_lStickY > STICK_THRESHOLD && m_prevLStickY <= STICK_THRESHOLD; }
+		bool IsTriggerLStickDown() const { return  m_lStickY < -STICK_THRESHOLD && m_prevLStickY >= -STICK_THRESHOLD; }
+		bool IsTriggerLStickRight() const { return  m_lStickX > STICK_THRESHOLD && m_prevLStickX <= STICK_THRESHOLD; }
+		bool IsTriggerLStickLeft() const { return  m_lStickX < -STICK_THRESHOLD && m_prevLStickX >= -STICK_THRESHOLD; }
+
+		//右スティック
+		bool IsTriggerRStickUp() const { return  m_rStickY > STICK_THRESHOLD && m_prevRStickY <= STICK_THRESHOLD; }
+		bool IsTriggerRStickDown() const { return  m_rStickY < -STICK_THRESHOLD && m_prevRStickY >= -STICK_THRESHOLD; }
+		bool IsTriggerRStickRight() const { return  m_rStickX > STICK_THRESHOLD && m_prevRStickX <= STICK_THRESHOLD; }
+		bool IsTriggerRStickLeft() const { return  m_rStickX < -STICK_THRESHOLD && m_prevRStickX >= -STICK_THRESHOLD; }
 		
 		/// <summary>
 		/// ボタンが押されているか判定
@@ -92,6 +106,19 @@ namespace nsK2EngineLow {
 		{
 			return m_press[button] != 0;
 		}
+
+		//スティックの押下判定
+		//左スティック
+		bool IsPressLStickUp() const { return  m_lStickY > STICK_THRESHOLD; }
+		bool IsPressLStickDown() const { return  m_lStickY < -STICK_THRESHOLD; }
+		bool IsPressLStickRight() const { return  m_lStickX > STICK_THRESHOLD; }
+		bool IsPressLStickLeft() const { return  m_lStickX < -STICK_THRESHOLD; }
+
+		//右スティック
+		bool IsPressRStickUp() const { return  m_rStickY > STICK_THRESHOLD; }
+		bool IsPressRStickDown() const { return  m_rStickY < -STICK_THRESHOLD; }
+		bool IsPressRStickRight() const { return  m_rStickX > STICK_THRESHOLD; }
+		bool IsPressRStickLeft() const { return  m_rStickX < -STICK_THRESHOLD; }
 
 		/// <summary>
 		/// 何かのボタンが押されているか判定。
@@ -191,6 +218,10 @@ namespace nsK2EngineLow {
 		float m_lStickY = 0.0f;		// 左スティックのY軸の入力量。
 		float m_rStickX = 0.0f;		// 右スティックのX軸の入力量。
 		float m_rStickY = 0.0f;		// 右スティックのY軸の入力量。
+		float m_prevLStickX = 0.0f; // 前フレームの左スティックX
+		float m_prevLStickY = 0.0f; // 前フレームの左スティックY
+		float m_prevRStickX = 0.0f; // 前フレームの左スティックX
+		float m_prevRStickY = 0.0f; // 前フレームの左スティックY
 
 		static EnXInputPadState m_padStates[MAX_PAD];
 	};

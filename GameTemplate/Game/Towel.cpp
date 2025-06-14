@@ -2,9 +2,10 @@
 #include "Config.h"
 #include "Towel.h"
 #include"Player.h"
+#include"Game.h"
 namespace
 {
-	const Vector3 SCALE{ 0.2f,0.2f,0.3f }; // 大きさ。
+	const Vector3 SCALE{ 0.07f,0.07f,0.08f }; // 大きさ。
 }
 
 bool Towel::Start()
@@ -14,6 +15,7 @@ bool Towel::Start()
 	m_modelRender.Init(modelPath.c_str(), 0, 0, enModelUpAxisZ, false, true);// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
+	m_game = FindGO<Game>("game");
 	m_modelRender.Update();
 	return true;
 }
@@ -31,6 +33,8 @@ void Towel::Update()
 
 		// アイテムを取得したの音の再生。
 		g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_ItemGet, 3.0f);
+
+		m_game->m_itemGetNum++;
 		DeleteGO(this);
 	}
 }

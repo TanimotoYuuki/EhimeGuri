@@ -35,7 +35,7 @@ bool Stage2::Start()
 	m_modelRender.Update();// モデルの更新。
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(),m_modelRender.GetModel().GetWorldMatrix());
 
-	m_player = FindGO<Player>("Player");
+	m_player = FindGO<Player>("player");
 	return true;
 }
 
@@ -43,6 +43,15 @@ bool Stage2::Start()
 void Stage2::Update()
 {
 	m_modelRender.Update();// モデルの更新。
+
+	//ステージクリアとゲームオーバーの時は処理しない
+	if (m_player->m_stageClearFlag == true ||
+		m_player->m_gameOverFlag == true
+		)
+	{
+		return;
+	}
+
 	//ステージ2BGMの再生。
 	g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage2, 1.0f);
 }

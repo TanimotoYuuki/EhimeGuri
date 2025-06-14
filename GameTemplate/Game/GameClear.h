@@ -82,7 +82,7 @@ private:
 		{
 			//Sランク
 			m_rankUISpriteFilePath = "Assets/result/rank/s.dds";  //ランクSを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.7f,0.0f,0.7f,0.0f };	//紫色
+			m_rankUISpriteColor = { 1.0f,0.84f,0.0f,0.0f };		//金色
 			m_rankState = enRank_S;	 //ランクステート(Sランク)
 		}
 		//収集率が80%以上なら
@@ -90,70 +90,25 @@ private:
 		{
 			//Aランク
 			m_rankUISpriteFilePath = "Assets/result/rank/a.dds";  //ランクAを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 1.0f,1.0f,0.0f,0.0f };	//黄色
+			m_rankUISpriteColor = { 0.75f,0.75f,0.75f,0.0f };	//銀色
 			m_rankState = enRank_A;	 //ランクステート(Aランク)
-		}
-		//収集率が60%以上なら
-		else if (m_gatheringRate >= 60)
-		{
-			//Bランク
-			m_rankUISpriteFilePath = "Assets/result/rank/b.dds";  //ランクBを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 1.0f,0.0f,0.0f,0.0f };	//赤色
-			m_rankState = enRank_B;	 //ランクステート(Bランク)
 		}
 		//収集率が40%以上なら
 		else if (m_gatheringRate >= 40)
 		{
-			//Cランク
-			m_rankUISpriteFilePath = "Assets/result/rank/c.dds";  //ランクCを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.0f,0.7f,0.0f,0.0f };	//緑色
-			m_rankState = enRank_C;	 //ランクステート(Cランク)
+			//Bランク
+			m_rankUISpriteFilePath = "Assets/result/rank/b.dds";  //ランクBを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.76f,0.43f,0.13f,0.0f };	//銅色
+			m_rankState = enRank_B;	 //ランクステート(Bランク)
 		}
-		//収集率が20%以上なら
-		else if (m_gatheringRate >= 20)
-		{
-			//Dランク
-			m_rankUISpriteFilePath = "Assets/result/rank/d.dds";  //ランクDを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.5f,0.9f,0.9f,0.0f };	//水色
-			m_rankState = enRank_D;	 //ランクステート(Dランク)
-		}
-		//収集率が20%未満なら
+		//収集率が40%未満なら
 		else
 		{
-			//Eランク
-			m_rankUISpriteFilePath = "Assets/result/rank/e.dds";  //ランクEを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.5f,0.5f,0.5f,0.0f };	//灰色
-			m_rankState = enRank_E;	 //ランクステート(Eランク)
+			//Cランク
+			m_rankUISpriteFilePath = "Assets/result/rank/c.dds";  //ランクCを描画するスプライトのファイルパス
+			m_rankUISpriteColor = { 0.0f,0.0f,1.0f,0.0f };	//青色
+			m_rankState = enRank_C;	 //ランクステート(Cランク)
 		}
-	}
-
-	/// <summary>
-	/// 順位を設定する。
-	/// </summary>
-	void SetRanking()
-	{
-		//順位を求める。
-		int rank = m_totalItemNum - m_gatheringItemNum;
-
-		//順位を計算結果が0以下の場合。
-		if (rank <= 0)
-		{
-			//1位を描画する。
-			m_hundredPlace[enNumberDraw_Ranking] = enNumver_Zero;
-			m_tenPlace[enNumberDraw_Ranking] = enNumver_Zero;
-			m_onePlace[enNumberDraw_Ranking] = enNumver_One;
-			return;
-		}
-
-		//UIを表示するための計算。
-		//百の位。
-		m_hundredPlace[enNumberDraw_Ranking] = rank / 100;
-
-		//十の位。
-		m_tenPlace[enNumberDraw_Ranking] = rank / 10;
-
-		//一の位。
-		m_onePlace[enNumberDraw_Ranking] = rank % 10;
 	}
 
 	/// <summary>
@@ -221,13 +176,10 @@ private:
 	/// </summary>
 	void PlayerModelPlayAnimation();
 
-	//数字UI描画。
-	enum enNumberDraw
-	{
-		enNumberDraw_GatheringRate,		//収集率。
-		enNumberDraw_Ranking,			//順位。
-		enNumberDraw_Num				//数字UI描画数。
-	};
+	/// <summary>
+	/// ランク用の音の再生。
+	/// </summary>
+	void RankSEPlay();
 
 	//数字。
 	enum enNumber
@@ -262,8 +214,6 @@ private:
 		enRank_A,			//Aランク。
 		enRank_B,			//Bランク。
 		enRank_C,			//Cランク。
-		enRank_D,			//Dランク。
-		enRank_E,			//Eランク。
 		enRank_Num			//ランク数。
 	};
 
@@ -290,7 +240,6 @@ private:
 	enum EnGameClearDirection
 	{
 		enGameClearDirection_GatheringRate,		//収集率。
-		enGameClearDirection_Ranking,			//順位。
 		enGameClearDirection_Rank,				//ランク。
 		enGameClearDirection_Num				//ゲームクリア演出数。
 	};
@@ -299,12 +248,8 @@ private:
 	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)。
 	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)。
 	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)。	
-	SpriteRender m_rankingNumberHundredPlaceUI[enNumver_Num];						//順位用数字UI(百の位)。
-	SpriteRender m_rankingNumberTenPlaceUI[enNumver_Num];							//順位用数字UI(十の位)。
-	SpriteRender m_rankingNumberOnePlaceUI[enNumver_Num];							//順位用数字UI(一の位)。
 	SpriteRender m_rankUI[enRank_Num];												//ランクUI。
 	SpriteRender m_percentUI;														//パーセントUI。
-	SpriteRender m_placeUI;															//位UI。
 	SpriteRender m_aButtonUI;														//AボタンUI。
 	SpriteRender m_returnTitleUI;													//タイトルへ戻るUI。
 	BackGroundRender m_gameBackground;												//ゲーム背景。
@@ -314,9 +259,9 @@ private:
 	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転。
 	Vector3 m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);						//プレイヤーモデルの大きさ。
 	Vector4 m_rankUISpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクUI用カラー。
-	int m_hundredPlace[enNumberDraw_Num] = { 0,0 };									//百の位。
-	int m_tenPlace[enNumberDraw_Num] = { 0,0 };										//十の位。
-	int m_onePlace[enNumberDraw_Num] = { 0,0 };										//一の位。
+	int m_hundredPlace = 0;															//百の位。
+	int m_tenPlace = 0;																//十の位。
+	int m_onePlace = 0;																//一の位。
 	int m_gatheringItemNum = 0;														//収集したアイテムの数。
 	int m_totalItemNum = 1;															//アイテムの総数。
 	int m_gatheringRate = 0;														//収集率。
@@ -324,10 +269,13 @@ private:
 	int m_rankState = enRank_Num;													//ランクステート。
 	int m_gameClearDirectionState = enGameClearDirection_GatheringRate;				//ゲームクリア演出ステート。
 	float m_gatheringRateUIAlphaColor = -0.5f;										//収集率UI用透明度。
-	float m_rankingUIAlphaColor = -0.5f;											//順位UI用透明度。
 	float m_rankUIAlphaColor = -0.5f;												//ランクUI用透明度。
+	float m_resultBGMVolume = 0.0f;													//リザルト画面BGMの音量。
 	bool m_gameClearDirectionFlag = false;											//ゲームクリア演出フラグ。
 	bool m_titleScreenTransitionFlag = false;										//タイトル画面遷移フラグ。
+	bool m_getResultBGMVolumeFlag = false;											//タイトルBGMの音量を取得したか?
+	bool m_isViewScoreSEPlaying = false;											//スコアを表示した時の音を再生したか?
+	bool m_isRankSEPlaying = false;													//ランク用の音を再生したか?
 	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス。
 	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス。
 	Fade* m_fade = nullptr;															//フェード用インスタンス。

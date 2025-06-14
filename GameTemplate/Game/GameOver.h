@@ -85,6 +85,7 @@ private:
 	int	NeedleCount = 0;												//針用のカウント。
 	SpriteRender m_gameOverUI;											//ゲームオーバーUI。
 	SpriteRender m_gameOverSelectUI[enSelect_Num];						//ゲームオーバー時の選択UI。
+	SpriteRender m_lStickUI;											//LスティックUI。
 	SpriteRender m_dPadUI;												//十字キーUI。
 	SpriteRender m_aButtonUI;											//AボタンUI。
 	SpriteRender m_selectUI;											//選択UI。
@@ -96,7 +97,9 @@ private:
 	Vector3	m_afterEasingPosition = Vector3::Zero;						//イージング後の位置。
 	Quaternion m_beforeEasingRotation = Quaternion::Identity;			//イージング前の回転。
 	Quaternion m_afterEasingRotation = Quaternion::Identity;			//イージング後の回転。
+	Vector3 m_gameOverSelectUIScale[enSelect_Num];						//ゲームオーバー時の選択UI用の大きさ。
 	Vector4 m_gameOverSelectUIColor[enSelect_Num];						//ゲームオーバー時の選択UI用のカラー。
+	Vector3 m_gameOverSelectUIScaleChange;								//ゲームオーバー時の選択UIの大きさ変化用変数。
 	int m_gameOverDirectionState = enGameOverDirection_GameOver;		//ゲームオーバー演出ステート。
 	int m_gameOverSelect = enSelect_Continue;							//ゲームオーバー時の選択。
 	int m_exponentiation = 2;											//累乗。
@@ -111,6 +114,7 @@ private:
 	bool m_gameOverUIFallFlag = false;									//ゲームオーバーUIが落下するか?
 	bool m_gameOverDirectionFlag = false;								//ゲームオーバー演出フラグ。
 	bool m_transitionFlag = false;										//遷移フラグ。
+	bool m_gameOverSelectUIScaleDownFlag = false;						//ゲームオーバー時の選択UIの大きさを小さくするか？
 	Player* m_player = nullptr;											//プレイヤー用のインスタンス。
 	Fade* m_fade = nullptr;												//フェード用のインスタンス。
 	Game* m_game = nullptr;												//ゲーム用のインスタンス。

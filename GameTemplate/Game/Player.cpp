@@ -413,6 +413,6 @@ void Player::SetPlayAnimation()
 	GetFullPath_PlayerAnimation(enAnimationClip_stageclear, "stageclear", true);
 
 	// ゲームオーバー。
-	GetFullPath_PlayerAnimation(enAnimationClip_gameover, "gameover", true);
+	GetFullPath_PlayerAnimation(enAnimationClip_gameover, "gameover", false);
 
 }

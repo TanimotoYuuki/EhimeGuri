@@ -8,6 +8,7 @@ enum GameSoundList
 	GameSoundList_BGM_Title,									//タイトル画面BGM
 	GameSoundList_BGM_Stage1,									//ステージ1BGM
 	GameSoundList_BGM_Stage2,									//ステージ2BGM
+	GameSoundList_BGM_Result,									//リザルト画面BGM
 	GameSoundList_SE_SelectScreen_Decision,						//決定音
 	GameSoundList_SE_SelectScreen_Decision_ScreenTransition,	//決定音(画面遷移用)
 	GameSoundList_SE_SelectScreen_Select,						//選択音
@@ -19,6 +20,11 @@ enum GameSoundList
 	GameSoundList_SE_Object_BlockTouch,							//ブロックを叩いた時の音
 	GameSoundList_SE_Object_ItemGet,							//アイテムを取得した時の音
 	GameSoundList_SE_Object_PassingCheckPoint,					//中間地点を通過した時の音
+	GameSoundList_SE_Result_ViewScore,							//リザルト画面でスコアを表示した時の音
+	GameSoundList_SE_Result_CRank,								//Cランク用の音
+	GameSoundList_SE_Result_BRank,								//Bランク用の音
+	GameSoundList_SE_Result_ARank,								//Aランク用の音
+	GameSoundList_SE_Result_SRank,								//Sランク用の音
 	GameSoundList_SE_System_StageClear,							//ステージクリア時の音
 	GameSoundList_SE_System_GameOver,							//ゲームオーバー時の音
 	GameSoundList_Num											//ゲームサウンドリスト数

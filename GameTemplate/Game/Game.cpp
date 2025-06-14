@@ -47,56 +47,8 @@ namespace
 
 	const int STAGE1_ENEMY_NUM = 4;
 	const int STAGE2_ENEMY_NUM = 6;
-}
 
-Game::~Game()
-{
-	DeleteGO(m_player);
-	DeleteGO(m_gameCamera);
-	const auto& enemys = FindGOs<Enemy>("enemy");
-	for (auto enemy : enemys)
-	{
-		DeleteGO(enemy);
-	}
-	DeleteGO(m_transparentBlock);
-	DeleteGO(m_transparentBlock1);
-	DeleteGO(m_transparentBlock2);
-	DeleteGO(m_transparentBlock3);
-	DeleteGO(m_transparentBlock4);
-	DeleteGO(m_transparentBlock5);
-	DeleteGO(m_transparentBlock6);
-	DeleteGO(m_transparentBlock7);
-	DeleteGO(m_transparentBlock8);
-	DeleteGO(m_transparentBlock9);
-	DeleteGO(m_transparentBlock10);
-	DeleteGO(m_transparentBlock11);
-	DeleteGO(m_fallingBlock);
-	DeleteGO(m_movingFloor1);
-	DeleteGO(m_movingFloor2);
-	DeleteGO(m_block);
-	DeleteGO(m_block1);
-	DeleteGO(m_block2);
-	DeleteGO(m_block3);
-	DeleteGO(m_block4);
-	DeleteGO(m_scaffold);
-	DeleteGO(m_scaffold1);
-	DeleteGO(m_towel);
-	DeleteGO(m_Stage1Goal);
-	DeleteGO(m_s_MovingFloor);
-	DeleteGO(m_s_MovingFloor1);
-	DeleteGO(m_s_MovingFloor2);
-	DeleteGO(m_s_MovingFloor3);
-	DeleteGO(m_itemenemy);
-	DeleteGO(m_tobeyaki);
-	DeleteGO(m_sinju);
-	DeleteGO(m_jako);
-	DeleteGO(m_taruto);
-	//ドロップアイテムをDeleteGOする場合
-	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
-	m_mikan = FindGO<Mikan>("mikan");
-	DeleteGO(m_mikan);
-	DeleteGO(m_checpoint);
-
+	const int ITEM_NUM = 6;
 }
 
 // 初期化処理。
@@ -124,9 +76,9 @@ bool Game::Start()
 	};
 
 	for (int i = 0; i < STAGE1_ENEMY_NUM; i++) {
-		m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-		m_enemyList[i]->m_position = enemyPosList[i];
-		m_enemyList[i]->firstposition = enemyPosList[i];
+		m_stage1EnemyList[i] = NewGO<Enemy>(0, "enemy");
+		m_stage1EnemyList[i]->m_position = enemyPosList[i];
+		m_stage1EnemyList[i]->firstposition = enemyPosList[i];
 	}
 
 	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
@@ -152,11 +104,6 @@ bool Game::Start()
 	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
 	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
 
-	m_taorukuroRender.Init("Assets/modelData/taorukuro.DDS", 100.0f, 100.0f);
-	m_taorukuroRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
-	m_taorutoriRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-
 	m_jakorender.Init("Assets/modelData/jako.DDS", 100.0f, 100.0f);
 	m_jakorender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 	m_jakogetrender.Init("Assets/modelData/jakoget.DDS", 100.0f, 100.0f);
@@ -172,15 +119,23 @@ bool Game::Start()
 	m_sinjugetRender.Init("Assets/modelData/sinjuget.DDS", 100.0f, 100.0f);
 	m_sinjugetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
 
-	m_tarutoRender.Init("Assets/modelData/taruto.DDS", 100.0f, 100.0f);
-	m_tarutoRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-	m_tarutogetRender.Init("Assets/modelData/tarutoget.DDS", 100.0f, 100.0f);
-	m_tarutogetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-
 	m_tobeyakiRender.Init("Assets/modelData/tobeyaki.DDS", 100.0f, 100.0f);
-	m_tobeyakiRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+	m_tobeyakiRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
 	m_tobeyakigetRneder.Init("Assets/modelData/tobeyakiget.DDS", 100.0f, 100.0f);
-	m_tobeyakigetRneder.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+	m_tobeyakigetRneder.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
+
+	m_tarutoRender.Init("Assets/modelData/taruto.DDS", 100.0f, 100.0f);
+	m_tarutoRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+	m_tarutogetRender.Init("Assets/modelData/tarutoget.DDS", 100.0f, 100.0f);
+	m_tarutogetRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
+
+	m_taorukuroRender.Init("Assets/modelData/taorukuro.DDS", 100.0f, 100.0f);
+	m_taorukuroRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+	m_taorukuroRender.SetScale(Vector3(1.3f, 1.3f, 1.3f));
+	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
+	m_taorutoriRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
+	m_taorutoriRender.SetScale(Vector3(1.3f, 1.3f, 1.3f));
+
 	/// <summary>
 	/// 3DオブジェクトのNewGO関数。
 	/// </summary>
@@ -258,6 +213,9 @@ bool Game::Start()
 	// 更新作業。
 	m_modelRender.Update();
 
+	//アイテムの総数の設定
+	m_totalItemNum = ITEM_NUM;
+
 //	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	return true;
 }
@@ -294,15 +252,15 @@ void Game::Update()
 				{STAGE2_ENEMY_POSITION1},
 				{STAGE2_ENEMY_POSITION2},
 				{STAGE2_ENEMY_POSITION3},
-				{STAGE2_ENEMY_POSITION4}
-				,{STAGE2_ENEMY_POSITION5}
-				,{STAGE2_ENEMY_POSITION6}
+				{STAGE2_ENEMY_POSITION4},
+				{STAGE2_ENEMY_POSITION5},
+				{STAGE2_ENEMY_POSITION6}
 			};
 
 			for (int i = 0; i < STAGE2_ENEMY_NUM; i++) {
-				m_enemyList[i] = NewGO<Enemy>(0, "enemy");
-				m_enemyList[i]->m_position = enemyPosList[i];
-				m_enemyList[i]->firstposition = enemyPosList[i];
+				m_stage2EnemyList[i] = NewGO<Enemy>(0, "enemy");
+				m_stage2EnemyList[i]->m_position = enemyPosList[i];
+				m_stage2EnemyList[i]->firstposition = enemyPosList[i];
 			}
 			m_stage2EnemyNewGOFlag = false;
 		}
@@ -423,7 +381,16 @@ void Game::Update()
 
 	m_mappuRender.Update();
 	m_gennzaitiRender.Update();
-	m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
+	//現在ステージ1をプレイしているとき
+	if (GetStageState() == enStageState_Stage1)
+	{
+		m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 60, 430.0f, 0.0f));
+	}
+	//現在ステージ1をプレイしているとき
+	else if (GetStageState() == enStageState_Stage2)
+	{
+		m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 55, 430.0f, 0.0f));
+	}
 
 	m_taorukuroRender.Update();
 	m_taorutoriRender.Update();
@@ -579,7 +546,7 @@ void Game::Stage1Goal_NewGO()
 void Game::State2Goal_NewGO()
 {
 	m_Stage2Goal = NewGO<ClearPoint>(0, "clearpoint");
-	m_Stage2Goal->position = { 16000.0f, 100.0f, 0.0f };
+	m_Stage2Goal->position = { 15950.0f, 125.0f, 0.0f };
 	m_modelRender.SetPosition(m_position);
 }
 
@@ -769,7 +736,7 @@ void Game::GetStageBackGroundData(int place)
 	//松山市。
 	case enEhimePlace_Matuyama:			
 		m_stageBackGroundFilePath = "Assets/Sprite/background/2stage/matuyama.dds";
-		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(m_Stage1Goal->position.x, 0.0f, 0.0f);
+		m_stageBackGroundTransitionPosition[enEhimePlace_Matuyama] = Vector3(15950.0f, 125.0f, 0.0f);
 		break;
 	default:
 		break;
@@ -955,6 +922,18 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 	m_stageBackGroundTransition[m_previousEhimePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
 }
 
+void Game::MainObjectDelete()
+{
+	//プレイヤー
+	DeleteGO(m_player);
+
+	//ゲームカメラ
+	DeleteGO(m_gameCamera);
+
+	//ゲームタイマー
+	DeleteGO(m_gameTimer);
+}
+
 //ステージ1オブジェクトの削除。
 void Game::Stage1ObjectDelete()
 {
@@ -1030,6 +1009,13 @@ void Game::Stage1ObjectDelete()
 //ステージ2オブジェクトの削除。
 void Game::Stage2ObjectDelete()
 {
+	//敵
+	const auto& enemys = FindGOs<Enemy>("enemy");
+	for (auto enemy : enemys)
+	{
+		DeleteGO(enemy);
+	}
+
 	// 回転床。
 	DeleteGO(m_RotationFloor);
 
@@ -1039,4 +1025,15 @@ void Game::Stage2ObjectDelete()
 	// タワー。
 	DeleteGO(m_tower);
 
+	//アイテムエネミー
+	DeleteGO(m_itemenemy);
+
+	//チェックポイント
+	DeleteGO(m_checpoint);
+
+	//アイテム
+	DeleteGO(m_tobeyaki);
+	DeleteGO(m_towel);
+	m_taruto = FindGO<Taruto>("taruto");
+	DeleteGO(m_taruto);
 }

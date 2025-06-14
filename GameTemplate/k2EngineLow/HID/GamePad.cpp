@@ -182,6 +182,14 @@ namespace nsK2EngineLow {
 	}
 	void GamePad::Update()
 	{
+		//前フレームの左スティック
+		m_prevLStickX = m_lStickX;
+		m_prevLStickY = m_lStickY;
+
+		//前フレームの右スティック
+		m_prevRStickX = m_rStickX;
+		m_prevRStickY = m_rStickY;
+
 		//アクティブパッドを探す。
 		DWORD result = ERROR_DEVICE_NOT_CONNECTED;
 		for (int i = m_padNo; i < MAX_PAD; i++) {

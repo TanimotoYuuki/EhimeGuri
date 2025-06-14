@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "Tobeyaki.h"
 #include"Player.h"
+#include"Game.h"
 namespace
 {
 	const Vector3 SCALE{ 0.5f,0.5f,0.5f }; 
@@ -13,6 +14,7 @@ bool Tobeyaki::Start() {
 
 
 	m_player = FindGO<Player>("player");
+	m_game = FindGO<Game>("game");
 	m_modelRender.Update();
 	m_rotation.SetRotationDegX(-30.0f);
 	return true;
@@ -28,6 +30,8 @@ void Tobeyaki::Update() {
 
 		// アイテムを取得したの音の再生。
 		g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_ItemGet, 3.0f);
+
+		m_game->m_itemGetNum++;
 		DeleteGO(this);
 	}
 }
