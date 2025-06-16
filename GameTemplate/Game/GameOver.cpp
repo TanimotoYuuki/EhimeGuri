@@ -4,6 +4,7 @@
 #include "Fade.h"
 #include "Title.h"
 #include "Game.h"
+#include "Scene.h"
 
 //デストラクタ。
 GameOver::~GameOver()
@@ -251,6 +252,23 @@ void GameOver::Action()
 			if (g_gameTime->StopWatch(3.0f))
 			{
 				DeleteGO(this);
+
+				//現在ステージ1をプレイしているとき
+				if (m_game->GetStageState() == m_game->enStageState_Stage1)
+				{
+					//ステージ1オブジェクトの削除
+					m_game->Stage1ObjectDelete();
+				}
+				//現在ステージ2をプレイしているとき
+				else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+				{
+					//ステージ2オブジェクトの削除
+					m_game->Stage2ObjectDelete();
+				}
+
+				//メインオブジェクトの削除
+				m_game->MainObjectDelete();
+
 				DeleteGO(m_game);
 				NewGO<Game>(0, "game");
 			}
@@ -260,8 +278,26 @@ void GameOver::Action()
 			if (g_gameTime->StopWatch(2.0f))
 			{
 				DeleteGO(this);
+				
+				//現在ステージ1をプレイしているとき
+				if (m_game->GetStageState() == m_game->enStageState_Stage1)
+				{
+					//ステージ1オブジェクトの削除
+					m_game->Stage1ObjectDelete();
+				}
+				//現在ステージ2をプレイしているとき
+				else if (m_game->GetStageState() == m_game->enStageState_Stage2)
+				{
+					//ステージ2オブジェクトの削除
+					m_game->Stage2ObjectDelete();
+				}
+
+				//メインオブジェクトの削除
+				m_game->MainObjectDelete();
+
 				DeleteGO(m_game);
-				NewGO<Title>(0, "title");
+				//SceneManagerを経由してタイトル画面への遷移を要求する
+				Scene_Manager::GetInstance()->SetRequest(SceneID::S_Title);
 			}
 			break;
 		default:
