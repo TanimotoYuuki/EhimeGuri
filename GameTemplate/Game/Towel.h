@@ -3,6 +3,7 @@ using namespace std;
 
 class Player;
 class Config;
+class Game;
 class Towel : public IGameObject
 {
 public:
@@ -33,5 +34,6 @@ public:
 	Vector3 m_firstposition;
 	Quaternion m_Rot;
 	Player* m_player = nullptr;
+	Game* m_game = nullptr;
 };
 

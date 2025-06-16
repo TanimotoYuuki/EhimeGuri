@@ -6,6 +6,7 @@
 #include "Config.h"
 #include "StageClear.h"
 #include "Player.h"
+#include "GameClear.h"
 #define SMGetIns Scene_Manager::GetInstance // シングルトンインスタンスを取得するマクロ定義
 
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
@@ -14,6 +15,18 @@ Stage1Scene::~Stage1Scene()
 {
 	DeleteGO(m_stage1);
 
+}
+
+Stage2Scene::~Stage2Scene()
+{
+	DeleteGO(m_stage2);
+	Fade* fade = FindGO<Fade>("fade");
+	DeleteGO(fade);
+}
+
+GameClearScene::~GameClearScene()
+{
+	DeleteGO(m_gameClear);
 }
 
 // シーン::初期化処理。
@@ -115,14 +128,34 @@ bool Stage2Scene::Start()
 // ステージ2シーン::更新処理。
 void Stage2Scene::Update()
 {
-	////ステージクリアフラグを確認
-	//if (m_stage2 != nullptr)
-	//{
-	//	if (m_stage2->GetIsClear() == true)
-	//	{
-	//		// リザルト画面へ移行するように処理を記載してください。
-	//	}
-	//}
+	//SceneManagerを経由してゲームクリア画面への遷移を要求していたら
+	if (Scene_Manager::GetInstance()->GetRequest() == SceneID::S_GameClear)
+	{
+		// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
+		SMGetIns()->SetRequest(SceneID::S_GameClear);
+	}
+}
+
+bool GameClearScene::Start()
+{
+	// ゲームクリアシーンの初期化処理を行う。
+	m_gameClear = NewGO<GameClear>(0, "GameClear"); // ゲームクリアシーンの初期化処理を行う。
+
+	auto* game = FindGO<Game>("game");
+	m_gameClear->SetGatheringItemNum(game->m_itemGetNum);
+	m_gameClear->SetTotalItemNum(game->m_totalItemNum);
+	DeleteGO(game);
+	return true;
+}
+
+void GameClearScene::Update()
+{
+	//SceneManagerを経由してゲームクリア画面への遷移を要求していたら
+	if (Scene_Manager::GetInstance()->GetRequest() == SceneID::S_Title)
+	{
+		// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
+		SMGetIns()->SetRequest(SceneID::S_Title);
+	}
 }
 
 // シーンマネージャー::初期化処理。
@@ -171,6 +204,10 @@ void Scene_Manager::ChangeScene()
 		     break;
 		case SceneID::S_Stage2:
 			scene = new Stage2Scene(); // シーンの初期化。
+			requestSceneID = SceneID::Invalid;
+			break;
+		case SceneID::S_GameClear:
+			scene = new GameClearScene(); // シーンの初期化。
 			requestSceneID = SceneID::Invalid;
 			break;
 		default:

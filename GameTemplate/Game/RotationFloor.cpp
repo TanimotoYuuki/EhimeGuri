@@ -13,7 +13,7 @@ namespace
 
 bool RotationFloor::Start()
 {
-	m_modelRender.Init("Assets/modelData/RotationFloor/RotationFloor.tkm");
+	m_modelRender.Init("Assets/modelData/RotationFloor/RotationFloor.tkm", 0, 0, enModelUpAxisZ, false, true);
 
 
 	m_modelRender.SetScale(SCALE);

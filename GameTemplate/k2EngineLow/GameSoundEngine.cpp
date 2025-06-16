@@ -26,6 +26,11 @@ namespace nsK2EngineLow
 		m_isPlayingSound[GameSoundList_BGM_Stage2] = false;
 		m_sound[GameSoundList_BGM_Stage2] = nullptr;
 
+		//3. リザルト画面BGM
+		g_soundEngine->ResistWaveFileBank(GameSoundList_BGM_Result, "Assets/sound/bgm/result.wav");
+		m_isPlayingSound[GameSoundList_BGM_Result] = false;
+		m_sound[GameSoundList_BGM_Result] = nullptr;
+
 		//SE
 		//0. 決定音
 		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_SelectScreen_Decision, "Assets/sound/se/decision.wav");
@@ -81,12 +86,37 @@ namespace nsK2EngineLow
 		m_isPlayingSound[GameSoundList_SE_Object_PassingCheckPoint] = false;
 		m_sound[GameSoundList_SE_Object_PassingCheckPoint] = nullptr;
 
-		//11. ステージクリア時の音
+		//11. リザルト画面でスコアを表示した時の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_ViewScore, "Assets/sound/se/viewresult.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_ViewScore] = false;
+		m_sound[GameSoundList_SE_Result_ViewScore] = nullptr;
+
+		//12. Cランク用の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_CRank, "Assets/sound/se/crank.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_CRank] = false;
+		m_sound[GameSoundList_SE_Result_CRank] = nullptr;
+
+		//13. Bランク用の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_BRank, "Assets/sound/se/brank.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_BRank] = false;
+		m_sound[GameSoundList_SE_Result_BRank] = nullptr;
+
+		//14. Aランク用の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_ARank, "Assets/sound/se/arank.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_ARank] = false;
+		m_sound[GameSoundList_SE_Result_ARank] = nullptr;
+
+		//15. Sランク用の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_SRank, "Assets/sound/se/srank.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_SRank] = false;
+		m_sound[GameSoundList_SE_Result_SRank] = nullptr;
+
+		//16. ステージクリア時の音
 		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_System_StageClear, "Assets/sound/se/stageclear.wav");
 		m_isPlayingSound[GameSoundList_SE_System_StageClear] = false;
 		m_sound[GameSoundList_SE_System_StageClear] = nullptr;
 
-		//12. ゲームオーバー時の音
+		//17. ゲームオーバー時の音
 		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_System_GameOver, "Assets/sound/se/gameover.wav");
 		m_isPlayingSound[GameSoundList_SE_System_GameOver] = false;
 		m_sound[GameSoundList_SE_System_GameOver] = nullptr;

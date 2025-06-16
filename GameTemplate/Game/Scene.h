@@ -4,6 +4,7 @@
 #include "Stage2.h"
 #include "Config.h"
 #include "StageClear.h"
+#include "GameClear.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ enum SceneID
 	S_Title, // タイトル
 	S_Stage1,// ステージ1
 	S_Stage2,// ステージ2
+    S_GameClear,//ゲームクリア
 	Invalid  //無効なID
 };
 
@@ -27,7 +29,6 @@ public:
 	Title* m_title = nullptr; // タイトルシーンのポインタ
 	Stage1* m_stage1 = nullptr; // ステージ1のポインタ
 	Stage2* m_stage2 = nullptr; // ステージ2のポインタ
-
 };
 
 class Scene : public IGameObject  
@@ -61,7 +62,7 @@ class Stage2Scene : public IScene
 {  
 public:  
     Stage2Scene() {};
-    ~Stage2Scene() {};
+    ~Stage2Scene();
 
     bool Start() override;
 	void Update() override;
@@ -72,6 +73,20 @@ private:
 	Stage2* m_stage2 = nullptr;		//ステージ2
 	Player* m_player = nullptr;		//プレイヤー
 };  
+
+class GameClear;
+class GameClearScene : public IScene
+{
+public:
+    GameClearScene() {};
+    ~GameClearScene();
+
+    bool Start() override;
+    void Update() override;
+
+private:
+    GameClear* m_gameClear = nullptr; // ゲームクリアのポインタ
+};
 
 class TitleScene : public IScene  
 {  
@@ -113,6 +128,12 @@ public:
     {
         requestSceneID = id;
     };
+
+    SceneID GetRequest()
+    {
+        return requestSceneID;
+    }
+
     SceneID requestSceneID = S_Title;
 
     void SetIsClear(bool clear)

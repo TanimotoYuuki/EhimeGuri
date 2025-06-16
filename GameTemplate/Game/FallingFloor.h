@@ -32,6 +32,8 @@ public:
 		return m_position;
 	}
 
+	Vector3 m_position;// 座標。
+	Vector3 m_initPosition;// 座標を設定。
 
 
 private:
@@ -46,8 +48,6 @@ private:
 	PhysicsStaticObject* m_physicsStaticObject;// 当たり判定。
 	Config* m_filePathConfig = nullptr;// コンフィグ。
 	ModelRender m_modelRender;// モデル。
-	Vector3 m_position;// 座標。
-	Vector3 m_initPosition;// 座標を設定。
 
 };
 

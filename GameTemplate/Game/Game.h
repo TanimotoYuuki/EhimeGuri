@@ -12,6 +12,7 @@ class Enemy;// エネミー。
 class ClearPoint;// クリアポイント。
 class Config;// ファイルパス統合クラス。
 class FallingBlock;// 落ちる床。
+class FallingRocks;
 class movingNeedle;// 針。
 class MovingFloor;// 移動する床。
 class Scaffold;// 足場。
@@ -39,7 +40,7 @@ class Game : public IGameObject
 {
 public:
 	Game() {}
-	~Game();
+	~Game() {}
 	bool Start();
 	void Update();// 更新処理。
 	void Render(RenderContext& rc);// 描画処理。
@@ -58,7 +59,9 @@ public:
 	void Fade_NewGO();// FadeのNewGO。
 	void RotationFloor_NewGO();// 回転床のNewGO。
 	void Tower_NewGO();// タワーのNewGO。
-	
+	void FallingRocks_NewGO();// 落石。
+
+	void MainObjectDelete();//メインオブジェクトの削除。
 	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。
 	void Stage2ObjectDelete();//ステージ2オブジェクトの削除。
 	//ステージステート
@@ -91,6 +94,8 @@ public:
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
 	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
 	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
+	int m_itemGetNum = 0;//アイテム取得数
+	int m_totalItemNum = 0;//アイテム総数
 	bool m_stage2EnemyNewGOFlag = false;//ステージ2用のエネミーをNewGOするか?
 
 	/// <summary>
@@ -101,7 +106,8 @@ public:
 	/// <summary>
 	/// エネミー。
 	/// </summary>
-	Enemy* m_enemyList[5];
+	Enemy* m_stage1EnemyList[4];
+	Enemy* m_stage2EnemyList[6];
 	/// <summary>
 	/// アイテムエネミー
 	/// </summary>
@@ -128,6 +134,10 @@ public:
     /// </summary>
 	RotationFloor* m_RotationFloor = nullptr;
 
+	/// <summary>
+    /// 落石。
+    /// </summary>
+	FallingRocks* m_fallingRocks = nullptr;
 
 
 private:
@@ -262,7 +272,6 @@ private:
 	}
 
 
-
 	/// <summary>
 	/// ブロック。
 	/// </summary>
@@ -352,7 +361,12 @@ private:
 	TransparentBlock* m_transparentBlock9 = nullptr;
 	TransparentBlock* m_transparentBlock10 = nullptr;
 	TransparentBlock* m_transparentBlock11 = nullptr;
+
+	/// <summary>
+	/// 透明壁。
+	/// </summary>
 	TransparentWall* m_transparentWall;
+
 	/// <summary>
 	/// タオル。
 	/// </summary>
