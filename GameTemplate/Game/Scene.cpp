@@ -7,6 +7,7 @@
 #include "StageClear.h"
 #include "Player.h"
 #include "GameClear.h"
+#include "GameOver.h"
 #define SMGetIns Scene_Manager::GetInstance // シングルトンインスタンスを取得するマクロ定義
 
 Scene_Manager* Scene_Manager::instance = nullptr; // シングルトンインスタンスの初期化
@@ -90,6 +91,13 @@ void Stage1Scene::Update()
 			SMGetIns()->SetRequest(SceneID::S_Stage2);
 		}
 	}
+
+	//SceneManagerを経由してタイトル画面への遷移を要求していたら
+	if (Scene_Manager::GetInstance()->GetRequest() == SceneID::S_Title)
+	{
+		//タイトル画面に遷移する
+		SMGetIns()->SetRequest(SceneID::S_Title);
+	}
 }
 
 // ステージ2シーン::初期化処理。
@@ -133,6 +141,13 @@ void Stage2Scene::Update()
 	{
 		// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
 		SMGetIns()->SetRequest(SceneID::S_GameClear);
+	}
+
+	//SceneManagerを経由してタイトル画面への遷移を要求していたら
+	if (Scene_Manager::GetInstance()->GetRequest() == SceneID::S_Title)
+	{
+		//タイトル画面に遷移する
+		SMGetIns()->SetRequest(SceneID::S_Title);
 	}
 }
 
