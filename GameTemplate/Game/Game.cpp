@@ -857,8 +857,9 @@ void Game::NowEhimePlaceTransition(EnEhimePlace enEhimePlace)
 			//ステージ背景を遷移する
 			m_stageBackGroundTransitionFlag = true;
 		}
-		//プレイヤーがリスポーンしているとき
-		else
+		//プレイヤーがリスポーンしているとき　かつ
+		//ステージ背景を遷移するかどうかを判定するフラグが立っていないとき
+		else if (m_player->IsPlayerRespawn() && m_stageBackGroundTransitionFlag != true)
 		{
 			//前の位置の切り替え
 			m_previousEhimePlace = m_nowEhimePlace;
@@ -895,8 +896,9 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 		m_stageBackGroundTransitionAlpha += g_gameTime->GetFrameDeltaTime() * 2.0f;
 	}
 
-	//遷移用のステージ背景が透明または不透明になったら
-	if (m_stageBackGroundTransitionAlpha < 0.0f || m_stageBackGroundTransitionAlpha > 1.0f)
+	//遷移用のステージ背景が透明・不透明または
+	//プレイヤーがリスポーンしているとき
+	if (m_stageBackGroundTransitionAlpha < 0.0f || m_stageBackGroundTransitionAlpha > 1.0f || m_player->IsPlayerRespawn())
 	{
 		//遷移用のステージ背景の透明度を元の値に戻す
 		m_stageBackGroundTransitionAlpha = 1.0f;
