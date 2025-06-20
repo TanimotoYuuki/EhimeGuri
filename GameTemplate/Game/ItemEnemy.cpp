@@ -5,6 +5,7 @@
 #include "GameOver.h"
 #include"Mikan.h"
 #include"Taruto.h"
+#include "graphics/effect/EffectEmitter.h"
 bool ItemEnemy::Start() {
 	animationclip[enAnimationclip_idle].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonIdle.tka");
 	animationclip[enAnimationclip_idle].SetLoopFlag(true);
@@ -18,6 +19,8 @@ bool ItemEnemy::Start() {
 	charactercontroller.Init(30.0f, 70.0f, m_position);
 	m_modelrender.SetPosition(m_position);
 	m_modelrender.Update();
+	// エフェクトの初期化。
+	EffectEngine::GetInstance()->ResistEffect(EffectList_EnemyHit, u"Assets/effect/enemyhiteffect.efk");
 	m_player = FindGO<Player>("player");
 	m_game = FindGO<Game>("game");
 	return true;
@@ -111,6 +114,21 @@ void ItemEnemy::Update() {
 				m_taruto->m_position = m_position;
 				m_taruto->m_position.y = m_position.y + 45.0f;
 			}
+
+			//エフェクトの処理
+			EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+			effectEmitter->Init(EffectList_EnemyHit);
+
+			//エフェクトの位置の設定
+			Vector3 enemyLocalPos = { 0.0f,120.0f,0.0f };
+			enemyLocalPos += m_position;
+			effectEmitter->SetPosition(enemyLocalPos);
+
+			//エフェクトの大きさの設定
+			effectEmitter->SetScale({ 30.0f,30.0f,30.0f });
+
+			//エフェクトの再生
+			effectEmitter->Play();
 
 			//プレイヤーが敵を踏んだ時の音を再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);
