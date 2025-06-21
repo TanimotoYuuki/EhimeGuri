@@ -6,6 +6,7 @@
 namespace
 {
 	const Vector3 SCALE{ 0.07f,0.07f,0.08f }; // 大きさ。
+	const float DEG = 2.0f;
 }
 
 bool Towel::Start()
@@ -42,7 +43,7 @@ void Towel::Update()
 // 回転処理。
 void Towel::Rotation()
 {
-	m_Rot.AddRotationDegY(2.0f);
+	m_Rot.AddRotationDegY(DEG);
 	m_modelRender.SetRotation(m_Rot);
 }
 

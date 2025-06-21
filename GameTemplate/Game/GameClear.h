@@ -54,7 +54,8 @@ public:
 		return isClear;
 	}
 
-	
+	SpriteRender m_result;															//リザルト画面。
+
 
 private:
 	/// <summary>
@@ -244,7 +245,6 @@ private:
 		enGameClearDirection_Num				//ゲームクリア演出数。
 	};
 
-	SpriteRender m_result;															//リザルト画面。
 	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)。
 	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)。
 	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)。	
@@ -279,5 +279,64 @@ private:
 	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス。
 	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス。
 	Fade* m_fade = nullptr;															//フェード用インスタンス。
-};
+
+
+	Config* m_config = nullptr;
+	static constexpr const char* RESULT = "Assets/result/screen/";
+	static constexpr const char* PERCENTUI = "Assets/result/text/";
+	static constexpr const char* ABUTTHON = "Assets/result/gamepad/";
+	static constexpr const char* RETURNBUTTON = "Assets/result/text/";
+    static constexpr const char* GROUND = "Assets/Sprite/";
+	static constexpr const char* RESULT_ANIMATION = "Assets/animData/";//ファイルパス。
+	static constexpr const char* RESULT_PLAYER = "Assets/modelData/player";
+
+	static constexpr const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。
+	static constexpr const char* TKM = ".tkm";
+	static constexpr const char* dds_EXTENSION = ".dds"; // 画像用の拡張子。
+	static constexpr const char* DDS_EXTENSION = ".DDS";
+
+
+	/// <summary>
+	/// リザルト用。
+	/// </summary>
+	string GetFullPath_RESULT(const std::string& name, const float w, const float h);
+
+	/// <summary>
+	/// パーセント。
+	/// </summary>
+	string GetFullPath_PERCENT(const std::string& name, const float w, const float h);
+
+	/// <summary>
+	/// Aボタン。
+	/// </summary>
+	string GetFullPaht_BUTTONUI(const std::string& name, const float w, const float h);
+
+	/// <summary>
+	/// タイトルへ戻る用。
+	/// </summary>
+	string GetFullPath_RETURNUI(const std::string& name, const float w, const float h);
+
+	/// <summary>
+	/// ステージ背景用。
+	/// </summary>
+	string GetFullPath_BACKGROUND(const std::string& name, const float w, const float h);
+
+
+	/// <summary>
+	/// アニメーションメソッド。
+	/// </summary>
+	string GetFullPath_ResultAnimation(EnAnimationClip enAnimationClip, const std::string& animationName, bool flag);
+
+	/// <summary>
+	/// アニメーションを再生する。
+	/// </summary>
+	void SetPlayAnimation();
+
+	/// <summary>
+	/// モデルをセットする。
+	/// </summary>
+	string GetFullPath_ResultPlayer
+	(const std::string& modelName, AnimationClip* animationClip, EnAnimationClip enAnimationClip, EnModelUpAxis enModelUpAxis);
+
+};		
 
