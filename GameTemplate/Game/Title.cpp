@@ -4,13 +4,72 @@
 #include "Fade.h"
 namespace
 {
+	// 時間。
+	const float WATCH = 2.5f;
+
 	//右画面端の座標
 	float RIGHT_SCREEN_EDGE_POSITION = FRAME_BUFFER_W / 2;
 	//上に選択
 	int SELECT_UP = 1;
 	//下に選択
 	int SELECT_DOWN = 1;
+
+	// タイトル背景の不透明度。
+	const Vector4 MULCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+	// 黒。
+	const Vector4 BLACK(0.0f, 0.0f, 0.0f, 1.0f);
+
+// カメラ。
+	// カメラの更新座標。
+	const Vector3 UPDATE_CAMERA_POSITION(0.0f, 100.0f, -500.0f);
+	// カメラのFar
+	const float CAMERA_FAR(15000.0f);
+	// カメラのNear
+	const float CAMERA_NEAR(1.0f);
+	// カメラのScale
+	const Vector3 CAMERA_SCALE(0.3f, 0.3f, 0.3f);
+	// カメラのPosition
+	const Vector3 CAMERA_POSITION(600.0f, -345.0f, 0.0f);
+
+// ボタン。
+	// Aボタンの更新。
+	const Vector3 UPDATE_ABUTTON(325.0f, -345.0f, 0.0f);
+	// 戻るボタンの更新。
+	const Vector3 UPDATE_RETURNBUTTON(600.0f, -345.0f, 0.0f);
+	// ゲームパッド
+	const Vector3 GAMEPAD_A(575.0f, -345.0f, 0.0f);
+	const Vector3 GAMEPAD_RETURN(650.0f, -345.0f, 0.0f);
+
+// SkyCube
+	// 座標。
+	const Vector3 SKYCUBE_POSITION(0.0f, -1000.0f, 0.0f);
+	// 大きさ。
+	const Vector3 SKYCUBE_SCALE(750.0f, 750.0f, 750.0f);
+
+// 背景モデル。
+	// 大きさ。
+	const Vector3 BACKGROUNDMODEL_SCALE(10.0f, 10.0f, 10.0f);
+	// モデルのスクロールスピード(正)。
+	const float SCROLL_POSITIVE = 1.0f;
+	// モデルのスクロールスピード(負)。
+	const float SCROLL_NEGATIVE = -1.0f;
+
 }
+
+// アニメーションの初期化メソッド。
+const std::string Title::GetFullPath_InitAnimation(EnAnimationClip enAnimationClip,const std::string& name, bool flag)
+{
+	std::string TITLE = TITLE_ANIMATION + name + TITLE_TKA;
+
+	m_animationClip[enAnimationClip].Load(TITLE.c_str());
+	m_animationClip[enAnimationClip].SetLoopFlag(flag);
+
+	return TITLE;
+}
+
+
+
 
 //デストラクタ。
 Title::~Title()
@@ -193,7 +252,7 @@ void Title::Action()
 		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			//タイトル背景を不透明にする
-			m_titleBackGround.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_titleBackGround.SetMulColor(MULCOLOR);
 			m_alpha = 0.0f;
 			//タイトル背景のフェードインが終わった
 			m_titleBackGroundFadeInFinishFlag = true;
@@ -366,7 +425,7 @@ void Title::Action()
 			//2.5秒経過したらシーンを遷移する
 			if (m_sceneTransitionFlag != true)
 			{
-				if (g_gameTime->StopWatch(2.5f))
+				if (g_gameTime->StopWatch(WATCH))
 				{
 					//シーン遷移
 					m_sceneTransitionFlag = true;
@@ -420,7 +479,7 @@ void Title::SpriteMove()
 			if (m_pressButtonActionFlag != true)
 			{
 				//Aボタンを押すUIのカラーを黒にする
-				m_pressAButtonUI.SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+				m_pressAButtonUI.SetMulColor(BLACK);
 				m_pressAButtonUI.Update();
 				//0.1秒経過したら次の演出に移る
 				if (g_gameTime->StopWatch(0.1f) == true)
@@ -437,7 +496,7 @@ void Title::SpriteMove()
 				if (m_titleTransitionFlag != true)
 				{
 					//Aボタンを押すUIのカラーを白にする
-					m_pressAButtonUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_pressAButtonUI.SetMulColor(MULCOLOR);
 					m_pressAButtonUI.Update();
 					//0.1秒経過したらモード選択に移る
 					if (g_gameTime->StopWatch(0.1f) == true)
@@ -471,17 +530,17 @@ void Title::SpriteMove()
 				{
 				case enModeSelect_Start: //スタート
 					//モードUIのスタートのカラーを黒にする
-					m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_Start].SetMulColor(BLACK);
 					m_modeUI[enModeSelect_Start].Update();
 					break;
 				case enModeSelect_HowToPlay: //遊び方
 					//モードUIの遊び方のカラーを黒にする
-					m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_HowToPlay].SetMulColor(BLACK);
 					m_modeUI[enModeSelect_HowToPlay].Update();
 					break;
 				case enModeSelect_Shutdown: //ゲーム終了
 					//モードUIのゲーム終了のカラーを黒にする
-					m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_modeUI[enModeSelect_Shutdown].SetMulColor(BLACK);
 					m_modeUI[enModeSelect_Shutdown].Update();
 					break;
 				default:
@@ -506,17 +565,17 @@ void Title::SpriteMove()
 					{
 					case enModeSelect_Start: //スタート
 						//モードUIのスタートのカラーを白にする
-						m_modeUI[enModeSelect_Start].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_Start].SetMulColor(MULCOLOR);
 						m_modeUI[enModeSelect_Start].Update();
 						break;
 					case enModeSelect_HowToPlay: //遊び方
 						//モードUIの遊び方のカラーを白にする
-						m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_HowToPlay].SetMulColor(MULCOLOR);
 						m_modeUI[enModeSelect_HowToPlay].Update();
 						break;
 					case enModeSelect_Shutdown: //ゲーム終了
 						//モードUIのゲーム終了のカラーを白にする
-						m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+						m_modeUI[enModeSelect_Shutdown].SetMulColor(MULCOLOR);
 						m_modeUI[enModeSelect_Shutdown].Update();
 						break;
 					default:
@@ -541,43 +600,43 @@ void Title::SpriteMove()
 			//モード選択UIの乗算カラーの更新
 			//モードUIのスタート以外のカラーは黒にする
 			m_modeUI[enModeSelect_Start].SetMulColor(m_modeUIColor[enModeSelect_Start]);
-			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+			m_modeUI[enModeSelect_HowToPlay].SetMulColor(BLACK);
+			m_modeUI[enModeSelect_Shutdown].SetMulColor(BLACK);
 		}
 		//現在の選択が遊び方だったらモード選択UIを遊び方以外黒にする
 		else if (m_modeSelect == enModeSelect_HowToPlay)
 		{
 			//モード選択UIの乗算カラーの更新
 			//モードUIの遊び方以外のカラーは黒にする
-			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+			m_modeUI[enModeSelect_Start].SetMulColor(BLACK);
 			m_modeUI[enModeSelect_HowToPlay].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
-			m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+			m_modeUI[enModeSelect_Shutdown].SetMulColor(BLACK);
 		}
 		//現在の選択がゲーム終了だったらモード選択UIをゲーム終了以外黒にする
 		else if (m_modeSelect == enModeSelect_Shutdown)
 		{
 			//モード選択UIの乗算カラーの更新
 			//モードUIのゲーム終了以外のカラーは黒にする
-			m_modeUI[enModeSelect_Start].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-			m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+			m_modeUI[enModeSelect_Start].SetMulColor(BLACK);
+			m_modeUI[enModeSelect_HowToPlay].SetMulColor(BLACK);
 			m_modeUI[enModeSelect_Shutdown].SetMulColor(m_modeUIColor[enModeSelect_HowToPlay]);
 		}
 
 		//ゲームパッド(Aボタン)の更新
-		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(325.0f, -345.0f, 0.0f));
+		m_gamePadUI[enGamePad_AButton].SetPosition(UPDATE_ABUTTON);
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUIの更新
-		m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
+		m_returnUI.SetPosition(UPDATE_RETURNBUTTON);
 		m_returnUI.Update();
 		break;
 	case enTitleTransition_HowToPlay: //遊び方
 		//ゲームパッド(Aボタン)の更新
-		m_gamePadUI[enGamePad_AButton].SetPosition(Vector3(575.0f, -345.0f, 0.0f));
+		m_gamePadUI[enGamePad_AButton].SetPosition(GAMEPAD_A);
 		m_gamePadUI[enGamePad_AButton].Update();
 
 		//戻るUIの更新
-		m_returnUI.SetPosition(Vector3(650.0f, -345.0f, 0.0f));
+		m_returnUI.SetPosition(GAMEPAD_RETURN);
 		m_returnUI.Update();
 	default:
 		break;
@@ -596,9 +655,9 @@ void Title::InitSky()
 	//0.1 スカイキューブのテクスチャを設定
 	m_skyCube->SetType((EnSkyCubeType)m_skyCubeType);
 	//0.2 スカイキューブの座標の設定
-	m_skyCube->SetPosition(Vector3(0.0f, -1000.0f, 0.0f));
+	m_skyCube->SetPosition(SKYCUBE_POSITION);
 	//0.3 スカイキューブの大きさの設定
-	m_skyCube->SetScale(Vector3(750.0f, 750.0f, 750.0f));
+	m_skyCube->SetScale(SKYCUBE_SCALE);
 	//0.4 スカイキューブの更新
 	m_skyCube->Update();
 }
@@ -608,11 +667,9 @@ void Title::InitAnimation()
 {
 	//各アニメーションの初期設定
 	//0.歩くアニメーション
-	m_animationClip[enAnimationClip_walk].Load("Assets/animData/playerwalk.tka");
-	m_animationClip[enAnimationClip_walk].SetLoopFlag(true);
+	GetFullPath_InitAnimation(enAnimationClip_walk,"playerwalk", true);
 	//1.走るアニメーション
-	m_animationClip[enAnimationClip_run].Load("Assets/animData/playerrun.tka");
-	m_animationClip[enAnimationClip_run].SetLoopFlag(true);
+	GetFullPath_InitAnimation(enAnimationClip_run, "playerrun", true);
 }
 
 //モデルの初期化
@@ -626,15 +683,15 @@ void Title::InitModel()
 		0, enModelUpAxisZ, false, true); //草原
 
 	//0.1 ステージの大きさを設定
-	m_backGroundModel[enBackGroundModel_Base].SetScale(Vector3(10.0f, 10.0f, 10.0f)); //土台
+	m_backGroundModel[enBackGroundModel_Base].SetScale(BACKGROUNDMODEL_SCALE); //土台
 	m_backGroundModel[enBackGroundModel_Base].Update();
 
-	m_backGroundModel[enBackGroundModel_Grass].SetScale(Vector3(10.0f, 10.0f, 10.0f)); //草原
+	m_backGroundModel[enBackGroundModel_Grass].SetScale(BACKGROUNDMODEL_SCALE); //草原
 	m_backGroundModel[enBackGroundModel_Grass].Update();
 
 	//0.2 ステージのスクロール速度を設定
-	m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(-1.0f); //土台
-	m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(1.0f); //草原
+	m_backGroundModel[enBackGroundModel_Base].SetScrollSpeed(SCROLL_NEGATIVE); //土台
+	m_backGroundModel[enBackGroundModel_Grass].SetScrollSpeed(SCROLL_POSITIVE); //草原
 
 	//プレイヤーモデル
 	//1 プレイヤーモデルの初期化
@@ -689,7 +746,7 @@ void Title::InitSprite()
 	//2.2 モード選択UI(スタート)の大きさの設定
 	m_modeUI[enModeSelect_Start].SetScale(Vector3(0.5f,0.5f,0.5f));
 	//2.3 モード選択UI(スタート)の乗算カラーの設定
-	m_modeUI[enModeSelect_Start].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_modeUI[enModeSelect_Start].SetMulColor(MULCOLOR);
 	//2.4 モード選択UI(スタート)の更新
 	m_modeUI[enModeSelect_Start].Update();
 	//2.5 モード選択UI(スタート)の乗算カラーの取得
@@ -703,7 +760,7 @@ void Title::InitSprite()
 	//3.2 
 	m_modeUI[enModeSelect_HowToPlay].SetScale(Vector3(0.5f,0.5f,0.5f));
 	//3.3 
-	m_modeUI[enModeSelect_HowToPlay].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_modeUI[enModeSelect_HowToPlay].SetMulColor(MULCOLOR);
 	//3.4 
 	m_modeUI[enModeSelect_HowToPlay].Update();
 	//3.5
@@ -717,7 +774,7 @@ void Title::InitSprite()
 	//4.2 モード選択UI(ゲーム終了)の大きさの設定
 	m_modeUI[enModeSelect_Shutdown].SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	//4.3 モード選択UI(ゲーム終了)の乗算カラーの設定
-	m_modeUI[enModeSelect_Shutdown].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_modeUI[enModeSelect_Shutdown].SetMulColor(MULCOLOR);
 	//4.4 モード選択UI(ゲーム終了)の更新
 	m_modeUI[enModeSelect_Shutdown].Update();
 	//4.5 モード選択UI(ゲーム終了)の乗算カラーの取得
@@ -803,9 +860,9 @@ void Title::InitSprite()
 	//15 戻るUIの初期化
 	m_returnUI.Init("Assets/title/text/return.dds", 1024, 128);
 	//15.1 戻るUIの座標の設定
-	m_returnUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
+	m_returnUI.SetPosition(CAMERA_POSITION);
 	//15.2 戻るUIの大きさの設定
-	m_returnUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	m_returnUI.SetScale(CAMERA_SCALE);
 	//15.3 戻るUIの更新
 	m_returnUI.Update();
 }
@@ -814,8 +871,8 @@ void Title::InitSprite()
 void Title::InitCamera()
 {
 	//カメラの近平面と遠平面の初期設定
-	g_camera3D->SetNear(1.0f);
-	g_camera3D->SetFar(15000.0f);
+	g_camera3D->SetNear(CAMERA_NEAR);
+	g_camera3D->SetFar(CAMERA_FAR);
 }
 
 //ステージモデルの動作
@@ -851,7 +908,7 @@ void Title::UpdateCamera()
 	if (m_gameStartFlag != true)
 	{
 		//カメラの位置
-		Vector3 CameraPosition = m_playerModelPosition + Vector3(0.0f, 100.0f, -500.0f);
+		Vector3 CameraPosition = m_playerModelPosition + UPDATE_CAMERA_POSITION;
 		//カメラの注視点
 		Vector3 CameraTarget = m_playerModelPosition;
 		CameraTarget.y += 100.0f;

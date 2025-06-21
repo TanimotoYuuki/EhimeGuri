@@ -299,18 +299,15 @@ namespace nsK2EngineLow {
 	{
 		int listNo = 0;
 		for (auto& commandList : m_commandList) {
-			//コマンドリストの作成。
 			m_d3dDevice->CreateCommandList(
 				0, D3D12_COMMAND_LIST_TYPE_DIRECT,
 				m_commandAllocator[listNo],
 				nullptr, IID_PPV_ARGS(&commandList)
 			);
 			if (!commandList) {
-				return false;
+				return false; // 失敗時はfalse
 			}
-			//コマンドリストは開かれている状態で作成されるので、いったん閉じる。
-			commandList->Close();
-			
+			commandList->Close(); // 必ずClose
 			listNo++;
 		}
 		return true;
