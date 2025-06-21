@@ -17,6 +17,9 @@ namespace
 
 	//透明ブロックをーが叩いたときの動き。
 	Vector3 BLOCK_TOUCH_MOVE = Vector3(0.0f, 500.0f, 0.0f);// 動き。
+
+	// 不透明度。
+	const float ALPHA = 1.0f;
 }
 
 //開始処理。
@@ -92,7 +95,7 @@ void TransparentBlock::Update()
 				}
 
 				//モデルを不透明にする。
-				m_transparentBlockModel.SetAlpha(1.0f);
+				m_transparentBlockModel.SetAlpha(ALPHA);
 
 				//ブロックを叩いた。
 				m_blockTouchFlag = true;

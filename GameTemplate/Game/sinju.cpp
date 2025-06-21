@@ -6,6 +6,9 @@
 namespace
 {
   const Vector3 SCALE{ 0.5f,0.5f,0.5f };
+  const float ROTATION_X(-30.0f);
+  const float ROTATION_Y(2.0f);
+
 }
 
 bool sinju::Start() {
@@ -16,7 +19,7 @@ bool sinju::Start() {
 	m_player = FindGO<Player>("player");
 	m_game = FindGO<Game>("game");
 	m_modelRender.Update();
-	m_rotation.SetRotationDegX(-30.0f);
+	m_rotation.SetRotationDegX(ROTATION_X);
 	return true;
 }
 void sinju::Update() {
@@ -36,7 +39,7 @@ void sinju::Update() {
 	}
 }
 void sinju::Rotation() {
-	m_rotation.AddRotationDegY(2.0f);
+	m_rotation.AddRotationDegY(ROTATION_Y);
 	m_modelRender.SetRotation(m_rotation);
 }
 void sinju::Render(RenderContext& rc) {

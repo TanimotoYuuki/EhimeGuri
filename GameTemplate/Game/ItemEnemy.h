@@ -16,6 +16,7 @@ public:
 	void Rotation();
 	void EnemyAnimation();
 
+
 	ModelRender m_modelrender;
 	Vector3 m_position;
 	Quaternion rotation;
@@ -40,5 +41,13 @@ public:
 	Vector3 m_enemyDeathDistanceX = Vector3::Zero;//x軸の判定。
 	Vector3 m_enemyDeathDistanceY = Vector3::Zero;//y軸の判定。
 	bool m_touchPlayerFlag = false;//プレイヤーに触れたか？
+
+	const char* FileParh = "Assets/modelData/YoshinagaAssets/SkeletonAnim/";
+	const char* tka = ".tka";
+
+	// ファイルパス格納メソッド。
+	const string GetFullPaht_Animation(Enannimation enAnimationClip, const std::string& animationName, bool flag);
+	// アニメーションをセット。
+	void SetAnimation();
 };
 
