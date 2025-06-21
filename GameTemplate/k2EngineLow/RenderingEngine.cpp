@@ -162,6 +162,9 @@ namespace nsK2EngineLow
 		//ブルームの描画処理を実行
 		m_bloom.Execute(rc, m_mainRenderTarget);
 
+		//エフェクトの描画
+		EffectEngine::GetInstance()->Draw();
+
 		//2D(フォントとスプライト)の描画
 		SpriteFontDraw(rc);
 		

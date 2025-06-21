@@ -5,6 +5,7 @@
 #include "GameOver.h"
 #include"Mikan.h"
 #include"Taruto.h"
+#include "graphics/effect/EffectEmitter.h"
 
 namespace
 {
@@ -19,7 +20,7 @@ namespace
 	// 大きさ。
 	const Vector3 SCALE(10.0f, 10.0f, 10.0f);
 
-// キャラコン。
+	// キャラコン。
 	const float CHARACON_RADIUS = 30.0f;
 	const float CHARACON_HEIGHT = 70.0f;
 }
@@ -62,6 +63,9 @@ bool ItemEnemy::Start()
 
 	// 更新処理。
 	m_modelrender.Update();
+
+	// エフェクトの初期化。
+	EffectEngine::GetInstance()->ResistEffect(EffectList_EnemyHit, u"Assets/effect/enemyhiteffect.efk");
 
 	// 探索処理。
 	m_player = FindGO<Player>("player");
@@ -154,6 +158,21 @@ void ItemEnemy::Update() {
 				m_taruto->m_position = m_position;
 				m_taruto->m_position.y = m_position.y + 45.0f;
 			}
+
+			//エフェクトの処理
+			EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+			effectEmitter->Init(EffectList_EnemyHit);
+
+			//エフェクトの位置の設定
+			Vector3 enemyLocalPos = { 0.0f,120.0f,0.0f };
+			enemyLocalPos += m_position;
+			effectEmitter->SetPosition(enemyLocalPos);
+
+			//エフェクトの大きさの設定
+			effectEmitter->SetScale({ 30.0f,30.0f,30.0f });
+
+			//エフェクトの再生
+			effectEmitter->Play();
 
 			//プレイヤーが敵を踏んだ時の音を再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);

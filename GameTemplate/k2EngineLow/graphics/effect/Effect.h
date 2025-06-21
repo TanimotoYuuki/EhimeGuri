@@ -4,6 +4,14 @@
 
 #pragma once
 
+enum EffectList
+{
+	EffectList_EnemyHit,		//敵を踏んだ時のエフェクト
+	EffectList_ItemGet,			//アイテムを取得した時のエフェクト
+	EffectList_CheckPointGet,	//チェックポイントを取得した時のエフェクト
+	EffectList_Num				//エフェクト数
+};
+
 namespace nsK2EngineLow {
 	/*!
 	* @brief	エフェクト。
