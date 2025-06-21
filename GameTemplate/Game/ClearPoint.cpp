@@ -11,6 +11,7 @@ namespace
 {
    //モデルの大きさ。
    const Vector3 SCALE(5.0f, 5.0f, 5.0f);
+   const float DISTANCE = 20.0f;
 }
 
 // 開始処理
@@ -40,7 +41,7 @@ void ClearPoint::Update()
 	Vector3 diff = position - m_player->m_position;
 
 	// ゴールポールとプレイヤーの距離を測る
-	if (diff.Length() < 20.0f)
+	if (diff.Length() < DISTANCE)
 	{
 		// ステージクリアをnew
 		StageClear_NewGO();

@@ -2,6 +2,13 @@
 #include "GameCamera.h"
 #include"Player.h"
 
+namespace
+{
+	const Vector3 CAMERA_POS(0.0f, 200.0f, -800.0f);
+	const float CAMERA_NEAR(1.0f);
+	const float CAMERA_FAR(10000.0f);
+}
+
 GameCamera::GameCamera() {
 
 }
@@ -12,11 +19,11 @@ GameCamera::~GameCamera() {
 
 bool GameCamera::Start() {
 	//注視点から視点までのベクトルを設定。
-	SetToCameraPos(Vector3(0.0f, 200.0f, -800.0f));
+	SetToCameraPos(CAMERA_POS);
 
 	//カメラのニアクリップとファークリップを設定する。
-	g_camera3D->SetNear(1.0f);
-	g_camera3D->SetFar(10000.0f);
+	g_camera3D->SetNear(CAMERA_NEAR);
+	g_camera3D->SetFar(CAMERA_FAR);
 
 	//注視点の初期化
 	m_cameraTarget.x = m_player->m_position.x;

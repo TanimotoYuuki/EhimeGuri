@@ -20,7 +20,7 @@ bool Tower::Start()
 	m_modelRender.Init("Assets/modelData/Tower/Tower.tkm", 0, 0, enModelUpAxisZ, false, true);
 
 	m_modelRender.SetScale(SCALE);
-	m_modelRender.Update();
+//	m_modelRender.Update();
 	//当たり判定
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 
@@ -44,6 +44,7 @@ bool Tower::Start()
 	return true;
 }
 
+// 更新処理。
 void Tower::Update()
 {
 	if (m_player == nullptr)
@@ -103,16 +104,8 @@ void Tower::Move()
 			m_movingFloorState = enMovingFloorState_MovingRight;
 		}
 	}
-
+	m_modelRender.Update();
 	m_modelRender.SetPosition(m_position);
-
-	////コリジョンオブジェクトとプレイヤーのキャラクターコントローラーが。
-	////衝突したら。(キャラクターが動く床の上に乗ったら)。
-	//if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
-	//{
-	//	//動く床の移動速度をキャラクターの移動速度に加算。
-	//	m_player->AddMoveSpeed(moveSpeed);
-	//}
 }
 
 void Tower::Render(RenderContext& rc)

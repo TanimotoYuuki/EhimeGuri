@@ -26,13 +26,15 @@ public:
     static constexpr const char* ENEMY_DATA_PATH = "Assets/modelData/YoshinagaAssets/";// 敵キャラ。
     static constexpr const char* ITEM_DATA_PATH = "Assets/modelData/tokusannhinn/";// アイテム。
     static constexpr const char* EHIME_PLACE = "Assets/Sprite/background/1stage/";// 愛媛県の場所。
+    static constexpr const char* SPRITE_PATH = "Assets/fade/fade/";// スプライトファイルパス
+    static constexpr const char* DDS_PATH = "Assets/modelData/";// DDS。
 
     /// <summary>
     /// 拡張子。
     /// </summary>
     static constexpr const char* FILE_EXTENSION = ".tkm"; // 3Dモデル用の拡張子。
     static constexpr const char* SPRITE_EXTENSION = ".dds"; // 画像用の拡張子。
-
+    static constexpr const char* DDS_EXTENSION = ".DDS"; 
 
     /// <summary>
     /// それぞれの関数。
@@ -40,6 +42,7 @@ public:
     static string GetFullPath_3DModel(const std::string& modelName);// 3Dモデル用のファイルパス。
     static string GetFullPath_Item(const std::string& modelName);// アイテムのファイルパス。
     static string GetFullPath_EHIMEPLACE(const std::string& modelName);// 愛媛県の場所。
-
+    static string GetFullPath_Sprite(const std::string& spriteName,const float w, const float h);// スプライト用のファイルパス。
+    static string GetFullPaht_DDS(const std::string& ddsName, const float w, const float h);// dds用のファイルパス。
 };
 

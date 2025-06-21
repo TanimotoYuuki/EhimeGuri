@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "Game.h"
 #include "GameOver.h"
+#include "graphics/effect/EffectEmitter.h"
 
 namespace
 {
@@ -54,6 +55,9 @@ bool Enemy::Start()
 	// 更新処理。
 	m_modelrender.Update();
 
+	// エフェクトの初期化。
+	EffectEngine::GetInstance()->ResistEffect(EffectList_EnemyHit, u"Assets/effect/enemyhiteffect.efk");
+
 	// 探索処理。
 	m_player = FindGO<Player>("player");
 	m_game = FindGO<Game>("game");
@@ -87,6 +91,21 @@ void Enemy::Update()
 			Enemyanimationstate = 1;
 			m_player->m_moveSpeed.y = 500.0f;
 			charactercontroller.RemoveRigidBoby();
+
+			//エフェクトの処理
+			EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+			effectEmitter->Init(EffectList_EnemyHit);
+
+			//エフェクトの位置の設定
+			Vector3 enemyLocalPos = { 0.0f,120.0f,0.0f };
+			enemyLocalPos += m_position;
+			effectEmitter->SetPosition(enemyLocalPos);
+
+			//エフェクトの大きさの設定
+			effectEmitter->SetScale({ 30.0f,30.0f,30.0f });
+
+			//エフェクトの再生
+			effectEmitter->Play();
 
 			//プレイヤーが敵を踏んだ時の音を再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_Player_StepOnEnemy, 1.0f);

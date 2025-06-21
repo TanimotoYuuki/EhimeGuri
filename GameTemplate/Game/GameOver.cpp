@@ -6,6 +6,100 @@
 #include "Game.h"
 #include "Scene.h"
 
+namespace
+{
+	// 反発係数。
+	const float REBOUNDCOEFFICIENT_BEFORE = 90.0f;
+	const float REBOUNDCOEFFICIENT_AFTER = 50.0f;
+
+	// スプライトイージング用。
+	const Vector3 AFTERPOSITION(15.0f, 50.0f, 0.0f);
+
+	// 乗算カラー。
+	const Vector4 BLACK(0.0f, 0.0f, 0.0f, 1.0f);
+	const Vector4 WHITE(1.0f, 1.0f, 1.0f, 1.0f);
+
+	// deltaTIme() に乗算する値。
+	const float DELTATIMEMULTIPLIER = 0.5f;
+
+// 決定UI
+	// 大きさ。
+	const Vector3 DECISION_SCALE(0.3f, 0.3f, 0.3f);
+	// 座標。
+	const Vector3 DECISION_POSITION(600.0f, -345.0f, 0.0f);
+	// 解像度。
+	const float DECISION_WIDTH = 1024;
+	const float DECISION_HEIGHT = 128;
+
+// 選択UI
+	// 大きさ。
+	const Vector3 SELECT_SCALE(0.3f, 0.3f, 0.3f);
+	// 座標。
+	const Vector3 SELECT_POSITION(400.0f, -345.0f, 0.0f);
+	// 解像度。
+	const float SELECT_WIDTH = 1024;
+	const float SELECT_HEIGHT = 128;
+
+// Aボタン。
+	// 大きさ。
+	const Vector3 ABUTTON_SCALE(0.1f, 0.1f, 0.1f);
+	// 座標。
+	const Vector3 ABUTTON_POSITION(525.0f, -345.0f, 0.0f);
+	// 解像度。
+	const float ABUTTON_WIDTH = 512;
+	const float ABUTTON_HEIGHT = 512;
+
+// 十字キー。
+	// 大きさ。
+	const Vector3 DPAD_SCALE(0.1f, 0.1f, 0.1f);
+	// 座標。
+	const Vector3 DPAD_POSITION(325.0f, -345.0f, 0.0f);
+	// 解像度。
+	const float DPAD_WIDTH = 512;
+	const float DPAD_HEIGHT = 512;
+
+// Lスティック。
+	// 大きさ。
+	const Vector3 LSTICK_SCALE(0.1f, 0.1f, 0.1f);
+	// 座標。
+	const Vector3 LSTICK_POSITION(275.0f, -345.0f, 0.0f);
+	// 解像度。
+	const float LSTICK_WIDTH = 512;
+	const float LSTICK_HEIGHT = 512;
+
+// 乗算カラー。
+	const Vector4 MULCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+
+// タイトルへ戻る処理。
+	// 大きさ。
+	const Vector3 RETURNTITLE_SCALE(0.5f, 0.5f, 0.5f);
+	const Vector3 RETURNTITLE_POSITION(250.0f, -200.0f, 0.0f);
+
+	// 解像度。
+	const float RETURNTITLE_WIDTH = 1024;
+	const float RETURNTITLE_HEIGHT = 128;
+
+// ゲームオーバー時の選択UI
+	// 大きさ。
+	const Vector3 CHOICEUI_SCALE(0.5f, 0.5f, 0.5f);
+	// 座標。
+	const Vector3 CHOICEUI_POSITION(-250.0f, -200.0f, 0.0f);
+	// 解像度。
+	const float CHOICEU_WIDTH = 1024;
+	const float CHOICEU_HEIGHT = 128;
+
+// ゲームオーバーUI
+	// ピポット。
+	const Vector2 GAMEOVER_PIVOT(0.5f, 0.0f);
+	// 回転軸。
+	const float GAMEOVER_DEGZ(20.0f);
+	// 解像度。
+	const float GAMEOVER_WIDTH = 1024;
+	const float GAMEOVER_HEIGHT = 128;
+
+
+}
+
 //デストラクタ。
 GameOver::~GameOver()
 {
@@ -20,7 +114,6 @@ bool GameOver::Start()
 	
 	//インスタンス。
 	//0 プレイヤー。
-	m_player = FindGO<Player>("player");
 	m_player->m_gameOverFlag = true;
 
 	//1 フェード。
@@ -40,6 +133,12 @@ bool GameOver::Start()
 //更新処理。
 void GameOver::Update()
 {
+	if (m_player == nullptr)
+	{
+		m_player = FindGO<Player>("player");
+	}
+
+
 	//スプライトの動作。
 	SpriteMove();
 
@@ -88,103 +187,28 @@ void GameOver::InitSprite()
 {
 	//各スプライトの初期設定。
 	//ゲームオーバーUI。
-	//0 ゲームオーバーUIの初期化。
-	m_gameOverUI.Init("Assets/gameover/text/gameover.dds", 1024, 128);
-	//0.1 ゲームオーバーUIの座標の設定。
-	m_gameOverUI.SetPosition(m_gameOverUIPosition);
-	//0.2 ゲームオーバーUIの回転の設定。
-	m_gameOverUIRotation.SetRotationDegZ(20.0f);
-	m_gameOverUI.SetRotation(m_gameOverUIRotation);
-	//0.3 ゲームオーバーUIのピボットの設定。
-	m_gameOverUI.SetPivot(Vector2(0.5f, 0.0f));
-	//0.4 ゲームオーバーUIの更新処理。
-	m_gameOverUI.Update();
+	SetGameOver();
 
 	//ゲームオーバー時の選択UI(コンティニュー)。
-	//1 ゲームオーバー時の選択UI(コンティニュー)の初期化。
-	m_gameOverSelectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", 1024, 128);
-	//1.1 ゲームオーバー時の選択UI(コンティニュー)の座標の設定。
-	m_gameOverSelectUI[enSelect_Continue].SetPosition(Vector3(-250.0f, -200.0f, 0.0f));
-	//1.2 ゲームオーバー時の選択UI(コンティニュー)の大きさの設定。
-	m_gameOverSelectUI[enSelect_Continue].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	//1.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
-	m_gameOverSelectUIScale[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetScale();
-	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得。
-	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
-	//1.6 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	//1.7 ゲームオーバー時の選択UI(コンティニュー)の更新処理。
-	m_gameOverSelectUI[enSelect_Continue].Update();
+	SetChoiceUI();
 
 	//ゲームオーバー時の選択UI(タイトルへ戻る)。
-	//2 ゲームオーバー時の選択UI(タイトルへ戻る)の初期化。
-	m_gameOverSelectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", 1024, 128);
-	//2.1 ゲームオーバー時の選択UI(タイトルへ戻る)の座標の設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(Vector3(250.0f, -200.0f, 0.0f));
-	//2.2 ゲームオーバー時の選択UI(タイトルへ戻る)の大きさの設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	//2.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
-	m_gameOverSelectUIScale[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetScale();
-	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得。
-	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
-	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
-	//2.7 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理。
-	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
-
+	SetReturnTitle();
+	
 	//ゲームパッド(Lスティック)UI
-	//3 ゲームパッド(Lスティック)UIの初期化
-	m_lStickUI.Init("Assets/title/gamepad/lstick.dds", 512, 512);
-	//3.1 ゲームパッド(Lスティック)UIの大きさの設定
-	m_lStickUI.SetPosition(Vector3(275.0f, -345.0f, 0.0f));
-	//3.2 ゲームパッド(Lスティック)UIの大きさの設定
-	m_lStickUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	//3.3 ゲームパッド(Lスティック)UIの更新
-	m_lStickUI.Update();
+	SetLStick();
 
 	//十字キーUI。
-	//4 十字キーUIの初期化。
-	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", 512, 512);
-	//4.1 十字キーUIの座標の設定。
-	m_dPadUI.SetPosition(Vector3(325.0f, -345.0f, 0.0f));
-	//4.2 十字キーUIの大きさの設定。
-	m_dPadUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	//4.3 十字キーUIの更新処理。
-	m_dPadUI.Update();
+	SetDpadUI();
 
 	//AボタンUI。
-	//5 AボタンUIの初期化。
-	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", 512, 512);
-	//5.1 AボタンUIの座標の設定
-	m_aButtonUI.SetPosition(Vector3(Vector3(525.0f, -345.0f, 0.0f)));
-	//5.2 AボタンUIの大きさの設定。
-	m_aButtonUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
-	//5.3 AボタンUIの更新処理。
-	m_aButtonUI.Update();
+	SetAbuttonUI();
 
 	//選択UI。
-	//6 選択UIの初期化。
-	m_selectUI.Init("Assets/title/text/select.dds", 1024, 128);
-	//6.1 選択UIの座標の設定。
-	m_selectUI.SetPosition(Vector3(400.0f, -345.0f, 0.0f));
-	//6.2 選択UIの大きさの設定。
-	m_selectUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
-	//6.3 選択UIの更新処理。
-	m_selectUI.Update();
+	SetDecisionUI();
 
 	//決定UI。
-	//6 決定UIの初期化。
-	m_decisionUI.Init("Assets/gameover/text/decision.dds", 1024, 128);
-	//6.1 決定UIの座標の設定。
-	m_decisionUI.SetPosition(Vector3(600.0f, -345.0f, 0.0f));
-	//6.2 決定UIの大きさの設定。
-	m_decisionUI.SetScale(Vector3(0.3f, 0.3f, 0.3f));
-	//6.3 決定UIの更新処理。
-	m_decisionUI.Update();
+	SetDecisionUI();
 
 	//ゲームオーバースプライト用のイージング(位置)を設定。
 	SetGameOverSpriteEasingPosition();
@@ -363,12 +387,12 @@ void GameOver::SpriteMove()
 				{
 				case enSelect_Continue:			//コンティニュー。
 					//ゲームオーバー時の選択UIのコンティニューのカラーを黒にする。
-					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_Continue].SetMulColor(BLACK);
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る。
 					//ゲームオーバー時の選択UIのタイトルへ戻るのカラーを黒にする。
-					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(BLACK);
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
 				default:
@@ -390,12 +414,12 @@ void GameOver::SpriteMove()
 				{
 				case enSelect_Continue:			//コンティニュー。
 					//ゲームオーバー時の選択UIのコンティニューのカラーを白にする。
-					m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_Continue].SetMulColor(WHITE);
 					m_gameOverSelectUI[enSelect_Continue].Update();
 					break;
 				case enSelect_ReturnTitle:		//タイトルへ戻る。
 					//ゲームオーバー時の選択UIのコンティニューのカラーを白にする。
-					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+					m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(WHITE);
 					m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 					break;
 				default:
@@ -422,9 +446,9 @@ void GameOver::SpriteMove()
 		if (m_gameOverSelectUIScaleDownFlag != true)
 		{
 			//ゲームオーバー時の選択UIを大きくする。
-			m_gameOverSelectUIScaleChange.x += g_gameTime->GetFrameDeltaTime() * 0.5f;
-			m_gameOverSelectUIScaleChange.y += g_gameTime->GetFrameDeltaTime() * 0.5f;
-			m_gameOverSelectUIScaleChange.z += g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.x += g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
+			m_gameOverSelectUIScaleChange.y += g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
+			m_gameOverSelectUIScaleChange.z += g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
 
 			if (m_gameOverSelectUIScaleChange.x > 0.7f)
 			{
@@ -435,11 +459,11 @@ void GameOver::SpriteMove()
 		else
 		{
 			//ゲームオーバー時の選択UIを小さくする。
-			m_gameOverSelectUIScaleChange.x -= g_gameTime->GetFrameDeltaTime() * 0.5f;
-			m_gameOverSelectUIScaleChange.y -= g_gameTime->GetFrameDeltaTime() * 0.5f;
-			m_gameOverSelectUIScaleChange.z -= g_gameTime->GetFrameDeltaTime() * 0.5f;
+			m_gameOverSelectUIScaleChange.x -= g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
+			m_gameOverSelectUIScaleChange.y -= g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
+			m_gameOverSelectUIScaleChange.z -= g_gameTime->GetFrameDeltaTime() * DELTATIMEMULTIPLIER;
 
-			if (m_gameOverSelectUIScaleChange.x < 0.5f)
+			if (m_gameOverSelectUIScaleChange.x < DELTATIMEMULTIPLIER)
 			{
 				m_gameOverSelectUIScaleDownFlag = false;
 			}
@@ -457,7 +481,7 @@ void GameOver::SpriteMove()
 		
 		//乗算カラー。
 		m_gameOverSelectUI[enSelect_Continue].SetMulColor(m_gameOverSelectUIColor[enSelect_Continue]);
-		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(BLACK);
 
 		//更新
 		m_gameOverSelectUI[enSelect_Continue].Update();
@@ -470,7 +494,7 @@ void GameOver::SpriteMove()
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(m_gameOverSelectUIScaleChange);
 
 		//乗算カラー。
-		m_gameOverSelectUI[enSelect_Continue].SetMulColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		m_gameOverSelectUI[enSelect_Continue].SetMulColor(BLACK);
 		m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(m_gameOverSelectUIColor[enSelect_ReturnTitle]);
 
 		//更新
@@ -486,7 +510,7 @@ void GameOver::SpriteMove()
 void GameOver::SetGameOverSpriteEasingPosition()
 {
 	m_beforeEasingPosition = m_gameOverUIPosition;
-	m_afterEasingPosition = Vector3(15.0f, 50.0f, 0.0f);
+	m_afterEasingPosition = AFTERPOSITION;
 	m_easingTime = 0.0f;
 }
 
@@ -501,7 +525,7 @@ void GameOver::UpdateGameOverSpriteEasingPosition()
 		m_easingTime = 1.0f;
 		m_easingFinishFlag = true;
 		m_gameOverUIFarstHeight = m_afterEasingPosition;
-		SetCoefficientOfRestitution(90.0f, 50.0f);
+		SetCoefficientOfRestitution(REBOUNDCOEFFICIENT_BEFORE, REBOUNDCOEFFICIENT_AFTER);
 	}
 
 	//ゲームオーバーUIの更新。
@@ -599,4 +623,132 @@ void GameOver::UpdateGameOverSpriteElasticity()
 	//ゲームオーバーUIの更新。
 	m_gameOverUI.SetPosition(m_gameOverUIPosition);
 	m_gameOverUI.Update();
+}
+
+// 決定UI用。
+void GameOver::SetDecisionUI()
+{
+	//6 決定UIの初期化。
+	m_decisionUI.Init("Assets/gameover/text/decision.dds", DECISION_WIDTH, DECISION_HEIGHT);
+	//6.1 決定UIの座標の設定。
+	m_decisionUI.SetPosition(DECISION_POSITION);
+	//6.2 決定UIの大きさの設定。
+	m_decisionUI.SetScale(DECISION_SCALE);
+	//6.3 決定UIの更新処理。
+	m_decisionUI.Update();
+
+}
+
+// 選択UI用。
+void GameOver::SetSelectUI()
+{
+	//6 選択UIの初期化。
+	m_selectUI.Init("Assets/title/text/select.dds", SELECT_WIDTH, SELECT_HEIGHT);
+	//6.1 選択UIの座標の設定。
+	m_selectUI.SetPosition(SELECT_POSITION);
+	//6.2 選択UIの大きさの設定。
+	m_selectUI.SetScale(SELECT_SCALE);
+	//6.3 選択UIの更新処理。
+	m_selectUI.Update();
+
+}
+
+// AボタンUI用。
+void GameOver::SetAbuttonUI()
+{
+	//5 AボタンUIの初期化。
+	m_aButtonUI.Init("Assets/gameover/gamepad/abutton.dds", ABUTTON_WIDTH, ABUTTON_HEIGHT);
+	//5.1 AボタンUIの座標の設定
+	m_aButtonUI.SetPosition(ABUTTON_POSITION);
+	//5.2 AボタンUIの大きさの設定。
+	m_aButtonUI.SetScale(ABUTTON_SCALE);
+	//5.3 AボタンUIの更新処理。
+	m_aButtonUI.Update();
+}
+
+// 十字キー用。
+void GameOver::SetDpadUI()
+{
+	//4 十字キーUIの初期化。
+	m_dPadUI.Init("Assets/title/gamepad/dpad.dds", DPAD_WIDTH, DPAD_HEIGHT);
+	//4.1 十字キーUIの座標の設定。
+	m_dPadUI.SetPosition(DPAD_POSITION);
+	//4.2 十字キーUIの大きさの設定。
+	m_dPadUI.SetScale(DPAD_SCALE);
+	//4.3 十字キーUIの更新処理。
+	m_dPadUI.Update();
+}
+
+// Lスティック用。
+void GameOver::SetLStick()
+{
+	//3 ゲームパッド(Lスティック)UIの初期化
+	m_lStickUI.Init("Assets/title/gamepad/lstick.dds", LSTICK_WIDTH, LSTICK_HEIGHT);
+	//3.1 ゲームパッド(Lスティック)UIの大きさの設定
+	m_lStickUI.SetPosition(LSTICK_POSITION);
+	//3.2 ゲームパッド(Lスティック)UIの大きさの設定
+	m_lStickUI.SetScale(LSTICK_SCALE);
+	//3.3 ゲームパッド(Lスティック)UIの更新
+	m_lStickUI.Update();
+
+}
+
+// タイトルへ戻る処理。
+void GameOver::SetReturnTitle()
+{
+	//2 ゲームオーバー時の選択UI(タイトルへ戻る)の初期化。
+	m_gameOverSelectUI[enSelect_ReturnTitle].Init("Assets/gameover/text/returntitle.dds", RETURNTITLE_WIDTH, RETURNTITLE_HEIGHT);
+	//2.1 ゲームオーバー時の選択UI(タイトルへ戻る)の座標の設定。
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetPosition(RETURNTITLE_POSITION);
+	//2.2 ゲームオーバー時の選択UI(タイトルへ戻る)の大きさの設定。
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetScale(RETURNTITLE_SCALE);
+	//2.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
+	m_gameOverSelectUIScale[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetScale();
+	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定。
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(MULCOLOR);
+	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得。
+	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
+	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定。
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(MULCOLOR);
+	//2.7 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理。
+	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
+}
+
+// ゲームオーバー時の選択UI
+void GameOver::SetChoiceUI()
+{
+	//1 ゲームオーバー時の選択UI(コンティニュー)の初期化。
+	m_gameOverSelectUI[enSelect_Continue].Init("Assets/gameover/text/continue.dds", CHOICEU_WIDTH, CHOICEU_HEIGHT);
+	//1.1 ゲームオーバー時の選択UI(コンティニュー)の座標の設定。
+	m_gameOverSelectUI[enSelect_Continue].SetPosition(CHOICEUI_POSITION);
+	//1.2 ゲームオーバー時の選択UI(コンティニュー)の大きさの設定。
+	m_gameOverSelectUI[enSelect_Continue].SetScale(CHOICEUI_SCALE);
+	//1.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
+	m_gameOverSelectUIScale[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetScale();
+	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定。
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(MULCOLOR);
+	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得。
+	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
+	//1.6 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定。
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(MULCOLOR);
+	//1.7 ゲームオーバー時の選択UI(コンティニュー)の更新処理。
+	m_gameOverSelectUI[enSelect_Continue].Update();
+
+}
+
+// ゲームオーバー。
+void GameOver::SetGameOver()
+{
+	//0 ゲームオーバーUIの初期化。
+	m_gameOverUI.Init("Assets/gameover/text/gameover.dds", GAMEOVER_WIDTH, GAMEOVER_HEIGHT);
+	//0.1 ゲームオーバーUIの座標の設定。
+	m_gameOverUI.SetPosition(m_gameOverUIPosition);
+	//0.2 ゲームオーバーUIの回転の設定。
+	m_gameOverUIRotation.SetRotationDegZ(GAMEOVER_DEGZ);
+	m_gameOverUI.SetRotation(m_gameOverUIRotation);
+	//0.3 ゲームオーバーUIのピボットの設定。
+	m_gameOverUI.SetPivot(GAMEOVER_PIVOT);
+	//0.4 ゲームオーバーUIの更新処理。
+	m_gameOverUI.Update();
+
 }
