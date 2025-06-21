@@ -35,6 +35,10 @@ void sinju::Update() {
 	if (deff.Length() <= 125.0f) {
 		m_player->sinjuCount += 1;
 
+		//アイテムテキスト関連UIを描画する
+		m_game->m_itemTextDrawingUI = m_game->enItem_Sinju;
+		m_game->ItemTextSpriteMoveReset();
+
 		//エフェクトの処理
 		EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
 		effectEmitter->Init(EffectList_ItemGet);

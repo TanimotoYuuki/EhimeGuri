@@ -33,6 +33,10 @@ void Mikan::Update() {
 		if (deff.Length() <= 70.0f) {
 			m_player->mikanCount += 1;
 
+			//アイテムテキスト関連UIを描画する
+			m_game->m_itemTextDrawingUI = m_game->enItem_Mikan;
+			m_game->ItemTextSpriteMoveReset();
+
 			//エフェクトの処理
 			EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
 			effectEmitter->Init(EffectList_ItemGet);

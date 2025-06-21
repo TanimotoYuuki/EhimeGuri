@@ -159,6 +159,7 @@ public:
 	int	m_previousEhimePlace = enEhimePlace_Iyo;//愛媛県での前の位置
 	int m_ehimePlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の場所
 	int m_ehimeFamousPlaceDrawingUI = enEhimePlace_Iyo;//UI描画用愛媛県の名所
+	int m_itemTextDrawingUI = enItem_NoGetItem;//UI描画用アイテムテキスト関連UI
 	int m_itemGetNum = 0;//アイテム取得数
 	int m_totalItemNum = 0;//アイテム総数
 	bool m_stage2EnemyNewGOFlag = false;//ステージ2用のエネミーをNewGOするか?
@@ -193,6 +194,29 @@ public:
 		enEhimePlace_Matuyama,			//松山市
 		enEhimePlace_Num				//場所数
 	};
+
+	//アイテム
+	enum EnItem
+	{
+		enItem_Jako,		//じゃこ天
+		enItem_Mikan,		//みかん
+		enItem_Sinju,		//真珠
+		enItem_Tobeyaki,	//砥部焼
+		enItem_Taruto,		//タルト
+		enItem_Taoru,		//タオル
+		enItem_Num,			//アイテム数
+		enItem_NoGetItem    //アイテムを取得していない
+	};
+
+	/// <summary>
+	/// アイテムテキスト関連の動作のリセット
+	/// </summary>
+	void ItemTextSpriteMoveReset()
+	{
+		m_itemTextAlpha = 1.0f;
+		m_itemTextMoveFlag = false;
+		g_gameTime->StopWatch(0.0f);
+	}
 
 	/// <summary>
     /// ステージ2で使うオブジェクト。
@@ -336,6 +360,54 @@ private:
 		}
 	}
 
+	/// <summary>
+	/// アイテムテキスト関連のスプライトの情報を取得
+	/// </summary>
+	/// <param name="item">アイテム</param>
+	void GetItemTextSpriteData(int item)
+	{
+		//アイテム
+		switch (item)
+		{
+		case enItem_Jako:		//じゃこ天
+			m_itemTextFilePath = "Assets/Sprite/text/stage1/jako.dds";
+			m_itemTextPosition = Vector3(-740.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-605.0f, 320.0f, 0.0f);
+			break;
+		case enItem_Mikan:		//みかん
+			m_itemTextFilePath = "Assets/Sprite/text/stage1/mikan.dds";
+			m_itemTextPosition = Vector3(-750.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-627.5f, 320.0f, 0.0f);
+			break;
+		case enItem_Sinju:		//真珠
+			m_itemTextFilePath = "Assets/Sprite/text/stage1/sinju.dds";
+			m_itemTextPosition = Vector3(-760.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-647.5f, 320.0f, 0.0f);
+			break;
+		case enItem_Tobeyaki:	//砥部焼
+			m_itemTextFilePath = "Assets/Sprite/text/stage2/tobeyaki.dds";
+			m_itemTextPosition = Vector3(-750.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-625.0f, 320.0f, 0.0f);
+			break;
+		case enItem_Taruto:		//タルト
+			m_itemTextFilePath = "Assets/Sprite/text/stage2/taruto.dds";
+			m_itemTextPosition = Vector3(-755.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-632.5f, 320.0f, 0.0f);
+			break;
+		case enItem_Taoru:		//タオル
+			m_itemTextFilePath = "Assets/Sprite/text/stage2/taoru.dds";
+			m_itemTextPosition = Vector3(-730.0f, 320.0f, 0.0f);
+			m_itemGetTextPosition = Vector3(-582.5f, 320.0f, 0.0f);
+			break;
+		default:
+			break;
+		}
+	}
+
+	/// <summary>
+	/// アイテムテキスト関連のスプライトの動作
+	/// </summary>
+	void ItemTextSpriteMove(int item);
 
 	/// <summary>
 	/// ブロック。
@@ -502,6 +574,8 @@ private:
 	SpriteRender m_tobeyakigetRneder;
 	SpriteRender m_ehimePlace[enEhimePlace_Num];//愛媛県の場所
 	SpriteRender m_ehimeFamousPlace[enEhimePlace_Num];//愛媛県の名所
+	SpriteRender m_itemText[enItem_Num];//アイテムテキスト
+	SpriteRender m_itemGetText[enItem_Num];//アイテム取得テキスト
 	/// <summary>
 	/// バックグラウンドレンダー。
 	/// </summary>
@@ -518,17 +592,23 @@ private:
 	Vector3 m_stageBackGroundGolePositionMemory[enEhimePlace_Num];//各ステージ背景用のゴール位置の値を保存する配列
 	Vector3	m_ehimePlacePosition;//愛媛県の場所の座標
 	Vector3	m_ehimeFamousPlacePosition;//愛媛県の名所の座標
+	Vector3 m_itemTextPosition;//アイテムテキストの座標
+	Vector3 m_itemGetTextPosition;//アイテム取得テキストの座標
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
 	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
 	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
-	bool drawFlag = true;// 描画フラグ。
+	float m_itemTextAlpha = 1.0f;//アイテムテキスト関連の透明度
+	bool m_itemTextdrawFlag = false;//アイテムテキスト関連の描画フラグ
+	bool m_itemTextMoveFlag = false;//アイテムテキスト関連の動作フラグ
 	bool m_gameOverFlag = false;// ゲームオーバーフラグ。
 	enStageState m_stageState = enStageState_Stage1;//ステージステート
 
 	const char* m_stageBackGroundFilePath = nullptr;// ステージ背景用ファイルパス
 	const char* m_ehimePlaceFilePath = nullptr;//愛媛県の場所用ファイルパス
 	const char* m_ehimeFamousPlaceFilePath = nullptr;//愛媛県の名所用ファイルパス
+	const char* m_itemTextFilePath = nullptr;//アイテムテキストのファイルパス
+	const char* m_itemGetTextFilePath = "Assets/Sprite/text/text/itemget.dds";//アイテムテキストのファイルパス
 };
 

@@ -36,6 +36,10 @@ void Towel::Update()
 	if (deff.Length() <= 100.0f) {
 		m_player->taoruCount = 1;
 
+		//アイテムテキスト関連UIを描画する
+		m_game->m_itemTextDrawingUI = m_game->enItem_Taoru;
+		m_game->ItemTextSpriteMoveReset();
+
 		//エフェクトの処理
 		EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
 		effectEmitter->Init(EffectList_ItemGet);

@@ -203,6 +203,36 @@ bool Game::Start()
 		m_ehimeFamousPlace[i].Update();
 	}
 
+	//アイテムテキスト関連のスプライトの初期化
+	for (int i = 0; i < enItem_Num; i++)
+	{
+		//アイテムテキスト
+		//0 アイテムテキスト関連のスプライトの情報を取得
+		GetItemTextSpriteData(i);
+		//0.1 アイテムテキストのスプライトの初期化
+		m_itemText[i].Init(m_itemTextFilePath, 1024, 128);
+		//0.2 アイテムテキストのスプライトの位置を設定
+		m_itemText[i].SetPosition(m_itemTextPosition);
+		//0.3 アイテムテキストのスプライトの大きさを設定
+		m_itemText[i].SetScale(Vector3(0.25f,0.25f,0.25f));
+		//0.4 アイテムテキストのスプライトの乗算カラーの設定
+		m_itemText[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_itemTextAlpha));
+		//0.5 アイテムテキストのスプライトの更新
+		m_itemText[i].Update();
+
+		//アイテム取得テキスト
+		//1 アイテム取得テキストのスプライトの初期化
+		m_itemGetText[i].Init(m_itemGetTextFilePath, 1024, 128);
+		//1.1 アイテム取得テキストのスプライトの位置の設定
+		m_itemGetText[i].SetPosition(m_itemGetTextPosition);
+		//1.2 アイテム取得テキストのスプライトの大きさの設定
+		m_itemGetText[i].SetScale(Vector3(0.25f, 0.25f, 0.25f));
+		//1.3 アイテム取得テキストのスプライトの乗算カラーの設定
+		m_itemGetText[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_itemTextAlpha));
+		//1.4 アイテム取得テキストのスプライトの更新
+		m_itemGetText[i].Update();
+	}
+
 	//ステージ背景用の現在位置の更新。
 	UpdateStageBackGroundCurrentPosition();
 
@@ -389,7 +419,13 @@ void Game::Update()
 	{
 		m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 55, 430.0f, 0.0f));
 	}
-	
+
+	//アイテムテキスト関連のスプライトの動作
+	ItemTextSpriteMove(m_itemTextDrawingUI);
+
+	m_itemText[m_itemTextDrawingUI].Update();
+	m_itemGetText[m_itemTextDrawingUI].Update();
+
 	//現在ステージ1をプレイしているとき
 	if (GetStageState() == enStageState_Stage1)
 	{
@@ -720,6 +756,15 @@ void Game::Render(RenderContext& rc)
 				m_taorutoriRender.Draw(rc);
 			}
 		}
+
+		//UI描画用の変数でアイテムを取得しているときにアイテムテキスト関連UIを描画する
+		if (m_itemTextDrawingUI != enItem_NoGetItem)
+		{
+			//アイテムテキスト
+			m_itemText[m_itemTextDrawingUI].Draw(rc);
+			//アイテム取得テキスト
+			m_itemGetText[m_itemTextDrawingUI].Draw(rc);
+		}
 	}
 }
 
@@ -972,6 +1017,45 @@ void Game::StageBackGoundTransition(EnEhimePlace enEhimePlace)
 
 	//遷移用のステージ背景の乗算カラーの設定
 	m_stageBackGroundTransition[m_previousEhimePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_stageBackGroundTransitionAlpha));
+}
+
+//アイテムテキスト関連のスプライトの動作
+void Game::ItemTextSpriteMove(int item)
+{
+	//アイテムを取得したら
+	if (item != enItem_NoGetItem)
+	{
+		//アイテムテキスト関連のスプライトを動作するフラグが立っていないとき
+		if (m_itemTextMoveFlag != true)
+		{
+			//3.0秒経過したら
+			if (g_gameTime->StopWatch(3.0f))
+			{
+				//アイテムテキスト関連のスプライトを動作する
+				m_itemTextMoveFlag = true;
+			}
+		}
+		//アイテムテキスト関連のスプライトを動作フラグするフラグが立っているとき
+		else
+		{
+			//アイテムテキスト関連のスプライトを透明にしていく
+			m_itemTextAlpha -= g_gameTime->GetFrameDeltaTime();
+
+			//アイテムテキスト関連のスプライトの透明度が0.0fになったら
+			if (m_itemTextAlpha < 0.0f)
+			{
+				//動作を終了する
+				m_itemTextDrawingUI = enItem_NoGetItem;
+				m_itemTextAlpha = 1.0f;
+				m_itemTextMoveFlag = false;
+				return;
+			}
+
+			//アイテムテキスト関連のスプライトの乗算カラーの設定
+			m_itemText[m_itemTextDrawingUI].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_itemTextAlpha));
+			m_itemGetText[m_itemTextDrawingUI].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, m_itemTextAlpha));
+		}
+	}
 }
 
 void Game::MainObjectDelete()
