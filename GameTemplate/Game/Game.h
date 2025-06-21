@@ -46,20 +46,85 @@ public:
 	void Render(RenderContext& rc);// 描画処理。
 		
 	void GameTimer_NewGO();// ゲームタイマーのNewGO。
+
+	/// <summary>
+	/// マップ関連のメソッド。
+	/// </summary>
+	void SetMap();// マップをセットする。
+	void InitMap();// マップを読み込む。
+	void InitMap_CurrentLocation();// 現在地を読み込む。
+
+	/// <summary>
+	/// スタミナ関連のメソッド。
+	/// </summary>
+	void SetStamina();
+	void Stamina_Max();
+	void Stamina_Min();
+
+	/// <summary>
+	/// アイテム関連のメソッド。
+	/// </summary>
+	void SetItem();
+	void ObtainItem();
+
+	/// <summary>
+	/// じゃこ天。
+	/// </summary>
+	void SetJako();
+	void ObtainJako();
+
+	/// <summary>
+	/// みかん。
+	/// </summary>
+	void SetMikan();
+	void ObtainMikan();
+
+	/// <summary>
+	/// 真珠。
+	/// </summary>
+	void SetPearl();
+	void ObtainPearl();
+
+	/// <summary>
+	/// 砥部焼。
+	/// </summary>
+	void SetTobeWare();
+	void ObtainTobeWare();
+
+	/// <summary>
+	/// タルト。
+	/// </summary>
+	void SetTart();
+	void ObtainTart();
+
+	/// <summary>
+	/// タオル。
+	/// </summary>
+	void SetTowel();
+	void ObtainTowel();
+
+	void Object_NewGO();// 3dObjectのNewGO関数をまとめておくメソッド。
 	void Block_NewGO();// ブロックのNewGO。
 	void Stage1Goal_NewGO();// ステージ1のゴールポイント。
 	void State2Goal_NewGO();// ステージ2のゴールポイント。
-
 	void TransparentBlock_NewGO();// 透明ブロックのNewGO。
 	void FallingBlock_NewGO();// 落ちるブロックのNewGO。
 	void MovingFloor_NewGO();// 動く床のNewGO 。
 	void Item_NewGO();// アイテムのNewGO。
+	void Item_Enemy_NewGO();// ドロップする敵。
 	void Scaffold_NewGO();// 足場ブロックのNewGO。
 	void S_MovingFloor_NewGO();// 落下速度の遅い床のNewGO。
 	void Fade_NewGO();// FadeのNewGO。
 	void RotationFloor_NewGO();// 回転床のNewGO。
 	void Tower_NewGO();// タワーのNewGO。
-	void FallingRocks_NewGO();// 落石。
+	void TobeWare_NewGO();// 砥部焼。
+	void Towel_NewGO();// タオル。
+	void Stage1CheckPoint_NewGO();// チェックポイントのNewGO。
+	void Stage2CheckPoint_NewGO();// ステージ2。
+
+	void Updates();// 更新処理をまとめるメソッド。
+
+	void ItemEnemy_NewGO();// アイテムをドロップする敵のNewGO。
 
 	void MainObjectDelete();//メインオブジェクトの削除。
 	void Stage1ObjectDelete();//ステージ1オブジェクトの削除。

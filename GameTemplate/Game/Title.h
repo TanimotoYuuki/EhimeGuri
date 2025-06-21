@@ -48,6 +48,7 @@ private:
 	//プレイヤーモデルのアニメーション再生。
 	void PlayerModelPlayAnimation();
 
+
 	//アニメーションクリップ。
 	enum EnAnimationClip {
 		enAnimationClip_walk,
@@ -132,5 +133,27 @@ private:
 	Fade* m_fade = nullptr;															//フェード用インスタンス。
 	SkyCube* m_skyCube = nullptr;													//スカイキューブ用のインスタンス。
 	int m_skyCubeType = enSkyCubeType_Day;											//スカイキューブの背景。
+
+	/// ファイルパス定数化メソッド。/////////
+
+	/// <summary>
+	/// アニメーションの初期化。
+	/// </summary>
+	const string GetFullPath_InitAnimation(EnAnimationClip enAnimationClip, const std::string& name, bool flag);
+
+	////////////////////////////////////////	
+
+	/// <summary>
+	/// アニメーションデータのディレクトリパスを表す定数文字列。
+	/// </summary>
+	const char* TITLE_ANIMATION = "Assets/animData/";
+	const char* RETURN_UI = "Assets/title/text/";
+	const char* GAMEPAD = "Assets/title/gamepad/";
+	const char* SCREEN = "Assets/title/screen/";
+	const char* TEXT = "Assets/title/text/";
+	const char* TITLE_STAGE = "Assets/title/";
+	const char* TITLE_TKA = ".tka";
+	const char* TITLE_TKM = ".tkm";
+
 };
 

@@ -2,8 +2,32 @@
 #include "GameTimer.h"
 #include "Fade.h"
 
-GameTimer::~GameTimer() 
+namespace
 {
+	// 乗算カラー。
+	const Vector4 WHITE(1.0f, 1.0f, 1.0f, 1.0f);
+
+
+// 数字。
+	// 大きさ。
+ 	const Vector3 NUMBER_SCALE(0.5f, 0.5f, 0.5f);
+	// 座標。
+	const Vector3 POSITION_100(25.0f, 400.0f, 0.0f);
+	const Vector3 POSITION_10(75.0f, 400.0f, 0.0f);
+	const Vector3 POSITION_1(125.0f, 400.0f, 0.0f);
+
+	// 数字の解像度。
+	const float NUMBER_WIDHT = 1024;
+	const float NUMBER_HEIGHT = 128;
+
+// タイマー。
+	// 大きさ。
+	const Vector3 TIMER_SCALE(0.1f, 0.1f, 0.1f);
+	// 座標。
+	const Vector3 TIMER_POSITION(-50.0f, 400.0f, 0.0f);
+	// タイマー画像の解像度。
+	const float TIMER_WIDHT = 1024;
+	const float TIMER_HEIGHT = 1024;
 
 }
 
@@ -12,13 +36,13 @@ bool GameTimer::Start()
 	//各スプライトの初期化
 	//タイマーUI
 	//0 タイマーUIの初期化
-	m_timerUI.Init("Assets/Sprite/gametime/timer.dds", 1024, 1024);
+	m_timerUI.Init("Assets/Sprite/gametime/timer.dds", TIMER_WIDHT, TIMER_HEIGHT);
 	//0.1 タイマーUIの位置の設定
-	m_timerUI.SetPosition(Vector3(-50.0f, 400.0f, 0.0f));
+	m_timerUI.SetPosition(TIMER_POSITION);
 	//0.2 タイマーUIの大きさの設定
-	m_timerUI.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+	m_timerUI.SetScale(TIMER_SCALE);
 	//0.3 タイマーUIの乗算カラーの設定
-	m_timerUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_timerUI.SetMulColor(WHITE);
 	//0.4 タイマーUIの更新
 	m_timerUI.Update();
 
@@ -27,24 +51,24 @@ bool GameTimer::Start()
 	{
 		//1 数字UIの初期化
 		std::string filePath = "Assets/Sprite/gametime/number/" + std::to_string(i) + ".dds";
-		m_hundredPlaceNumberUI[i].Init(filePath.c_str(), 1024, 128);
-		m_tenPlaceNumberUI[i].Init(filePath.c_str(), 1024, 128);
-		m_onePlaceNumberUI[i].Init(filePath.c_str(), 1024, 128);
+		m_hundredPlaceNumberUI[i].Init(filePath.c_str(), NUMBER_WIDHT,NUMBER_HEIGHT);
+		m_tenPlaceNumberUI[i].Init(filePath.c_str(), NUMBER_WIDHT, NUMBER_HEIGHT);
+		m_onePlaceNumberUI[i].Init(filePath.c_str(), NUMBER_WIDHT, NUMBER_HEIGHT);
 
 		//1.1 数字UIの位置の設定
-		m_hundredPlaceNumberUI[i].SetPosition(Vector3(25.0f, 400.0f, 0.0f));
-		m_tenPlaceNumberUI[i].SetPosition(Vector3(75.0f, 400.0f, 0.0f));
-		m_onePlaceNumberUI[i].SetPosition(Vector3(125.0f, 400.0f, 0.0f));
+		m_hundredPlaceNumberUI[i].SetPosition(POSITION_100);
+		m_tenPlaceNumberUI[i].SetPosition(POSITION_10);
+		m_onePlaceNumberUI[i].SetPosition(POSITION_1);
 
 		//1.2 数字UIの大きさの設定
-		m_hundredPlaceNumberUI[i].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-		m_tenPlaceNumberUI[i].SetScale(Vector3(0.5f, 0.5f, 0.5f));
-		m_onePlaceNumberUI[i].SetScale(Vector3(0.5f, 0.5f, 0.5f));
+		m_hundredPlaceNumberUI[i].SetScale(NUMBER_SCALE);
+		m_tenPlaceNumberUI[i].SetScale(NUMBER_SCALE);
+		m_onePlaceNumberUI[i].SetScale(NUMBER_SCALE);
 
 		//1.3 数字UIの乗算カラーの設定
-		m_hundredPlaceNumberUI[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-		m_tenPlaceNumberUI[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-		m_onePlaceNumberUI[i].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_hundredPlaceNumberUI[i].SetMulColor(WHITE);
+		m_tenPlaceNumberUI[i].SetMulColor(WHITE);
+		m_onePlaceNumberUI[i].SetMulColor(WHITE);
 
 		//1.4 数字UIの更新
 		m_hundredPlaceNumberUI[i].Update();
@@ -164,19 +188,20 @@ void GameTimer::SpriteMove()
 	else
 	{
 		//タイマーUI
-		m_timerUI.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_timerUI.SetMulColor(WHITE);
 		m_timerUI.Update();
 
 		//数字UI(百の位)
-		m_hundredPlaceNumberUI[m_hundredPlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_hundredPlaceNumberUI[m_hundredPlace].SetMulColor(WHITE);
 		m_hundredPlaceNumberUI[m_hundredPlace].Update();
 
 		//数字UI(十の位)
-		m_tenPlaceNumberUI[m_tenPlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_tenPlaceNumberUI[m_tenPlace].SetMulColor(WHITE);
 		m_tenPlaceNumberUI[m_tenPlace].Update();
 
 		//数字UI(一の位)
-		m_onePlaceNumberUI[m_onePlace].SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_onePlaceNumberUI[m_onePlace].SetMulColor(WHITE);
 		m_onePlaceNumberUI[m_onePlace].Update();
 	}
 }
+
