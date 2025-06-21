@@ -13,6 +13,14 @@ namespace
 	const Vector3 STAGE_CLEAR_POSITION = Vector3(0.0f, 0.0f, 0.0f);
 	//ステージ2の開始位置
 	const Vector3 STAGE2_START_POSITION = Vector3(0.0f, 160.0f, 0.0f);
+	//「ステージクリア」のイージング座標。
+	const Vector3 STAGE2_AFTER_EASING(1250.0f, 275.0f, 0.0f);
+	// Playerの回転角度。
+	const float ROTATION_ANGLE(90.0f);
+	// 解像度。
+	const float WIDHT = 1024;
+	const float HEIGHT = 128;
+
 }
 
 //開始処理。
@@ -20,7 +28,7 @@ bool StageClear::Start()
 {
 	//ステージクリアUI。
 	//0 ステージクリアUIの初期化。
-	m_stageClearUI.Init("Assets/Sprite/stageclear.dds", 1024, 128);
+	m_stageClearUI.Init("Assets/Sprite/stageclear.dds", WIDHT, HEIGHT);
 	//0.1 ステージクリアUIの座標の設定。
 	m_stageClearUI.SetPosition(m_position);
 	//0.2 ステージクリアUIの更新。
@@ -87,7 +95,7 @@ void StageClear::LoadingProcess()
 					m_player->m_modelRender.SetPosition(STAGE2_START_POSITION);
 					m_player->m_initPosition = STAGE2_START_POSITION;
 					// 角度
-					m_player->m_rotation.SetRotationDegY(90.0f);
+					m_player->m_rotation.SetRotationDegY(ROTATION_ANGLE);
 					m_player->m_modelRender.SetRotation(m_player->m_rotation);
 					// 更新
 					m_player->m_modelRender.Update();
@@ -141,6 +149,7 @@ void StageClear::LoadingProcess()
 			// 1.0f経過したら。
 			if (g_gameTime->StopWatch(2.0f))
 			{
+
 				// ステージ2オブジェクトの削除
 				m_game->Stage2ObjectDelete();
 
@@ -167,7 +176,7 @@ void StageClear::Render(RenderContext& rc)
 void StageClear::SetStageClearSpriteEasing()
 {
 	m_beforeEasingPosition = m_position;
-	m_afterEasingPosition = Vector3(1250.0f, 275.0f, 0.0f);
+	m_afterEasingPosition = STAGE2_AFTER_EASING;
 	m_easingTime = 0.0f;
 }
 

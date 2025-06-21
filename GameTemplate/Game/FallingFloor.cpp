@@ -11,6 +11,7 @@ namespace
 	const Vector3 COLLISION_HEIGHT(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
 	const Vector3 COLLISION_SIZE(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 	const float SPEED = 340.0f;//モデルの落下速度
+	const float DISTANCE = 350.0f;
 
 }
 
@@ -67,7 +68,7 @@ void FallingFloor::Update()
 	//衝突したら。(キャラクターが落下する床の上に乗ったら)。
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+		if (distanceX.Length() < DISTANCE && distanceY.Length() < DISTANCE && m_player->m_characterController.IsOnGround())
 		{
 			Floor();
 		}

@@ -6,25 +6,73 @@
 #include"Mikan.h"
 #include"Taruto.h"
 #include "graphics/effect/EffectEmitter.h"
-bool ItemEnemy::Start() {
+
+namespace
+{
+	// ステート0。
+	const float STATE_ZERO_DEG(270.0f);
+	// ステート1。
+	const float STATE_ONE_DEG(90.0f);
+	// 加算回転軸。
+	const float ADD_ROD(-180.0f);
+	// 重力。
+	const float GLAVITY(3.0f);
+	// 大きさ。
+	const Vector3 SCALE(10.0f, 10.0f, 10.0f);
+
+	// キャラコン。
+	const float CHARACON_RADIUS = 30.0f;
+	const float CHARACON_HEIGHT = 70.0f;
+}
+
+// アニメーションをセットするメソッド。
+const std::string ItemEnemy::GetFullPaht_Animation(Enannimation enAnimationClip, const std::string& animationName, bool flag)
+{
+	std::string Animation = FileParh + animationName + tka;
+
+	animationclip[enAnimationClip].Load(Animation.c_str());
+	animationclip[enAnimationClip].SetLoopFlag(flag);
+
+	return Animation;
+}
+
+bool ItemEnemy::Start() 
+{
+	// アニメーションをセットする。
+	//SetAnimation();
+
 	animationclip[enAnimationclip_idle].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonIdle.tka");
 	animationclip[enAnimationclip_idle].SetLoopFlag(true);
 	animationclip[enAnimationclip_walk].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonWalk.tka");
 	animationclip[enAnimationclip_walk].SetLoopFlag(true);
 	animationclip[enAnimationclip_death].Load("Assets/modelData/YoshinagaAssets/SkeletonAnim/SkeletonDeath.tka");
 	animationclip[enAnimationclip_death].SetLoopFlag(false);
+
+	// モデルをセット。
 	m_modelrender.Init("Assets/modelData/YoshinagaAssets/Skeleton/Skeleton.tkm",
 		animationclip, enAnimationclip_num, enModelUpAxisY, true);
-	m_modelrender.SetScale(Vector3(10.0f, 10.0f, 10.0f));
-	charactercontroller.Init(30.0f, 70.0f, m_position);
+
+	// 大きさをセット。
+	m_modelrender.SetScale(SCALE);
+
+	// キャラコンのセット。
+	charactercontroller.Init(CHARACON_RADIUS, CHARACON_HEIGHT, m_position);
+
+	// 座標をセット。
 	m_modelrender.SetPosition(m_position);
+
+	// 更新処理。
 	m_modelrender.Update();
+
 	// エフェクトの初期化。
 	EffectEngine::GetInstance()->ResistEffect(EffectList_EnemyHit, u"Assets/effect/enemyhiteffect.efk");
+
+	// 探索処理。
 	m_player = FindGO<Player>("player");
 	m_game = FindGO<Game>("game");
 	return true;
 }
+
 void ItemEnemy::Move() {
 	if (Enemystate == 0) {
 		movespeed.x = -2.0f;
@@ -48,30 +96,29 @@ void ItemEnemy::Move() {
 		}
 	}
 	m_position = charactercontroller.Execute(movespeed, 1.0f);
-	float glavity = 3.0f;
 	if (charactercontroller.IsOnGround()) {
 		//重力をなくす
 		movespeed.y = 0.0f;
 	}
-	movespeed.y -= glavity;
+	movespeed.y -= GLAVITY;
 }
 
 void ItemEnemy::Rotation() {
 	if (Enemystate == 0) {
-		rotation.SetRotationDegY(270.0f);
-		//Enemystate = 1;
+		rotation.SetRotationDegY(STATE_ZERO_DEG);
 	}
 	else if (Enemystate == 1) {
-		rotation.SetRotationDegY(90.0f);
-		//Enemystate = 0;
+		rotation.SetRotationDegY(STATE_ONE_DEG);
 	}
-	//rotation.SetRotationDegX(270.0f);
-	rotation.AddRotationDegX(-180.0f);
-	//絵描きさんに回転を教える。
+	rotation.AddRotationDegX(ADD_ROD);
+	//絵描きさんに回転を教える。	
 	m_modelrender.SetRotation(rotation);
 }
-void ItemEnemy::EnemyAnimation() {
-	switch (Enemyanimationstate) {
+
+void ItemEnemy::EnemyAnimation() 
+{
+	switch (Enemyanimationstate)
+	{
 	case 0:
 		m_modelrender.PlayAnimation(enAnimationclip_walk, 0.1f);
 		break;
@@ -81,9 +128,6 @@ void ItemEnemy::EnemyAnimation() {
 		break;
 	}
 }
-
-
-
 
 void ItemEnemy::Update() {
 	Move();
@@ -140,6 +184,21 @@ void ItemEnemy::Update() {
 	}
 
 }
+
 void ItemEnemy::Render(RenderContext& rc) {
 	m_modelrender.Draw(rc);
+}
+
+// アニメーションをセットする。
+void ItemEnemy::SetAnimation()
+{
+	// 待機モーション。
+	GetFullPaht_Animation(enAnimationclip_idle,"SkeletonIdle", true);
+
+	// 歩きモーション。
+	GetFullPaht_Animation(enAnimationclip_idle, "SkeletonWalk", true);
+
+	// 死亡モーション。
+	GetFullPaht_Animation(enAnimationclip_idle, "SkeletonDeath", false);
+
 }

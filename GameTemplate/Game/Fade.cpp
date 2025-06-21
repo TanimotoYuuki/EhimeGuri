@@ -1,6 +1,17 @@
 #include "stdafx.h"
 #include "Fade.h"
 
+
+namespace
+{
+	const float WIDTH = 1600;
+	const float HEIGHT = 900;
+	static constexpr const char* SPRITE_PATH = "Assets/fade/fade/fade.dds";// スプライトファイルパス
+	static constexpr const char* SPRITE_EXTENSION = ".dds"; // 画像用の拡張子。
+}
+
+
+
 //開始処理
 bool Fade::Start()
 {

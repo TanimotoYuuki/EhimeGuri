@@ -30,7 +30,6 @@ namespace
 
 	// モデルの初期座標。
 	const Vector3 FIRSTPOSITION(0.0f, 94.0f, 0.0f);
-//  const Vector3 FIRSTPOSITION(-600.0f, 0.0f, 0.0f);
 }
 
 // アニメーションメソッド。
@@ -45,6 +44,20 @@ const std:: string Player::GetFullPath_PlayerAnimation(EnAnimationClip enAnimati
 	return Animation;
 };
 
+// プレイヤーのモデルをセットする。
+const std::string Player::GetFullPath_PlayerModel
+(const std::string& modelName, AnimationClip animationClip, EnAnimationClip enAnimationClip, EnModelUpAxis enModelUpAxis, bool flag)
+{
+	// モデルをロード(tkmファイル名を打ち込む)。
+	std::string  Player = PLAYER + modelName + TKM;
+
+	m_animationClip[enAnimationClip].Load(Player.c_str());
+	m_animationClip[enAnimationClip].SetLoopFlag(flag);
+	return Player;
+
+};
+
+
 // 初期化処理。
 bool Player::Start()
 {
@@ -54,14 +67,13 @@ bool Player::Start()
 	// モデルをセット。
 	m_modelRender.Init("Assets/modelData/player/player.tkm", m_animationClip,
 		enAnimationClip_num, enModelUpAxisZ, true);
+	//GetFullPath_PlayerModel("player", m_animationClip, enAnimationClip_num, enModelUpAxisZ, true);
 
 	// 大きさをセット。
 	m_modelRender.SetScale(SCALE);
 
 	// 初期座標。
 	m_position = { FIRSTPOSITION };
-
-	//m_position = { 17300.0f, 700.0f, 0.0f };
 
 	m_initPosition = m_position;
 

@@ -31,23 +31,68 @@
 
 namespace
 {
+	// ステージ1のEnemyの座標。
 	const Vector3 STAGE1_ENEMY_POSITION1(2800.0f, 94.0f, 0.0f);
 	const Vector3 STAGE1_ENEMY_POSITION2(400.0f, 94.0f, 0.0f);
 	const Vector3 STAGE1_ENEMY_POSITION3(4800.0f, 94.0f, 0.0f);
 	const Vector3 STAGE1_ENEMY_PODITION4(12900.0f, 225.0f, 0.0f);
+
+	// ステージ2。
 	const Vector3 STAGE2_ENEMY_POSITION1(800.0f, 200.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION2(1400.0f, 200.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION3(4250.0f, 500.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION4(4600.0f, 300.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION5(7100.0f, 200.0f, 0.0f);
 	const Vector3 STAGE2_ENEMY_POSITION6(8000.0f, 500.0f, 0.0f);
-	const Vector3 BACKGROUND_FIRSTPOSITION(0.0f, 0.0f, 0.0f);
 
+	// チェックポイント。
+	const Vector3 STAGE1_CHECKPOINT_POSITION(10300.0f, 100.0f, 0.0f);
+	const Vector3 STAGE2_CHECKPOINT_POSITION(9350.0f, 360.0f, 0.0f);
+
+	const Vector3 BACKGROUND_FIRSTPOSITION(0.0f, 0.0f, 0.0f);
+	const Vector3 ITEM_ENEMY_POSITION(9050.0f, 600.0f, 0.0f);
+	const Vector3 ITEM_DROP_ENEMY(7700.0f, 400.0f, 0.0f);
+
+	/// マップ。
+	const float MAP_WIDTH = 350.0f;
+	const float MAP_HEIGHT = 40.0f;
+	const Vector3 MAP_POSITION(400.0f, 400.0f, 0.0f);
+
+	// 現在地。
+	const float LOCATION_WIDTH = 50.0f;
+	const float LOCATION_HEIGHT = 50.0f;
+	const Vector3 LOCATION_POSITION(260.0f, 430.0f, 0.0f);
+
+	// スタミナ -最大値-
+	const float MAX_WIDHT = 350.0f;
+	const float MAX_HEIGHT = 40.0f;
+	const Vector3 MAX_POSITION(-175.0f, 300.0f, 0.0f);
+	const Vector2 SUTAMINA_PIVOT(0.0f, 0.5f);
+
+	// スタミナ -最小値-
+	const float MIN_WIDHT = 350.0f;
+	const float MIN_HEIGHT = 40.0f;
+	const Vector3 MIN_POSITION(0.0f, 300.0f, 0.0f);
+
+	// アイテム。
+	const float ITEM_WIDHT = 100.0f;
+	const float ITEM_HEIGHT = 100.0f;
+	const Vector3 JAKO_POSITION(-750.0f, 400.0f, 0.0f);
+	const Vector3 MIKAN_POSITION(-650.0f, 400.0f, 0.0f);
+	const Vector3 PEARL_POSITION(-550.0f, 400.0f, 0.0f);
+	const Vector3 TOBE_WARE_POSITION(-750.0f, 400.0f, 0.0f);
+	const Vector3 TARTO_POSITION(-650.0f, 400.0f, 0.0f);
+	const Vector3 TOWEL_SCALE(1.3f, 1.3f, 1.3f);
+	const Vector3 TOWEL_POSITION(-550.0f, 400.0f, 0.0f);
+	const Vector3 TOWELPOSITION(10100.0f, 550.0f, 0.0f);
+	const Vector3 TOBE_WARE_OBJECT_POSITION(3850.0f, 450.0f, 0.0f);
+	
 	const float TIMER = 180.0f;
+
+	const Vector3 RATEOFREDUCTION(1.0f, 1.0, 1.0f);
 
 	const int STAGE1_ENEMY_NUM = 4;
 	const int STAGE2_ENEMY_NUM = 6;
-
 	const int ITEM_NUM = 6;
 }
 
@@ -81,72 +126,34 @@ bool Game::Start()
 		m_stage1EnemyList[i]->firstposition = enemyPosList[i];
 	}
 
-	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
-	m_itemenemy->m_position = { 9050.0f,600.0f,0.0f };
-	m_itemenemy->firstposition = m_itemenemy->m_position;
+	
 
-	/*m_tobeyaki = NewGO<Tobeyaki>(1, "tobeyaki");
-	m_tobeyaki->m_position = { 800.0f,200.0f,0.0f };*/
-
-	m_checpoint = NewGO<Checpoint>(1, "checpoint");
-	m_checpoint->position = { 10300.0f,100.0f,0.0f };
-	m_modelRender.SetPosition(m_position);
-
-
-	m_mappuRender.Init("Assets/modelData/mappu.DDS", 350.0f, 40.0f);
-	m_mappuRender.SetPosition(Vector3(400.0f, 400.0f, 0.0f));
-	m_gennzaitiRender.Init("Assets/modelData/gennzaiti.DDS", 50.0f, 50.0f);
-	m_gennzaitiRender.SetPosition(Vector3(260.0f, 430.0f, 0.0f));
-
-	m_sutaminaMaxrender.Init("Assets/modelData/sutaminamax.DDS", 350.0f, 40.0f);
-	m_sutaminaMaxrender.SetPosition(Vector3(-175.0f, 300.0f, 0.0f));
-	m_sutaminaMaxrender.SetPivot(Vector2(0.0f, 0.5f));
-	m_sutamina0render.Init("Assets/modelData/sutamina0.DDS", 350.0f, 40.0f);
-	m_sutamina0render.SetPosition(Vector3(0.0f, 300.0f, 0.0f));
-
-	m_jakorender.Init("Assets/modelData/jako.DDS", 100.0f, 100.0f);
-	m_jakorender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-	m_jakogetrender.Init("Assets/modelData/jakoget.DDS", 100.0f, 100.0f);
-	m_jakogetrender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-
-	m_mikanRender.Init("Assets/modelData/mikan.DDS", 100.0f, 100.0f);
-	m_mikanRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
-	m_mikangetRender.Init("Assets/modelData/mikanget.DDS", 100.0f, 100.0f);
-	m_mikangetRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
-
-	m_sinjuRender.Init("Assets/modelData/sinju.DDS", 100.0f, 100.0f);
-	m_sinjuRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-	m_sinjugetRender.Init("Assets/modelData/sinjuget.DDS", 100.0f, 100.0f);
-	m_sinjugetRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-
-	m_tobeyakiRender.Init("Assets/modelData/tobeyaki.DDS", 100.0f, 100.0f);
-	m_tobeyakiRender.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-	m_tobeyakigetRneder.Init("Assets/modelData/tobeyakiget.DDS", 100.0f, 100.0f);
-	m_tobeyakigetRneder.SetPosition(Vector3(-750.0f, 400.0f, 0.0f));
-
-	m_tarutoRender.Init("Assets/modelData/taruto.DDS", 100.0f, 100.0f);
-	m_tarutoRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
-	m_tarutogetRender.Init("Assets/modelData/tarutoget.DDS", 100.0f, 100.0f);
-	m_tarutogetRender.SetPosition(Vector3(-650.0f, 400.0f, 0.0f));
-
-	m_taorukuroRender.Init("Assets/modelData/taorukuro.DDS", 100.0f, 100.0f);
-	m_taorukuroRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-	m_taorukuroRender.SetScale(Vector3(1.3f, 1.3f, 1.3f));
-	m_taorutoriRender.Init("Assets/modelData/taorutori.DDS", 100.0f, 100.0f);
-	m_taorutoriRender.SetPosition(Vector3(-550.0f, 400.0f, 0.0f));
-	m_taorutoriRender.SetScale(Vector3(1.3f, 1.3f, 1.3f));
 
 	/// <summary>
-	/// 3DオブジェクトのNewGO関数。
+	/// マップを読み込む関数。
 	/// </summary>
-	TransparentBlock_NewGO();
-	FallingBlock_NewGO();
-	MovingFloor_NewGO();
-	Block_NewGO();
-	Scaffold_NewGO();
-	Item_NewGO();
-	Stage1Goal_NewGO();
-	S_MovingFloor_NewGO();
+	SetMap();
+			
+	/// <summary>
+	/// スタミナを読み込む関数。
+	/// </summary>
+	SetStamina();
+
+
+	/// <summary>
+	/// アイテムを設定。
+	/// </summary>
+	SetItem();
+	
+	/// <summary>
+	/// アイテムを取得。
+	/// </summary>
+	ObtainItem();
+
+	/// <summary>
+	/// NewGO関数。
+	/// </summary>
+	Object_NewGO();
 
 	//ステージ背景・愛媛県の場所・愛媛県の名所の初期化。
 	for (int i = 0; i < enEhimePlace_Num; i++)
@@ -231,18 +238,13 @@ void Game::Update()
 		// チェックポイント用のインスタンスがnullptrだったらNewGOする。	  
 		if (m_checpoint == nullptr)
 		{
-			m_checpoint = NewGO<Checpoint>(1, "checpoint");
-			m_checpoint->position = { 9350.0f,360.0f,0.0f };
-			m_modelRender.SetPosition(m_position);
+			Stage2CheckPoint_NewGO();
 		}
 
 		//アイテムエネミー用のインスタンスがnullptrだったらNewGOする。
 		if (m_itemenemy == nullptr)
 		{
-			m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
-			m_itemenemy->m_position = { 7700.0f, 400.0f, 0.0f };
-			m_itemenemy->firstposition = m_itemenemy->m_position;
-			m_player->m_itemEnemy = nullptr;
+			Item_Enemy_NewGO();
 		}
 
 		//ステージ2用のエネミーをNewGOするかどうか判定するフラグがtrueになっていたらNewGOする。
@@ -283,18 +285,16 @@ void Game::Update()
 			Tower_NewGO();
 		}
 
+		// 砥部焼。
 		if(m_tobeyaki == nullptr)
 		{
-			m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
-			m_tobeyaki->m_position = { 3850.0f,450.0f,0.0f };      //第二ステージ用
-			m_modelRender.SetPosition(m_position);
+			TobeWare_NewGO();
 		}
 
+		// タオル。
 		if (m_towel == nullptr)
 		{
-			m_towel = NewGO<Towel>(0, "towel");
-			m_towel->m_position = { 10100.0f, 550.0f, 0.0f };     //第二ステージ用
-			m_modelRender.SetPosition(m_position);
+			Towel_NewGO();
 		}
 	}
 ////////////////////////////////////////////////////////////////////
@@ -372,15 +372,13 @@ void Game::Update()
 	int MaxSuta = m_player->m_playermaxsutamina;
 	int nowSuta = m_player->m_playernowsutamina;
 	float nokori = (float)nowSuta / (float)MaxSuta;
-	Vector3 heri = { 1.0f,1.0,1.0f };
+	Vector3 heri = {RATEOFREDUCTION};
 	heri.x *= nokori;
 	m_sutaminaMaxrender.SetScale(heri);
 
-	m_sutaminaMaxrender.Update();
-	m_sutamina0render.Update();
+	// 更新処理をまとめる処理。
+	Updates();
 
-	m_mappuRender.Update();
-	m_gennzaitiRender.Update();
 	//現在ステージ1をプレイしているとき
 	if (GetStageState() == enStageState_Stage1)
 	{
@@ -391,24 +389,6 @@ void Game::Update()
 	{
 		m_gennzaitiRender.SetPosition(Vector3(260.0f + m_player->m_position.x / 55, 430.0f, 0.0f));
 	}
-
-	m_taorukuroRender.Update();
-	m_taorutoriRender.Update();
-
-	m_jakorender.Update();
-	m_jakogetrender.Update();
-
-	m_mikanRender.Update();
-	m_mikangetRender.Update();
-
-	m_sinjuRender.Update();
-	m_sinjugetRender.Update();
-
-	m_tobeyakiRender.Update();
-	m_tobeyakigetRneder.Update();
-
-	m_tarutoRender.Update();
-	m_tarutogetRender.Update();
 	
 	//現在ステージ1をプレイしているとき
 	if (GetStageState() == enStageState_Stage1)
@@ -416,6 +396,7 @@ void Game::Update()
 		//ステージ1BGMを再生。
 		g_gameSoundEngine->PlayBGM(GameSoundList_BGM_Stage1, 1.0f);
 	}
+
 }
 
 // ゲームタイマーのNewGO。
@@ -423,6 +404,41 @@ void Game::GameTimer_NewGO()
 {
 	m_gameTimer = NewGO<GameTimer>(0, "gametimer");
 	m_gameTimer->SetTimeLimit(TIMER);
+}
+
+// オブジェクトのNewGOをまとめておく場所。
+void Game::Object_NewGO()
+{
+	// 透明ブロック。
+	TransparentBlock_NewGO();
+
+	// 落ちるブロック。
+	FallingBlock_NewGO();
+
+	// 動く床。
+	MovingFloor_NewGO();
+
+	// ブロック。
+	Block_NewGO();
+
+	// 足場ブロック。
+	Scaffold_NewGO();
+
+	// アイテム。
+	Item_NewGO();
+
+	// ステージ1のゴールポール。
+	Stage1Goal_NewGO();
+
+	// 落下速度の遅い床。
+	S_MovingFloor_NewGO();
+
+	// ステージ1のチェックポイント。
+	Stage1CheckPoint_NewGO();
+
+	// アイテムをドロップする敵。
+	ItemEnemy_NewGO();
+
 }
 
 // 透明ブロックのNewGO。
@@ -534,6 +550,15 @@ void Game::Item_NewGO()
    m_modelRender.SetPosition(m_position);
 }
 
+// アイテムをドロップする敵のNewGO。
+void Game::Item_Enemy_NewGO()
+{
+	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
+	m_itemenemy->m_position = { ITEM_DROP_ENEMY };
+	m_itemenemy->firstposition = m_itemenemy->m_position;
+	m_player->m_itemEnemy = nullptr;
+}
+
 // ゴールポール。(Stage1)
 void Game::Stage1Goal_NewGO()
 {
@@ -592,6 +617,31 @@ void Game::Fade_NewGO()
 	m_fade = FindGO<Fade>("fade");
 	//フェードをフェードインに切り替える。
 	m_fade->FadeTransition(enFadeState_FadeIn);
+}
+
+// チェックポイントのNewGO。
+void Game::Stage1CheckPoint_NewGO()
+{
+	m_checpoint = NewGO<Checpoint>(1, "checpoint");
+	m_checpoint->position = { STAGE1_CHECKPOINT_POSITION };
+	m_modelRender.SetPosition(m_position);
+}
+
+// ステージ2用。
+void Game::Stage2CheckPoint_NewGO()
+{
+	m_checpoint = NewGO<Checpoint>(1, "checpoint");
+	m_checpoint->position = {STAGE2_CHECKPOINT_POSITION};
+	m_modelRender.SetPosition(m_position);
+
+}
+
+// アイテムをドロップする敵のNewGO。
+void Game::ItemEnemy_NewGO()
+{
+	m_itemenemy = NewGO<ItemEnemy>(1, "itemenemy");
+	m_itemenemy->m_position = { ITEM_ENEMY_POSITION };
+	m_itemenemy->firstposition = m_itemenemy->m_position;
 }
 
 // 描画処理。
@@ -1036,4 +1086,251 @@ void Game::Stage2ObjectDelete()
 	DeleteGO(m_towel);
 	m_taruto = FindGO<Taruto>("taruto");
 	DeleteGO(m_taruto);
+}
+
+// マップをセットする。
+void Game::SetMap()
+{
+	// マップ。
+	InitMap();
+
+	// 現在地。
+	InitMap_CurrentLocation();
+}
+
+// マップ。
+void Game::InitMap()
+{
+	string Map = m_config->GetFullPaht_DDS("mappu", MAP_WIDTH, MAP_HEIGHT);
+	m_mappuRender.Init(Map.c_str(), MAP_WIDTH, MAP_HEIGHT);
+	m_mappuRender.SetPosition(MAP_POSITION);
+}
+
+// マップの現在地。
+void Game::InitMap_CurrentLocation()
+{
+	string Location = m_config->GetFullPaht_DDS("gennzaiti", LOCATION_WIDTH, LOCATION_HEIGHT);
+	m_gennzaitiRender.Init(Location.c_str(), LOCATION_WIDTH, LOCATION_HEIGHT);
+	m_gennzaitiRender.SetPosition(LOCATION_POSITION);
+
+}
+
+// スタミナをセットする。
+void Game::SetStamina()
+{
+	// スタミナの最大値。
+	Stamina_Max();
+
+	// スタミナの最小値。
+	Stamina_Min();
+}
+
+// スタミナの最大値。
+void Game::Stamina_Max()
+{
+	string Sutamina_MAX = m_config->GetFullPaht_DDS("sutaminamax", MAX_WIDHT, MIN_HEIGHT);
+	m_sutaminaMaxrender.Init(Sutamina_MAX.c_str(), MAX_WIDHT, MIN_HEIGHT);
+	m_sutaminaMaxrender.SetPosition(MAX_POSITION);
+	m_sutaminaMaxrender.SetPivot(SUTAMINA_PIVOT);
+}
+
+// スタミナの最小値。
+void Game::Stamina_Min()
+{
+	string Sutamina_Min = m_config->GetFullPaht_DDS("sutamina0", MIN_WIDHT, MIN_HEIGHT);
+	m_sutamina0render.Init(Sutamina_Min.c_str(), MIN_WIDHT, MIN_HEIGHT);
+	m_sutamina0render.SetPosition(MIN_POSITION);
+
+}
+
+// アイテムをセットする。
+void Game::SetItem()
+{
+	// じゃこ天。
+	SetJako();
+
+	// みかん。
+	SetMikan();
+
+	// 真珠。
+	SetPearl();
+
+	// 砥部焼。
+	SetTobeWare();
+
+	// タルト。
+	SetTart();
+
+	// タオル。
+	SetTowel();
+}
+
+// アイテムを取得する。
+void Game::ObtainItem()
+{
+	// じゃこ天。
+	ObtainJako();
+
+	// みかん。
+	ObtainMikan();
+
+	// 真珠。
+	ObtainPearl();
+
+	// 砥部焼。
+	ObtainTobeWare();
+
+	// タルト。
+	ObtainTart();
+
+	// タオル。
+	ObtainTowel();
+}
+
+// じゃこ天をセット。
+void Game::SetJako()
+{
+	string Jako = m_config->GetFullPaht_DDS("jako", ITEM_WIDHT, ITEM_HEIGHT);
+	m_jakorender.Init(Jako.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_jakorender.SetPosition(JAKO_POSITION);
+}
+
+// じゃこ天を取得
+void Game::ObtainJako()
+{
+	string Jako = m_config->GetFullPaht_DDS("jakoget", ITEM_WIDHT, ITEM_HEIGHT);
+	m_jakogetrender.Init(Jako.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_jakogetrender.SetPosition(JAKO_POSITION);
+}
+
+// みかんをセット。
+void Game::SetMikan()
+{
+	string Mikan = m_config->GetFullPaht_DDS("mikan", ITEM_WIDHT, ITEM_HEIGHT);
+	m_mikanRender.Init(Mikan.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_mikanRender.SetPosition(MIKAN_POSITION);
+}
+
+// みかんを取得。
+void Game::ObtainMikan()
+{
+	string Mikan = m_config->GetFullPaht_DDS("mikanget", ITEM_WIDHT, ITEM_HEIGHT);
+	m_mikangetRender.Init(Mikan.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_mikangetRender.SetPosition(MIKAN_POSITION);
+
+}
+
+// 真珠をセット。
+void Game::SetPearl()
+{
+	string Pearl = m_config->GetFullPaht_DDS("sinju", ITEM_WIDHT, ITEM_HEIGHT);
+	m_sinjuRender.Init(Pearl.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_sinjuRender.SetPosition(PEARL_POSITION);
+}
+
+// 真珠を取得。
+void Game::ObtainPearl()
+{
+	string Pearl = m_config->GetFullPaht_DDS("sinjuget", ITEM_WIDHT, ITEM_HEIGHT);
+	m_sinjugetRender.Init(Pearl.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_sinjugetRender.SetPosition(PEARL_POSITION);
+
+}
+
+// 砥部焼をセット。
+void Game::SetTobeWare()
+{
+	string Tobe_Ware = m_config->GetFullPaht_DDS("tobeyaki", ITEM_WIDHT, ITEM_HEIGHT);
+	m_tobeyakiRender.Init(Tobe_Ware.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_tobeyakiRender.SetPosition(TOBE_WARE_POSITION);
+}
+
+// 砥部焼を取得。
+void Game::ObtainTobeWare()
+{
+	string Tobe_Ware = m_config->GetFullPaht_DDS("tobeyakiget", ITEM_WIDHT, ITEM_HEIGHT);
+	m_tobeyakigetRneder.Init(Tobe_Ware.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_tobeyakigetRneder.SetPosition(TOBE_WARE_POSITION);
+
+}
+
+// タルトをセット。
+void Game::SetTart()
+{
+	string Tart = m_config->GetFullPaht_DDS("taruto", ITEM_WIDHT, ITEM_HEIGHT);
+	m_tarutoRender.Init(Tart.c_str(),ITEM_WIDHT, ITEM_HEIGHT);
+	m_tarutoRender.SetPosition(TARTO_POSITION);
+}
+
+// タルトを取得。
+void Game::ObtainTart()
+{
+	string Tart = m_config->GetFullPaht_DDS("tarutoget", ITEM_WIDHT, ITEM_HEIGHT);
+	m_tarutogetRender.Init(Tart.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_tarutogetRender.SetPosition(TARTO_POSITION);
+}
+
+// タオルをセット。
+void Game::SetTowel()
+{
+	// タオル・
+	string Towel = m_config->GetFullPaht_DDS("taorukuro", ITEM_WIDHT, ITEM_HEIGHT);
+	m_taorukuroRender.Init(Towel.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_taorukuroRender.SetPosition(TOWEL_POSITION);
+	m_taorukuroRender.SetScale(TOWEL_SCALE);
+}
+
+// タオルを取得。
+void Game::ObtainTowel()
+{
+	string towel = m_config->GetFullPaht_DDS("taorutori", ITEM_WIDHT, ITEM_HEIGHT);
+	m_taorutoriRender.Init(towel.c_str(), ITEM_WIDHT, ITEM_HEIGHT);
+	m_taorutoriRender.SetPosition(TOWEL_POSITION);
+	m_taorutoriRender.SetScale(TOWEL_SCALE);
+}
+
+//	砥部焼。
+void Game::TobeWare_NewGO()
+{
+	m_tobeyaki = NewGO<Tobeyaki>(0, "tobeyaki");
+	m_tobeyaki->m_position = {TOBE_WARE_OBJECT_POSITION};      //第二ステージ用
+	m_modelRender.SetPosition(m_position);
+}
+
+// タオル。
+void Game::Towel_NewGO()
+{
+	m_towel = NewGO<Towel>(0, "towel");
+	m_towel->m_position = {TOWELPOSITION };     //第二ステージ用
+	m_modelRender.SetPosition(m_position);
+}
+
+// 更新処理をまとめる処理。
+void Game::Updates()
+{
+	m_sutaminaMaxrender.Update();// スタミナの最大値。
+	m_sutamina0render.Update();// スタミナの最小値。
+
+	m_mappuRender.Update();// マップ。
+	m_gennzaitiRender.Update();// 現在地。
+
+	m_taorukuroRender.Update();
+	m_taorutoriRender.Update();
+
+	m_jakorender.Update();
+	m_jakogetrender.Update();
+
+	m_mikanRender.Update();
+	m_mikangetRender.Update();
+
+	m_sinjuRender.Update();
+	m_sinjugetRender.Update();
+
+	m_tobeyakiRender.Update();
+	m_tobeyakigetRneder.Update();
+
+	m_tarutoRender.Update();
+	m_tarutogetRender.Update();
+
+
 }

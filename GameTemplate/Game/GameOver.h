@@ -66,6 +66,46 @@ private:
 		m_coefficientOfRestitution = afterSpeed / beforeSpeed;
 	}
 
+	/// <summary>
+	/// ゲームオーバー。
+	/// </summary>
+	void SetGameOver();
+
+	/// <summary>
+	/// ゲームオーバー時の選択UI。
+	/// </summary>
+	void SetChoiceUI();
+
+	/// <summary>
+	/// タイトルへ戻る処理。
+	/// </summary>
+	void SetReturnTitle();
+
+	/// <summary>
+	/// Lスティック。
+	/// </summary>
+	void SetLStick();
+
+	/// <summary>
+	/// 十字キー。
+	/// </summary>
+	void SetDpadUI();
+
+	/// <summary>
+	/// AボタンUI。
+	/// </summary>
+	void SetAbuttonUI();
+
+	/// <summary>
+	/// 選択UI。
+	/// </summary>
+	void SetSelectUI();
+
+	/// <summary>
+	/// 決定UI。
+	/// </summary>
+	void SetDecisionUI();
+
 	//選択。
 	enum EnSelect
 	{

@@ -9,6 +9,7 @@ namespace
 {
 	const float SPEED = 340.0f;//モデルの落下速度
 	const float LIMITED = 300.0f;//モデルが動ける上限数
+	const float DISTANCE = 350.0f;// 処理が発動する距離。
 	const Vector3 COLLISION_HEIGHT(0.0f, 50.0f, 0.0f);//コリジョンの高さ
 	const Vector3 COLLISION_SIZE (365.0f, 5.0f, 225.0f);//コリジョンの大きさ
 	const Vector3 FALLINGBLOCK_SCALE(3.0f, 3.0f, 5.0f);	//モデルの大きさ
@@ -93,9 +94,6 @@ void FallingBlock::Update()
 		return;
 	}
 
-	Vector3 distanceX;
-	Vector3 distanceY;
-
 	distanceX.x = m_player->m_position.x - m_position.x;
 	distanceY.y = m_player->m_position.y - m_position.y;
 
@@ -104,7 +102,7 @@ void FallingBlock::Update()
 	//衝突したら。(キャラクターが落下する床の上に乗ったら)。
 	if (m_collisionObject->IsHit(m_player->GetCharacterController()) == true)
 	{
-		if (distanceX.Length() < 350.0f && distanceY.Length() < 350.0f && m_player->m_characterController.IsOnGround())
+		if (distanceX.Length() < DISTANCE && distanceY.Length() < DISTANCE && m_player->m_characterController.IsOnGround())
 		{
 			Move();
 		}
