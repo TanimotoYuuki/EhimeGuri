@@ -29,6 +29,10 @@ void Taruto::Update() {
 		if (deff.Length() <= 125.0f) {
 			m_player->tarutoCount += 1;
 
+			//アイテムテキスト関連UIを描画する
+			m_game->m_itemTextDrawingUI = m_game->enItem_Taruto;
+			m_game->ItemTextSpriteMoveReset();
+
 			// アイテムを取得したの音の再生。
 			g_gameSoundEngine->PlaySE(GameSoundList_SE_Object_ItemGet, 3.0f);
 
