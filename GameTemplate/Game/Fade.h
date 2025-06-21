@@ -77,6 +77,7 @@ public:
 	{
 		return m_isFadeInFinish;
 	}
+	Sprite m_sprite;								//スプライト
 
 private:
 
@@ -89,6 +90,8 @@ private:
 		enPoint_Num			//点の数
 	};
 
+
+	SpriteRender m_spriteRender;
 	SpriteRender m_fade;							//フェード
 	SpriteRender m_loading;							//ローディング
 	SpriteRender m_point[enPoint_Num];				//点
@@ -100,5 +103,9 @@ private:
 	bool m_pointFallFlag = false;					//点落下フラグ
 	bool m_fadeTransitionFlag = false;				//フェードが切り替わったか?
 	bool m_isFadeInFinish = false;					//フェードインが終わったか?
+
+	const char* GetFilePath(const std::string spriteName);
+
+
 };
 

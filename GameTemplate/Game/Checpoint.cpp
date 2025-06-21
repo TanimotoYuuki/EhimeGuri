@@ -5,6 +5,7 @@
 namespace
 {
 	const Vector3 SCALE(2.0f, 2.0f, 2.0f);
+	const float DISTANCE = 20.0f;
 }
 bool Checpoint::Start() {
 	string modelPath = m_config->GetFullPath_3DModel("GoalPole");// ファイルパスを読み込む。
@@ -22,7 +23,7 @@ void Checpoint::Update()
 
 	Vector3 diff;
 	diff.x = position.x - m_player->m_position.x;
-	if (diff.Length() < 20.0f)
+	if (diff.Length() < DISTANCE)
 	{
 		m_player->checcount = 1;
 

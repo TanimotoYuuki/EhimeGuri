@@ -6,6 +6,8 @@
 namespace
 {
 	const Vector3 SCALE{ 0.5f,0.5f,0.5f }; 
+	const float DEG_X = -30.0f;
+	const float DEG_Y = 2.0f;
 }
 bool Tobeyaki::Start() {
 
@@ -16,7 +18,7 @@ bool Tobeyaki::Start() {
 	m_player = FindGO<Player>("player");
 	m_game = FindGO<Game>("game");
 	m_modelRender.Update();
-	m_rotation.SetRotationDegX(-30.0f);
+	m_rotation.SetRotationDegX(DEG_X);
 	return true;
 }
 void Tobeyaki::Update() {
@@ -35,11 +37,13 @@ void Tobeyaki::Update() {
 		DeleteGO(this);
 	}
 }
-void Tobeyaki::Rotation() {
-	m_rotation.AddRotationDegY(2.0f);
+void Tobeyaki::Rotation() 
+{
+	m_rotation.AddRotationDegY(DEG_Y);
 	
 	m_modelRender.SetRotation(m_rotation);
 }
+
 void Tobeyaki::Render(RenderContext& rc) {
 	m_modelRender.Draw(rc);
 }

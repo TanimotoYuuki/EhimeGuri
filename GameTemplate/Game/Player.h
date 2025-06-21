@@ -165,8 +165,11 @@ private:
 	GameOver* m_gameover = nullptr;
 	Towel* m_towel = nullptr;
 
+	const char* PLAYER = "Assets/modelData/player";
 	const char* PLAYER_ANIMATION = "Assets/animData/";// ファイルパス。
 	const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。
+	const char* TKM = ".tkm";
+
 
 	/// <summary>
 	/// アニメーションメソッド。
@@ -177,6 +180,13 @@ private:
     /// アニメーションを再生する。
     /// </summary>
 	void SetPlayAnimation();
+
+	/// <summary>
+    /// モデルをセットする。
+    /// </summary>
+	const std::string GetFullPath_PlayerModel
+	(const std::string& modelName, AnimationClip animationClip, EnAnimationClip enAnimationClip, EnModelUpAxis enModelUpAxis, bool flag);
+
 
 };
 
