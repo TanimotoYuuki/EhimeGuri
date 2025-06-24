@@ -149,6 +149,8 @@ void StageClear::LoadingProcess()
 			// 1.0f経過したら。
 			if (g_gameTime->StopWatch(2.0f))
 			{
+				//回収できたアイテムの設定。
+				m_game->Set_GettingItem();
 
 				// ステージ2オブジェクトの削除
 				m_game->Stage2ObjectDelete();

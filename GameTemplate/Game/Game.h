@@ -228,6 +228,19 @@ public:
     /// </summary>
 	FallingRocks* m_fallingRocks = nullptr;
 
+	/// <summary>
+	/// 回収できたアイテムの設定。
+	/// </summary>
+	void Set_GettingItem();
+
+	/// <summary>
+	/// 回収できたアイテムの取得。
+	/// </summary>
+	/// <returns></returns>
+	int* Get_GettingItem()
+	{
+		return m_gettingItem;
+	}
 
 private:
 	/// <summary>
@@ -597,6 +610,7 @@ private:
 	Vector3 m_position;
 	Vector3 m_scale = Vector3::One;
 
+	int m_gettingItem[enItem_Num] = { 0 };//回収できたアイテム
 	float m_stageBackGroundTransitionAlpha = 1.0f;//遷移用のステージ背景の透明度
 	float m_stageBackGroundTransitionFlag = false;//ステージ背景を遷移するか？
 	float m_itemTextAlpha = 1.0f;//アイテムテキスト関連の透明度

@@ -20,7 +20,7 @@ enum GameSoundList
 	GameSoundList_SE_Object_BlockTouch,							//ブロックを叩いた時の音
 	GameSoundList_SE_Object_ItemGet,							//アイテムを取得した時の音
 	GameSoundList_SE_Object_PassingCheckPoint,					//中間地点を通過した時の音
-	GameSoundList_SE_Result_ViewScore,							//リザルト画面でスコアを表示した時の音
+	GameSoundList_SE_Result_ViewItemGet,						//リザルト画面で取得したアイテムを表示した時の音
 	GameSoundList_SE_Result_CRank,								//Cランク用の音
 	GameSoundList_SE_Result_BRank,								//Bランク用の音
 	GameSoundList_SE_Result_ARank,								//Aランク用の音
