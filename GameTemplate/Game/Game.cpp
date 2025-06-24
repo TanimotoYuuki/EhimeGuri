@@ -1420,3 +1420,14 @@ void Game::Updates()
 
 
 }
+
+//取得できたアイテムの設定。
+void Game::Set_GettingItem()
+{
+	m_gettingItem[enItem_Jako] = m_player->jakoCount;
+	m_gettingItem[enItem_Mikan] = m_player->mikanCount;
+	m_gettingItem[enItem_Sinju] = m_player->sinjuCount;
+	m_gettingItem[enItem_Tobeyaki] = m_player->tobeyakiCount;
+	m_gettingItem[enItem_Taruto] = m_player->tarutoCount;
+	m_gettingItem[enItem_Taoru] = m_player->taoruCount;
+}

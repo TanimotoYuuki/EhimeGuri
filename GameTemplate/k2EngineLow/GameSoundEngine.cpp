@@ -86,10 +86,10 @@ namespace nsK2EngineLow
 		m_isPlayingSound[GameSoundList_SE_Object_PassingCheckPoint] = false;
 		m_sound[GameSoundList_SE_Object_PassingCheckPoint] = nullptr;
 
-		//11. リザルト画面でスコアを表示した時の音
-		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_ViewScore, "Assets/sound/se/viewresult.wav");
-		m_isPlayingSound[GameSoundList_SE_Result_ViewScore] = false;
-		m_sound[GameSoundList_SE_Result_ViewScore] = nullptr;
+		//11. リザルト画面で取得したアイテムを表示した時の音
+		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_ViewItemGet, "Assets/sound/se/viewresult.wav");
+		m_isPlayingSound[GameSoundList_SE_Result_ViewItemGet] = false;
+		m_sound[GameSoundList_SE_Result_ViewItemGet] = nullptr;
 
 		//12. Cランク用の音
 		g_soundEngine->ResistWaveFileBank(GameSoundList_SE_Result_CRank, "Assets/sound/se/crank.wav");
