@@ -8,8 +8,8 @@ class Fade;
 class GameClear : public IGameObject
 {
 	/// <summary>
-    /// ゲームクリア。
-    /// </summary>
+	/// ゲームクリア。
+	/// </summary>
 
 public:
 	~GameClear();  //デストラクタ。
@@ -18,29 +18,25 @@ public:
 	void Render(RenderContext& rc);  //描画処理。
 
 	/// <summary>
-	/// 収集したアイテムの数を設定する。
+	/// 取得したアイテムを設定する。
 	/// </summary>
-	/// <param name="gatheringItemNum">収集したアイテムの数</param>
-	void SetGatheringItemNum(int gatheringItemNum)
+	/// <param name="jako">じゃこ天</param>
+	/// <param name="mikan">みかん</param>
+	/// <param name="sinju">真珠</param>
+	/// <param name="tobeyaki">砥部焼</param>
+	/// <param name="taruto">タルト</param>
+	/// <param name="taoru">タオル</param>
+	void SetItemGet(int item[])
 	{
-		m_gatheringItemNum = gatheringItemNum;
+		for (int i = 0; i < enItem_Num; i++)
+		{
+			if (item[i] == 1)
+			{
+				m_itemGetFlag[i] = true;
+			}
+		}
 	}
 
-	/// <summary>
-	/// アイテムの総数を設定する。
-	/// </summary>
-	/// <param name="totalItemNum">アイテムの総数</param>
-	void SetTotalItemNum(int totalItemNum)
-	{
-		m_totalItemNum = totalItemNum;
-	}
-
-	/// <summary>
-	/// 収集率の計算。
-	/// </summary>
-	/// <param name="num">収集したアイテムの数</param>
-	/// <param name="totalNum">アイテムの総数</param>
-	void GatheringRate(int gatheringItemNum, int totalItemNum);
 	bool isClear = false;  //ゲームクリアフラグ
 	// ゲームクリアを設定する。
 	void SetIsClrar(bool clear)
@@ -59,100 +55,146 @@ public:
 
 private:
 	/// <summary>
-	/// カメラの初期化。
-	/// </summary>
-	void InitCamera();
-
-	/// <summary>
 	/// スプライトの初期化。
 	/// </summary>
 	void InitSprite();
 
 	/// <summary>
-	/// モデルの初期化。
+	/// アイテムUI関連のスプライトの情報を取得。
 	/// </summary>
-	void InitModel();
-
-	/// <summary>
-	/// ランクを設定する
-	/// </summary>
-	void SetRank()
+	/// <param name="item">アイテム</param>
+	void GetItemUISpriteData(int item)
 	{
-		//収集率が100%なら
-		if (m_gatheringRate >= 100)
+		//アイテム
+		switch (item)
 		{
-			//Sランク
-			m_rankUISpriteFilePath = "Assets/result/rank/s.dds";  //ランクSを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 1.0f,0.84f,0.0f,0.0f };		//金色
-			m_rankState = enRank_S;	 //ランクステート(Sランク)
-		}
-		//収集率が80%以上なら
-		else if (m_gatheringRate >= 80)
-		{
-			//Aランク
-			m_rankUISpriteFilePath = "Assets/result/rank/a.dds";  //ランクAを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.75f,0.75f,0.75f,0.0f };	//銀色
-			m_rankState = enRank_A;	 //ランクステート(Aランク)
-		}
-		//収集率が40%以上なら
-		else if (m_gatheringRate >= 40)
-		{
-			//Bランク
-			m_rankUISpriteFilePath = "Assets/result/rank/b.dds";  //ランクBを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.76f,0.43f,0.13f,0.0f };	//銅色
-			m_rankState = enRank_B;	 //ランクステート(Bランク)
-		}
-		//収集率が40%未満なら
-		else
-		{
-			//Cランク
-			m_rankUISpriteFilePath = "Assets/result/rank/c.dds";  //ランクCを描画するスプライトのファイルパス
-			m_rankUISpriteColor = { 0.0f,0.0f,1.0f,0.0f };	//青色
-			m_rankState = enRank_C;	 //ランクステート(Cランク)
-		}
-	}
+		case enItem_Jako:		//じゃこ天
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/jako.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/jakoget.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/jakoselect.dds";
 
-	/// <summary>
-	/// 数字UIスプライトのファイルパスの取得。
-	/// </summary>
-	/// <param name="num">数字</param>
-	void GetNumberUISpriteFilePath(int num)
-	{
-		//数字。
-		switch (num)
-		{
-		case enNumver_Zero:				//0
-			m_numberUISpriteFilePath = "Assets/result/number/0.dds";	//数字の0を描画するスプライトのファイルパス
+			//じゃこ天を取得していたら
+			if (m_itemGetFlag[enItem_Jako] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/jako.dds";
+			}
+			//じゃこ天を取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(-150.0f, 25.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.0f, 1.0f, 1.0f);
+			m_itemGetUIScale = Vector3(1.4f, 1.4f, 1.4f);
+			m_itemSelectUIScale = Vector3(1.1f, 1.1f, 1.1f);
 			break;
-		case enNumver_One:				//1
-			m_numberUISpriteFilePath = "Assets/result/number/1.dds";	//数字の1を描画するスプライトのファイルパス
+		case enItem_Mikan:		//みかん
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/mikan.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/mikanget.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/mikanselect.dds";
+
+			//みかんを取得していたら
+			if (m_itemGetFlag[enItem_Mikan] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/mikan.dds";
+			}
+			//みかんを取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(0.0f, 25.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.0f, 1.0f, 1.0f);
+			m_itemGetUIScale = Vector3(1.4f, 1.4f, 1.4f);
+			m_itemSelectUIScale = Vector3(1.07f, 1.1f, 1.07f);
 			break;
-		case enNumver_Two:				//2
-			m_numberUISpriteFilePath = "Assets/result/number/2.dds";	//数字の2を描画するスプライトのファイルパス
+		case enItem_Sinju:		//真珠
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/sinju.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/sinjuget.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/sinjuselect.dds";
+
+			//真珠を取得していたら
+			if (m_itemGetFlag[enItem_Sinju] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/sinju.dds";
+			}
+			//真珠を取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(150.0f, 25.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.0f, 1.0f, 1.0f);
+			m_itemGetUIScale = Vector3(1.4f, 1.4f, 1.4f);
+			m_itemSelectUIScale = Vector3(1.07f, 1.07f, 1.07f);
 			break;
-		case enNumver_Three:			//3
-			m_numberUISpriteFilePath = "Assets/result/number/3.dds";	//数字の3を描画するスプライトのファイルパス
+		case enItem_Tobeyaki:	//砥部焼
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/tobeyaki.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/tobeyakiget.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/tobeyakiselect.dds";
+			
+			//砥部焼を取得していたら
+			if (m_itemGetFlag[enItem_Tobeyaki] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/tobeyaki.dds";
+			}
+			//砥部焼を取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(-150.0f, -100.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.0f, 1.0f, 1.0f);
+			m_itemGetUIScale = Vector3(1.4f, 1.4f, 1.4f);
+			m_itemSelectUIScale = Vector3(1.1f, 1.1f, 1.1f);
 			break;
-		case enNumver_Four:				//4
-			m_numberUISpriteFilePath = "Assets/result/number/4.dds";	//数字の4を描画するスプライトのファイルパス
+		case enItem_Taruto:		//タルト
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/taruto.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/tarutoget.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/tarutoselect.dds";
+
+			//タルトを取得していたら
+			if (m_itemGetFlag[enItem_Taruto] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/taruto.dds";
+			}
+			//タルトを取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(0.0f, -100.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.0f, 1.0f, 1.0f);
+			m_itemGetUIScale = Vector3(1.4f, 1.4f, 1.4f);
+			m_itemSelectUIScale = Vector3(1.1f, 1.1f, 1.1f);
 			break;
-		case enNumver_Five:				//5
-			m_numberUISpriteFilePath = "Assets/result/number/5.dds";	//数字の5を描画するスプライトのファイルパス
+		case enItem_Taoru:		//タオル
+			m_noItemGetUISpriteFilePath = "Assets/result/item/item/taorukuro.dds";
+			m_itemGetUISpriteFilePath = "Assets/result/item/item/taorutori.dds";
+			m_itemSelectUISpriteFilePath = "Assets/result/item/item/taoruselect.dds";
+
+			//タオルを取得していたら
+			if (m_itemGetFlag[enItem_Taoru] == true)
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/taoru.dds";
+			}
+			//タオルを取得していなかったら
+			else
+			{
+				m_itemCollectionUISpriteFilePath = "Assets/result/item/collection/noitemget.dds";
+			}
+
+			m_itemUIPosition = Vector3(150.0f, -100.0f, 0.0f);
+			m_noItemGetUIScale = Vector3(1.3f, 1.3f, 1.3f);
+			m_itemGetUIScale = Vector3(1.7f, 1.7f, 1.7f);
+			m_itemSelectUIScale = Vector3(1.45f, 1.35f, 1.45f);
 			break;
-		case enNumver_Six:				//6
-			m_numberUISpriteFilePath = "Assets/result/number/6.dds";	//数字の6を描画するスプライトのファイルパス
-			break;
-		case enNumver_Seven:			//7
-			m_numberUISpriteFilePath = "Assets/result/number/7.dds";	//数字の7を描画するスプライトのファイルパス
-			break;
-		case enNumver_Eight:			//8
-			m_numberUISpriteFilePath = "Assets/result/number/8.dds";	//数字の8を描画するスプライトのファイルパス
-			break;
-		case enNumver_Nine:				//9
-			m_numberUISpriteFilePath = "Assets/result/number/9.dds";	//数字の9を描画するスプライトのファイルパス
-			break;
-		default:						//10～
-			m_numberUISpriteFilePath = "Assets/result/number/0.dds";	//数字の0を描画するスプライトのファイルパス
+		default:
 			break;
 		}
 	}
@@ -163,135 +205,113 @@ private:
 	void SpriteMove();
 
 	/// <summary>
+	/// アイテムUI関連のイージング設定。
+	/// </summary>
+	void SetItemUIEasing();
+
+	/// <summary>
+	/// アイテムUI関連のイージング更新処理。
+	/// </summary>
+	void UpdateItemUIEasing();
+
+	/// <summary>
+	/// アイテムを取得しているときのUIのイージング設定。
+	/// </summary>
+	/// <param name="item">アイテム</param>
+	void SetItemGetUIEasing(int item);
+
+	/// <summary>
+	/// アイテムを取得しているときのUIのイージング更新処理。
+	/// </summary>
+	/// <param name="item">アイテム</param>
+	void UpdateItemGetUIEasing(int item);
+
+	/// <summary>
 	/// プレイヤー側の操作。
 	/// </summary>
 	void Action();
-	
-	/// <summary>
-	/// プレイヤーモデルのアニメーション管理。
-	/// </summary>
-	void PlayerModelAnimationManage();
 
 	/// <summary>
-	/// プレイヤーモデルのアニメーション再生。
+	/// アイテム選択のときのプレイヤー側の操作。
 	/// </summary>
-	void PlayerModelPlayAnimation();
+	void ItemSelectAction();
 
-	/// <summary>
-	/// ランク用の音の再生。
-	/// </summary>
-	void RankSEPlay();
-
-	//数字。
-	enum enNumber
+	//アイテム
+	enum EnItem
 	{
-		enNumver_Zero,		//0。
-		enNumver_One,		//1。
-		enNumver_Two,		//2。
-		enNumver_Three,		//3。
-		enNumver_Four,		//4。
-		enNumver_Five,		//5。
-		enNumver_Six,		//6。
-		enNumver_Seven,		//7。
-		enNumver_Eight,		//8。
-		enNumver_Nine,		//9。
-		enNumver_TenOver,   //10～。
-		enNumver_Num		//数字数。
-	};
-
-	//〇の位。
-	enum enNumberPlace
-	{
-		enNumberPlace_Hundred,		//百の位。
-		enNumberPlace_Ten,			//十の位。
-		enNumberPlace_One,			//一の位。
-		enNumberPlace_Num			//〇の位数。
-	};
-
-	//ランク。
-	enum enRank
-	{
-		enRank_S,			//Sランク。
-		enRank_A,			//Aランク。
-		enRank_B,			//Bランク。
-		enRank_C,			//Cランク。
-		enRank_Num			//ランク数。
-	};
-
-	//アニメーションクリップ。
-	enum EnAnimationClip {
-		enAnimationClip_Idle,		//待機。
-		enAnimationClip_Defeat,		//悔しい。
-		enAnimationClip_FistPump,	//ガッツ。
-		enAnimationClip_Victory,	//嬉しい。
-		enAnimationClip_Num			//アニメーション数。
-	};
-
-	//アニメーションステート。
-	enum EnAnimationState
-	{
-		enAnimationState_Idle,		//待機。
-		enAnimationState_Defeat,	//悔しい。
-		enAnimationState_FistPump,	//ガッツ。
-		enAnimationState_Victory,	//嬉しい。
-		enAnimationState_Num		//アニメーションステート数。
+		enItem_Jako,		//じゃこ天
+		enItem_Mikan,		//みかん
+		enItem_Sinju,		//真珠
+		enItem_Tobeyaki,	//砥部焼
+		enItem_Taruto,		//タルト
+		enItem_Taoru,		//タオル
+		enItem_Num,			//アイテム数
 	};
 
 	//ゲームクリア演出。
 	enum EnGameClearDirection
 	{
-		enGameClearDirection_GatheringRate,		//収集率。
-		enGameClearDirection_Rank,				//ランク。
-		enGameClearDirection_Num				//ゲームクリア演出数。
+		enGameClearDirection_ItemGet,		//アイテム取得の演出。
+		enGameClearDirection_ItemUIMove,	//アイテムUIの動作の演出。
+		enGameClearDirection_Num			//ゲームクリア演出数。
 	};
 
-	SpriteRender m_gatheringRateNumberHundredPlaceUI[enNumver_Num];					//収集率用数字UI(百の位)。
-	SpriteRender m_gatheringRateNumberTenPlaceUI[enNumver_Num];						//収集率用数字UI(十の位)。
-	SpriteRender m_gatheringRateNumberOnePlaceUI[enNumver_Num];						//収集率用数字UI(一の位)。	
-	SpriteRender m_rankUI[enRank_Num];												//ランクUI。
-	SpriteRender m_percentUI;														//パーセントUI。
+	SpriteRender m_gameResultUI;													//ゲーム結果UI
+	SpriteRender m_itemGetListUI;													//アイテム取得リストUI。
+	SpriteRender m_itemGetListTextUI;												//アイテム取得リストのテキストUI。
+	SpriteRender m_noItemGetUI[enItem_Num];											//アイテムを取得していないときのUI。
+	SpriteRender m_itemGetUI[enItem_Num];											//アイテムを取得しているときのUI。
+	SpriteRender m_itemSelectUI[enItem_Num];										//アイテムを選択しているときのUI。
+	SpriteRender m_itemCollectionUI[enItem_Num];									//アイテムコレクションUI。	
+	SpriteRender m_lStickUI;														//LスティックUI。
+	SpriteRender m_dPadUI;															//十字キーUI。
 	SpriteRender m_aButtonUI;														//AボタンUI。
+	SpriteRender m_selectUI;														//選択UI。
 	SpriteRender m_returnTitleUI;													//タイトルへ戻るUI。
-	BackGroundRender m_gameBackground;												//ゲーム背景。
-	AnimationClip m_animationClip[enAnimationClip_Num];								//アニメーションクリップ。
-	ModelRender m_playerModel;														//プレイヤーモデル。
-	Vector3 m_playerModelPosition = Vector3(-100.0f, 0.0f, -35.0f);					//プレイヤーモデルの位置。
-	Quaternion m_playerModelRotation = Quaternion::Identity;						//プレイヤーモデルの回転。
-	Vector3 m_playerModelScale = Vector3(0.25f, 0.25f, 0.25f);						//プレイヤーモデルの大きさ。
-	Vector4 m_rankUISpriteColor = Vector4{ 0.0f,0.0f,0.0f,1.0f };					//ランクUI用カラー。
-	int m_hundredPlace = 0;															//百の位。
-	int m_tenPlace = 0;																//十の位。
-	int m_onePlace = 0;																//一の位。
-	int m_gatheringItemNum = 0;														//収集したアイテムの数。
-	int m_totalItemNum = 1;															//アイテムの総数。
-	int m_gatheringRate = 0;														//収集率。
-	int m_animationState = enAnimationState_Idle;									//アニメーションステート。
-	int m_rankState = enRank_Num;													//ランクステート。
-	int m_gameClearDirectionState = enGameClearDirection_GatheringRate;				//ゲームクリア演出ステート。
-	float m_gatheringRateUIAlphaColor = -0.5f;										//収集率UI用透明度。
-	float m_rankUIAlphaColor = -0.5f;												//ランクUI用透明度。
+	Vector3 m_itemUIPosition = Vector3::Zero;										//アイテムUIの位置。
+	Vector3 m_noItemGetUIScale = Vector3::One;										//アイテムを取得していないときのUIの大きさ
+	Vector3 m_itemGetUIScale = Vector3::One;										//アイテムを取得しているときのUIの大きさ
+	Vector3 m_itemSelectUIScale = Vector3::One;										//アイテムを選択しているときのUIの大きさ
+	Vector3 m_itemGetListUIBeforeEasingPosition = Vector3::Zero;					//アイテム取得リストUI用のイージング前の位置。
+	Vector3 m_itemGetListUIAfterEasingPosition = Vector3::Zero;						//アイテム取得リストUI用のイージング後の位置。
+	Vector3 m_itemGetListUIEasingPosition = Vector3::Zero;							//アイテム取得リストUI用のイージング中の位置。
+	Vector3 m_itemGetListTextUIBeforeEasingPosition = Vector3::Zero;				//アイテム取得リストテキストUI用のイージング前の位置。
+	Vector3 m_itemGetListTextUIAfterEasingPosition = Vector3::Zero;					//アイテム取得リストテキストUI用のイージング後の位置。
+	Vector3 m_itemGetListTextUIEasingPosition = Vector3::Zero;						//アイテム取得リストテキストUI用のイージング中の位置。
+	Vector3 m_itemUIBeforeEasingPosition[enItem_Num];								//アイテムUIイージング前の位置。
+	Vector3 m_itemUIAfterEasingPosition[enItem_Num];								//アイテムUIイージング後の位置。
+	Vector3 m_itemUIEasingPosition[enItem_Num];										//アイテムUIイージング中の位置。
+	Vector4 m_itemGetUIBeforeEasingAlpha[enItem_Num];								//アイテムを取得しているときのUIのイージング前の透明度。
+	Vector4 m_itemGetUIAfterEasingAlpha[enItem_Num];								//アイテムを取得しているときのUIのイージング後の透明度。
+	Vector4 m_itemGetUIEasingAlpha[enItem_Num];										//アイテムを取得しているときのUIのイージング中の透明度。
+	Vector3 m_itemGetUIBeforeEasingScale[enItem_Num];								//アイテムを取得しているときのUIのイージング前の大きさ。
+	Vector3 m_itemGetUIAfterEasingScale[enItem_Num];								//アイテムを取得しているときのUIのイージング後の大きさ。
+	Vector3 m_itemGetUIEasingScale[enItem_Num];										//アイテムを取得しているときのUIのイージング中の大きさ。
+	int m_itemGetUIEasingState = enItem_Jako;										//アイテムを取得しているときのUIのイージングステート
+	int m_itemSelect = enItem_Jako;													//アイテム選択。
+	int m_gameClearDirectionState = enGameClearDirection_ItemGet;					//ゲームクリア演出ステート。
+	float m_itemUIEasingTime = 0.0f;												//アイテムUI関連用の割合。
+	float m_itemGetUIEasingAlphaTime[enItem_Num] = { 0.0f };						//アイテムを取得しているときのUIの透明度用の割合。
+	float m_itemGetUIEasingScaleTime[enItem_Num] = { 0.0f };						//アイテムを取得しているときのUIの大きさ用の割合。
 	float m_resultBGMVolume = 0.0f;													//リザルト画面BGMの音量。
 	bool m_gameClearDirectionFlag = false;											//ゲームクリア演出フラグ。
 	bool m_titleScreenTransitionFlag = false;										//タイトル画面遷移フラグ。
-	bool m_getResultBGMVolumeFlag = false;											//タイトルBGMの音量を取得したか?
-	bool m_isViewScoreSEPlaying = false;											//スコアを表示した時の音を再生したか?
-	bool m_isRankSEPlaying = false;													//ランク用の音を再生したか?
-	const char* m_numberUISpriteFilePath = nullptr;									//数字UIスプライト用ファイルパス。
-	const char* m_rankUISpriteFilePath = nullptr;									//ランクUIスプライト用ファイルパス。
+	bool m_getResultBGMVolumeFlag = false;											//リザルト画面BGMの音量を取得したか?
+	bool m_itemGetFlag[enItem_Num] = {false};										//アイテム取得フラグ
+	bool m_itemUIEasingStartFlag = false;											//アイテム関連UIのイージング開始フラグ
+	bool m_itemGetUIEasingStartFlag[enItem_Num] = { false };						//アイテムを取得しているときのUIのイージング開始フラグ
+	const char* m_noItemGetUISpriteFilePath = nullptr;								//アイテムを取得していないときのUIのファイルパス。						
+	const char* m_itemGetUISpriteFilePath = nullptr;								//アイテムを取得しているときのUIのファイルパス。
+	const char* m_itemSelectUISpriteFilePath = nullptr;								//アイテムを選択しているときのUIファイルパス。
+	const char* m_itemCollectionUISpriteFilePath = nullptr;							//アイテムコレクションUIのファイルパス。
 	Fade* m_fade = nullptr;															//フェード用インスタンス。
 
 
 	Config* m_config = nullptr;
 	static constexpr const char* RESULT = "Assets/result/screen/";
-	static constexpr const char* PERCENTUI = "Assets/result/text/";
 	static constexpr const char* ABUTTHON = "Assets/result/gamepad/";
 	static constexpr const char* RETURNBUTTON = "Assets/result/text/";
-    static constexpr const char* GROUND = "Assets/Sprite/";
-	static constexpr const char* RESULT_ANIMATION = "Assets/animData/";//ファイルパス。
-	static constexpr const char* RESULT_PLAYER = "Assets/modelData/player";
 
-	static constexpr const char* ANIMATION_FILE_EXTENSION = ".tka"; // 拡張子。
-	static constexpr const char* TKM = ".tkm";
 	static constexpr const char* dds_EXTENSION = ".dds"; // 画像用の拡張子。
 	static constexpr const char* DDS_EXTENSION = ".DDS";
 
@@ -302,11 +322,6 @@ private:
 	string GetFullPath_RESULT(const std::string& name, const float w, const float h);
 
 	/// <summary>
-	/// パーセント。
-	/// </summary>
-	string GetFullPath_PERCENT(const std::string& name, const float w, const float h);
-
-	/// <summary>
 	/// Aボタン。
 	/// </summary>
 	string GetFullPaht_BUTTONUI(const std::string& name, const float w, const float h);
@@ -315,28 +330,5 @@ private:
 	/// タイトルへ戻る用。
 	/// </summary>
 	string GetFullPath_RETURNUI(const std::string& name, const float w, const float h);
-
-	/// <summary>
-	/// ステージ背景用。
-	/// </summary>
-	string GetFullPath_BACKGROUND(const std::string& name, const float w, const float h);
-
-
-	/// <summary>
-	/// アニメーションメソッド。
-	/// </summary>
-	string GetFullPath_ResultAnimation(EnAnimationClip enAnimationClip, const std::string& animationName, bool flag);
-
-	/// <summary>
-	/// アニメーションを再生する。
-	/// </summary>
-	void SetPlayAnimation();
-
-	/// <summary>
-	/// モデルをセットする。
-	/// </summary>
-	string GetFullPath_ResultPlayer
-	(const std::string& modelName, AnimationClip* animationClip, EnAnimationClip enAnimationClip, EnModelUpAxis enModelUpAxis);
-
 };		
 

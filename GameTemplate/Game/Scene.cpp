@@ -157,8 +157,8 @@ bool GameClearScene::Start()
 	m_gameClear = NewGO<GameClear>(0, "GameClear"); // ゲームクリアシーンの初期化処理を行う。
 
 	auto* game = FindGO<Game>("game");
-	m_gameClear->SetGatheringItemNum(game->m_itemGetNum);
-	m_gameClear->SetTotalItemNum(game->m_totalItemNum);
+	//取得したアイテムを設定する。
+	m_gameClear->SetItemGet(game->Get_GettingItem());
 	DeleteGO(game);
 	return true;
 }
