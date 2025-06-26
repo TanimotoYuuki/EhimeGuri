@@ -55,12 +55,6 @@ std::string GameClear::GetFullPath_RETURNUI(const std::string& name, const float
 
 }
 
-//デストラクタ。
-GameClear::~GameClear()
-{
-	DeleteGO(m_fade);
-}
-
 //開始処理。
 bool GameClear::Start()
 {
@@ -69,8 +63,8 @@ bool GameClear::Start()
 
 	//インスタンス。
 	//0 フェード。
-	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
+	m_fade->FadeTransition(enFadeState_FadeIn);
 
 	return true;
 }

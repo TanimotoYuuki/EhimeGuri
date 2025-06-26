@@ -97,6 +97,11 @@ void Fade::Update()
 		//ローディングの動作
 		LoadingMove();
 	}
+	else
+	{
+		//ローディングの動作用の初期化。
+		InitLoadingMove();
+	}
 
 	//フェードの更新
 	m_fade.Update();
@@ -152,11 +157,7 @@ void Fade::LoadingMove()
 void Fade::Render(RenderContext& rc)
 {
 	//フェード
-	//フェードステートがenFadeState_None以外は描画する
-	if (m_fadeState != enFadeState_None)
-	{
-		m_fade.Draw(rc);
-	}
+	m_fade.Draw(rc);
 
 	//フェードステートがローディングなら描画する
 	if (m_fadeState == enFadeState_Loading)

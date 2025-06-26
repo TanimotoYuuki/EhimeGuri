@@ -99,13 +99,6 @@ bool Player::Start()
 // 更新処理。
 void Player::Update()
 {
-	//フェード用のインスタンスがnullptrだったら
-	if (m_fade == nullptr)
-	{
-		//Fadeクラスの検索。
-		FadeFindGO();
-	}
-
 	//アイテムエネミー用のインスタンスがnullptrだったら
 	if (m_itemEnemy == nullptr)
 	{
@@ -168,13 +161,6 @@ void Player::Update()
 	m_modelRender.Update();
 
 }
-
-//Fadeクラスの検索。
-void Player::FadeFindGO()
-{
-	m_fade = FindGO<Fade>("fade");
-}
-
 
 //ItemEnemyクラスの検索。
 void Player::ItemEnemyFindGO()

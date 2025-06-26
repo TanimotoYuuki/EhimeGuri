@@ -25,12 +25,18 @@ public:
 			//フェードステートの切り替え
 			m_fadeState = enFadeState;
 			m_fade.SetFadeTransition(enFadeState);
-			//ローディングをしない
+			//フェードを切り替えたか判定するフラグをfalseにする
 			m_fadeTransitionFlag = false;
 		}
 
+		//フェードステートがフェードインのとき
+		if (m_fadeState == enFadeState_FadeIn)
+		{
+			//ローディングをしない
+			m_loadingFlag = false;
+		}
 		//フェードステートがフェードアウトのとき
-		if (m_fadeState == enFadeState_FadeOut)
+		else if (m_fadeState == enFadeState_FadeOut)
 		{
 			//ローディングフラグが立っていないとき
 			if (m_loadingFlag != true)
@@ -90,6 +96,25 @@ private:
 		enPoint_Num			//点の数
 	};
 
+	/// <summary>
+	/// ローディングの動作用の初期化
+	/// </summary>
+	void InitLoadingMove()
+	{
+		//点の現在位置を初期位置に戻す
+		for (int i = 0; i < enPoint_Num; i++)
+		{
+			m_pointPosition[i] = m_pointInitPosition[i];
+			m_point[i].SetPosition(m_pointPosition[i]);
+			m_point[i].Update();
+		}
+
+		//点動作を左にする
+		m_pointMove = enPoint_Left;
+
+		//点落下をしない
+		m_pointFallFlag = false;
+	}
 
 	SpriteRender m_spriteRender;
 	SpriteRender m_fade;							//フェード
