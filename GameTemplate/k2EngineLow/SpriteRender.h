@@ -29,7 +29,6 @@ namespace nsK2EngineLow
 		enFadeState_FadeIn,		//フェードイン
 		enFadeState_Loading,	//ローディング
 		enFadeState_FadeOut,	//フェードアウト
-		enFadeState_None,		//描画しない
 		enFadeState_Num			//フェード数
 	};
 

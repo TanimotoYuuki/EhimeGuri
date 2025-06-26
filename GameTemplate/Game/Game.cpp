@@ -107,7 +107,7 @@ bool Game::Start()
 	/// <summary>
 	/// フェード関数。
 	/// </summary>
-	Fade_NewGO();
+	FadeInTransition();
 
 	m_player     =  NewGO<Player>(1, "player");
 	m_gameCamera =  NewGO<GameCamera>(2, "gamecamera");
@@ -343,7 +343,6 @@ void Game::Update()
 		if (m_gameOverFlag != true)
 		{
 			NewGO<GameOver>(0, "gameover");
-			DeleteGO(m_fade);
 			DeleteGO(m_gameTimer);
 			//ゲームオーバー演出を流す
 			m_gameOverFlag = true;
@@ -647,9 +646,8 @@ void Game::Tower_NewGO()
 }
 
 // フェード。
-void Game::Fade_NewGO()
+void Game::FadeInTransition()
 {
-	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	//フェードをフェードインに切り替える。
 	m_fade->FadeTransition(enFadeState_FadeIn);
@@ -1061,13 +1059,13 @@ void Game::ItemTextSpriteMove(int item)
 void Game::MainObjectDelete()
 {
 	//プレイヤー
-	DeleteGO(m_player);
+	DeleteGOs("player");
 
 	//ゲームカメラ
-	DeleteGO(m_gameCamera);
+	DeleteGOs("gamecamera");
 
 	//ゲームタイマー
-	DeleteGO(m_gameTimer);
+	DeleteGOs("gametimer");
 }
 
 //ステージ1オブジェクトの削除。
@@ -1140,6 +1138,9 @@ void Game::Stage1ObjectDelete()
 	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
+
+	//コリジョンオブジェクト
+	DeleteGOs("collisionobject");
 }
 
 //ステージ2オブジェクトの削除。
@@ -1153,25 +1154,28 @@ void Game::Stage2ObjectDelete()
 	}
 
 	// 回転床。
-	DeleteGO(m_RotationFloor);
+	DeleteGOs("RotationFloor");
 
 	// ゴールポール。
-	DeleteGO(m_Stage2Goal);
+	DeleteGOs("clearpoint");
 
 	// タワー。
-	DeleteGO(m_tower);
+	DeleteGOs("tower");
 
 	//アイテムエネミー
-	DeleteGO(m_itemenemy);
+	DeleteGOs("itemenemy");
 
 	//チェックポイント
-	DeleteGO(m_checpoint);
+	DeleteGOs("checpoint");
 
 	//アイテム
-	DeleteGO(m_tobeyaki);
-	DeleteGO(m_towel);
+	DeleteGOs("tobeyaki");
+	DeleteGOs("towel");
 	m_taruto = FindGO<Taruto>("taruto");
-	DeleteGO(m_taruto);
+	DeleteGOs("taruto");
+
+	//コリジョンオブジェクト
+	DeleteGOs("collisionobject");
 }
 
 // マップをセットする。

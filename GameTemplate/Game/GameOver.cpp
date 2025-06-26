@@ -100,11 +100,6 @@ namespace
 
 }
 
-//デストラクタ。
-GameOver::~GameOver()
-{
-	DeleteGO(m_fade);
-}
 
 //開始処理。
 bool GameOver::Start()
@@ -117,10 +112,7 @@ bool GameOver::Start()
 	m_player->m_gameOverFlag = true;
 
 	//1 フェード。
-	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
-	//フェードを描画しないようにする。
-	m_fade->FadeTransition(enFadeState_None);
 
 	//2 ゲーム。
 	m_game = FindGO<Game>("game");

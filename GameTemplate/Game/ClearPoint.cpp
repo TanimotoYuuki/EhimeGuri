@@ -4,7 +4,6 @@
 #include "Config.h"
 #include "Player.h" 
 #include "Scene.h"
-#include "Fade.h"
 #include "Game.h"
 #include "GameTimer.h"
 namespace
@@ -23,7 +22,6 @@ bool ClearPoint::Start()
 	m_modelRender.Init(modelPath.c_str());// モデルをセットする。
 
 	m_player = FindGO<Player>("player");
-	m_fade = FindGO<Fade>("fade");
 	m_game = FindGO<Game>("game");
 	m_gameTimer = FindGO<GameTimer>("gametimer");
 	return true;
@@ -81,8 +79,6 @@ void ClearPoint::StageClear_NewGO()
 
 		//タイマーUIを描画しない
 		m_gameTimer->NotTimeUIDrawing();
-
-		DeleteGO(m_fade);
 		DeleteGO(this);
 	}
 

@@ -12,7 +12,7 @@ class GameClear : public IGameObject
 	/// </summary>
 
 public:
-	~GameClear();  //デストラクタ。
+	~GameClear() {};  //デストラクタ。
 	bool Start();	//開始処理。
 	void Update();  //更新処理。
 	void Render(RenderContext& rc);  //描画処理。

@@ -21,8 +21,6 @@ Stage1Scene::~Stage1Scene()
 Stage2Scene::~Stage2Scene()
 {
 	DeleteGO(m_stage2);
-	Fade* fade = FindGO<Fade>("fade");
-	DeleteGO(fade);
 }
 
 GameClearScene::~GameClearScene()

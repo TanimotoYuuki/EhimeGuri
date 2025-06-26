@@ -9,7 +9,6 @@ class StageClear;
 class Config;
 class Stage1Scene;
 class GameClear;
-class Fade;
 class Game;
 class GameTimer;
 class ClearPoint : public IGameObject
@@ -34,7 +33,6 @@ public:
 	Vector3	position;
 	Stage1Scene* m_stage1Scene = nullptr;
 	GameClear* m_gameClear = nullptr;
-	Fade* m_fade = nullptr;
 	int clearCount = 0;
 
 
