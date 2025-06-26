@@ -29,7 +29,7 @@ namespace
 	const Vector3 SCALE(0.5f, 0.5f, 0.5f);
 
 	// モデルの初期座標。
-	const Vector3 FIRSTPOSITION(0.0f, 94.0f, 0.0f);
+	const Vector3 FIRSTPOSITION(0.0f, 79.0f, 0.0f);
 }
 
 // アニメーションメソッド。

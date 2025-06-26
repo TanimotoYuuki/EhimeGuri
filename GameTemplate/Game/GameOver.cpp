@@ -68,7 +68,8 @@ namespace
 	const float LSTICK_HEIGHT = 512;
 
 // 乗算カラー。
-	const Vector4 MULCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+	const Vector4 GAMEOVERSELECTUI_MULCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+	const Vector4 GAMEOVERSELECTUICOLOR_MULCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 // タイトルへ戻る処理。
 	// 大きさ。
@@ -109,6 +110,7 @@ bool GameOver::Start()
 	
 	//インスタンス。
 	//0 プレイヤー。
+	m_player = FindGO<Player>("player");
 	m_player->m_gameOverFlag = true;
 
 	//1 フェード。
@@ -125,12 +127,6 @@ bool GameOver::Start()
 //更新処理。
 void GameOver::Update()
 {
-	if (m_player == nullptr)
-	{
-		m_player = FindGO<Player>("player");
-	}
-
-
 	//スプライトの動作。
 	SpriteMove();
 
@@ -197,7 +193,7 @@ void GameOver::InitSprite()
 	SetAbuttonUI();
 
 	//選択UI。
-	SetDecisionUI();
+	SetSelectUI();
 
 	//決定UI。
 	SetDecisionUI();
@@ -280,6 +276,9 @@ void GameOver::Action()
 				{
 					//ステージ2オブジェクトの削除
 					m_game->Stage2ObjectDelete();
+
+					//SceneManagerを経由してタイトル画面への遷移を要求する
+					Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
 				}
 
 				//メインオブジェクトの削除
@@ -635,7 +634,7 @@ void GameOver::SetDecisionUI()
 void GameOver::SetSelectUI()
 {
 	//6 選択UIの初期化。
-	m_selectUI.Init("Assets/title/text/select.dds", SELECT_WIDTH, SELECT_HEIGHT);
+	m_selectUI.Init("Assets/gameover/text/select.dds", SELECT_WIDTH, SELECT_HEIGHT);
 	//6.1 選択UIの座標の設定。
 	m_selectUI.SetPosition(SELECT_POSITION);
 	//6.2 選択UIの大きさの設定。
@@ -697,11 +696,11 @@ void GameOver::SetReturnTitle()
 	//2.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
 	m_gameOverSelectUIScale[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetScale();
 	//2.4 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラー用変数の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(MULCOLOR);
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(GAMEOVERSELECTUICOLOR_MULCOLOR);
 	//2.5 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの取得。
 	m_gameOverSelectUIColor[enSelect_ReturnTitle] = m_gameOverSelectUI[enSelect_ReturnTitle].GetMulColor();
 	//2.6 ゲームオーバー時の選択UI(タイトルへ戻る)の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(MULCOLOR);
+	m_gameOverSelectUI[enSelect_ReturnTitle].SetMulColor(GAMEOVERSELECTUI_MULCOLOR);
 	//2.7 ゲームオーバー時の選択UI(タイトルへ戻る)の更新処理。
 	m_gameOverSelectUI[enSelect_ReturnTitle].Update();
 }
@@ -718,11 +717,11 @@ void GameOver::SetChoiceUI()
 	//1.3 ゲームオーバー時の選択UI(コンティニュー)の大きさの取得。
 	m_gameOverSelectUIScale[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetScale();
 	//1.4 ゲームオーバー時の選択UI(コンティニュー)の乗算カラー用変数の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_Continue].SetMulColor(MULCOLOR);
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(GAMEOVERSELECTUICOLOR_MULCOLOR);
 	//1.5 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの取得。
 	m_gameOverSelectUIColor[enSelect_Continue] = m_gameOverSelectUI[enSelect_Continue].GetMulColor();
 	//1.6 ゲームオーバー時の選択UI(コンティニュー)の乗算カラーの設定。
-	m_gameOverSelectUI[enSelect_Continue].SetMulColor(MULCOLOR);
+	m_gameOverSelectUI[enSelect_Continue].SetMulColor(GAMEOVERSELECTUI_MULCOLOR);
 	//1.7 ゲームオーバー時の選択UI(コンティニュー)の更新処理。
 	m_gameOverSelectUI[enSelect_Continue].Update();
 
