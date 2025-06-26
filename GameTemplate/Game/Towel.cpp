@@ -45,7 +45,7 @@ void Towel::Update()
 		effectEmitter->Init(EffectList_ItemGet);
 
 		//エフェクトの位置の設定
-		Vector3 itemLocalPos = { 0.0f,30.0f,0.0f };
+		Vector3 itemLocalPos = { 0.0f,-50.0f,0.0f };
 		itemLocalPos += m_position;
 		effectEmitter->SetPosition(itemLocalPos);
 
