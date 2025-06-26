@@ -43,9 +43,7 @@ bool StageClear::Start()
 	m_player->m_stageClearFlag = true;
 
 	//1 フェード。
-	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
-	m_fade->FadeTransition(enFadeState_None);
 
 	//2 ゲームカメラ
 	m_gameCamera = FindGO<GameCamera>("gamecamera");
@@ -105,9 +103,6 @@ void StageClear::LoadingProcess()
 
 					// プレイヤークラスのステージクリアフラグをfalseにする
 					m_player->m_stageClearFlag = false;
-
-					// プレイヤークラスのフェード用のインスタンスをnullptrにする
-					m_player->m_fade = nullptr;
 				}
 
 				// カメラをステージ2の開始位置に移動。

@@ -241,6 +241,14 @@ namespace nsK2EngineLow {
 	{
 		GameObjectManager::GetInstance()->DeleteGameObject(go);
 	}
+	
+	static inline void DeleteGOs(const char* objectName)
+	{
+		auto& list = FindGOs<IGameObject>(objectName);
+		for (auto go : list) {
+			DeleteGO(go);
+		}
+	}
 }
 
 

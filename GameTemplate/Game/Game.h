@@ -44,6 +44,8 @@ public:
 	bool Start();
 	void Update();// 更新処理。
 	void Render(RenderContext& rc);// 描画処理。
+
+	void FadeInTransition();// フェードインに切り替える。
 		
 	void GameTimer_NewGO();// ゲームタイマーのNewGO。
 
@@ -114,7 +116,6 @@ public:
 	void Item_Enemy_NewGO();// ドロップする敵。
 	void Scaffold_NewGO();// 足場ブロックのNewGO。
 	void S_MovingFloor_NewGO();// 落下速度の遅い床のNewGO。
-	void Fade_NewGO();// FadeのNewGO。
 	void RotationFloor_NewGO();// 回転床のNewGO。
 	void Tower_NewGO();// タワーのNewGO。
 	void TobeWare_NewGO();// 砥部焼。
