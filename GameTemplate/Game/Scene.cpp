@@ -21,11 +21,6 @@ Stage1Scene::~Stage1Scene()
 Stage2Scene::~Stage2Scene()
 {
 	DeleteGO(m_stage2);
-	if (Scene_Manager::GetInstance()->GetRequest() != SceneID::S_Stage1)
-	{
-		Fade* fade = FindGO<Fade>("fade");
-		DeleteGO(fade);
-	}
 }
 
 GameClearScene::~GameClearScene()

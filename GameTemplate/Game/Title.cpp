@@ -75,7 +75,6 @@ const std::string Title::GetFullPath_InitAnimation(EnAnimationClip enAnimationCl
 Title::~Title()
 {
 	DeleteGO(m_skyCube);
-	DeleteGO(m_fade);
 }
 
 //開始処理。
@@ -101,7 +100,6 @@ bool Title::Start()
 
 	//インスタンス。
 	//0 フェード。
-	NewGO<Fade>(0, "fade");
 	m_fade = FindGO<Fade>("fade");
 	//フェードをフェードインに切り替える。
 	m_fade->FadeTransition(enFadeState_FadeIn);
