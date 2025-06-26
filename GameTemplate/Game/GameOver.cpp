@@ -284,6 +284,9 @@ void GameOver::Action()
 				{
 					//ステージ2オブジェクトの削除
 					m_game->Stage2ObjectDelete();
+
+					//SceneManagerを経由してタイトル画面への遷移を要求する
+					Scene_Manager::GetInstance()->SetRequest(SceneID::S_Stage1);
 				}
 
 				//メインオブジェクトの削除

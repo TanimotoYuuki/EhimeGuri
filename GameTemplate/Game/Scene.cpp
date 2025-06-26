@@ -21,8 +21,11 @@ Stage1Scene::~Stage1Scene()
 Stage2Scene::~Stage2Scene()
 {
 	DeleteGO(m_stage2);
-	Fade* fade = FindGO<Fade>("fade");
-	DeleteGO(fade);
+	if (Scene_Manager::GetInstance()->GetRequest() != SceneID::S_Stage1)
+	{
+		Fade* fade = FindGO<Fade>("fade");
+		DeleteGO(fade);
+	}
 }
 
 GameClearScene::~GameClearScene()
@@ -67,16 +70,19 @@ void TitleScene::Update()
 bool Stage1Scene::Start()
 {
 	// ステージ1の初期化処理を行う。
-    m_stage1 = NewGO<Stage1>(0, "Stage1"); // ステージ1の初期化処理を行う。
+	m_stage1 = NewGO<Stage1>(0, "Stage1"); // ステージ1の初期化処理を行う。
 
 	// 
 	m_stageClear = FindGO<StageClear>("StageClear");
 
 	//インスタンス
 	//タイトルシーンのタイトルクラスを取得する。
-	m_title = FindGO<Title>("Title"); 
-	//ゲームをロードする。
-	m_title->m_gameLoadFlag = true;
+	m_title = FindGO<Title>("Title");
+	if (m_title != nullptr)
+	{
+		//ゲームをロードする。
+		m_title->m_gameLoadFlag = true;
+	}
 	return true;
 }
    
@@ -141,6 +147,13 @@ void Stage2Scene::Update()
 	{
 		// ステージクリアフラグが立っている場合、ステージ2へ遷移する。  
 		SMGetIns()->SetRequest(SceneID::S_GameClear);
+	}
+
+	//SceneManagerを経由してゲームクリア画面への遷移を要求していたら
+	if (Scene_Manager::GetInstance()->GetRequest() == SceneID::S_Stage1)
+	{
+		//ステージ1に遷移する
+		SMGetIns()->SetRequest(SceneID::S_Stage1);
 	}
 
 	//SceneManagerを経由してタイトル画面への遷移を要求していたら
