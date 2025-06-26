@@ -20,7 +20,7 @@ bool Tower::Start()
 	m_modelRender.Init("Assets/modelData/Tower/Tower.tkm", 0, 0, enModelUpAxisZ, false, true);
 
 	m_modelRender.SetScale(SCALE);
-//	m_modelRender.Update();
+	m_modelRender.Update();
 	//当たり判定
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 

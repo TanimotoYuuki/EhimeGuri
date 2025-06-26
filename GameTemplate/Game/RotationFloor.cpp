@@ -59,7 +59,12 @@ void RotationFloor::Update()
 	Rotation();
 
 	// 当たり判定。
-	m_physicsStaticObject.SetPosition(m_position);
+	m_physicsStaticObject.Release();
+	m_physicsStaticObject.CreateFromModel
+	(
+		m_modelRender.GetModel(),
+		m_modelRender.GetModel().GetWorldMatrix()
+	);
 
 	// コリジョン。
 	m_collisionObject->SetPosition(m_position + COLLISION_HEIGHT);
