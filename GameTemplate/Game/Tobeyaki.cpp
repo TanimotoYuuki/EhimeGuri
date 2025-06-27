@@ -30,7 +30,7 @@ void Tobeyaki::Update() {
 	m_modelRender.SetScale(SCALE);
 	m_modelRender.Update();
 	Vector3 deff = m_player->m_position - m_position;
-	if (deff.Length() <= 130.0f) {
+	if (deff.Length() <= 80.0f) {
 		m_player->tobeyakiCount += 1;
 
 		//アイテムテキスト関連UIを描画する
