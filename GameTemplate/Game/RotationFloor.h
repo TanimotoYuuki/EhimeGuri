@@ -30,6 +30,7 @@ public:
 	CollisionObject* m_collisionObject;
 	Player* m_player = nullptr;
 	Vector3 m_position;
+	Vector3 m_distance;//距離
 	ModelRender m_modelRender;
 	PhysicsStaticObject m_physicsStaticObject;
 	Quaternion m_Rot;
