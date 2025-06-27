@@ -26,6 +26,11 @@ public:
 		return m_position;
 	}
 
+	/// <summary>
+	/// タワーのコリジョンの衝突判定
+	/// </summary>
+	void TowerCollisionDetection();
+
 	Vector3 m_position;
 	Vector3 m_firstPosition;
 
@@ -35,6 +40,10 @@ private:
 	Player* m_player = nullptr;
 	PhysicsStaticObject m_physicsStaticObject;
 	ModelRender m_modelRender;
+
+	bool m_isHitTowerCollision = false;//タワーのコリジョンに衝突したか？
+	bool m_isNotHitTowerCollision = false;//タワーのコリジョンに衝突していないか?
+	bool m_playerTowerJumpFlag = false;//プレイヤーがタワーでジャンプしたか？
 
 	// 移動方向を決めるステート。
 	enum enMovingFloorState
