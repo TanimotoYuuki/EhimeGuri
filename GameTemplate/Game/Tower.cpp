@@ -14,6 +14,11 @@ namespace
 
 }
 
+Tower::~Tower()
+{
+	DeleteGO(m_collisionObject);
+}
+
 bool Tower::Start()
 {
 

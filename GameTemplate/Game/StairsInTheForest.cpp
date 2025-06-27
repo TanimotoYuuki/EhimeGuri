@@ -10,6 +10,11 @@ namespace
 
 }
 
+StairsInTheForest::~StairsInTheForest()
+{
+	DeleteGO(m_collisionObject);
+}
+
 // 初期化処理。
 bool StairsInTheForest::Start()
 {

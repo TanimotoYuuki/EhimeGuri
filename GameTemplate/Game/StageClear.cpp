@@ -175,6 +175,7 @@ void StageClear::SetStageClearSpriteEasing()
 	m_beforeEasingPosition = m_position;
 	m_afterEasingPosition = STAGE2_AFTER_EASING;
 	m_easingTime = 0.0f;
+	g_gameTime->StopWatch(0.0f);
 }
 
 //ステージクリアスプライト用のイージングの更新処理。

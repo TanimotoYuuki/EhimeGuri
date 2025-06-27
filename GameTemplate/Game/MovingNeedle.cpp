@@ -19,7 +19,7 @@ MovingNeedle::MovingNeedle()
 }
 MovingNeedle::~MovingNeedle()
 {
-
+	DeleteGO(m_collisionObject);
 }
 bool MovingNeedle::Start()
 {

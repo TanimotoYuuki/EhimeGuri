@@ -12,7 +12,7 @@ public:
     /// </summary>
 
 	MovingFloor() {};
-	~MovingFloor() {};
+	~MovingFloor();
 
 	bool Start() override;
 	void Update()override; // 更新作業。

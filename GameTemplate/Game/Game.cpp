@@ -85,7 +85,7 @@ namespace
 	const Vector3 TOWEL_SCALE(1.3f, 1.3f, 1.3f);
 	const Vector3 TOWEL_POSITION(-550.0f, 400.0f, 0.0f);
 	const Vector3 TOWELPOSITION(15100.0f, 1250.0f, 0.0f);
-	const Vector3 TOBE_WARE_OBJECT_POSITION(3800.0f, 350.0f, 0.0f);
+	const Vector3 TOBE_WARE_OBJECT_POSITION(3910.0f, 380.0f, 0.0f);
 	
 	const float TIMER = 180.0f;
 
@@ -1138,9 +1138,6 @@ void Game::Stage1ObjectDelete()
 	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
-
-	//コリジョンオブジェクト
-	DeleteGOs("collisionobject");
 }
 
 //ステージ2オブジェクトの削除。
@@ -1173,9 +1170,6 @@ void Game::Stage2ObjectDelete()
 	DeleteGOs("towel");
 	m_taruto = FindGO<Taruto>("taruto");
 	DeleteGOs("taruto");
-
-	//コリジョンオブジェクト
-	DeleteGOs("collisionobject");
 }
 
 // マップをセットする。

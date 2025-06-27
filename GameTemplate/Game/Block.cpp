@@ -9,6 +9,10 @@ namespace
   const	Vector3 COLLISION_SIZE(100.0f, 100.0f, 25.0f);
 }
 
+Block::~Block()
+{
+	DeleteGO(m_collisionObject);
+}
 
 // 初期化処理。
 bool Block::Start()

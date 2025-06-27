@@ -5,7 +5,7 @@ class RotationFloor : public IGameObject
 {
 public:
 	RotationFloor() {};
-	~RotationFloor() {};
+	~RotationFloor();
 
 	bool Start();
 	void Update();

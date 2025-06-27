@@ -9,6 +9,10 @@ namespace
     const Vector3 COLLISION_SIZE(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 }
 
+Scaffold::~Scaffold()
+{
+	DeleteGO(m_collisionObject);
+}
 
 bool Scaffold::Start()
 {

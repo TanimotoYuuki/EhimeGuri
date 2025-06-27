@@ -14,6 +14,11 @@ namespace
 	const Vector3 COLLISION_SIZE(365.0f, 5.0f, 225.0f);// コリジョンの大きさ。
 }
 
+S_MovingFloor::~S_MovingFloor()
+{
+	DeleteGO(m_collisionObject);
+}
+
 bool S_MovingFloor::Start()
 {
 
