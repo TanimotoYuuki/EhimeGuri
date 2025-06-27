@@ -73,12 +73,12 @@ void TransparentBlock::Update()
 	//透明ブロックを叩いていないとき。
 	if (m_blockTouchFlag != true)
 	{
+		//ブロックの表面のコリジョン衝突判定
+		BlockSurfaceCollisionHitDetection();
+
 		//X軸で一定の距離まで行っていたら。
 		if (m_blockTouchDistanceX.Length() < BLOCK_TOUCH_DISTANCE)
 		{
-			//ブロックの表面のコリジョン衝突判定
-			BlockSurfaceCollisionHitDetection();
-
 			//ブロックの表面のコリジョンが衝突していない状態で
 			//プレイヤーとブロックの底面のコリジョンが衝突したらプレイヤーが落下するかつモデルを不透明にする。
 			if (m_blockSurfaceCollisionHitFlag == false &&
@@ -152,15 +152,11 @@ void TransparentBlock::BlockSurfaceCollisionHitDetection()
 	//プレイヤーがジャンプしているとき
 	if (!m_player->m_characterController.IsOnGround())
 	{
-		//ブロックの表面のコリジョンに衝突していないとき
-		if (m_blockSurfaceCollisionHitFlag != true)
+		//プレイヤーがジャンプしているときにブロックの表面のコリジョンが衝突したら
+		if (m_blockSurfaceCollision->IsHit(m_player->GetCharacterController()) == true)
 		{
-			//プレイヤーがジャンプしているときにブロックの表面のコリジョンが衝突したら
-			if (m_blockSurfaceCollision->IsHit(m_player->GetCharacterController()) == true)
-			{
-				//ブロックの表面のコリジョンに衝突した
-				m_blockSurfaceCollisionHitFlag = true;
-			}
+			//ブロックの表面のコリジョンに衝突した
+			m_blockSurfaceCollisionHitFlag = true;
 		}
 	}
 	else
