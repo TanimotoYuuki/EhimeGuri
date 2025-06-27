@@ -8,6 +8,12 @@ namespace
 	const Vector3 COLLISION_HEIGHT(0.0f, 250.0f, 0.0f);// コリジョンの高さ。
 	const Vector3 COLLISION_SIZE(500.0f, 3.0f, 225.0f);// コリジョンの大きさ。
 }
+
+ScaffoldBlock::~ScaffoldBlock()
+{
+	DeleteGO(m_collisionObject);
+}
+
 bool ScaffoldBlock::Start()
 {
 	string modelPath = m_config-> GetFullPath_3DModel("kinoko_ashiba_block");// ファイルパスを読み込む。

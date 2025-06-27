@@ -22,6 +22,12 @@ namespace
 	const float ALPHA = 1.0f;
 }
 
+TransparentBlock::~TransparentBlock()
+{
+	DeleteGO(m_blockSurfaceCollision);
+	DeleteGO(m_blockBottomCollision);
+}
+
 //開始処理。
 bool TransparentBlock::Start()
 {

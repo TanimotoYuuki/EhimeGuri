@@ -10,7 +10,7 @@ public:
 	/// 足場ブロック。
 	/// </summary>
 	ScaffoldBlock() {};
-	~ScaffoldBlock() {};
+	~ScaffoldBlock();
 
 	bool Start();
 	void Update();// 更新作業。

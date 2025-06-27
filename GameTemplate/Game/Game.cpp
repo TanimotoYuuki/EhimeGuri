@@ -1138,9 +1138,6 @@ void Game::Stage1ObjectDelete()
 	//ドロップアイテムのクラスをここでFindGOしてからDeleteGOしてください。
 	m_mikan = FindGO<Mikan>("mikan");
 	DeleteGO(m_mikan);
-
-	//コリジョンオブジェクト
-	DeleteGOs("collisionobject");
 }
 
 //ステージ2オブジェクトの削除。
@@ -1173,9 +1170,6 @@ void Game::Stage2ObjectDelete()
 	DeleteGOs("towel");
 	m_taruto = FindGO<Taruto>("taruto");
 	DeleteGOs("taruto");
-
-	//コリジョンオブジェクト
-	DeleteGOs("collisionobject");
 }
 
 // マップをセットする。

@@ -11,6 +11,11 @@ namespace
 
 }
 
+RotationFloor::~RotationFloor()
+{
+	DeleteGO(m_collisionObject);
+}
+
 bool RotationFloor::Start()
 {
 	m_modelRender.Init("Assets/modelData/RotationFloor/RotationFloor.tkm", 0, 0, enModelUpAxisZ, false, true);

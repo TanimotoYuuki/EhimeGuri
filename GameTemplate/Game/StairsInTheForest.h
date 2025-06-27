@@ -4,7 +4,7 @@ class StairsInTheForest : public IGameObject
 {
 public:
 	StairsInTheForest() {};
-	~StairsInTheForest() {};
+	~StairsInTheForest();
 
 	bool Start();// 初期化処理。
 	void Update();// 更新処理。

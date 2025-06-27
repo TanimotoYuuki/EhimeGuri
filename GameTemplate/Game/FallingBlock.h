@@ -13,7 +13,7 @@ class FallingBlock : public IGameObject
 	/// </summary>
 public:
 	FallingBlock() {};
-	~FallingBlock() {};
+	~FallingBlock();
 
 	bool Start();
 	void Update();

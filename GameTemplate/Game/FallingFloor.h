@@ -9,7 +9,7 @@ public:
 	/// 第2ステージ専用モデル 兼 LevelObject。 
 	/// </summary>
 	FallingFloor() {};
-	~FallingFloor() {};
+	~FallingFloor();
 
 
 	bool Start();

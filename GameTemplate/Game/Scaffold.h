@@ -9,7 +9,7 @@ public:
 	/// 看板。
 	/// </summary>
 	Scaffold() {};
-	~Scaffold() {};
+	~Scaffold();
 
 	bool Start();
 	void Update();// 更新作業。

@@ -16,6 +16,11 @@ namespace
 
 }
 
+FallingBlock::~FallingBlock()
+{
+	DeleteGO(m_collisionObject);
+}
+
 // 初期化処理。
 bool FallingBlock::Start()
 {
